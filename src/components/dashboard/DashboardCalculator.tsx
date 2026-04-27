@@ -289,27 +289,29 @@ export default function DashboardCalculator() {
                 <Input type="number" {...form.register('quantity')} placeholder="1" onFocus={(e) => e.target.select()} className="h-9" />
               </div>
               <div className="col-span-2 lg:col-span-3 flex items-end gap-2">
-                 <Button type="button" variant="outline" size="sm" onClick={() => setShowDimensions(!showDimensions)} className="h-9 text-xs px-2">
+                 <Button type="button" variant="outline" size="sm" onClick={() => setShowDimensions(!showDimensions)} className="h-9 text-[10px] px-2 shrink-0">
                     {showDimensions ? 'Hide Dims' : '+ Dims'}
                 </Button>
+                <div className="w-[95px] shrink-0">
                  <Controller
                     name="additionalPercentageType"
                     control={control}
                     render={({ field }) => (
                         <Select onValueChange={field.onChange} value={field.value}>
-                            <SelectTrigger className="h-9 text-xs">
+                            <SelectTrigger className="h-9 text-[10px] px-2">
                                 <SelectValue placeholder="Markup" />
                             </SelectTrigger>
                             <SelectContent>
                                 {additionalPercentageOptions.map(opt => (
-                                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                                    <SelectItem key={opt.value} value={opt.value} className="text-xs">{opt.label}</SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
                     )}
-                />
-                <Button type="submit" className="h-9 flex-grow bg-primary hover:bg-primary/90 text-primary-foreground font-black uppercase text-[10px] tracking-widest" disabled={overallLoading}>
-                    {overallLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <><Calculator className="mr-1.5 h-4 w-4" /> Quote</>}
+                 />
+                </div>
+                <Button type="submit" className="h-12 flex-grow bg-primary hover:bg-primary/90 text-primary-foreground font-black uppercase text-xs tracking-widest shadow-lg shadow-primary/20" disabled={overallLoading}>
+                    {overallLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <><Calculator className="mr-2 h-5 w-5" /> Quote</>}
                 </Button>
               </div>
             </div>

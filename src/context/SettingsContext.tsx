@@ -3,7 +3,7 @@
 import type { ReactNode } from 'react';
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import type { ServiceName, SurchargeDefinition, ActiveSurchargeSetting, SurchargeConfigGroupKey, StateAbbreviation, QuickActionKey, UserRole, ServicePermissions, PageKey, PagePermissions, ExternalLink, ServiceSettings } from '@/lib/types';
-import { ALL_SERVICES, ALL_STATES, NON_PALLET_SERVICES, LCP_SERVICES, STANDARD_ROAD_MAPPED_SERVICES, PRIORITY_MAPPED_SERVICES, STANDARD_PALLET_MAPPED_SERVICES, PALLET_LIKE_SERVICES, ALL_USER_ROLES, SECURITY_APPLICABLE_SERVICES, ALL_PAGES, ALL_TIMEZONES, DEFAULT_SERVICE_PERMISSIONS } from '@/lib/types';
+import { ALL_SERVICES, ALL_STATES, NON_PALLET_SERVICES, PALLET_SERVICES, LCP_SERVICES, STANDARD_ROAD_MAPPED_SERVICES, PRIORITY_MAPPED_SERVICES, STANDARD_PALLET_MAPPED_SERVICES, PALLET_LIKE_SERVICES, ALL_USER_ROLES, SECURITY_APPLICABLE_SERVICES, ALL_PAGES, ALL_TIMEZONES, DEFAULT_SERVICE_PERMISSIONS } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/firebase';
 
@@ -18,6 +18,24 @@ const PREDEFINED_SURCHARGES_INITIAL: SurchargeDefinition[] = [
   { id: 'oversize_item_fee', name: 'Oversize Fee (Length > 180cm per item)', type: 'fixed_per_shipment', defaultValue: 63.00, isConfigurablePerService: true, isPredefined: true, applicableServices: NON_PALLET_SERVICES },
   { id: 'manual_handling_gt30kg', name: 'Manual Handling Fee (>30kg & <35kg per item)', type: 'fixed_per_shipment', defaultValue: 16.50, isConfigurablePerService: true, isPredefined: true, applicableServices: NON_PALLET_SERVICES },
   { id: 'manual_handling_gt35kg', name: 'Oversize Fee (>=35kg per item)', type: 'fixed_per_shipment', defaultValue: 63.50, isConfigurablePerService: true, isPredefined: true, applicableServices: NON_PALLET_SERVICES },
+  
+  // Additional Requirements Mapping
+  { id: 'book_in_delivery_fee', name: 'Book-In Delivery', type: 'fixed_per_shipment', defaultValue: 25.00, isConfigurablePerService: true, isPredefined: true, applicableServices: ALL_SERVICES },
+  { id: 'dg_consignment_fee', name: 'Dangerous Goods', type: 'fixed_per_shipment', defaultValue: 45.00, isConfigurablePerService: true, isPredefined: true, applicableServices: ALL_SERVICES },
+  { id: 'hand_unload_fee', name: 'Hand Unload', type: 'fixed_per_shipment', defaultValue: 50.00, isConfigurablePerService: true, isPredefined: true, applicableServices: ALL_SERVICES },
+  { id: 'tail_lift_road_prio', name: 'Tail Lift (Road/Prio)', type: 'fixed_per_shipment', defaultValue: 85.00, isConfigurablePerService: true, isPredefined: true, applicableServices: NON_PALLET_SERVICES },
+  { id: 'tail_lift_pallet', name: 'Tail Lift (Pallet)', type: 'fixed_per_shipment', defaultValue: 120.00, isConfigurablePerService: true, isPredefined: true, applicableServices: PALLET_LIKE_SERVICES },
+  { id: 'after_hours_collection_fee', name: 'After Hours Collection', type: 'fixed_per_shipment', defaultValue: 150.00, isConfigurablePerService: true, isPredefined: true, applicableServices: ALL_SERVICES },
+  { id: 'after_hours_delivery_fee', name: 'After Hours Delivery', type: 'fixed_per_shipment', defaultValue: 150.00, isConfigurablePerService: true, isPredefined: true, applicableServices: ALL_SERVICES },
+  { id: 'public_holiday_service_fee', name: 'Public Holiday Service', type: 'fixed_per_shipment', defaultValue: 250.00, isConfigurablePerService: true, isPredefined: true, applicableServices: ALL_SERVICES },
+  { id: 'account_transfer_fee', name: 'Account Transfer', type: 'fixed_per_shipment', defaultValue: 15.00, isConfigurablePerService: true, isPredefined: true, applicableServices: ALL_SERVICES },
+  
+  // WA Pallet specific
+  { id: 'ex_wa_pickup_consignment_fee', name: 'Ex WA Pickup Consignment', type: 'fixed_per_shipment', defaultValue: 25.00, isConfigurablePerService: true, isPredefined: true, applicableServices: PALLET_SERVICES },
+  { id: 'ex_wa_pickup_kg_rate_tier1', name: 'Ex WA Pickup Kg (0-1000)', type: 'fixed_per_kg', defaultValue: 0.15, isConfigurablePerService: true, isPredefined: true, applicableServices: PALLET_SERVICES },
+  { id: 'ex_wa_pickup_kg_rate_tier2', name: 'Ex WA Pickup Kg (1001-3000)', type: 'fixed_per_kg', defaultValue: 0.12, isConfigurablePerService: true, isPredefined: true, applicableServices: PALLET_SERVICES },
+  { id: 'ex_wa_pickup_kg_rate_tier3', name: 'Ex WA Pickup Kg (3001-8000)', type: 'fixed_per_kg', defaultValue: 0.10, isConfigurablePerService: true, isPredefined: true, applicableServices: PALLET_SERVICES },
+  { id: 'ex_wa_pickup_kg_rate_tier4', name: 'Ex WA Pickup Kg (8001+)', type: 'fixed_per_kg', defaultValue: 0.08, isConfigurablePerService: true, isPredefined: true, applicableServices: PALLET_SERVICES },
 ];
 
 const DEFAULT_EMAIL_QUOTE_TEMPLATE = `Dear {{contactName}},
@@ -152,6 +170,31 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     return true;
   };
 
+  const updateServiceSurcharge = (serviceName: ServiceName, surchargeId: string, value: number, enabled: boolean) => {
+    setServiceSettings(prev => prev.map(service => {
+      if (service.id !== serviceName) return service;
+      const existing = service.surcharges.find(s => s.surchargeId === surchargeId);
+      if (existing) {
+        return {
+          ...service,
+          surcharges: service.surcharges.map(s => s.surchargeId === surchargeId ? { ...s, value, enabled } : s)
+        };
+      }
+      return {
+        ...service,
+        surcharges: [...service.surcharges, { surchargeId, value, enabled }]
+      };
+    }));
+  };
+
+  const updateGroupOtherSurcharge = (groupKey: SurchargeConfigGroupKey, surchargeId: string, value: number, enabled: boolean) => {
+    const group = SURCHARGE_CONFIG_GROUPS[groupKey];
+    if (!group) return;
+    group.services.forEach(serviceName => {
+      updateServiceSurcharge(serviceName, surchargeId, value, enabled);
+    });
+  };
+
   const updateGroupFuelSurcharge = (type: any, val: number, date: string) => {
     if (type === 'standard') setStandardFuelSurcharge(val);
     if (type === 'priority') setPriorityFuelSurcharge(val);
@@ -162,7 +205,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
   const value = {
     serviceSettings, surchargeDefinitions, standardFuelSurcharge, priorityFuelSurcharge, palletFuelSurcharge, standardFuelLastUpdated, priorityFuelLastUpdated: null, palletFuelLastUpdated: null,
     globalSecuritySurchargePercent, setGlobalSecuritySurchargePercent, addSurchargeDefinition, updateGroupFuelSurcharge,
-    updateServiceSurcharge: () => {}, updateGroupOtherSurcharge: () => {}, getServiceConfig: (n: ServiceName) => serviceSettings.find(s => s.id === n),
+    updateServiceSurcharge, updateGroupOtherSurcharge, getServiceConfig: (n: ServiceName) => serviceSettings.find(s => s.id === n),
     globalSpendBands, surchargeConfigGroups: SURCHARGE_CONFIG_GROUPS, emailQuoteTemplate, setEmailQuoteTemplate,
     perfectPlanPalletRate, setPerfectPlanPalletRate, perfectPlanParcelRate, setPerfectPlanParcelRate, perfectPlanSatchelRate, setPerfectPlanSatchelRate,
     stateEmailContacts, setStateEmailContact: () => {}, quickActions, setQuickActions,

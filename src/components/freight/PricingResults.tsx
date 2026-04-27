@@ -11,6 +11,8 @@ import CalculationBreakdownDialog from './CalculationBreakdownDialog';
 import { cn } from '@/lib/utils';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from '@/components/ui/dialog';
+import { Phone, User, Clock, Mail as MailIcon, ShieldCheck, MapPin as MapPinIcon } from 'lucide-react';
 import OptimizedRateDisplay from './OptimizedRateDisplay';
 import { useRateOverrides } from '@/context/RateOverrideContext';
 import { useAuth } from '@/firebase';
@@ -56,6 +58,8 @@ const getServiceCardClasses = (serviceName: string, isApplicable: boolean): stri
 export default function PricingResults({ results, optimizedResult, onOpenEmailQuoteDialog, onUpdateWeight, initialWeight, showLcpRates, selectedSpendBand }: PricingResultsProps) {
   const [isBreakdownOpen, setIsBreakdownOpen] = useState(false);
   const [selectedResultForBreakdown, setSelectedResultForBreakdown] = useState<CalculatedPriceItem | null>(null);
+  const [selectedAgent, setSelectedAgent] = useState<any>(null);
+  const [isAgentDialogOpen, setIsAgentDialogOpen] = useState(false);
   const [quickWeight, setQuickWeight] = useState<number | string>(initialWeight);
   const { company, role } = useAuth();
 
@@ -336,9 +340,16 @@ export default function PricingResults({ results, optimizedResult, onOpenEmailQu
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {nearbyAgents.map((agent, i) => (
-                    <Card key={i} className="bg-muted/10 border-dashed border-muted-foreground/20 hover:border-accent/50 transition-colors shadow-sm">
+                    <Card 
+                        key={i} 
+                        className="bg-muted/10 border-dashed border-muted-foreground/20 hover:border-accent/50 transition-all shadow-sm cursor-pointer hover:bg-accent/5 group/agent"
+                        onClick={() => {
+                            setSelectedAgent(agent);
+                            setIsAgentDialogOpen(true);
+                        }}
+                    >
                         <CardHeader className="p-4 pb-2">
-                            <CardTitle className="text-[11px] font-black uppercase tracking-tight leading-tight text-foreground">
+                            <CardTitle className="text-[11px] font-black uppercase tracking-tight leading-tight text-foreground group-hover/agent:text-accent transition-colors">
                                 {agent["BUSINESS NAME"]}
                             </CardTitle>
                             <CardDescription className="text-[9px] font-headline uppercase font-bold text-accent/70">
@@ -363,6 +374,77 @@ export default function PricingResults({ results, optimizedResult, onOpenEmailQu
       onOpenChange={setIsBreakdownOpen}
       result={selectedResultForBreakdown}
     />
+
+    <Dialog open={isAgentDialogOpen} onOpenChange={setIsAgentDialogOpen}>
+        <DialogContent className="max-w-md bg-card border-2 border-accent/20">
+            <DialogHeader>
+                <div className="flex items-center gap-3 mb-2">
+                    <div className="h-10 w-10 rounded-full bg-accent/10 flex items-center justify-center border border-accent/20">
+                        <MapPinIcon className="h-5 w-5 text-accent" />
+                    </div>
+                    <div className="text-left">
+                        <DialogTitle className="text-lg font-black uppercase tracking-tight font-headline">{selectedAgent?.["BUSINESS NAME"]}</DialogTitle>
+                        <DialogDescription className="text-xs font-bold font-headline text-accent/70 uppercase tracking-widest">{selectedAgent?.["BUSINESS UNIT"]} • {selectedAgent?.["AREA SERVICED"]}</DialogDescription>
+                    </div>
+                </div>
+            </DialogHeader>
+
+            <div className="space-y-4 py-4">
+                <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                        <Label className="text-[9px] uppercase font-black text-muted-foreground tracking-widest">Site Manager</Label>
+                        <p className="text-sm font-bold flex items-center gap-2"><User className="h-3.5 w-3.5 text-primary" /> {selectedAgent?.["SITE MANAGER"] || "N/A"}</p>
+                    </div>
+                    <div className="space-y-1">
+                        <Label className="text-[9px] uppercase font-black text-muted-foreground tracking-widest">Escalation Point</Label>
+                        <p className="text-sm font-bold flex items-center gap-2"><ShieldCheck className="h-3.5 w-3.5 text-primary" /> {selectedAgent?.["ESCALATION POINT"] || "N/A"}</p>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 bg-muted/30 p-3 rounded-lg border">
+                    <div className="space-y-1">
+                        <Label className="text-[9px] uppercase font-black text-muted-foreground tracking-widest">Address</Label>
+                        <p className="text-xs italic leading-relaxed">{selectedAgent?.["BUSINESS ADDRESS"]}</p>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                        <Label className="text-[9px] uppercase font-black text-muted-foreground tracking-widest">Office Number</Label>
+                        <p className="text-sm font-bold flex items-center gap-2"><Phone className="h-3.5 w-3.5 text-accent" /> {selectedAgent?.["OFFICE NUMBER"] || "N/A"}</p>
+                    </div>
+                    <div className="space-y-1">
+                        <Label className="text-[9px] uppercase font-black text-muted-foreground tracking-widest">Manager Mobile</Label>
+                        <p className="text-sm font-bold flex items-center gap-2"><Phone className="h-3.5 w-3.5 text-accent" /> {selectedAgent?.["MANAGER MOBILE NUMBER"] || "N/A"}</p>
+                    </div>
+                </div>
+
+                <div className="space-y-1">
+                    <Label className="text-[9px] uppercase font-black text-muted-foreground tracking-widest">Email Address</Label>
+                    <p className="text-sm font-bold flex items-center gap-2 text-primary underline"><MailIcon className="h-3.5 w-3.5" /> {selectedAgent?.["EMAIL ADDRESS"] || "N/A"}</p>
+                </div>
+
+                <Separator />
+
+                <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                        <Label className="text-[9px] uppercase font-black text-muted-foreground tracking-widest">Hours of Operation</Label>
+                        <p className="text-[10px] font-bold flex items-center gap-2"><Clock className="h-3 w-3 text-muted-foreground" /> {selectedAgent?.["HOURS OF OPERATIONS"] || "N/A"}</p>
+                    </div>
+                    <div className="space-y-1">
+                        <Label className="text-[9px] uppercase font-black text-muted-foreground tracking-widest">Collections / Drop-off</Label>
+                        <p className="text-[10px] font-bold flex items-center gap-2"><Clock className="h-3 w-3 text-muted-foreground" /> {selectedAgent?.["COLLECTION / DROP OFF TIMES"] || "N/A"}</p>
+                    </div>
+                </div>
+            </div>
+
+            <DialogFooter>
+                <DialogClose asChild>
+                    <Button className="w-full font-black uppercase tracking-widest text-[10px] h-9">Close Contact Info</Button>
+                </DialogClose>
+            </DialogFooter>
+        </DialogContent>
+    </Dialog>
     </>
   );
 }
