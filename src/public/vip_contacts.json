@@ -1,0 +1,48 @@
+
+[
+  {
+    "id": "1",
+    "name": "John Smith",
+    "role": "National PE Manager",
+    "businessUnit": "PE",
+    "state": "National",
+    "phone": "0412 345 678",
+    "email": "john.smith@example.com"
+  },
+  {
+    "id": "2",
+    "name": "Jane Doe",
+    "role": "State Manager",
+    "businessUnit": "IPEC",
+    "state": "NSW",
+    "phone": "0422 345 679",
+    "email": "jane.doe@example.com"
+  },
+  {
+    "id": "3",
+    "name": "Peter Jones",
+    "role": "Account Manager",
+    "businessUnit": "Priority",
+    "state": "VIC",
+    "phone": "0432 345 680",
+    "email": "peter.jones@example.com"
+  },
+  {
+    "id": "4",
+    "name": "Susan Williams",
+    "role": "Operations Head",
+    "businessUnit": "Other",
+    "state": "QLD",
+    "phone": "0442 345 681",
+    "email": "susan.williams@example.com"
+  },
+  {
+    "id": "5",
+    "name": "David Brown",
+    "role": "State Manager",
+    "businessUnit": "PE",
+    "state": "WA",
+    "phone": "0452 345 682",
+    "email": "david.brown@example.com"
+  }
+]

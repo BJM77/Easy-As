@@ -1,0 +1,22 @@
+[
+    {
+        "Logic": "ParcelADLSYD",
+        "Service": "Parcel",
+        "Origin": "ADL",
+        "Destination": "SYD",
+        "B1": 21.05,
+        "K1": 0.655,
+        "M1": 21.05,
+        "B2": 0, "K2": 0, "M2": 0, "B3": 0, "K3": 0, "M3": 0, "B4": 0, "K4": 0, "M4": 0, "B5": 0, "K5": 0, "M5": 0, "B6": 0, "K6": 0, "M6": 0
+    },
+    {
+        "Logic": "ParcelADLMEL",
+        "Service": "Parcel",
+        "Origin": "ADL",
+        "Destination": "MEL",
+        "B1": 15.55,
+        "K1": 0.38,
+        "M1": 15.55,
+        "B2": 0, "K2": 0, "M2": 0, "B3": 0, "K3": 0, "M3": 0, "B4": 0, "K4": 0, "M4": 0, "B5": 0, "K5": 0, "M5": 0, "B6": 0, "K6": 0, "M6": 0
+    }
+]

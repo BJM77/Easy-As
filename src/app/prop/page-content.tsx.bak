@@ -1,0 +1,296 @@
+// This file is being backed up as part of the Perfect Plan/Proposal integration.
+// The new unified workflow will be available on the /ai-guru page.
+// This file can be deleted after confirming the new workflow is satisfactory.
+
+"use client";
+
+import React, { useState } from 'react';
+import { useForm, Controller, useFieldArray } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/context/AuthContext';
+import { Mail, Printer, Send, Package as PackageIcon, Building, Phone, User as UserIcon, Calendar as CalendarIcon, ArrowRight, ArrowLeft, FileSignature, Sparkles, PlusCircle, Trash2, Loader2 } from 'lucide-react';
+import { proposalDetailsSchema } from '@/lib/zodSchemas';
+import type { ProposalDetails, ProposalSectionId } from '@/lib/types';
+import { format } from 'date-fns';
+import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { cn } from '@/lib/utils';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import Image from 'next/image';
+import { generateExecutiveSummary, refinePointsToParagraph } from '@/ai/flows/proposal-assist-flow';
+
+const proposalSectionsConfig: { id: ProposalSectionId; title: string; description: string; placeholder: string; hasAi?: boolean; hasDynamicFields?: boolean }[] = [
+  { id: 'execSummary', title: 'Executive Summary', description: "Enter key points or a rough draft below. Use the AI Assistant to generate a polished, market-leading summary.", placeholder: "e.g., Reduce costs for SYD-MEL lane by 15%, improve delivery reliability for critical parts, provide tracking visibility...", hasAi: true },
+  { id: 'yourNeeds', title: 'Understanding Your Needs', description: "List the key challenges, goals, and requirements you discussed with the customer. Use the 'Add Need' button for more fields, then use the AI assistant to synthesize them into a paragraph.", placeholder: "e.g., Reliable on-time delivery for critical freight lanes.", hasAi: true, hasDynamicFields: true },
+  { id: 'overviewSolution', title: 'Our Proposed Solution', description: "Describe your recommended solution at a high level. Which primary and secondary services are you proposing and why?", placeholder: "e.g., We propose a multi-faceted solution leveraging our B2B Priority service for time-sensitive deliveries, complemented by our cost-effective B2B Standard service for less urgent stock movements..." },
+  { id: 'solutionDetail', title: 'Solution Detail (Evidence)', description: "Provide the specific evidence. Reference the attached rate card and highlight a few key examples of how your rates provide value on lanes that are important to the customer.", placeholder: "e.g., The specific details of our competitive rate structure are attached. For example, on the critical SYD-MEL lane, our proposed rate of $XX.XX represents a significant improvement..." },
+  { id: 'investment', title: 'Your Investment', description: "Clearly outline the pricing structure. Mention payment terms and your commitment to transparent invoicing.", placeholder: "e.g., The investment for this solution is detailed in the attached pricing schedule. We offer flexible payment terms and are committed to transparent invoicing with no hidden fees." },
+  { id: 'benefits', title: 'Key Benefits', description: "List the tangible benefits the customer will receive. Use the AI assistant to combine them into a powerful paragraph.", placeholder: "e.g., Increased reliability and on-time performance.", hasAi: true, hasDynamicFields: true },
+  { id: 'nextSteps', title: 'Next Steps', description: "Clearly define the path forward. What do you need the customer to do, and what will you do next?", placeholder: "e.g., The next steps are as follows:\n1. Review this proposal with your team.\n2. Schedule a follow-up call to discuss any questions.\n3. Finalize the service agreement." },
+  { id: 'authorityToProceed', title: 'Authority to Proceed', description: "The final call to action for the customer to sign.", placeholder: "" },
+];
+
+const sectionOrder: ProposalSectionId[] = proposalSectionsConfig.map(s => s.id);
+
+export default function ProposalBuilderPageContent() {
+  const { toast } = useToast();
+  const { user } = useAuth();
+  
+  const [currentStep, setCurrentStep] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
+  const [isAiLoading, setIsAiLoading] = useState<Partial<Record<ProposalSectionId, boolean>>>({});
+
+  const proposalForm = useForm<ProposalDetails>({
+    resolver: zodResolver(proposalDetailsSchema),
+    defaultValues: {
+      proposalDate: new Date(), customerCompanyName: '', customerContactName: '',
+      salesProfessionalName: '', salesProfessionalEmail: '', salesProfessionalPhone: '',
+      sections: {
+        execSummary: '', yourNeeds: '', overviewSolution: '', solutionDetail: '',
+        investment: '', benefits: '', nextSteps: '', authorityToProceed: ''
+      },
+      dynamicFields: {
+        yourNeeds: [''],
+        benefits: ['']
+      }
+    }
+  });
+
+  const { fields: needsFields, append: appendNeed, remove: removeNeed } = useFieldArray({ control: proposalForm.control, name: "dynamicFields.yourNeeds" });
+  const { fields: benefitsFields, append: appendBenefit, remove: removeBenefit } = useFieldArray({ control: proposalForm.control, name: "dynamicFields.benefits" });
+  
+  const watchedDetails = proposalForm.watch();
+
+  const handleStart = () => {
+    proposalForm.reset({
+      proposalDate: new Date(), customerCompanyName: '', customerContactName: '',
+      salesProfessionalName: '', salesProfessionalEmail: '', salesProfessionalPhone: '',
+      sections: { execSummary: '', yourNeeds: '', overviewSolution: '', solutionDetail: '', investment: '', benefits: '', nextSteps: '', authorityToProceed: '' },
+      dynamicFields: { yourNeeds: [''], benefits: [''] }
+    });
+    setCurrentStep(0);
+    setIsComplete(false);
+    setIsModalOpen(true);
+  };
+
+  const handleNext = async () => {
+    let isValid = true;
+    if (currentStep === 0) isValid = await proposalForm.trigger(['customerCompanyName', 'customerContactName', 'salesProfessionalName', 'salesProfessionalEmail', 'salesProfessionalPhone']);
+    if (isValid && currentStep < proposalSectionsConfig.length) setCurrentStep(currentStep + 1);
+    else if (isValid && currentStep === proposalSectionsConfig.length) { setIsModalOpen(false); setIsComplete(true); }
+  };
+
+  const handleBack = () => {
+    if (currentStep > 0) setCurrentStep(currentStep - 1);
+  };
+  
+  const handleAiAction = async (sectionId: ProposalSectionId) => {
+    setIsAiLoading(prev => ({...prev, [sectionId]: true}));
+    try {
+        if (sectionId === 'execSummary') {
+            const notes = proposalForm.getValues('sections.execSummary');
+            if(!notes || notes.trim().length < 10) {
+              toast({title: "Input Required", description: "Please provide some key points in the text area first.", variant: "default"});
+              return;
+            }
+            const { summary } = await generateExecutiveSummary({ customerName: proposalForm.getValues('customerCompanyName'), userNotes: notes });
+            proposalForm.setValue('sections.execSummary', summary, { shouldDirty: true });
+        } else if (sectionId === 'yourNeeds' || sectionId === 'benefits') {
+            const points = (proposalForm.getValues(`dynamicFields.${sectionId}`) || []).filter(p => p.trim() !== '');
+            if(points.length === 0) {
+                toast({title: "Input Required", description: "Please add at least one need or benefit point.", variant: "default"});
+                return;
+            }
+            const { paragraph } = await refinePointsToParagraph({ points, topic: sectionId === 'yourNeeds' ? 'customer needs' : 'solution benefits' });
+            proposalForm.setValue(`sections.${sectionId}`, paragraph, { shouldDirty: true });
+        }
+        toast({title: "AI Assistant", description: "Content has been updated."});
+    } catch (e) {
+        console.error("AI Action Error", e);
+        toast({title: "Error", description: "Could not generate AI content.", variant: "destructive"});
+    } finally {
+        setIsAiLoading(prev => ({...prev, [sectionId]: false}));
+    }
+  };
+
+
+  const renderCurrentStep = () => {
+    if (currentStep === 0) {
+      return (
+         <div className="space-y-4">
+            <div className="space-y-1"><Label htmlFor="customerCompanyName">Customer Company Name</Label><Input id="customerCompanyName" {...proposalForm.register('customerCompanyName')} />{proposalForm.formState.errors.customerCompanyName && <p className="text-sm text-destructive">{proposalForm.formState.errors.customerCompanyName.message}</p>}</div>
+            <div className="space-y-1"><Label htmlFor="customerContactName">Customer Contact Name</Label><Input id="customerContactName" {...proposalForm.register('customerContactName')} />{proposalForm.formState.errors.customerContactName && <p className="text-sm text-destructive">{proposalForm.formState.errors.customerContactName.message}</p>}</div>
+            <div className="space-y-1"><Label htmlFor="salesProfessionalName">Sales Professional Name</Label><Input id="salesProfessionalName" {...proposalForm.register('salesProfessionalName')} />{proposalForm.formState.errors.salesProfessionalName && <p className="text-sm text-destructive">{proposalForm.formState.errors.salesProfessionalName.message}</p>}</div>
+            <div className="space-y-1"><Label htmlFor="salesProfessionalEmail">Sales Professional Email</Label><Input id="salesProfessionalEmail" type="email" {...proposalForm.register('salesProfessionalEmail')} />{proposalForm.formState.errors.salesProfessionalEmail && <p className="text-sm text-destructive">{proposalForm.formState.errors.salesProfessionalEmail.message}</p>}</div>
+            <div className="space-y-1"><Label htmlFor="salesProfessionalPhone">Sales Professional Phone</Label><Input id="salesProfessionalPhone" {...proposalForm.register('salesProfessionalPhone')} />{proposalForm.formState.errors.salesProfessionalPhone && <p className="text-sm text-destructive">{proposalForm.formState.errors.salesProfessionalPhone.message}</p>}</div>
+         </div>
+      );
+    }
+
+    const section = proposalSectionsConfig[currentStep - 1];
+    if (!section) return null;
+
+    if (section.id === 'authorityToProceed') {
+      return <p className="text-muted-foreground text-sm">This section is for the final document and will be populated with signature lines automatically. Click "Next" to finish.</p>
+    }
+
+    return (
+      <div className="space-y-2">
+        <p className="text-sm text-muted-foreground">{section.description}</p>
+        
+        {section.hasDynamicFields ? (
+          <div className="space-y-2">
+            {section.id === 'yourNeeds' && needsFields.map((field, index) => (
+              <div key={field.id} className="flex items-center gap-2">
+                <Input {...proposalForm.register(`dynamicFields.yourNeeds.${index}`)} placeholder={`Need #${index + 1}`} />
+                <Button type="button" variant="ghost" size="icon" onClick={() => removeNeed(index)} disabled={needsFields.length <= 1}><Trash2 className="h-4 w-4 text-destructive" /></Button>
+              </div>
+            ))}
+            {section.id === 'benefits' && benefitsFields.map((field, index) => (
+              <div key={field.id} className="flex items-center gap-2">
+                <Input {...proposalForm.register(`dynamicFields.benefits.${index}`)} placeholder={`Benefit #${index + 1}`} />
+                <Button type="button" variant="ghost" size="icon" onClick={() => removeBenefit(index)} disabled={benefitsFields.length <= 1}><Trash2 className="h-4 w-4 text-destructive" /></Button>
+              </div>
+            ))}
+            <Button type="button" variant="outline" size="sm" onClick={() => section.id === 'yourNeeds' ? appendNeed('') : appendBenefit('')}><PlusCircle className="mr-2 h-4 w-4" /> Add Point</Button>
+          </div>
+        ) : null}
+
+        <Textarea {...proposalForm.register(`sections.${section.id}`)} placeholder={section.placeholder} className="h-48 mt-2"/>
+
+        {section.hasAi && (
+          <Button type="button" variant="secondary" size="sm" onClick={() => handleAiAction(section.id)} disabled={isAiLoading[section.id]}>
+            {isAiLoading[section.id] ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Sparkles className="mr-2 h-4 w-4"/>}
+            AI Assistant
+          </Button>
+        )}
+      </div>
+    );
+  };
+  
+  const handlePrint = () => window.print();
+
+  return (
+    <div className="space-y-8">
+      <Card className="shadow-xl print-hide">
+        <CardHeader>
+          <CardTitle className="text-2xl font-headline flex items-center">
+            <FileSignature className="mr-2 h-7 w-7 text-primary" /> AI Proposal Builder
+          </CardTitle>
+          <CardDescription>
+            Create professional, multi-section sales proposals by following a simple step-by-step process.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+            <Button onClick={handleStart} size="lg">
+                <Sparkles className="mr-2 h-5 w-5"/> Start New Proposal
+            </Button>
+        </CardContent>
+      </Card>
+      
+      {isComplete && (
+         <Card className="print-expand">
+            <CardHeader className="print-hide">
+                <CardTitle>Proposal Preview</CardTitle>
+                <CardDescription>Review your completed proposal below. You can print it or send it via email.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                 <div className="bg-background/80 p-4 sm:p-8 rounded-lg" id="proposal-section-container">
+                    <div className="max-w-5xl mx-auto">
+                        <div className="print-hide flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                            <h2 className="text-2xl font-bold text-foreground">Completed Proposal</h2>
+                            <div className="flex items-center gap-2">
+                                <Button variant="outline" onClick={handlePrint}><Printer className="mr-2 h-4 w-4" /> Print / Save as PDF</Button>
+                            </div>
+                        </div>
+                        <Card className="w-full shadow-lg card-print" id="proposal-document">
+                            <CardContent className="p-8 sm:p-12">
+                                <header className="mb-12">
+                                    <div className="flex justify-between items-start">
+                                        <div>
+                                            <h1 className="text-3xl font-bold text-primary">Executive Freight Summary - {watchedDetails.customerCompanyName}</h1>
+                                            <p className="text-muted-foreground">Created for {watchedDetails.customerContactName} by {watchedDetails.salesProfessionalName}</p>
+                                        </div>
+                                        <div className="relative h-20 w-40">
+                                            <Image 
+                                              src="https://picsum.photos/200/100" 
+                                              alt="Company Logo" 
+                                              fill
+                                              className="object-contain"
+                                              data-ai-hint="logo"
+                                            />
+                                        </div>
+                                    </div>
+                                </header>
+                                <Separator className="my-8" />
+                                <div className="space-y-8 proposal-sections">
+                                    {proposalSectionsConfig.map(section => {
+                                        if (section.id === 'authorityToProceed') {
+                                          return (
+                                            <div key={section.id} className="proposal-section">
+                                                <h2 className="text-xl font-semibold border-b-2 border-primary pb-2 mb-4">{section.title}</h2>
+                                                <p className="text-sm text-muted-foreground mb-6">By signing below, {watchedDetails.customerCompanyName} authorizes Team Global Express to proceed with the scope and costs described in this proposal.</p>
+                                                <div className="grid grid-cols-2 gap-x-12 gap-y-10 mt-16">
+                                                    <div className="border-t pt-2">
+                                                        <p className="font-semibold">{watchedDetails.customerContactName}</p>
+                                                        <p className="text-sm text-muted-foreground">Signature</p>
+                                                    </div>
+                                                     <div className="border-t pt-2">
+                                                        <p className="font-semibold">&nbsp;</p>
+                                                        <p className="text-sm text-muted-foreground">Date</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                          )
+                                        }
+                                        return (
+                                          <div key={section.id} className="proposal-section">
+                                            <h2 className="text-xl font-semibold border-b-2 border-primary pb-2 mb-4">{section.title}</h2>
+                                            <div className="text-base leading-relaxed whitespace-pre-wrap">{watchedDetails.sections?.[section.id] || ''}</div>
+                                          </div>
+                                        )
+                                    })}
+                                </div>
+                                <footer className="mt-12 pt-6 border-t text-center text-xs text-muted-foreground"><p>© {new Date().getFullYear()} BD Assist. All rights reserved. This proposal is confidential and intended solely for the recipient.</p></footer>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </div>
+            </CardContent>
+         </Card>
+      )}
+
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="max-w-3xl">
+          <DialogHeader>
+            <DialogTitle>
+                {currentStep === 0 ? 'Proposal Details' : `Step ${currentStep}: ${proposalSectionsConfig[currentStep - 1]?.title}`}
+            </DialogTitle>
+            <DialogDescription>
+               {currentStep === 0 ? 'Start by entering the key contacts for this proposal.' : 'Complete the section below.'}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4 max-h-[60vh] overflow-y-auto pr-2">
+            {renderCurrentStep()}
+          </div>
+          <DialogFooter className="justify-between">
+            {currentStep > 0 ? (
+              <Button variant="outline" onClick={handleBack}><ArrowLeft className="mr-2 h-4 w-4"/>Back</Button>
+            ) : <div></div>}
+            <Button onClick={handleNext}>
+                {currentStep === proposalSectionsConfig.length ? 'Finish & View' : 'Next'} <ArrowRight className="ml-2 h-4 w-4"/>
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}

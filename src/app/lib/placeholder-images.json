@@ -1,0 +1,17 @@
+
+{
+  "company_logo": {
+    "url": "https://picsum.photos/seed/tge-logo/400/200",
+    "width": 400,
+    "height": 200,
+    "alt": "Team Global Express Logo",
+    "hint": "logistics logo"
+  },
+  "hero_image": {
+    "url": "https://picsum.photos/seed/logistics-hero/1200/600",
+    "width": 1200,
+    "height": 600,
+    "alt": "Logistics and Freight Hero",
+    "hint": "freight truck"
+  }
+}

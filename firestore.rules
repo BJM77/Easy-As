@@ -1,0 +1,74 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /*
+    |--------------------------------------------------------------------------
+    | CORE AUTHORIZATION FUNCTIONS
+    |--------------------------------------------------------------------------
+    */
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isSuperAdmin() {
+      return isSignedIn() && request.auth.token.get('role', 'user') == "superadmin";
+    }
+
+    function hasCompanyAccess(companyId) {
+      return isSignedIn() && (
+        request.auth.token.get('companyId', '') == companyId ||
+        companyId in request.auth.token.get('assignedCompanyIds', [])
+      );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | COLLECTION RULES (GRANULAR)
+    |--------------------------------------------------------------------------
+    */
+
+    // Root-level bypass for diagnostics and simulation
+    match /{document=**} {
+      allow read, write: if isSuperAdmin();
+    }
+
+    // Tenant-isolated collections
+    match /problems/{id} {
+      allow read: if hasCompanyAccess(resource.data.companyId);
+      allow create: if hasCompanyAccess(request.resource.data.companyId);
+    }
+
+    match /leads/{id} {
+      allow read: if hasCompanyAccess(resource.data.companyId);
+      allow create: if hasCompanyAccess(request.resource.data.companyId);
+    }
+
+    match /ai_quotes/{id} {
+      allow read: if hasCompanyAccess(resource.data.companyId);
+      allow create: if hasCompanyAccess(request.resource.data.companyId);
+    }
+
+    match /companyRates/{id} {
+      allow read: if hasCompanyAccess(resource.data.companyId);
+    }
+
+    // User Profile Rules
+    match /users/{userId} {
+      allow get: if isSignedIn() && (request.auth.uid == userId || isSuperAdmin());
+      allow update: if isSuperAdmin() || (
+        request.auth.uid == userId && 
+        request.resource.data.role == resource.data.role &&
+        request.resource.data.companyId == resource.data.companyId
+      );
+    }
+
+    // Audit Logs (Superadmin Only)
+    match /audit_logs/{id} {
+      allow read: if isSuperAdmin();
+      allow create: if isSignedIn(); // System can log events
+    }
+  }
+}

@@ -1,0 +1,121 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /*
+    |--------------------------------------------------------------------------
+    | CORE AUTHORIZATION FUNCTIONS
+    |--------------------------------------------------------------------------
+    */
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isSuperAdmin() {
+      return isSignedIn() && (
+        request.auth.token.get('role', 'user') == "superadmin" ||
+        request.auth.token.email in [
+          "benjamin.mackie@teamglobalexp.com",
+          "bjmack22277@gmail.com",
+          "1@1.com",
+          "urika@urika.com.au"
+        ]
+      );
+    }
+
+    function hasCompanyAccess(companyId) {
+      return isSignedIn() && (
+        request.auth.token.get('companyId', '') == companyId ||
+        companyId in request.auth.token.get('assignedCompanyIds', [])
+      );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | COLLECTION RULES
+    |--------------------------------------------------------------------------
+    */
+
+    // Root-level bypass for superadmins (Diagnostics, Logs, User Mgmt)
+    match /{document=**} {
+      allow read, write: if isSuperAdmin();
+    }
+
+    // Tenant-isolated operational data
+    match /problems/{id} {
+      allow read: if hasCompanyAccess(resource.data.companyId);
+      allow create: if hasCompanyAccess(request.resource.data.companyId);
+      allow update: if hasCompanyAccess(resource.data.companyId);
+    }
+
+    match /leads/{id} {
+      allow read: if hasCompanyAccess(resource.data.companyId);
+      allow create: if hasCompanyAccess(request.resource.data.companyId);
+    }
+
+    match /vipContacts/{id} {
+      allow read: if hasCompanyAccess(resource.data.companyId);
+      allow write: if hasCompanyAccess(request.resource.data.companyId);
+    }
+
+    match /deliveryRuns/{id} {
+      allow read: if hasCompanyAccess(resource.data.companyId);
+      allow write: if hasCompanyAccess(request.resource.data.companyId);
+    }
+
+    match /tgeAccountApplications/{id} {
+      allow read: if hasCompanyAccess(resource.data.companyId);
+      allow create: if hasCompanyAccess(request.resource.data.companyId);
+    }
+
+    match /invitations/{id} {
+      allow read: if true; // Public access for acceptance
+      allow write: if hasCompanyAccess(request.resource.data.companyId);
+    }
+
+    match /companyRates/{id} {
+      allow read: if hasCompanyAccess(resource.data.companyId);
+    }
+
+    match /ai_quotes/{id} {
+      allow read: if hasCompanyAccess(resource.data.companyId);
+      allow create: if hasCompanyAccess(request.resource.data.companyId);
+    }
+
+    // User personal data
+    match /notes/{id} {
+      allow read: if isSignedIn() && request.auth.uid == resource.data.userId;
+      allow write: if isSignedIn() && request.auth.uid == request.resource.data.userId;
+    }
+
+    // Quote Logs: Cross-site logging, write allowed for signed-in users, read for superadmin only
+    match /quote_logs/{id} {
+        allow create: if isSignedIn();
+        allow read: if isSuperAdmin();
+    }
+
+    // User Profile Rules
+    match /users/{userId} {
+      allow get: if isSignedIn() && (request.auth.uid == userId || isSuperAdmin());
+      allow create: if isSignedIn() && request.auth.uid == userId; 
+      allow update: if isSuperAdmin() || (
+        request.auth.uid == userId && 
+        request.resource.data.role == resource.data.role &&
+        request.resource.data.companyId == resource.data.companyId
+      );
+    }
+
+    // Admin Logs (Superadmin Only)
+    match /audit_logs/{id} {
+      allow read: if isSuperAdmin();
+      allow create: if isSignedIn();
+    }
+
+    match /ai_usage_log/{id} {
+      allow read: if isSuperAdmin();
+      allow create: if isSignedIn();
+    }
+  }
+}

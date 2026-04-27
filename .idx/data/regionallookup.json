@@ -1,0 +1,10406 @@
+[
+  {
+    "LUP": "ABXABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ABXASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXBNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ABXCBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ABXCNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXDRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ABXHBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ABXLST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXMEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ABXMKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXNSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXNSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXNSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXNSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXNSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXNSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXNSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXNSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXNSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXNT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXNTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ABXPER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ABXQLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ABXQLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXQLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXQLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXQLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXQLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXQLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXQLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXQLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXSA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXSA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXSA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXSA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXSA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXSYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ABXTAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXTAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXTAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXTSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXVIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXVIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXWA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXWA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXWA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXWA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXWOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ABXYORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ADLABX",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLADL",
+    "Journey": "Local - Metro"
+  },
+  {
+    "LUP": "ADLASP",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLBNE",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "ADLCBR",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "ADLCNS",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLDRW",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "ADLHBA",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "ADLLST",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "ADLMEL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "ADLMKY",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLNSW1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLNSW2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLNSW3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLNSW4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLNSW5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLNSW6",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLNSW7",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLNSW8",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLNSW9",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLNT1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLNTL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "ADLPER",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "ADLQLD1",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "ADLQLD2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLQLD3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLQLD4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLQLD5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLQLD6",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLQLD7",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLQLD8",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLQLD9",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLROK",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLSA1",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "ADLSA2",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "ADLSA3",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "ADLSA4",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "ADLSA5",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "ADLSYD",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "ADLTAS1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "ADLTAS2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "ADLTAS3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "ADLTSV",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLVIC1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLVIC2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLWA1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "ADLWA2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "ADLWA3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "ADLWA4",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "ADLWOL",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "ADLYORK",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "ASPABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ASPASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPBNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ASPCBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ASPCNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPDRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ASPHBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ASPLST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPMEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ASPMKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPNSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPNSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPNSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPNSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPNSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPNSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPNSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPNSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPNSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPNT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPNTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ASPPER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ASPQLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ASPQLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPQLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPQLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPQLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPQLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPQLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPQLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPQLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPSA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPSA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPSA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPSA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPSA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPSYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ASPTAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPTAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPTAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPTSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPVIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPVIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPWA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPWA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPWA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPWA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPWOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ASPYORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "BNEABX",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNEADL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "BNEASP",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "BNEBNE",
+    "Journey": "Local - Metro"
+  },
+  {
+    "LUP": "BNECBR",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "BNECNS",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "BNEDRW",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "BNEHBA",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "BNELST",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "BNEMEL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "BNEMKY",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "BNENSW1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNENSW2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNENSW3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNENSW4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNENSW5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNENSW6",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNENSW7",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNENSW8",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNENSW9",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNENT1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "BNENTL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "BNEPER",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "BNEQLD1",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "BNEQLD2",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "BNEQLD3",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "BNEQLD4",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "BNEQLD5",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "BNEQLD6",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "BNEQLD7",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "BNEQLD8",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "BNEQLD9",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "BNEROK",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "BNESA1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNESA2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNESA3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNESA4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNESA5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNESYD",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "BNETAS1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "BNETAS2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "BNETAS3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "BNETSV",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "BNEVIC1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNEVIC2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNEWA1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "BNEWA2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "BNEWA3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "BNEWA4",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "BNEWOL",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "BNEYORK",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "CBRABX",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "CBRADL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "CBRASP",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "CBRBNE",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "CBRCBR",
+    "Journey": "Local - Metro"
+  },
+  {
+    "LUP": "CBRCNS",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRDRW",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "CBRHBA",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "CBRLST",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "CBRMEL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "CBRMKY",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRNSW1",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "CBRNSW2",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "CBRNSW3",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "CBRNSW4",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "CBRNSW5",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "CBRNSW6",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "CBRNSW7",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "CBRNSW8",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "CBRNSW9",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "CBRNT1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "CBRNTL",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "CBRPER",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "CBRQLD1",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "CBRQLD2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRQLD3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRQLD4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRQLD5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRQLD6",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRQLD7",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRQLD8",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRQLD9",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRROK",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRSA1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRSA2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRSA3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRSA4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRSA5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRSYD",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "CBRTAS1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "CBRTAS2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "CBRTAS3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "CBRTSV",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRVIC1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRVIC2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "CBRWA1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "CBRWA2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "CBRWA3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "CBRWA4",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "CBRWOL",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "CBRYORK",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "CNSABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "CNSASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSBNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "CNSCBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "CNSCNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSDRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "CNSHBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "CNSLST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSMEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "CNSMKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSNSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSNSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSNSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSNSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSNSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSNSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSNSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSNSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSNSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSNT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSNTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "CNSPER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "CNSQLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "CNSQLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSQLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSQLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSQLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSQLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSQLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSQLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSQLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSSA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSSA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSSA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSSA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSSA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSSYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "CNSTAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSTAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSTAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSTSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSVIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSVIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSWA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSWA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSWA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSWA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSWOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "CNSYORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "DRWABX",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWADL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "DRWASP",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWBNE",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "DRWCBR",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "DRWCNS",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWDRW",
+    "Journey": "Local - Metro"
+  },
+  {
+    "LUP": "DRWHBA",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "DRWLST",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWMEL",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "DRWMKY",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWNSW1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWNSW2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWNSW3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWNSW4",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWNSW5",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWNSW6",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWNSW7",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWNSW8",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWNSW9",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWNT1",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "DRWNTL",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "DRWPER",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "DRWQLD1",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "DRWQLD2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWQLD3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWQLD4",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWQLD5",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWQLD6",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWQLD7",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWQLD8",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWQLD9",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWROK",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWSA1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "DRWSA2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "DRWSA3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "DRWSA4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "DRWSA5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "DRWSYD",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "DRWTAS1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWTAS2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWTAS3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWTSV",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWVIC1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWVIC2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWWA1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWWA2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWWA3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWWA4",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWWOL",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "DRWYORK",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAABX",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAADL",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "HBAASP",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBABNE",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "HBACBR",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "HBACNS",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBADRW",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "HBAHBA",
+    "Journey": "Local - Metro"
+  },
+  {
+    "LUP": "HBALST",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "HBAMEL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "HBAMKY",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBANSW1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBANSW2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBANSW3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBANSW4",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBANSW5",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBANSW6",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBANSW7",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBANSW8",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBANSW9",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBANT1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBANTL",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "HBAPER",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "HBAQLD1",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "HBAQLD2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAQLD3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAQLD4",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAQLD5",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAQLD6",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAQLD7",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAQLD8",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAQLD9",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAROK",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBASA1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBASA2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBASA3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBASA4",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBASA5",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBASYD",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "HBATAS1",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "HBATAS2",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "HBATAS3",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "HBATSV",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAVIC1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "HBAVIC2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "HBAWA1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAWA2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAWA3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAWA4",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAWOL",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "HBAYORK",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "LSTABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "LSTASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTBNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "LSTCBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "LSTCNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTDRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "LSTHBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "LSTLST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTMEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "LSTMKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTNSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTNSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTNSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTNSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTNSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTNSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTNSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTNSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTNSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTNT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTNTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "LSTPER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "LSTQLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "LSTQLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTQLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTQLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTQLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTQLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTQLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTQLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTQLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTSA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTSA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTSA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTSA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTSA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTSYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "LSTTAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTTAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTTAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTTSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTVIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTVIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTWA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTWA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTWA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTWA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTWOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "LSTYORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MELABX",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELADL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "MELASP",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "MELBNE",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "MELCBR",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "MELCNS",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELDRW",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "MELHBA",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "MELLST",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELMEL",
+    "Journey": "Local - Metro"
+  },
+  {
+    "LUP": "MELMKY",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELNSW1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELNSW2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELNSW3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELNSW4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELNSW5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELNSW6",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELNSW7",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELNSW8",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELNSW9",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELNT1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "MELNTL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "MELPER",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "MELQLD1",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "MELQLD2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELQLD3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELQLD4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELQLD5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELQLD6",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELQLD7",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELQLD8",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELQLD9",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELROK",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELSA1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELSA2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELSA3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELSA4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELSA5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELSYD",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "MELTAS1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELTAS2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELTAS3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELTSV",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELVIC1",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "MELVIC2",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "MELWA1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "MELWA2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "MELWA3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "MELWA4",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "MELWOL",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MELYORK",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "MKYABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "MKYASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYBNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "MKYCBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "MKYCNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYDRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "MKYHBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "MKYLST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYMEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "MKYMKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYNSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYNSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYNSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYNSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYNSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYNSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYNSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYNSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYNSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYNT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYNTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "MKYPER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "MKYQLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "MKYQLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYQLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYQLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYQLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYQLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYQLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYQLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYQLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYSA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYSA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYSA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYSA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYSA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYSYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "MKYTAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYTAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYTAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYTSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYVIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYVIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYWA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYWA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYWA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYWA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYWOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "MKYYORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW1ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW1CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW1CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW1HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW1LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW1MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW1PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW1QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW1QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW1TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW1YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW2ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW2CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW2CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW2HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW2LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW2MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW2PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW2QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW2QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW2TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW2YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW3ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW3CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW3CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW3HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW3LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW3MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW3PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW3QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW3QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW3TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW3YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW4ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW4CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW4CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW4HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW4LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW4MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW4PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW4QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW4QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW4TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW4YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW5ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW5CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW5CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW5HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW5LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW5MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW5PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW5QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW5QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW5TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW5YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW6ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW6CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW6CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW6HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW6LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW6MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW6PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW6QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW6QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW6TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW6YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW7ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW7CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW7CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW7HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW7LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW7MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW7PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW7QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW7QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW7TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW7YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW8ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW8CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW8CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW8HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW8LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW8MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW8PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW8QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW8QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW8TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW8YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW9ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW9CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW9CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW9HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW9LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW9MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW9PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW9QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW9QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NSW9TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NSW9YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NT1ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NT1CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NT1CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NT1HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NT1LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NT1MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NT1PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NT1QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NT1QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "NT1TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NT1YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "NTLABX",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "NTLADL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "NTLASP",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "NTLBNE",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "NTLCBR",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "NTLCNS",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLDRW",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "NTLHBA",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "NTLLST",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "NTLMEL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "NTLMKY",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLNSW1",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "NTLNSW2",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "NTLNSW3",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "NTLNSW4",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "NTLNSW5",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "NTLNSW6",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "NTLNSW7",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "NTLNSW8",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "NTLNSW9",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "NTLNT1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "NTLNTL",
+    "Journey": "Local - Metro"
+  },
+  {
+    "LUP": "NTLPER",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "NTLQLD1",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "NTLQLD2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLQLD3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLQLD4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLQLD5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLQLD6",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLQLD7",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLQLD8",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLQLD9",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLROK",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLSA1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLSA2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLSA3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLSA4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLSA5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLSYD",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "NTLTAS1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "NTLTAS2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "NTLTAS3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "NTLTSV",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLVIC1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLVIC2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLWA1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLWA2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLWA3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLWA4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "NTLWOL",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "NTLYORK",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERABX",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERADL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "PERASP",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERBNE",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "PERCBR",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "PERCNS",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERDRW",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "PERHBA",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "PERLST",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERMEL",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "PERMKY",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERNSW1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERNSW2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERNSW3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERNSW4",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERNSW5",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERNSW6",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERNSW7",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERNSW8",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERNSW9",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERNT1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERNTL",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "PERPER",
+    "Journey": "Local - Metro"
+  },
+  {
+    "LUP": "PERQLD1",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "PERQLD2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERQLD3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERQLD4",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERQLD5",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERQLD6",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERQLD7",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERQLD8",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERQLD9",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERROK",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERSA1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "PERSA2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "PERSA3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "PERSA4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "PERSA5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "PERSYD",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "PERTAS1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERTAS2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERTAS3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERTSV",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERVIC1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERVIC2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERWA1",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "PERWA2",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "PERWA3",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "PERWA4",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "PERWOL",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "PERYORK",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "QLD1ABX",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1ADL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "QLD1ASP",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "QLD1BNE",
+    "Journey": "Local - Metro"
+  },
+  {
+    "LUP": "QLD1CBR",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "QLD1CNS",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "QLD1DRW",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "QLD1HBA",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "QLD1LST",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "QLD1MEL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "QLD1MKY",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "QLD1NSW1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1NSW2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1NSW3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1NSW4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1NSW5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1NSW6",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1NSW7",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1NSW8",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1NSW9",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1NT1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "QLD1NTL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "QLD1PER",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "QLD1QLD1",
+    "Journey": "Local - Metro"
+  },
+  {
+    "LUP": "QLD1QLD2",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "QLD1QLD3",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "QLD1QLD4",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "QLD1QLD5",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "QLD1QLD6",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "QLD1QLD7",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "QLD1QLD8",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "QLD1QLD9",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "QLD1ROK",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "QLD1SA1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1SA2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1SA3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1SA4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1SA5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1SYD",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "QLD1TAS1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "QLD1TAS2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "QLD1TAS3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "QLD1TSV",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "QLD1VIC1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1VIC2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1WA1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "QLD1WA2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "QLD1WA3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "QLD1WA4",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "QLD1WOL",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "QLD1YORK",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "QLD2ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD2ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD2CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD2CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD2HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD2LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD2MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD2PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD2QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD2QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD2TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD2YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD3ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD3CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD3CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD3HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD3LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD3MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD3PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD3QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD3QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD3TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD3YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD4ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD4CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD4CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD4HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD4LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD4MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD4PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD4QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD4QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD4TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD4YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD5ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD5CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD5CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD5HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD5LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD5MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD5PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD5QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD5QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD5TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD5YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD6ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD6CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD6CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD6HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD6LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD6MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD6PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD6QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD6QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD6TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD6YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD7ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD7CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD7CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD7HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD7LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD7MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD7PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD7QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD7QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD7TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD7YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD8ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD8CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD8CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD8HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD8LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD8MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD8PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD8QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD8QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD8TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD8YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD9ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD9CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD9CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD9HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD9LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD9MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD9PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD9QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD9QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "QLD9TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "QLD9YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ROKASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKBNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ROKCBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ROKCNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKDRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ROKHBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ROKLST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKMEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ROKMKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKNSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKNSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKNSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKNSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKNSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKNSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKNSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKNSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKNSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKNT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKNTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ROKPER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ROKQLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ROKQLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKQLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKQLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKQLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKQLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKQLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKQLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKQLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKSA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKSA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKSA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKSA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKSA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKSYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "ROKTAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKTAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKTAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKTSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKVIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKVIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKWA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKWA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKWA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKWA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKWOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "ROKYORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA1ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA1CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA1CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA1HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA1LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA1MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA1PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA1QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA1QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA1TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA1YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA2ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA2CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA2CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA2HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA2LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA2MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA2PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA2QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA2QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA2TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA2YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA3ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA3CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA3CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA3HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA3LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA3MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA3PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA3QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA3QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA3TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA3YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA4ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA4CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA4CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA4HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA4LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA4MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA4PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA4QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA4QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA4TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA4YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA5ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA5CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA5CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA5HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA5LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA5MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA5PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA5QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA5QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "SA5TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SA5YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "SYDABX",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "SYDADL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "SYDASP",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "SYDBNE",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "SYDCBR",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "SYDCNS",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDDRW",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "SYDHBA",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "SYDLST",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "SYDMEL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "SYDMKY",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDNSW1",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "SYDNSW2",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "SYDNSW3",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "SYDNSW4",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "SYDNSW5",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "SYDNSW6",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "SYDNSW7",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "SYDNSW8",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "SYDNSW9",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "SYDNT1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "SYDNTL",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "SYDPER",
+    "Journey": "Metro - Metro Far"
+  },
+  {
+    "LUP": "SYDQLD1",
+    "Journey": "Metro - Metro Near"
+  },
+  {
+    "LUP": "SYDQLD2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDQLD3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDQLD4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDQLD5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDQLD6",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDQLD7",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDQLD8",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDQLD9",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDROK",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDSA1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDSA2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDSA3",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDSA4",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDSA5",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDSYD",
+    "Journey": "Local - Metro"
+  },
+  {
+    "LUP": "SYDTAS1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "SYDTAS2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "SYDTAS3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "SYDTSV",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDVIC1",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDVIC2",
+    "Journey": "Metro - Regional Interstate Near"
+  },
+  {
+    "LUP": "SYDWA1",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "SYDWA2",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "SYDWA3",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "SYDWA4",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "SYDWOL",
+    "Journey": "Metro - Regional Intrastate Same State"
+  },
+  {
+    "LUP": "SYDYORK",
+    "Journey": "Metro - Regional Interstate Far"
+  },
+  {
+    "LUP": "TAS1ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS1ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS1CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS1CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS1HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS1LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS1MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS1PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS1QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS1QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS1TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS1YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS2ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS2CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS2CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS2HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS2LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS2MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS2PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS2QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS2QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS2TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS2YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS3ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS3CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS3CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS3HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS3LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS3MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS3PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS3QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS3QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TAS3TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TAS3YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TSVASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVBNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TSVCBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TSVCNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVDRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TSVHBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TSVLST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVMEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TSVMKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVNSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVNSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVNSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVNSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVNSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVNSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVNSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVNSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVNSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVNT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVNTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TSVPER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TSVQLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TSVQLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVQLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVQLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVQLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVQLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVQLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVQLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVQLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVSA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVSA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVSA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVSA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVSA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVSYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "TSVTAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVTAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVTAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVTSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVVIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVVIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVWA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVWA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVWA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVWA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVWOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "TSVYORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC1ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC1CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC1CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC1HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC1LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC1MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC1PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC1QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC1QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC1TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC1YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC2ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC2CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC2CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC2HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC2LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC2MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC2PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC2QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC2QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "VIC2TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "VIC2YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA1ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA1CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA1CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA1HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA1LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA1MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA1PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA1QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA1QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA1TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA1YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA2ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA2CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA2CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA2HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA2LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA2MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA2PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA2QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA2QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA2TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA2YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA3ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA3CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA3CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA3HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA3LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA3MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA3PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA3QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA3QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA3TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA3YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4ABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4ADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA4ASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4BNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA4CBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA4CNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4DRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA4HBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA4LST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4MEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA4MKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4NSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4NSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4NSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4NSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4NSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4NSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4NSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4NSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4NSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4NT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4NTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA4PER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA4QLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA4QLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4QLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4QLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4QLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4QLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4QLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4QLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4QLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4ROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4SA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4SA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4SA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4SA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4SA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4SYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WA4TAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4TAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4TAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4TSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4VIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4VIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4WA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4WA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4WA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4WA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4WOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WA4YORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WOLASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLBNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WOLCBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WOLCNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLDRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WOLHBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WOLLST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLMEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WOLMKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLNSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLNSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLNSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLNSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLNSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLNSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLNSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLNSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLNSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLNT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLNTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WOLPER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WOLQLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WOLQLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLQLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLQLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLQLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLQLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLQLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLQLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLQLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLSA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLSA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLSA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLSA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLSA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLSYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "WOLTAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLTAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLTAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLTSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLVIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLVIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLWA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLWA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLWA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLWA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLWOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "WOLYORK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKABX",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKADL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "YORKASP",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKBNE",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "YORKCBR",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "YORKCNS",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKDRW",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "YORKHBA",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "YORKLST",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKMEL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "YORKMKY",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKNSW1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKNSW2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKNSW3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKNSW4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKNSW5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKNSW6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKNSW7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKNSW8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKNSW9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKNT1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKNTL",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "YORKPER",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "YORKQLD1",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "YORKQLD2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKQLD3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKQLD4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKQLD5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKQLD6",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKQLD7",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKQLD8",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKQLD9",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKROK",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKSA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKSA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKSA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKSA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKSA5",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKSYD",
+    "Journey": "Regional - Metro"
+  },
+  {
+    "LUP": "YORKTAS1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKTAS2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKTAS3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKTSV",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKVIC1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKVIC2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKWA1",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKWA2",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKWA3",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKWA4",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKWOL",
+    "Journey": "Regional - Regional"
+  },
+  {
+    "LUP": "YORKYORK",
+    "Journey": "Regional - Regional"
+  }
+]

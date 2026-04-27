@@ -1,0 +1,9 @@
+[
+    {
+        "Logic": "GoPriorityADLMEL",
+        "Go1": 8,
+        "Go3": 10,
+        "Go5": 12,
+        "Go10": 15
+    }
+]

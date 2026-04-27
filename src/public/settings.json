@@ -1,0 +1,2380 @@
+{
+  "servicePermissions": {
+    "superadmin": [
+      "LCP Std",
+      "LCP Priority",
+      "LCP GO Std",
+      "LCP GO Priority",
+      "LCP GO Std 167",
+      "LCP GO Priority 167",
+      "B2B Std",
+      "B2B Priority",
+      "B2B Pallets Express",
+      "B2B Pallets General Tiered",
+      "B2C Std",
+      "B2C Priority",
+      "WA PE Special"
+    ],
+    "admin": [
+      "LCP Std",
+      "LCP Priority",
+      "LCP GO Std",
+      "LCP GO Priority",
+      "LCP GO Std 167",
+      "LCP GO Priority 167",
+      "B2B Std",
+      "B2B Priority",
+      "B2B Pallets Express",
+      "B2B Pallets General Tiered",
+      "B2C Std",
+      "B2C Priority",
+      "WA PE Special"
+    ],
+    "bdm": [
+      "B2B Std",
+      "B2B Priority",
+      "B2B Pallets Express",
+      "B2B Pallets General Tiered",
+      "B2C Std",
+      "B2C Priority",
+      "WA PE Special"
+    ],
+    "driver": [],
+    "agent": [
+      "LCP Std",
+      "LCP Priority",
+      "LCP GO Std",
+      "LCP GO Priority",
+      "LCP GO Std 167",
+      "LCP GO Priority 167",
+      "B2B Std",
+      "B2B Priority",
+      "B2B Pallets Express",
+      "B2B Pallets General Tiered",
+      "B2C Std",
+      "B2C Priority",
+      "WA PE Special"
+    ],
+    "user": [
+      "B2B Std",
+      "B2B Priority",
+      "B2C Std",
+      "B2C Priority",
+      "B2B Pallets Express",
+      "B2B Pallets General Tiered",
+      "WA PE Special"
+    ],
+    "null": []
+  },
+  "pagePermissions": {
+    "superadmin": [
+      "calculator",
+      "ai-guru",
+      "proposal",
+      "live",
+      "location-lookup",
+      "info",
+      "tge-way",
+      "problem-log",
+      "leads",
+      "rate-card",
+      "sb-comparison",
+      "rate-comparison",
+      "competitor-comparison",
+      "multi",
+      "leg-discount",
+      "all-167",
+      "bulk",
+      "settings",
+      "user-management",
+      "role-settings",
+      "csv-converter",
+      "rate-uploader",
+      "remittance",
+      "commercials",
+      "price-test",
+      "ai-log",
+      "ai-mode",
+      "run-reports",
+      "qr-scan",
+      "promo-codes",
+      "notebook",
+      "vip",
+      "status",
+      "priority-quiz",
+      "find-it",
+      "grab-it",
+      "json-creator",
+      "routing",
+      "top-links",
+      "calculations",
+      "companies",
+      "feature-management",
+      "team",
+      "branding",
+      "profile",
+      "org-account",
+      "manual-onboard",
+      "manage-surcharges",
+      "pdf-extractor",
+      "core-rate-uploader",
+      "salesforce-search-bar",
+      "salesforce-widgets",
+      "account-reports",
+      "live-rates",
+      "standard-spend-bands",
+      "about-tge",
+      "register-tge",
+      "applications",
+      "json-management",
+      "ai-mode",
+      "admin-menu",
+      "ai-analytics",
+      "audit-log"
+    ],
+    "admin": [
+      "calculator",
+      "ai-guru",
+      "proposal",
+      "live",
+      "location-lookup",
+      "info",
+      "tge-way",
+      "problem-log",
+      "leads",
+      "rate-card",
+      "sb-comparison",
+      "rate-comparison",
+      "competitor-comparison",
+      "multi",
+      "leg-discount",
+      "all-167",
+      "bulk",
+      "settings",
+      "role-settings",
+      "csv-converter",
+      "rate-uploader",
+      "remittance",
+      "commercials",
+      "price-test",
+      "ai-log",
+      "ai-mode",
+      "run-reports",
+      "qr-scan",
+      "promo-codes",
+      "notebook",
+      "vip",
+      "status",
+      "priority-quiz",
+      "find-it",
+      "grab-it",
+      "json-creator",
+      "routing",
+      "top-links",
+      "calculations",
+      "companies",
+      "feature-management",
+      "team",
+      "branding",
+      "profile",
+      "org-account",
+      "manage-surcharges",
+      "pdf-extractor",
+      "core-rate-uploader",
+      "salesforce-search-bar",
+      "salesforce-widgets",
+      "account-reports",
+      "live-rates",
+      "standard-spend-bands",
+      "about-tge",
+      "register-tge",
+      "applications",
+      "json-management",
+      "ai-mode",
+      "admin-menu",
+      "ai-analytics",
+      "audit-log"
+    ],
+    "bdm": [
+      "calculator",
+      "ai-guru",
+      "proposal",
+      "rate-card",
+      "sb-comparison",
+      "rate-comparison",
+      "competitor-comparison",
+      "multi",
+      "leg-discount",
+      "location-lookup",
+      "info",
+      "problem-log",
+      "leads",
+      "notebook",
+      "vip",
+      "profile",
+      "org-account",
+      "about-tge",
+      "register-tge",
+      "json-management"
+    ],
+    "driver": [
+      "live",
+      "find-it",
+      "grab-it",
+      "location-lookup",
+      "profile",
+      "about-tge"
+    ],
+    "agent": [
+      "calculator",
+      "location-lookup",
+      "info",
+      "problem-log",
+      "leads",
+      "profile",
+      "org-account",
+      "about-tge",
+      "remittance"
+    ],
+    "user": [
+      "calculator",
+      "location-lookup",
+      "info",
+      "profile",
+      "register-tge",
+      "json-management",
+      "team",
+      "branding",
+      "about-tge",
+      "remittance",
+      "json-creator",
+      "top-links"
+    ],
+    "null": []
+  },
+  "standardFuelSurcharge": 39.74,
+  "priorityFuelSurcharge": 28.01,
+  "palletFuelSurcharge": 56.97,
+  "standardFuelLastUpdated": "2024-04-20T09:00:00.000Z",
+  "priorityFuelLastUpdated": "2024-04-20T09:00:00.000Z",
+  "palletFuelLastUpdated": "2024-04-20T09:00:00.000Z",
+  "globalSecuritySurchargePercent": 8.2,
+  "emailQuoteTemplate": "Dear {{contactName}},\n\nThank you for your freight quote request.\n\nHere are the details for the {{serviceName}} service:\nOrigin: {{origin}}\nDestination: {{destination}}\nEstimated Total: {{estimatedTotal}}\n\nItems:\n{{itemsSummary}}\n\nThis quote is valid as of {{date}}.\n\nRegards,\nBD Assist Team",
+  "perfectPlanPalletRate": 200,
+  "perfectPlanParcelRate": 20,
+  "perfectPlanSatchelRate": 12,
+  "stateEmailContacts": {
+    "NSW": [
+      null,
+      null,
+      null
+    ],
+    "VIC": [
+      null,
+      null,
+      null
+    ],
+    "QLD": [
+      null,
+      null,
+      null
+    ],
+    "SA": [
+      null,
+      null,
+      null
+    ],
+    "WA": [
+      null,
+      null,
+      null
+    ],
+    "TAS": [
+      null,
+      null,
+      null
+    ],
+    "ACT": [
+      null,
+      null,
+      null
+    ],
+    "NT": [
+      null,
+      null,
+      null
+    ]
+  },
+  "quickActions": [
+    "calculator",
+    "competitor-comparison",
+    "problem-log",
+    "rate-card"
+  ],
+  "externalLinks": [
+    {
+      "id": "link-1",
+      "label": "LCP SharePoint",
+      "url": "https://teamglobalexp.sharepoint.com/sites/LCPProgramme",
+      "icon": "Briefcase"
+    },
+    {
+      "id": "link-2",
+      "label": "Salesforce",
+      "url": "https://teamglobalexp.lightning.force.com/lightning/o/Opportunity/list?filterName=Recent",
+      "icon": "Cloud"
+    },
+    {
+      "id": "link-3",
+      "label": "DocuSign",
+      "url": "https://app.docusign.com/auth",
+      "icon": "FileSignature"
+    },
+    {
+      "id": "link-4",
+      "label": "Credit Check",
+      "url": "https://www.inteflow.com.au/",
+      "icon": "DollarSign"
+    },
+    {
+      "id": "link-5",
+      "label": "Email",
+      "url": "https://outlook.office.com/",
+      "icon": "Mail"
+    },
+    {
+      "id": "link-6",
+      "label": "B2C",
+      "url": "https://tgeconnect.teamglobalexp.com/b2c-pricing/",
+      "icon": "AtSign"
+    },
+    {
+      "id": "link-7",
+      "label": "Power BI",
+      "url": "https://fleapaup005.agreenspace.local/reports/browse/TGE-Live/IPEC/Sales/General",
+      "icon": "BarChart"
+    },
+    {
+      "id": "link-8",
+      "label": "Invoice Enq",
+      "url": "https://teamglobalexp.com/invoice-enquiries/",
+      "icon": "Frown"
+    },
+    {
+      "id": "link-9",
+      "label": "Linkhub",
+      "url": "https://teamglobalexp.sharepoint.com/:u:/r/sites/SalesIntegration/SitePages/LinkHub.aspx?csf=1&web=1&e=TdwIzd",
+      "icon": "Link2"
+    },
+    {
+      "id": "link-10",
+      "label": "iTrak",
+      "url": "http://itrackonline.awsagreenspace.local/",
+      "icon": "Truck"
+    },
+    {
+      "id": "link-11",
+      "label": "Workday",
+      "url": "https://wd3.myworkday.com/agreenspace/d/home.htmld",
+      "icon": "W"
+    },
+    {
+      "id": "link-12",
+      "label": "MyTeamGE",
+      "url": "https://www.myteamge.com",
+      "icon": "M"
+    },
+    {
+      "id": "link-13",
+      "label": "iTrace",
+      "url": "http://ipeclive/Tracking/iTrace.aspx",
+      "icon": "Info"
+    }
+  ],
+  "visibleTimezones": {
+    "sydney": true,
+    "melbourne": true,
+    "brisbane": true,
+    "adelaide": true,
+    "perth": true
+  },
+  "surchargeDefinitions": [
+    {
+      "id": "security",
+      "name": "Security Surcharge",
+      "type": "percentage",
+      "defaultValue": 8.2,
+      "isConfigurablePerService": false,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "oversize_item_fee",
+      "name": "Oversize Fee (Length > 180cm per item)",
+      "type": "fixed_per_shipment",
+      "defaultValue": 63,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Std",
+        "B2B Priority",
+        "LCP Std",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "manual_handling_gt30kg",
+      "name": "Manual Handling Fee (>30kg & <35kg per item)",
+      "type": "fixed_per_shipment",
+      "defaultValue": 16.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Std",
+        "B2B Priority",
+        "LCP Std",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "manual_handling_gt35kg",
+      "name": "Oversize Fee (>=35kg per item)",
+      "type": "fixed_per_shipment",
+      "defaultValue": 63.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Std",
+        "B2B Priority",
+        "LCP Std",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "book_in_delivery_fee",
+      "name": "Book-In Delivery Fee",
+      "type": "fixed_per_shipment",
+      "defaultValue": 47.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Std",
+        "LCP Std",
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "citylink_surcharge_melbourne_percent",
+      "name": "Citylink Surcharge (Melbourne)",
+      "type": "percentage",
+      "defaultValue": 1.25,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered"
+      ]
+    },
+    {
+      "id": "citylink_surcharge_road",
+      "name": "Citylink Surcharge (Road)",
+      "type": "fixed_per_shipment",
+      "defaultValue": 21,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Std",
+        "LCP Std"
+      ]
+    },
+    {
+      "id": "dg_consignment_fee",
+      "name": "Dangerous Goods (DG) Fee - Road",
+      "type": "fixed_per_shipment",
+      "defaultValue": 65.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Std",
+        "LCP Std"
+      ]
+    },
+    {
+      "id": "dg_consignment_fee_pallet",
+      "name": "Dangerous Goods (DG) Fee - Pallet",
+      "type": "fixed_per_shipment",
+      "defaultValue": 168,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered"
+      ]
+    },
+    {
+      "id": "ex_wa_pickup_consignment_fee",
+      "name": "Ex WA Pickup Consignment Fee",
+      "type": "fixed_per_shipment",
+      "defaultValue": 57,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered"
+      ]
+    },
+    {
+      "id": "ex_wa_pickup_kg_rate_tier1",
+      "name": "Ex WA Pickup KG Rate (1-1000kg)",
+      "type": "fixed_per_kg",
+      "defaultValue": 0.11,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered"
+      ]
+    },
+    {
+      "id": "ex_wa_pickup_kg_rate_tier2",
+      "name": "Ex WA Pickup KG Rate (1001-3000kg)",
+      "type": "fixed_per_kg",
+      "defaultValue": 0.11,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered"
+      ]
+    },
+    {
+      "id": "ex_wa_pickup_kg_rate_tier3",
+      "name": "Ex WA Pickup KG Rate (3001-8000kg)",
+      "type": "fixed_per_kg",
+      "defaultValue": 0.09,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered"
+      ]
+    },
+    {
+      "id": "ex_wa_pickup_kg_rate_tier4",
+      "name": "Ex WA Pickup KG Rate (8001+ kg)",
+      "type": "fixed_per_kg",
+      "defaultValue": 0.06,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered"
+      ]
+    },
+    {
+      "id": "hand_unload_fee",
+      "name": "Hand Unload Fee",
+      "type": "fixed_per_shipment",
+      "defaultValue": 73.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered"
+      ]
+    },
+    {
+      "id": "account_transfer_fee",
+      "name": "Account Transfer Fee",
+      "type": "fixed_per_shipment",
+      "defaultValue": 35.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered"
+      ]
+    },
+    {
+      "id": "account_service_fee_pallet",
+      "name": "Account Service Fee (Pallet)",
+      "type": "fixed_per_shipment",
+      "defaultValue": 35.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered"
+      ]
+    },
+    {
+      "id": "account_service_fee_courier",
+      "name": "Account Service Fee (Courier)",
+      "type": "fixed_per_shipment",
+      "defaultValue": 5.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "attachment_fee_road",
+      "name": "Invoice Attachment Fee",
+      "type": "fixed_per_shipment",
+      "defaultValue": 49,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Std",
+        "LCP Std"
+      ]
+    },
+    {
+      "id": "b2c_failed_delivery_fee",
+      "name": "B2C Failed Delivery/Redirect",
+      "type": "fixed_per_shipment",
+      "defaultValue": 10,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "futile_pickup_fee",
+      "name": "Futile Pickup Fee",
+      "type": "fixed_per_shipment",
+      "defaultValue": 21,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "failed_security_screening_fee",
+      "name": "Failed Security Screening Fee",
+      "type": "fixed_per_shipment",
+      "defaultValue": 30.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167",
+        "B2B Std",
+        "LCP Std"
+      ]
+    },
+    {
+      "id": "re_consignment_fee_pallet",
+      "name": "Re-consignment Fee",
+      "type": "fixed_per_shipment",
+      "defaultValue": 54.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered"
+      ]
+    },
+    {
+      "id": "re_delivery_fee_standard",
+      "name": "Re-Delivery Fee (Std/Prio)",
+      "type": "fixed_per_shipment",
+      "defaultValue": 35,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Std",
+        "LCP Std",
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "re_delivery_fee_pallet",
+      "name": "Re-Delivery Fee (Pallet)",
+      "type": "fixed_per_shipment",
+      "defaultValue": 98,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered"
+      ]
+    },
+    {
+      "id": "tail_lift_road_prio",
+      "name": "Tail Lift Fee (Road/Prio)",
+      "type": "fixed_per_shipment",
+      "defaultValue": 92.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Std",
+        "LCP Std",
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "tail_lift_pallet",
+      "name": "Tail Lift Fee (Pallet - Base)",
+      "type": "fixed_per_shipment",
+      "defaultValue": 99,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered",
+        "WA PE Special"
+      ]
+    },
+    {
+      "id": "tail_lift_pallet_additional",
+      "name": "Tail Lift Fee (Pallet - Additional > 2)",
+      "type": "fixed_per_kg",
+      "defaultValue": 47.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered",
+        "WA PE Special"
+      ]
+    },
+    {
+      "id": "wa_onforwarding_surcharge",
+      "name": "WA Onforwarding Surcharge",
+      "type": "fixed_per_shipment",
+      "defaultValue": 27,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Std",
+        "LCP Std",
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "after_hours_collection_fee",
+      "name": "After Hours Collection Fee",
+      "type": "fixed_per_shipment",
+      "defaultValue": 100,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167",
+        "B2B Std",
+        "LCP Std",
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered"
+      ]
+    },
+    {
+      "id": "after_hours_delivery_fee",
+      "name": "After Hours Delivery Fee",
+      "type": "fixed_per_shipment",
+      "defaultValue": 100,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167",
+        "B2B Std",
+        "LCP Std",
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered"
+      ]
+    },
+    {
+      "id": "public_holiday_service_fee",
+      "name": "Public Holiday Service Fee",
+      "type": "fixed_per_shipment",
+      "defaultValue": 250,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167",
+        "B2B Std",
+        "LCP Std",
+        "B2B Pallets Express",
+        "B2B Pallets General Tiered"
+      ]
+    },
+    {
+      "id": "manual_consignment_fee",
+      "name": "Manual Consignment Fee",
+      "type": "fixed_per_shipment",
+      "defaultValue": 29,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167",
+        "B2B Std",
+        "LCP Std"
+      ]
+    },
+    {
+      "id": "receiver_third_party_fee",
+      "name": "Receiver or Third Party Fee",
+      "type": "fixed_per_shipment",
+      "defaultValue": 18,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Std",
+        "LCP Std"
+      ]
+    },
+    {
+      "id": "tsf_zone_1",
+      "name": "Time Sensitive Freight (Zone 1)",
+      "type": "fixed_per_shipment",
+      "defaultValue": 105.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "tsf_zone_2",
+      "name": "Time Sensitive Freight (Zone 2)",
+      "type": "fixed_per_shipment",
+      "defaultValue": 212.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "rail_cancellation_fee",
+      "name": "Rail Cancellation Fee",
+      "type": "fixed_per_shipment",
+      "defaultValue": 385.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Std",
+        "LCP Std"
+      ]
+    },
+    {
+      "id": "coastal_container_maintenance",
+      "name": "Coastal Container Maintenance",
+      "type": "fixed_per_shipment",
+      "defaultValue": 23.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Std",
+        "LCP Std"
+      ]
+    },
+    {
+      "id": "customs_clearance_admin",
+      "name": "Customs Clearance Admin",
+      "type": "fixed_per_shipment",
+      "defaultValue": 71,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "export_customs_entry",
+      "name": "Export Customs Entry",
+      "type": "fixed_per_shipment",
+      "defaultValue": 20,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "quarantine_entry",
+      "name": "Quarantine - Entry",
+      "type": "fixed_per_shipment",
+      "defaultValue": 94.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    },
+    {
+      "id": "quarantine_inspection",
+      "name": "Quarantine Inspection",
+      "type": "fixed_per_shipment",
+      "defaultValue": 127.5,
+      "isConfigurablePerService": true,
+      "isPredefined": true,
+      "applicableServices": [
+        "B2B Priority",
+        "LCP Priority",
+        "B2C Std",
+        "B2C Priority",
+        "LCP GO Std",
+        "LCP GO Priority",
+        "LCP GO Std 167",
+        "LCP GO Priority 167"
+      ]
+    }
+  ],
+  "serviceSettings": [
+    {
+      "id": "LCP Std",
+      "name": "LCP Std",
+      "fuelSurchargePercent": 39.74,
+      "surcharges": [
+        {
+          "surchargeId": "oversize_item_fee",
+          "value": 63,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt30kg",
+          "value": 16.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt35kg",
+          "value": 63.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "book_in_delivery_fee",
+          "value": 47.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "citylink_surcharge_road",
+          "value": 21,
+          "enabled": false
+        },
+        {
+          "surchargeId": "dg_consignment_fee",
+          "value": 65.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "attachment_fee_road",
+          "value": 49,
+          "enabled": true
+        },
+        {
+          "surchargeId": "failed_security_screening_fee",
+          "value": 30.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "re_delivery_fee_standard",
+          "value": 35,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tail_lift_road_prio",
+          "value": 92.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "wa_onforwarding_surcharge",
+          "value": 27,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_collection_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_delivery_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "public_holiday_service_fee",
+          "value": 250,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_consignment_fee",
+          "value": 29,
+          "enabled": true
+        },
+        {
+          "surchargeId": "receiver_third_party_fee",
+          "value": 18,
+          "enabled": true
+        },
+        {
+          "surchargeId": "rail_cancellation_fee",
+          "value": 385.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "coastal_container_maintenance",
+          "value": 23.5,
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "LCP Priority",
+      "name": "LCP Priority",
+      "fuelSurchargePercent": 28.01,
+      "surcharges": [
+        {
+          "surchargeId": "security",
+          "value": 8.2,
+          "enabled": true
+        },
+        {
+          "surchargeId": "oversize_item_fee",
+          "value": 63,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt30kg",
+          "value": 16.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt35kg",
+          "value": 63.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "book_in_delivery_fee",
+          "value": 47.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "b2c_failed_delivery_fee",
+          "value": 10,
+          "enabled": true
+        },
+        {
+          "surchargeId": "futile_pickup_fee",
+          "value": 21,
+          "enabled": true
+        },
+        {
+          "surchargeId": "failed_security_screening_fee",
+          "value": 30.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "re_delivery_fee_standard",
+          "value": 35,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tail_lift_road_prio",
+          "value": 92.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "wa_onforwarding_surcharge",
+          "value": 27,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_collection_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_delivery_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "public_holiday_service_fee",
+          "value": 250,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_consignment_fee",
+          "value": 29,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_1",
+          "value": 105.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_2",
+          "value": 212.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "customs_clearance_admin",
+          "value": 71,
+          "enabled": true
+        },
+        {
+          "surchargeId": "export_customs_entry",
+          "value": 20,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_entry",
+          "value": 94.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_inspection",
+          "value": 127.5,
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "LCP GO Std",
+      "name": "LCP GO Std",
+      "fuelSurchargePercent": 28.01,
+      "surcharges": [
+        {
+          "surchargeId": "security",
+          "value": 8.2,
+          "enabled": true
+        },
+        {
+          "surchargeId": "oversize_item_fee",
+          "value": 63,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt30kg",
+          "value": 16.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt35kg",
+          "value": 63.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "book_in_delivery_fee",
+          "value": 47.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "account_service_fee_courier",
+          "value": 5.5,
+          "enabled": false
+        },
+        {
+          "surchargeId": "b2c_failed_delivery_fee",
+          "value": 10,
+          "enabled": true
+        },
+        {
+          "surchargeId": "futile_pickup_fee",
+          "value": 21,
+          "enabled": true
+        },
+        {
+          "surchargeId": "failed_security_screening_fee",
+          "value": 30.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "re_delivery_fee_standard",
+          "value": 35,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tail_lift_road_prio",
+          "value": 92.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "wa_onforwarding_surcharge",
+          "value": 27,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_collection_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_delivery_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "public_holiday_service_fee",
+          "value": 250,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_consignment_fee",
+          "value": 29,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_1",
+          "value": 105.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_2",
+          "value": 212.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "customs_clearance_admin",
+          "value": 71,
+          "enabled": true
+        },
+        {
+          "surchargeId": "export_customs_entry",
+          "value": 20,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_entry",
+          "value": 94.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_inspection",
+          "value": 127.5,
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "LCP GO Priority",
+      "name": "LCP GO Priority",
+      "fuelSurchargePercent": 28.01,
+      "surcharges": [
+        {
+          "surchargeId": "security",
+          "value": 8.2,
+          "enabled": true
+        },
+        {
+          "surchargeId": "oversize_item_fee",
+          "value": 63,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt30kg",
+          "value": 16.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt35kg",
+          "value": 63.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "book_in_delivery_fee",
+          "value": 47.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "account_service_fee_courier",
+          "value": 5.5,
+          "enabled": false
+        },
+        {
+          "surchargeId": "b2c_failed_delivery_fee",
+          "value": 10,
+          "enabled": true
+        },
+        {
+          "surchargeId": "futile_pickup_fee",
+          "value": 21,
+          "enabled": true
+        },
+        {
+          "surchargeId": "failed_security_screening_fee",
+          "value": 30.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "re_delivery_fee_standard",
+          "value": 35,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tail_lift_road_prio",
+          "value": 92.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "wa_onforwarding_surcharge",
+          "value": 27,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_collection_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_delivery_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "public_holiday_service_fee",
+          "value": 250,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_consignment_fee",
+          "value": 29,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_1",
+          "value": 105.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_2",
+          "value": 212.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "customs_clearance_admin",
+          "value": 71,
+          "enabled": true
+        },
+        {
+          "surchargeId": "export_customs_entry",
+          "value": 20,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_entry",
+          "value": 94.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_inspection",
+          "value": 127.5,
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "LCP GO Std 167",
+      "name": "LCP GO Std 167",
+      "fuelSurchargePercent": 28.01,
+      "surcharges": [
+        {
+          "surchargeId": "security",
+          "value": 8.2,
+          "enabled": true
+        },
+        {
+          "surchargeId": "oversize_item_fee",
+          "value": 63,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt30kg",
+          "value": 16.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt35kg",
+          "value": 63.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "book_in_delivery_fee",
+          "value": 47.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "account_service_fee_courier",
+          "value": 5.5,
+          "enabled": false
+        },
+        {
+          "surchargeId": "b2c_failed_delivery_fee",
+          "value": 10,
+          "enabled": true
+        },
+        {
+          "surchargeId": "futile_pickup_fee",
+          "value": 21,
+          "enabled": true
+        },
+        {
+          "surchargeId": "failed_security_screening_fee",
+          "value": 30.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "re_delivery_fee_standard",
+          "value": 35,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tail_lift_road_prio",
+          "value": 92.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "wa_onforwarding_surcharge",
+          "value": 27,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_collection_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_delivery_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "public_holiday_service_fee",
+          "value": 250,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_consignment_fee",
+          "value": 29,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_1",
+          "value": 105.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_2",
+          "value": 212.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "customs_clearance_admin",
+          "value": 71,
+          "enabled": true
+        },
+        {
+          "surchargeId": "export_customs_entry",
+          "value": 20,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_entry",
+          "value": 94.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_inspection",
+          "value": 127.5,
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "LCP GO Priority 167",
+      "name": "LCP GO Priority 167",
+      "fuelSurchargePercent": 28.01,
+      "surcharges": [
+        {
+          "surchargeId": "security",
+          "value": 8.2,
+          "enabled": true
+        },
+        {
+          "surchargeId": "oversize_item_fee",
+          "value": 63,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt30kg",
+          "value": 16.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt35kg",
+          "value": 63.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "book_in_delivery_fee",
+          "value": 47.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "account_service_fee_courier",
+          "value": 5.5,
+          "enabled": false
+        },
+        {
+          "surchargeId": "b2c_failed_delivery_fee",
+          "value": 10,
+          "enabled": true
+        },
+        {
+          "surchargeId": "futile_pickup_fee",
+          "value": 21,
+          "enabled": true
+        },
+        {
+          "surchargeId": "failed_security_screening_fee",
+          "value": 30.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "re_delivery_fee_standard",
+          "value": 35,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tail_lift_road_prio",
+          "value": 92.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "wa_onforwarding_surcharge",
+          "value": 27,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_collection_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_delivery_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "public_holiday_service_fee",
+          "value": 250,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_consignment_fee",
+          "value": 29,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_1",
+          "value": 105.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_2",
+          "value": 212.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "customs_clearance_admin",
+          "value": 71,
+          "enabled": true
+        },
+        {
+          "surchargeId": "export_customs_entry",
+          "value": 20,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_entry",
+          "value": 94.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_inspection",
+          "value": 127.5,
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "B2B Std",
+      "name": "B2B Std",
+      "fuelSurchargePercent": 39.74,
+      "surcharges": [
+        {
+          "surchargeId": "oversize_item_fee",
+          "value": 63,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt30kg",
+          "value": 16.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt35kg",
+          "value": 63.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "book_in_delivery_fee",
+          "value": 47.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "citylink_surcharge_road",
+          "value": 21,
+          "enabled": false
+        },
+        {
+          "surchargeId": "dg_consignment_fee",
+          "value": 65.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "attachment_fee_road",
+          "value": 49,
+          "enabled": true
+        },
+        {
+          "surchargeId": "failed_security_screening_fee",
+          "value": 30.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "re_delivery_fee_standard",
+          "value": 35,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tail_lift_road_prio",
+          "value": 92.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "wa_onforwarding_surcharge",
+          "value": 27,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_collection_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_delivery_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "public_holiday_service_fee",
+          "value": 250,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_consignment_fee",
+          "value": 29,
+          "enabled": true
+        },
+        {
+          "surchargeId": "receiver_third_party_fee",
+          "value": 18,
+          "enabled": true
+        },
+        {
+          "surchargeId": "rail_cancellation_fee",
+          "value": 385.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "coastal_container_maintenance",
+          "value": 23.5,
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "B2B Priority",
+      "name": "B2B Priority",
+      "fuelSurchargePercent": 28.01,
+      "surcharges": [
+        {
+          "surchargeId": "security",
+          "value": 8.2,
+          "enabled": true
+        },
+        {
+          "surchargeId": "oversize_item_fee",
+          "value": 63,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt30kg",
+          "value": 16.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt35kg",
+          "value": 63.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "book_in_delivery_fee",
+          "value": 47.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "b2c_failed_delivery_fee",
+          "value": 10,
+          "enabled": true
+        },
+        {
+          "surchargeId": "futile_pickup_fee",
+          "value": 21,
+          "enabled": true
+        },
+        {
+          "surchargeId": "failed_security_screening_fee",
+          "value": 30.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "re_delivery_fee_standard",
+          "value": 35,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tail_lift_road_prio",
+          "value": 92.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "wa_onforwarding_surcharge",
+          "value": 27,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_collection_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_delivery_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "public_holiday_service_fee",
+          "value": 250,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_consignment_fee",
+          "value": 29,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_1",
+          "value": 105.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_2",
+          "value": 212.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "customs_clearance_admin",
+          "value": 71,
+          "enabled": true
+        },
+        {
+          "surchargeId": "export_customs_entry",
+          "value": 20,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_entry",
+          "value": 94.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_inspection",
+          "value": 127.5,
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "B2B Pallets Express",
+      "name": "B2B Pallets Express",
+      "fuelSurchargePercent": 56.97,
+      "surcharges": [
+        {
+          "surchargeId": "citylink_surcharge_melbourne_percent",
+          "value": 1.25,
+          "enabled": true
+        },
+        {
+          "surchargeId": "dg_consignment_fee_pallet",
+          "value": 168,
+          "enabled": false
+        },
+        {
+          "surchargeId": "ex_wa_pickup_consignment_fee",
+          "value": 57,
+          "enabled": true
+        },
+        {
+          "surchargeId": "ex_wa_pickup_kg_rate_tier1",
+          "value": 0.11,
+          "enabled": true
+        },
+        {
+          "surchargeId": "ex_wa_pickup_kg_rate_tier2",
+          "value": 0.11,
+          "enabled": true
+        },
+        {
+          "surchargeId": "ex_wa_pickup_kg_rate_tier3",
+          "value": 0.09,
+          "enabled": true
+        },
+        {
+          "surchargeId": "ex_wa_pickup_kg_rate_tier4",
+          "value": 0.06,
+          "enabled": true
+        },
+        {
+          "surchargeId": "hand_unload_fee",
+          "value": 73.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "account_transfer_fee",
+          "value": 35.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "account_service_fee_pallet",
+          "value": 35.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "re_consignment_fee_pallet",
+          "value": 54.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "re_delivery_fee_pallet",
+          "value": 98,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tail_lift_pallet",
+          "value": 99,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tail_lift_pallet_additional",
+          "value": 47.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_collection_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_delivery_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "public_holiday_service_fee",
+          "value": 250,
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "B2B Pallets General Tiered",
+      "name": "B2B Pallets General Tiered",
+      "fuelSurchargePercent": 56.97,
+      "surcharges": [
+        {
+          "surchargeId": "citylink_surcharge_melbourne_percent",
+          "value": 1.25,
+          "enabled": true
+        },
+        {
+          "surchargeId": "dg_consignment_fee_pallet",
+          "value": 168,
+          "enabled": false
+        },
+        {
+          "surchargeId": "ex_wa_pickup_consignment_fee",
+          "value": 57,
+          "enabled": true
+        },
+        {
+          "surchargeId": "ex_wa_pickup_kg_rate_tier1",
+          "value": 0.11,
+          "enabled": true
+        },
+        {
+          "surchargeId": "ex_wa_pickup_kg_rate_tier2",
+          "value": 0.11,
+          "enabled": true
+        },
+        {
+          "surchargeId": "ex_wa_pickup_kg_rate_tier3",
+          "value": 0.09,
+          "enabled": true
+        },
+        {
+          "surchargeId": "ex_wa_pickup_kg_rate_tier4",
+          "value": 0.06,
+          "enabled": true
+        },
+        {
+          "surchargeId": "hand_unload_fee",
+          "value": 73.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "account_transfer_fee",
+          "value": 35.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "account_service_fee_pallet",
+          "value": 35.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "re_consignment_fee_pallet",
+          "value": 54.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "re_delivery_fee_pallet",
+          "value": 98,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tail_lift_pallet",
+          "value": 99,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tail_lift_pallet_additional",
+          "value": 47.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_collection_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_delivery_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "public_holiday_service_fee",
+          "value": 250,
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "B2C Std",
+      "name": "B2C Std",
+      "fuelSurchargePercent": 28.01,
+      "surcharges": [
+        {
+          "surchargeId": "security",
+          "value": 8.2,
+          "enabled": true
+        },
+        {
+          "surchargeId": "oversize_item_fee",
+          "value": 63,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt30kg",
+          "value": 16.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt35kg",
+          "value": 63.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "book_in_delivery_fee",
+          "value": 47.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "b2c_failed_delivery_fee",
+          "value": 10,
+          "enabled": true
+        },
+        {
+          "surchargeId": "futile_pickup_fee",
+          "value": 21,
+          "enabled": true
+        },
+        {
+          "surchargeId": "failed_security_screening_fee",
+          "value": 30.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "re_delivery_fee_standard",
+          "value": 35,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tail_lift_road_prio",
+          "value": 92.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "wa_onforwarding_surcharge",
+          "value": 27,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_collection_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_delivery_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "public_holiday_service_fee",
+          "value": 250,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_consignment_fee",
+          "value": 29,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_1",
+          "value": 105.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_2",
+          "value": 212.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "customs_clearance_admin",
+          "value": 71,
+          "enabled": true
+        },
+        {
+          "surchargeId": "export_customs_entry",
+          "value": 20,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_entry",
+          "value": 94.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_inspection",
+          "value": 127.5,
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "B2C Priority",
+      "name": "B2C Priority",
+      "fuelSurchargePercent": 28.01,
+      "surcharges": [
+        {
+          "surchargeId": "security",
+          "value": 8.2,
+          "enabled": true
+        },
+        {
+          "surchargeId": "oversize_item_fee",
+          "value": 63,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt30kg",
+          "value": 16.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_handling_gt35kg",
+          "value": 63.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "book_in_delivery_fee",
+          "value": 47.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "b2c_failed_delivery_fee",
+          "value": 10,
+          "enabled": true
+        },
+        {
+          "surchargeId": "futile_pickup_fee",
+          "value": 21,
+          "enabled": true
+        },
+        {
+          "surchargeId": "failed_security_screening_fee",
+          "value": 30.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "re_delivery_fee_standard",
+          "value": 35,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tail_lift_road_prio",
+          "value": 92.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "wa_onforwarding_surcharge",
+          "value": 27,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_collection_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "after_hours_delivery_fee",
+          "value": 100,
+          "enabled": true
+        },
+        {
+          "surchargeId": "public_holiday_service_fee",
+          "value": 250,
+          "enabled": true
+        },
+        {
+          "surchargeId": "manual_consignment_fee",
+          "value": 29,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_1",
+          "value": 105.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tsf_zone_2",
+          "value": 212.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "customs_clearance_admin",
+          "value": 71,
+          "enabled": true
+        },
+        {
+          "surchargeId": "export_customs_entry",
+          "value": 20,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_entry",
+          "value": 94.5,
+          "enabled": true
+        },
+        {
+          "surchargeId": "quarantine_inspection",
+          "value": 127.5,
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "WA PE Special",
+      "name": "WA PE Special",
+      "fuelSurchargePercent": 56.97,
+      "surcharges": [
+        {
+          "surchargeId": "tail_lift_pallet",
+          "value": 99,
+          "enabled": true
+        },
+        {
+          "surchargeId": "tail_lift_pallet_additional",
+          "value": 47.5,
+          "enabled": true
+        }
+      ]
+    }
+  ]
+}

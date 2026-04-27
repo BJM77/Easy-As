@@ -1,0 +1,11 @@
+[
+    {
+        "From": "PERTH",
+        "To": "ADELAIDE",
+        "Service": "WA PE SPECIAL",
+        "Reciprocal": "N",
+        "Basic": 140,
+        "Minimum": 140,
+        "0-99999KGS": 0.55
+    }
+]

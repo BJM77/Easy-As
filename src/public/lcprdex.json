@@ -1,0 +1,8892 @@
+[
+  {
+    "Logic": "LCPRDEXABXABX",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXABXADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXABXBNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXABXCBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXCCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXCNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXABXCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXABXDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXABXHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXABXHRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXABXIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXABXMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXNCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXABXNCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXABXNTL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXABXNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXABXNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXOSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXABXRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXABXROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXSCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXABXSEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXABXSYD1",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXABXSYD2",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXABXTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXABXTSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXWNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXABXWOL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXABXWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXABXYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLADL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXADLASP",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLBNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLBRM",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLCBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLCCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLCNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLCWA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLDRW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXADLHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXADLMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLMTG",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXADLNCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLNCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLNT",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLNTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLNWA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLNWSA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXADLOSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLPER",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLSEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLSESA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXADLSWA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLSYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLSYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXADLTSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXADLYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXASPABX",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXASPASP",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXASPBNE",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPCCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPCNS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPDRW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXASPHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPHRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPIVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPMEL1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPMEL2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPMKY",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXASPNCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPNCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPNT",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXASPNTL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXASPOSQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPOVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPROK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPSCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPSEQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXASPSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPSYD1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPSYD2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPTSV",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPWNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPWOL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPWQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXASPYORK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBNEABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNEADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNEASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBNEBNE",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBNEBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBNECBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBNECCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBNECNS",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBNECNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNECWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBNEDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBNEHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBNEHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNEIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNELST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBNEMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNEMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNEMKY",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBNEMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNENCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNENCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBNENT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBNENTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNENWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBNENWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNEOSQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBNEOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNEPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBNERNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNEROK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBNESCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNESEQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBNESESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNESWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBNESYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNESYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNETAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBNETSV",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBNEWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNEWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBNEWQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBNEYORK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBRMABX",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBRMASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMBNE",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMBRM",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBRMCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMCCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMCNS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMCWA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBRMDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMHRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMIVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMMEL1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMMEL2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMMKY",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBRMNCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMNCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMNTL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMNWA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBRMNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBRMOSQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMOVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMPER",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBRMRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMROK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMSCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMSEQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXBRMSWA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXBRMSYD1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMSYD2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMTSV",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMWNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMWOL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMWQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXBRMYORK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCBRABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCBRBNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCBRCBR",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCBRCCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRCNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCBRDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCBRHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCBRHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCBRMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRNCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRNCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCBRNTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCBRNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBROSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBROVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCBRRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRSEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCBRSYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRSYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCBRTSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCBRYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCCQLDBNE",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCCQLDBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCCQLDCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCCQLDCCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCCQLDCNS",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCCQLDCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCCQLDDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCCQLDHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCCQLDHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCCQLDMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDMKY",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCCQLDMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDNCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDNCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCCQLDNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCCQLDNTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCCQLDNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDOSQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCCQLDOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCCQLDRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDROK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCCQLDSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDSEQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCCQLDSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCCQLDSYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDSYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCCQLDTSV",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCCQLDWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCCQLDWQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCCQLDYORK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSBNE",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSCCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSCNS",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSMKY",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSNCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSNCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSNTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSOSQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSROK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSSEQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSSYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSSYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSTSV",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSYORK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSWABX",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSWADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSWBNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSWCBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWCCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWCNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSWCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSWDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSWHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSWHRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSWIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSWMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWNCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSWNCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSWNTL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSWNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSWNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWOSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSWRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSWROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWSCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSWSEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSWSYD1",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSWSYD2",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSWTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCNSWTSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWWNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSWWOL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCNSWWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCNSWYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCWAABX",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWAADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCWAASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWABNE",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWABRM",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCWACBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWACCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWACNS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWACNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWACWA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCWADRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWAHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWAHRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWAIVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWALST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWAMEL1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWAMEL2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWAMKY",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWAMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCWANCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWANCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWANT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWANTL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWANWA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCWANWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCWAOSQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWAOVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWAPER",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCWARNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWAROK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWASCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWASEQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWASESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXCWASWA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXCWASYD1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWASYD2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWATAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWATSV",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWAWNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWAWOL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWAWQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXCWAYORK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWABX",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXDRWASP",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXDRWBNE",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWCCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWCNS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWDRW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXDRWHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWHRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWIVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWMEL1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWMEL2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWMKY",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXDRWNCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWNCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWNT",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXDRWNTL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXDRWOSQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWOVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWROK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWSCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWSEQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXDRWSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWSYD1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWSYD2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWTSV",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWWNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWWOL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWWQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXDRWYORK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBAABX",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBAADL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBAASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBABNE",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBABRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBACBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBACCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBACNS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBACNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBACWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBADRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBAHBA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXHBAHRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBAIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHBALST",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXHBAMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHBAMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHBAMKY",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBAMTG",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBANCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBANCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBANT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBANTL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBANWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBANWSA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBAOSQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBAOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHBAPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBARNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBAROK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBASCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBASEQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBASESA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBASWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBASYD1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBASYD2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBATAS",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXHBATSV",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBAWNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBAWOL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBAWQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHBAYORK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHRNSWABX",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXHRNSWADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHRNSWBNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHRNSWCBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWCCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWCNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXHRNSWCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHRNSWDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHRNSWHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHRNSWHRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXHRNSWIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHRNSWMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWNCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXHRNSWNCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHRNSWNTL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXHRNSWNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHRNSWNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWOSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHRNSWRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXHRNSWROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWSCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXHRNSWSEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHRNSWSYD1",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXHRNSWSYD2",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXHRNSWTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXHRNSWTSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWWNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXHRNSWWOL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXHRNSWWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXHRNSWYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXIVICBNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXIVICCBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICCCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICCNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXIVICDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXIVICHBA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICIVIC",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXIVICLST",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICMEL1",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXIVICMEL2",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXIVICMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICNCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICNCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXIVICNTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXIVICNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICOSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICOVIC",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXIVICPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXIVICRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICSEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXIVICSYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICSYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICTAS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICTSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXIVICYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXLSTABX",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTADL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTBNE",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTCCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTCNS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTHBA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXLSTHRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXLSTLST",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXLSTMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXLSTMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXLSTMKY",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTMTG",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTNCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTNCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTNTL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTNWSA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTOSQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXLSTPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTROK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTSCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTSEQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTSESA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTSYD1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTSYD2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTTAS",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXLSTTSV",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTWNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTWOL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTWQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXLSTYORK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL1ABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1ADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1ASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL1BNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1BRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL1CBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1CCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1CNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1CNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1CWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL1DRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL1HBA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1HRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1IVIC",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMEL1LST",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1MEL1",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMEL1MEL2",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMEL1MKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1MTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1NCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1NCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1NT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL1NTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1NWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL1NWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1OSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1OVIC",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMEL1PER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL1RNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1ROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1SCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1SEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1SESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1SWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL1SYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1SYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1TAS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1TSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1WNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1WOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1WQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL1YORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2ABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2ADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2ASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL2BNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2BRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL2CBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2CCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2CNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2CNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2CWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL2DRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL2HBA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2HRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2IVIC",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMEL2LST",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2MEL1",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMEL2MEL2",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMEL2MKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2MTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2NCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2NCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2NT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL2NTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2NWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL2NWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2OSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2OVIC",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMEL2PER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL2RNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2ROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2SCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2SEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2SESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2SWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMEL2SYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2SYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2TAS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2TSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2WNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2WOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2WQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMEL2YORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMKYBNE",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMKYBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMKYCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMKYCCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMKYCNS",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMKYCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMKYDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMKYHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMKYHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMKYMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYMKY",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMKYMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYNCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYNCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMKYNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMKYNTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMKYNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYOSQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMKYOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMKYRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYROK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMKYSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYSEQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMKYSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMKYSYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYSYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMKYTSV",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMKYWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMKYWQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMKYYORK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMTGABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGADL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMTGASP",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGBNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGBRM",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGCBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGCCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGCNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGCWA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGDRW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMTGHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMTGMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGMTG",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMTGNCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGNCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGNT",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGNTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGNWA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGNWSA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMTGOSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGPER",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGSEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGSESA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXMTGSWA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGSYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGSYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXMTGTSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXMTGYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWABX",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCNSWADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCNSWBNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCNSWCBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWCCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWCNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCNSWCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCNSWDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCNSWHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCNSWHRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCNSWIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCNSWMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWNCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCNSWNCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCNSWNTL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCNSWNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCNSWNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWOSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCNSWRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCNSWROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWSCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCNSWSEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCNSWSYD1",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCNSWSYD2",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCNSWTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCNSWTSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWWNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCNSWWOL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCNSWWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCNSWYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCQLDBNE",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCQLDBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCQLDCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCQLDCCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCQLDCNS",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCQLDCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCQLDDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCQLDHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCQLDHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCQLDMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDMKY",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCQLDMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDNCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDNCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCQLDNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCQLDNTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCQLDNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDOSQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCQLDOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCQLDRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDROK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCQLDSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDSEQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCQLDSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCQLDSYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDSYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNCQLDTSV",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCQLDWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNCQLDWQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNCQLDYORK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNTABX",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTASP",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNTBNE",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTCCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTCNS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTDRW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNTHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTHRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTIVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTMEL1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTMEL2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTMKY",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTNCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTNCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTNT",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNTNTL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTOSQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTOVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTROK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTSCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTSEQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTSYD1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTSYD2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTTSV",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTWNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTWOL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTWQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTYORK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTLABX",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNTLADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTLBNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTLCBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLCCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLCNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNTLCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTLDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTLHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTLHRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNTLIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTLMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLNCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNTLNCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTLNTL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNTLNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTLNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLOSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTLRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNTLROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLSCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNTLSEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTLSYD1",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNTLSYD2",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNTLTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNTLTSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLWNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNTLWOL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNTLWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNTLYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWAABX",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWAADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWAASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWABNE",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWABRM",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNWACBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWACCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWACNS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWACNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWACWA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNWADRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWAHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWAHRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWAIVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWALST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWAMEL1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWAMEL2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWAMKY",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWAMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWANCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWANCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWANT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWANTL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWANWA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNWANWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWAOSQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWAOVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWAPER",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNWARNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWAROK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWASCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWASEQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWASESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWASWA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNWASYD1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWASYD2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWATAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWATSV",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWAWNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWAWOL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWAWQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWAYORK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWSAABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSAADL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNWSAASP",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSABNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSABRM",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSACBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSACCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSACNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSACNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSACWA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSADRW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSAHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWSAHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSAIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSALST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWSAMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSAMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSAMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSAMTG",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNWSANCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSANCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSANT",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSANTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSANWA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSANWSA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNWSAOSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSAOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSAPER",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSARNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSAROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSASCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSASEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSASESA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXNWSASWA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSASYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSASYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSATAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXNWSATSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSAWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSAWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSAWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXNWSAYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOSQLDBNE",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXOSQLDBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOSQLDCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOSQLDCCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXOSQLDCNS",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXOSQLDCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOSQLDDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOSQLDHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOSQLDHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOSQLDMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDMKY",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXOSQLDMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDNCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDNCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXOSQLDNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOSQLDNTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOSQLDNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDOSQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXOSQLDOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOSQLDRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDROK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXOSQLDSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDSEQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXOSQLDSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOSQLDSYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDSYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOSQLDTSV",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXOSQLDWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOSQLDWQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXOSQLDYORK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXOVICABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOVICBNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOVICCBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICCCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICCNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOVICDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOVICHBA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICIVIC",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXOVICLST",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICMEL1",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXOVICMEL2",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXOVICMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICNCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICNCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOVICNTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOVICNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICOSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICOVIC",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXOVICPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOVICRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICSEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXOVICSYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICSYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICTAS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICTSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXOVICYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXPERABX",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXPERASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERBNE",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERBRM",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXPERCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERCCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERCNS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERCWA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXPERDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERHRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERIVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERMEL1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERMEL2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERMKY",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXPERNCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERNCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERNTL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERNWA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXPERNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXPEROSQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPEROVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERPER",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXPERRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERROK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERSCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERSEQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXPERSWA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXPERSYD1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERSYD2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERTSV",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERWNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERWOL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERWQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXPERYORK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXRNSWABX",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXRNSWADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXRNSWBNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXRNSWCBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWCCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWCNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXRNSWCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXRNSWDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXRNSWHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXRNSWHRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXRNSWIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXRNSWMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWNCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXRNSWNCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXRNSWNTL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXRNSWNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXRNSWNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWOSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXRNSWRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXRNSWROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWSCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXRNSWSEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXRNSWSYD1",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXRNSWSYD2",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXRNSWTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXRNSWTSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWWNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXRNSWWOL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXRNSWWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXRNSWYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXROKBNE",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXROKBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXROKCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXROKCCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXROKCNS",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXROKCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXROKDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXROKHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXROKHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXROKMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKMKY",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXROKMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKNCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKNCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXROKNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXROKNTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXROKNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKOSQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXROKOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXROKRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKROK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXROKSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKSEQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXROKSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXROKSYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKSYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXROKTSV",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXROKWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXROKWQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXROKYORK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSCNSWABX",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSCNSWADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSCNSWBNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSCNSWCBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWCCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWCNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSCNSWCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSCNSWDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSCNSWHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSCNSWHRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSCNSWIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSCNSWMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWNCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSCNSWNCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSCNSWNTL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSCNSWNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSCNSWNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWOSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSCNSWRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSCNSWROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWSCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSCNSWSEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSCNSWSYD1",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSCNSWSYD2",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSCNSWTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSCNSWTSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWWNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSCNSWWOL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSCNSWWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSCNSWYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSEQLDBNE",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSEQLDBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSEQLDCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSEQLDCCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSEQLDCNS",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSEQLDCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSEQLDDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSEQLDHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSEQLDHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSEQLDMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDMKY",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSEQLDMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDNCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDNCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSEQLDNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSEQLDNTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSEQLDNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDOSQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSEQLDOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSEQLDRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDROK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSEQLDSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDSEQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSEQLDSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSEQLDSYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDSYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSEQLDTSV",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSEQLDWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSEQLDWQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSEQLDYORK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSESAABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESAADL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSESAASP",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESABNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESABRM",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESACBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESACCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESACNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESACNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESACWA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESADRW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESAHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSESAHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESAIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESALST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSESAMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESAMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESAMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESAMTG",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSESANCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESANCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESANT",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESANTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESANWA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESANWSA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSESAOSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESAOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESAPER",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESARNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESAROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESASCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESASEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESASESA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSESASWA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESASYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESASYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESATAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSESATSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESAWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESAWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESAWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSESAYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSWAABX",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWAADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSWAASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWABNE",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWABRM",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSWACBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWACCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWACNS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWACNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWACWA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSWADRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWAHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWAHRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWAIVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWALST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWAMEL1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWAMEL2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWAMKY",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWAMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSWANCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWANCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWANT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWANTL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWANWA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSWANWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSWAOSQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWAOVIC",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWAPER",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSWARNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWAROK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWASCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWASEQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWASESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSWASWA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSWASYD1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWASYD2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWATAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWATSV",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWAWNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWAWOL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWAWQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSWAYORK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD1ABX",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD1ADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1ASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD1BNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1BRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD1CBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1CCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1CNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1CNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD1CWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD1DRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD1HBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD1HRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD1IVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1LST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD1MEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1MEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1MKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1MTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1NCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD1NCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1NT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD1NTL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD1NWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD1NWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1OSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1OVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1PER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD1RNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD1ROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1SCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD1SEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1SESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1SWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD1SYD1",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD1SYD2",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD1TAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD1TSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1WNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD1WOL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD1WQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD1YORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2ABX",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD2ADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2ASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD2BNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2BRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD2CBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2CCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2CNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2CNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD2CWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD2DRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD2HBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD2HRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD2IVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2LST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD2MEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2MEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2MKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2MTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2NCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD2NCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2NT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD2NTL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD2NWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD2NWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2OSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2OVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2PER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD2RNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD2ROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2SCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD2SEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2SESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2SWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD2SYD1",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD2SYD2",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD2TAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXSYD2TSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2WNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD2WOL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXSYD2WQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXSYD2YORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTASABX",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASADL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASBNE",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASCCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASCNS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASHBA",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXTASHRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTASLST",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXTASMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTASMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTASMKY",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASMTG",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASNCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASNCQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASNTL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASNWSA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASOSQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTASPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASRNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASROK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASSCNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASSEQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASSESA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASSYD1",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASSYD2",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASTAS",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXTASTSV",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASWNSW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASWOL",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASWQLD",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTASYORK",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTSVABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTSVBNE",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXTSVBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTSVCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTSVCCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXTSVCNS",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXTSVCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTSVDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTSVHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTSVHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTSVMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVMKY",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXTSVMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVNCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVNCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXTSVNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTSVNTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTSVNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVOSQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXTSVOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTSVRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVROK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXTSVSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVSEQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXTSVSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTSVSYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVSYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXTSVTSV",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXTSVWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXTSVWQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXTSVYORK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWNSWABX",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWNSWADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWNSWBNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWNSWCBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWCCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWCNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWNSWCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWNSWDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWNSWHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWNSWHRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWNSWIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWNSWMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWNCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWNSWNCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWNSWNTL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWNSWNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWNSWNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWOSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWNSWRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWNSWROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWSCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWNSWSEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWNSWSYD1",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWNSWSYD2",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWNSWTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWNSWTSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWWNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWNSWWOL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWNSWWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWNSWYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLABX",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWOLADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWOLBNE",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWOLCBR",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLCCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLCNS",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWOLCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWOLDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWOLHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWOLHRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWOLIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWOLMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLMKY",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLNCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWOLNCQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWOLNTL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWOLNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWOLNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLOSQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWOLRNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWOLROK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLSCNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWOLSEQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWOLSYD1",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWOLSYD2",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWOLTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWOLTSV",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLWNSW",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWOLWOL",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWOLWQLD",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWOLYORK",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWQLDBNE",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWQLDBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWQLDCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWQLDCCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWQLDCNS",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWQLDCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWQLDDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWQLDHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWQLDHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWQLDMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDMKY",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWQLDMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDNCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDNCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWQLDNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWQLDNTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWQLDNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDOSQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWQLDOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWQLDRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDROK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWQLDSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDSEQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWQLDSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWQLDSYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDSYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXWQLDTSV",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWQLDWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXWQLDWQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXWQLDYORK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXYORKABX",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKADL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKASP",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXYORKBNE",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXYORKBRM",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXYORKCBR",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXYORKCCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXYORKCNS",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXYORKCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKCWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXYORKDRW",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXYORKHBA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXYORKHRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKIVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKLST",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXYORKMEL1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKMEL2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKMKY",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXYORKMTG",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKNCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKNCQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXYORKNT",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXYORKNTL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKNWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXYORKNWSA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKOSQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXYORKOVIC",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKPER",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXYORKRNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKROK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXYORKSCNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKSEQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXYORKSESA",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKSWA",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXYORKSYD1",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKSYD2",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKTAS",
+    "LCPRDEXBasic": 23.48,
+    "LCPRDEXKg": 0.98
+  },
+  {
+    "Logic": "LCPRDEXYORKTSV",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXYORKWNSW",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKWOL",
+    "LCPRDEXBasic": 19.87,
+    "LCPRDEXKg": 0.8
+  },
+  {
+    "Logic": "LCPRDEXYORKWQLD",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXYORKYORK",
+    "LCPRDEXBasic": 14.99,
+    "LCPRDEXKg": 0.46
+  },
+  {
+    "Logic": "LCPRDEXAccount Name",
+    "LCPRDEXBasic": "",
+    "LCPRDEXKg": ""
+  },
+  {
+    "Logic": "LCPRDEXLCP AGENT - BODDINGTON HARDWARE & NEWS",
+    "LCPRDEXBasic": "",
+    "LCPRDEXKg": ""
+  },
+  {
+    "Logic": "LCPRDEXLCP ALTE FREIGHTLINES PTY LTD - IPEC",
+    "LCPRDEXBasic": "",
+    "LCPRDEXKg": ""
+  },
+  {
+    "Logic": "LCPRDEXLCP CATHERINE KAYE CRAFTER - IPEC",
+    "LCPRDEXBasic": "",
+    "LCPRDEXKg": ""
+  },
+  {
+    "Logic": "LCPRDEXLCP CORRIGIN FREIGHT - IPEC",
+    "LCPRDEXBasic": "",
+    "LCPRDEXKg": ""
+  },
+  {
+    "Logic": "LCPRDEXLCP EXMOUTH FREIGHT SERVICES  - IPEC",
+    "LCPRDEXBasic": "",
+    "LCPRDEXKg": ""
+  },
+  {
+    "Logic": "LCPRDEXLCP HARVEY COURIERS - ROAD",
+    "LCPRDEXBasic": "",
+    "LCPRDEXKg": ""
+  },
+  {
+    "Logic": "LCPRDEXLCP MOUNT MAGNET FREIGHT - IPEC",
+    "LCPRDEXBasic": "",
+    "LCPRDEXKg": ""
+  },
+  {
+    "Logic": "LCPRDEXLCP NARROGIN FREIGHT",
+    "LCPRDEXBasic": "",
+    "LCPRDEXKg": ""
+  },
+  {
+    "Logic": "LCPRDEXLCP ROCKTRANS - IPEC",
+    "LCPRDEXBasic": "",
+    "LCPRDEXKg": ""
+  },
+  {
+    "Logic": "LCPRDEXLCP SUTTARA PTY LTD - IPEC",
+    "LCPRDEXBasic": "",
+    "LCPRDEXKg": ""
+  },
+  {
+    "Logic": "LCPRDEXLCP TOM PRICE - IPEC",
+    "LCPRDEXBasic": "",
+    "LCPRDEXKg": ""
+  },
+  {
+    "Logic": "LCPRDEXLCP URIKA TRANSPORT - IPEC",
+    "LCPRDEXBasic": "",
+    "LCPRDEXKg": ""
+  },
+  {
+    "Logic": "LCPRDEXLCP URIKA TRANSPORT MANDURAH",
+    "LCPRDEXBasic": "",
+    "LCPRDEXKg": ""
+  }
+]
