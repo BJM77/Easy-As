@@ -45,7 +45,19 @@ const ResultRow = ({ result, isLowest }: { result: CalculatedPriceItem, isLowest
                             <div className="space-y-2">
                                 <h4 className="font-bold font-headline flex items-center gap-1.5 uppercase text-muted-foreground tracking-widest text-[9px]"><Percent className="h-3 w-3" /> Surcharges & Markup</h4>
                                 <div className="space-y-1.5 font-headline">
-                                    <div className="flex justify-between"><span>Fuel:</span><span>{formatCurrency(result.fuelSurchargeAmount)}</span></div>
+                                    <div className="flex justify-between"><span>Fuel ({result.fuelSurchargePercentApplied}%):</span><span>{formatCurrency(result.fuelSurchargeAmount)}</span></div>
+                                    
+                                    {/* Map through all other surcharges (Security, Remote Area, etc) */}
+                                    {result.otherSurcharges && result.otherSurcharges.map((s, i) => {
+                                        const isSecurity = s.id === 'security';
+                                        return (
+                                            <div key={i} className="flex justify-between text-muted-foreground">
+                                                <span>{s.name}{isSecurity && result.securitySurchargePercentApplied ? ` (${result.securitySurchargePercentApplied}%)` : ''}:</span>
+                                                <span>{formatCurrency(s.amount)}</span>
+                                            </div>
+                                        );
+                                    })}
+
                                     {result.additionalMarkupAmount !== null && result.additionalMarkupAmount > 0 && (
                                         <div className="flex justify-between"><span>Markup ({result.additionalMarkupPercentApplied}%):</span><span>{formatCurrency(result.additionalMarkupAmount)}</span></div>
                                     )}
