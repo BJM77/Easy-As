@@ -483,7 +483,7 @@ export default function ProposalEditorPageContent() {
             <FileSignature className="mr-2 h-7 w-7 text-primary" /> AI Proposal Builder
           </CardTitle>
           <CardDescription>
-            Create professional, multi-section sales proposals. Data from the "Perfect Plan" tool will automatically populate here.
+            Create professional, multi-section sales proposals. Data from the &quot;Perfect Plan&quot; tool will automatically populate here.
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-wrap items-center gap-4">

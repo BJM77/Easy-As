@@ -6,12 +6,30 @@
 import { genkit } from 'genkit';
 import { googleAI, gemini } from '@genkit-ai/googleai';
 
-export const ai = genkit({
-  plugins: [
-    googleAI({
-      apiKey: process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY,
-      apiVersion: 'v1beta',
-    }),
-  ],
-  model: gemini('gemini-2.0-flash'),
-});
+/**
+ * Genkit factory
+ * Builds a scoped instance when an API key override is supplied, otherwise
+ * falls back to the server-side GEMINI_API_KEY environment variable.
+ */
+export function buildAi(apiKeyOverride?: string) {
+  const apiKey = apiKeyOverride || process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+
+  if (!apiKey) {
+    throw new Error(
+      'GEMINI_API_KEY is not set. Add it to your .env file or pass it as an override.'
+    );
+  }
+
+  return genkit({
+    plugins: [
+      googleAI({
+        apiKey,
+        apiVersion: 'v1beta',
+      }),
+    ],
+    model: gemini('gemini-2.0-flash'),
+  });
+}
+
+// Default instance for shared use
+export const ai = buildAi();

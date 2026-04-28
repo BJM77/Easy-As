@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
+import { Card } from '@/components/ui/card';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import type { PostcodeData, ServiceName, FreightFormValues } from '@/lib/types';
@@ -137,7 +138,7 @@ export default function AIGuruPageContent() {
       )}
 
       <Dialog open={wizardStep !== 'closed'} onOpenChange={(open) => !open && setWizardStep('closed')}>
-        <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col">
+        <DialogContent className="max-w-[90vw] w-full max-h-[90vh] flex flex-col">
           <DialogHeader>
             <DialogTitle>Perfect Plan Assistant</DialogTitle>
             <DialogDescription>{wizardStep.replace(/([A-Z])/g, ' $1').toLowerCase()}</DialogDescription>

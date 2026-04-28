@@ -27,6 +27,7 @@ import { cn, formatCurrency } from '@/lib/utils';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { useRouter } from 'next/navigation';
+import { useSettings } from '@/context/SettingsContext';
 
 interface ChatMessage {
   id: string;
@@ -39,6 +40,7 @@ interface ChatMessage {
 export default function AiQuotePageContent() {
   const router = useRouter();
   const { user, profile, actualRole, loading } = useAuth();
+  const { serviceSettings, surchargeDefinitions } = useSettings();
   const { toast } = useToast();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
@@ -75,15 +77,26 @@ export default function AiQuotePageContent() {
       timestamp: new Date(),
     };
 
+    const currentHistory = messages.map(m => ({
+      role: m.role,
+      content: m.content
+    }));
+
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsThinking(true);
 
     try {
+      const apiKeyOverride = localStorage.getItem('gemini_api_key_override') || undefined;
+
       const result = await processQuoteQuery({ 
         query: input,
+        history: currentHistory,
         userId: user?.uid,
-        companyId: profile?.companyId
+        companyId: profile?.companyId,
+        apiKey: apiKeyOverride,
+        serviceSettings,
+        surchargeDefinitions
       });
 
       const assistantMessage: ChatMessage = {

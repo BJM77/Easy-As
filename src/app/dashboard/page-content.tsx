@@ -17,7 +17,9 @@ import { generateBusinessPulse } from '@/ai/flows/dashboard-pulse-flow';
 import { Badge } from '@/components/ui/badge';
 import DashboardCalculator from '@/components/dashboard/DashboardCalculator';
 import { cn } from '@/lib/utils';
-import { ALL_QUICK_ACTIONS_MAP } from '@/components/dashboard/QuickActionsConfigDialog';
+import QuickActionsConfigDialog, { ALL_QUICK_ACTIONS_MAP } from '@/components/dashboard/QuickActionsConfigDialog';
+import NewProblemDialog from '@/components/NewProblemDialog';
+import NewLeadDialog from '@/components/NewLeadDialog';
 
 import {
   Fuel,
@@ -203,17 +205,20 @@ const AIPulseWidget = ({ activityItems }: { activityItems: any[] }) => {
     );
 };
 
-const QuickActionsSidebar = () => {
+const QuickActionsSidebar = ({ onConfigOpen, onProblemOpen, onLeadOpen }: { onConfigOpen: () => void, onProblemOpen: () => void, onLeadOpen: () => void }) => {
   const { quickActions } = useSettings();
   const router = useRouter();
 
   return (
     <Card className="shadow-md border-none bg-primary/5">
-      <CardHeader className="pb-2 p-4 border-b border-primary/10">
+      <CardHeader className="pb-2 p-4 border-b border-primary/10 flex flex-row items-center justify-between">
         <CardTitle className="text-[10px] font-black uppercase tracking-widest text-primary flex items-center gap-2">
           <LayoutGrid className="h-3.5 w-3.5" />
           Quick Actions
         </CardTitle>
+        <Button variant="ghost" size="sm" className="h-6 w-6 p-0 rounded-full" onClick={onConfigOpen}>
+            <Settings2 className="h-3.5 w-3.5 text-primary" />
+        </Button>
       </CardHeader>
       <CardContent className="p-2 grid grid-cols-2 gap-1.5">
         {quickActions.slice(0, 4).map(key => {
@@ -226,7 +231,18 @@ const QuickActionsSidebar = () => {
               variant="ghost" 
               size="sm" 
               className="h-14 flex-col gap-1 justify-center bg-background border hover:bg-primary/10 hover:text-primary transition-all group"
-              onClick={() => action.href && router.push(action.href)}
+              onClick={() => {
+                if (action.isDialog) {
+                  if (key === 'problem-log') onProblemOpen();
+                  else if (key === 'new-lead') onLeadOpen();
+                } else if (action.href) {
+                  if (action.href.startsWith('http')) {
+                    window.open(action.href, '_blank');
+                  } else {
+                    router.push(action.href);
+                  }
+                }
+              }}
             >
               <Icon className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
               <span className="text-[9px] font-bold uppercase truncate w-full">{action.label}</span>
@@ -239,9 +255,22 @@ const QuickActionsSidebar = () => {
 };
 
 export default function DashboardPageContent() {
-    const { profile, company, actualRole, tokenCompanyId } = useAuth();
+    const { profile, company, actualRole, tokenCompanyId, loading: authLoading } = useAuth();
+    const { quickActions, setQuickActions, isLoadingSettings } = useSettings();
     const firestore = useFirestore();
     const router = useRouter();
+    const [isConfigDialogOpen, setIsConfigDialogOpen] = useState(false);
+    const [isProblemDialogOpen, setIsProblemDialogOpen] = useState(false);
+    const [isLeadDialogOpen, setIsLeadDialogOpen] = useState(false);
+    
+    if (authLoading || isLoadingSettings) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
+                <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
+                <p className="text-[10px] font-black uppercase tracking-widest text-primary animate-pulse">Initializing Command Center...</p>
+            </div>
+        );
+    }
     
     const activeCompanyId = actualRole === 'superadmin' ? (company?.id || profile?.companyId) : (tokenCompanyId || profile?.companyId);
 
@@ -302,7 +331,11 @@ export default function DashboardPageContent() {
                 </div>
 
                 <div className="lg:col-span-4 space-y-4">
-                    <QuickActionsSidebar />
+                    <QuickActionsSidebar 
+                        onConfigOpen={() => setIsConfigDialogOpen(true)} 
+                        onProblemOpen={() => setIsProblemDialogOpen(true)} 
+                        onLeadOpen={() => setIsLeadDialogOpen(true)}
+                    />
                     <FuelSecurityWidget />
                 </div>
             </div>
@@ -310,6 +343,23 @@ export default function DashboardPageContent() {
             <div className="pt-2">
                 <AIPulseWidget activityItems={mergedActivity} />
             </div>
+
+            <QuickActionsConfigDialog
+                isOpen={isConfigDialogOpen}
+                onOpenChange={setIsConfigDialogOpen}
+                currentActions={quickActions}
+                onSave={setQuickActions}
+            />
+            
+            <NewProblemDialog 
+                isOpen={isProblemDialogOpen}
+                onOpenChange={setIsProblemDialogOpen}
+            />
+
+            <NewLeadDialog 
+                isOpen={isLeadDialogOpen}
+                onOpenChange={setIsLeadDialogOpen}
+            />
         </div>
     );
 }

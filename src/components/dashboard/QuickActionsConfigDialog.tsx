@@ -7,7 +7,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import type { QuickActionKey } from '@/lib/types';
-import { Calculator, Scale, ShieldAlert, Sparkles, FileText, BarChartHorizontalBig, GitCompareArrows, Route, Warehouse, FileUp, ExternalLink } from 'lucide-react';
+import { Calculator, Scale, ShieldAlert, Sparkles, FileText, BarChartHorizontalBig, GitCompareArrows, Route, Warehouse, FileUp, ExternalLink, Lightbulb } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 interface QuickActionConfigDialogProps {
@@ -21,6 +21,7 @@ export const ALL_QUICK_ACTIONS_MAP: Record<QuickActionKey, { label: string; href
     'calculator': { label: 'New Quote', href: '/calculator', icon: Calculator },
     'competitor-comparison': { label: 'New CRC', href: '/competitor-comparison', icon: Scale },
     'problem-log': { label: 'Log Problem', href: '/problem-log', icon: ShieldAlert, isDialog: true },
+    'new-lead': { label: 'New Lead', href: '/new-lead', icon: Lightbulb, isDialog: true },
     'ai-guru': { label: 'Perfect Plan', href: '/ai-guru', icon: Sparkles },
     'rate-card': { label: 'Rate Card', href: '/rate-card', icon: FileText },
     'sb-comparison': { label: 'Spend Band Comp', href: '/sb-comparison', icon: BarChartHorizontalBig },

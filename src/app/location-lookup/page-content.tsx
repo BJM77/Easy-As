@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import type { LocationLookupData, PostcodeData, VipContact, RASRateEntry, PEZonesEntry } from '@/lib/types';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Building, User, Phone, Mail, MapPin, Search, Warehouse, Car, Route, LayoutGrid, List, Printer, UserCheck, Shield, DollarSign, AlertCircle, Map as MapIcon } from 'lucide-react';
+import { Loader2, Building, User, Phone, Mail, MapPin, Search, Warehouse, Route, LayoutGrid, List, Printer, UserCheck, AlertCircle, Map as MapIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useRateOverrides } from '@/context/RateOverrideContext';
 import { Separator } from '@/components/ui/separator';
@@ -42,7 +42,7 @@ export default function LocationLookupPageContent() {
   const searchParams = useSearchParams();
   const initialSearchQuery = searchParams.get('q') || '';
   const firestore = useFirestore();
-  const { profile, company, actualRole, tokenCompanyId } = useAuth();
+  const { profile, company, actualRole, tokenCompanyId, loading: authLoading } = useAuth();
   
   const { 
     allPostcodes = [], 
@@ -75,7 +75,7 @@ export default function LocationLookupPageContent() {
 
   const { data: vipContacts = [], isLoading: isLoadingVips } = useCollection<VipContact>(contactsQuery);
 
-  const isLoading = isLoadingRates || isLoadingVips;
+  const isLoading = authLoading || isLoadingRates || isLoadingVips;
 
   useEffect(() => {
     const currentQuery = searchParams.get('q') || '';
@@ -106,7 +106,6 @@ export default function LocationLookupPageContent() {
     if (searchFilter === 'all' || searchFilter === 'zone') {
        const zoneResults = (allPostcodes || [])
           .filter(p => p.suburb.toLowerCase().includes(lowercasedQuery) || p.postcode.toString().startsWith(lowercasedQuery))
-          .slice(0, 20)
           .map(data => ({ type: 'zone', data } as SearchResult));
        results.push(...zoneResults);
     }
@@ -208,6 +207,15 @@ export default function LocationLookupPageContent() {
     return locationsData.filter(loc => loc.State === selectedStateFilter);
   }, [locationsData, selectedStateFilter]);
 
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
+        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+        <p className="text-muted-foreground font-medium animate-pulse">Initializing Universal Lookup...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
       <Card className="shadow-xl print-hide">
@@ -274,13 +282,8 @@ export default function LocationLookupPageContent() {
         </CardContent>
       </Card>
 
-      {isLoading ? (
-        <div className="flex justify-center items-center py-10 print-hide">
-          <Loader2 className="h-12 w-12 animate-spin text-primary" />
-        </div>
-      ) : (
-        <div className="mt-6 print-expand">
-          {mapCenter && nearbyLocations.length > 0 && (
+      <div className="mt-6 print-expand">
+          {mapCenter && nearbyLocations.length > 0 && !showAllAgents && (
             <Card className="mb-6 card-print">
               <CardHeader>
                 <CardTitle className="text-xl flex items-center"><MapIcon className="mr-2 h-6 w-6 text-primary"/>Nearby Agent Locations</CardTitle>
@@ -308,66 +311,211 @@ export default function LocationLookupPageContent() {
                     const location = result.data;
                     const zones = getZonesForLocation(location);
                     return (
-                        <Card key={`agent-${index}`} className="flex flex-col card-print">
-                          <CardHeader>
+                        <Card key={`agent-${index}`} className="flex flex-col card-print border-l-4 border-l-primary">
+                          <CardHeader className="pb-3">
                             <div className="flex justify-between items-start">
-                                <div>
+                                <div className="space-y-1">
+                                    <Badge variant="outline" className="text-[10px] font-black uppercase tracking-tighter">Agent / Depot</Badge>
                                     <CardTitle className="text-xl flex items-center">
-                                        <Building className="mr-2 h-6 w-6 text-primary" />
+                                        <Building className="mr-2 h-5 w-5 text-primary" />
                                         {location["BUSINESS NAME"]}
                                     </CardTitle>
-                                    <CardDescription>{location["AREA SERVICED"]}</CardDescription>
+                                    <CardDescription className="text-xs">{location["AREA SERVICED"]}</CardDescription>
                                 </div>
-                                <Badge variant="secondary">{location.State}</Badge>
+                                <Badge variant="secondary" className="font-bold">{location.State}</Badge>
                             </div>
                           </CardHeader>
                           <CardContent className="space-y-3 text-sm flex-grow">
                              <div className="flex items-start">
-                                <Phone className="mr-2 mt-1 h-4 w-4 flex-shrink-0" />
+                                <Phone className="mr-2 mt-1 h-4 w-4 flex-shrink-0 text-muted-foreground" />
                                 <div>
                                     <strong>Phone:</strong>{' '}
                                     {location["OFFICE NUMBER"] ? (
-                                        <Button variant="link" className="p-0 h-auto" onClick={() => handlePhoneClick(location["OFFICE NUMBER"]!)}>
+                                        <Button variant="link" className="p-0 h-auto text-primary" onClick={() => handlePhoneClick(location["OFFICE NUMBER"]!)}>
                                             {location["OFFICE NUMBER"]}
                                         </Button>
                                     ) : 'N/A'}
                                 </div>
                             </div>
                              <div className="flex items-start">
-                                <Phone className="mr-2 mt-1 h-4 w-4 flex-shrink-0" />
+                                <User className="mr-2 mt-1 h-4 w-4 flex-shrink-0 text-muted-foreground" />
                                 <div>
                                     <strong>Manager:</strong>{' '}
                                     {location["SITE MANAGER"] || 'N/A'}
                                     {location["MANAGER MOBILE NUMBER"] && (
-                                        <Button variant="link" className="p-0 h-auto ml-1" onClick={() => handlePhoneClick(location["MANAGER MOBILE NUMBER"]!)}>
+                                        <Button variant="link" className="p-0 h-auto ml-1 text-primary" onClick={() => handlePhoneClick(location["MANAGER MOBILE NUMBER"]!)}>
                                             ({location["MANAGER MOBILE NUMBER"]})
                                         </Button>
                                     )}
                                 </div>
                             </div>
                              <div className="flex items-start">
-                                <Mail className="mr-2 mt-1 h-4 w-4 flex-shrink-0" />
+                                <Mail className="mr-2 mt-1 h-4 w-4 flex-shrink-0 text-muted-foreground" />
                                 <div>
                                     <strong>Email:</strong>{' '}
                                     {location["EMAIL ADDRESS"] ? (
-                                        <a href={`mailto:${location["EMAIL ADDRESS"]}`} className="text-primary hover:underline">{location["EMAIL ADDRESS"]}</a>
+                                        <a href={`mailto:${location["EMAIL ADDRESS"]}`} className="text-primary hover:underline font-medium">{location["EMAIL ADDRESS"]}</a>
                                     ) : 'N/A'}
                                 </div>
                             </div>
                             <div className="flex items-start">
-                                <MapPin className="mr-2 mt-1 h-4 w-4 flex-shrink-0" />
+                                <MapPin className="mr-2 mt-1 h-4 w-4 flex-shrink-0 text-muted-foreground" />
                                 <div><strong>Address:</strong> {location["BUSINESS ADDRESS"] || 'N/A'}</div>
                             </div>
-                            <Separator className="my-3" />
-                            <div className="space-y-2 text-sm">
-                                <h4 className="font-semibold flex items-center"><Route className="mr-2 h-4 w-4 text-muted-foreground"/>Zones</h4>
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-                                    <div className="p-2 bg-muted/50 rounded-md"><strong>IPEC:</strong> {zones.ipec}</div>
-                                    <div className="p-2 bg-muted/50 rounded-md"><strong>PRIO:</strong> {zones.prio}</div>
-                                    <div className="p-2 bg-muted/50 rounded-md"><strong>PE:</strong> {zones.pe}</div>
+                            <Separator className="my-2" />
+                            <div className="space-y-2">
+                                <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground flex items-center"><Route className="mr-1.5 h-3 w-3"/>Service Zones</h4>
+                                <div className="grid grid-cols-3 gap-2">
+                                    <div className="p-2 bg-primary/5 rounded border border-primary/10 text-center">
+                                        <p className="text-[8px] font-bold text-muted-foreground uppercase">IPEC</p>
+                                        <p className="text-xs font-black text-primary">{zones.ipec}</p>
+                                    </div>
+                                    <div className="p-2 bg-primary/5 rounded border border-primary/10 text-center">
+                                        <p className="text-[8px] font-bold text-muted-foreground uppercase">PRIO</p>
+                                        <p className="text-xs font-black text-primary">{zones.prio}</p>
+                                    </div>
+                                    <div className="p-2 bg-primary/5 rounded border border-primary/10 text-center">
+                                        <p className="text-[8px] font-bold text-muted-foreground uppercase">PE</p>
+                                        <p className="text-xs font-black text-primary">{zones.pe}</p>
+                                    </div>
                                 </div>
                             </div>
                           </CardContent>
+                        </Card>
+                    );
+                  case 'zone':
+                    const zone = result.data;
+                    const peZone = getPEZoneFromSuburbState(zone);
+                    const rasForZone = rasData.find(r => Number(r.postcode) === Number(zone.postcode) && r.suburb.toUpperCase() === zone.suburb.toUpperCase());
+                    
+                    return (
+                        <Card key={`zone-${index}`} className="flex flex-col card-print border-l-4 border-l-accent">
+                            <CardHeader className="pb-3">
+                                <div className="flex justify-between items-start">
+                                    <div className="space-y-1">
+                                        <Badge variant="outline" className="text-[10px] font-black uppercase tracking-tighter border-accent text-accent">Postcode / Zone</Badge>
+                                        <CardTitle className="text-xl flex items-center">
+                                            <MapPin className="mr-2 h-5 w-5 text-accent" />
+                                            {zone.suburb}
+                                        </CardTitle>
+                                        <CardDescription className="text-xs">Postcode: <span className="font-bold text-foreground">{zone.postcode}</span></CardDescription>
+                                    </div>
+                                    <Badge className="font-bold bg-accent hover:bg-accent">{zone.state}</Badge>
+                                </div>
+                            </CardHeader>
+                            <CardContent className="space-y-4 text-sm flex-grow">
+                                <div className="space-y-2">
+                                    <h4 className="text-[10px] font-black uppercase tracking-widest text-muted-foreground flex items-center"><Route className="mr-1.5 h-3 w-3"/>Calculated Zones</h4>
+                                    <div className="grid grid-cols-3 gap-2">
+                                        <div className="p-2 bg-accent/5 rounded border border-accent/10 text-center">
+                                            <p className="text-[8px] font-bold text-muted-foreground uppercase">IPEC</p>
+                                            <p className="text-xs font-black text-accent">{zone.ipec}</p>
+                                        </div>
+                                        <div className="p-2 bg-accent/5 rounded border border-accent/10 text-center">
+                                            <p className="text-[8px] font-bold text-muted-foreground uppercase">PRIO</p>
+                                            <p className="text-xs font-black text-accent">{zone.prio}</p>
+                                        </div>
+                                        <div className="p-2 bg-accent/5 rounded border border-accent/10 text-center">
+                                            <p className="text-[8px] font-bold text-muted-foreground uppercase">PE</p>
+                                            <p className="text-xs font-black text-accent">{peZone}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {rasForZone && (
+                                    <div className="p-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 rounded-lg">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <AlertCircle className="h-4 w-4 text-amber-600" />
+                                            <h4 className="text-[10px] font-black uppercase tracking-widest text-amber-700 dark:text-amber-500">Remote Area Surcharge</h4>
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <p className="text-[8px] font-bold text-muted-foreground uppercase">IPEC Surcharge</p>
+                                                <p className="text-sm font-black text-amber-700 dark:text-amber-500">${rasForZone.ipec.toFixed(2)}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-[8px] font-bold text-muted-foreground uppercase">PRIO Surcharge</p>
+                                                <p className="text-sm font-black text-amber-700 dark:text-amber-500">${rasForZone.prio.toFixed(2)}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </CardContent>
+                        </Card>
+                    );
+                  case 'ras':
+                    const rasEntry = result.data;
+                    return (
+                        <Card key={`ras-${index}`} className="flex flex-col card-print border-l-4 border-l-amber-500">
+                             <CardHeader className="pb-3">
+                                <div className="flex justify-between items-start">
+                                    <div className="space-y-1">
+                                        <Badge variant="outline" className="text-[10px] font-black uppercase tracking-tighter border-amber-500 text-amber-600">RAS Only Entry</Badge>
+                                        <CardTitle className="text-xl flex items-center">
+                                            <AlertCircle className="mr-2 h-5 w-5 text-amber-500" />
+                                            {rasEntry.suburb}
+                                        </CardTitle>
+                                        <CardDescription className="text-xs">Postcode: <span className="font-bold text-foreground">{rasEntry.postcode}</span></CardDescription>
+                                    </div>
+                                </div>
+                            </CardHeader>
+                            <CardContent className="space-y-2 text-sm flex-grow">
+                                <p className="text-xs text-muted-foreground italic mb-2">This location is flagged specifically in the Remote Area Surcharge database.</p>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="p-2 bg-amber-500/5 rounded border border-amber-500/10">
+                                        <p className="text-[8px] font-bold text-muted-foreground uppercase">IPEC Surcharge</p>
+                                        <p className="text-lg font-black text-amber-600">${rasEntry.ipec.toFixed(2)}</p>
+                                    </div>
+                                    <div className="p-2 bg-amber-500/5 rounded border border-amber-500/10">
+                                        <p className="text-[8px] font-bold text-muted-foreground uppercase">PRIO Surcharge</p>
+                                        <p className="text-lg font-black text-amber-600">${rasEntry.prio.toFixed(2)}</p>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    );
+                  case 'vip':
+                    const contact = result.data;
+                    return (
+                        <Card key={`vip-${index}`} className="flex flex-col card-print border-l-4 border-l-blue-500">
+                             <CardHeader className="pb-3">
+                                <div className="flex justify-between items-start">
+                                    <div className="space-y-1">
+                                        <Badge variant="outline" className="text-[10px] font-black uppercase tracking-tighter border-blue-500 text-blue-600">VIP Contact</Badge>
+                                        <CardTitle className="text-xl flex items-center">
+                                            <UserCheck className="mr-2 h-5 w-5 text-blue-500" />
+                                            {contact.name}
+                                        </CardTitle>
+                                        <CardDescription className="text-xs">{contact.businessUnit}</CardDescription>
+                                    </div>
+                                </div>
+                            </CardHeader>
+                            <CardContent className="space-y-3 text-sm flex-grow">
+                                 <div className="flex items-start">
+                                    <User className="mr-2 mt-1 h-4 w-4 flex-shrink-0 text-muted-foreground" />
+                                    <div><strong>Role:</strong> {contact.role || 'N/A'}</div>
+                                </div>
+                                <div className="flex items-start">
+                                    <Phone className="mr-2 mt-1 h-4 w-4 flex-shrink-0 text-muted-foreground" />
+                                    <div>
+                                        <strong>Phone:</strong>{' '}
+                                        {contact.phone ? (
+                                            <Button variant="link" className="p-0 h-auto text-primary" onClick={() => handlePhoneClick(contact.phone!)}>
+                                                {contact.phone}
+                                            </Button>
+                                        ) : 'N/A'}
+                                    </div>
+                                </div>
+                                <div className="flex items-start">
+                                    <Mail className="mr-2 mt-1 h-4 w-4 flex-shrink-0 text-muted-foreground" />
+                                    <div>
+                                        <strong>Email:</strong>{' '}
+                                        {contact.email ? (
+                                            <a href={`mailto:${contact.email}`} className="text-primary hover:underline font-medium">{contact.email}</a>
+                                        ) : 'N/A'}
+                                    </div>
+                                </div>
+                            </CardContent>
                         </Card>
                     );
                   default: return null;
@@ -375,8 +523,191 @@ export default function LocationLookupPageContent() {
               })}
             </div>
           )}
-        </div>
-      )}
+
+          {!showAllAgents && viewMode === 'list' && searchResults.length > 0 && (
+            <Card className="card-print overflow-hidden">
+                <Table>
+                    <TableHeader className="bg-muted/50">
+                        <TableRow>
+                            <TableHead className="w-[80px] text-[10px] font-black uppercase">Type</TableHead>
+                            <TableHead className="text-[10px] font-black uppercase">Entity / Location</TableHead>
+                            <TableHead className="text-[10px] font-black uppercase">Detail / Area</TableHead>
+                            <TableHead className="text-[10px] font-black uppercase">Contact / Zones</TableHead>
+                            <TableHead className="text-[10px] font-black uppercase text-right">State/PC</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {searchResults.map((result, index) => {
+                            if (result.type === 'agent') {
+                                const loc = result.data;
+                                const zones = getZonesForLocation(loc);
+                                return (
+                                    <TableRow key={`list-agent-${index}`}>
+                                        <TableCell><Badge variant="outline" className="text-[8px] font-bold">AGENT</Badge></TableCell>
+                                        <TableCell className="font-bold">{loc["BUSINESS NAME"]}</TableCell>
+                                        <TableCell className="text-xs text-muted-foreground">{loc["AREA SERVICED"]}</TableCell>
+                                        <TableCell className="text-xs">
+                                            <div className="flex flex-col gap-0.5">
+                                                <span>Z: I:{zones.ipec} P:{zones.prio} PE:{zones.pe}</span>
+                                                <span className="opacity-70">{loc["OFFICE NUMBER"] || loc["MANAGER MOBILE NUMBER"]}</span>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="text-right font-mono text-xs">{loc.State}</TableCell>
+                                    </TableRow>
+                                );
+                            }
+                            if (result.type === 'zone') {
+                                const z = result.data;
+                                const peZ = getPEZoneFromSuburbState(z);
+                                const rasZ = rasData.find(r => Number(r.postcode) === Number(z.postcode) && r.suburb.toUpperCase() === z.suburb.toUpperCase());
+                                return (
+                                    <TableRow key={`list-zone-${index}`} className={rasZ ? "bg-amber-500/5" : ""}>
+                                        <TableCell><Badge variant="outline" className="text-[8px] font-bold border-accent text-accent">ZONE</Badge></TableCell>
+                                        <TableCell className="font-bold">{z.suburb}</TableCell>
+                                        <TableCell className="text-xs">
+                                            {rasZ && <span className="text-amber-600 font-bold flex items-center gap-1"><AlertCircle className="h-3 w-3"/> RAS Applicable</span>}
+                                        </TableCell>
+                                        <TableCell className="text-xs font-mono">
+                                            I:{z.ipec} P:{z.prio} PE:{peZ}
+                                        </TableCell>
+                                        <TableCell className="text-right font-mono text-xs">{z.state} {z.postcode}</TableCell>
+                                    </TableRow>
+                                );
+                            }
+                            if (result.type === 'ras') {
+                                const r = result.data;
+                                return (
+                                    <TableRow key={`list-ras-${index}`} className="bg-amber-500/5">
+                                        <TableCell><Badge variant="outline" className="text-[8px] font-bold border-amber-500 text-amber-600">RAS</Badge></TableCell>
+                                        <TableCell className="font-bold text-amber-700">{r.suburb}</TableCell>
+                                        <TableCell className="text-xs italic">Direct RAS Lookup</TableCell>
+                                        <TableCell className="text-xs font-bold text-amber-600">IPEC: ${r.ipec.toFixed(2)} | PRIO: ${r.prio.toFixed(2)}</TableCell>
+                                        <TableCell className="text-right font-mono text-xs">{r.postcode}</TableCell>
+                                    </TableRow>
+                                );
+                            }
+                            if (result.type === 'vip') {
+                                const v = result.data;
+                                return (
+                                    <TableRow key={`list-vip-${index}`}>
+                                        <TableCell><Badge variant="outline" className="text-[8px] font-bold border-blue-500 text-blue-600">VIP</Badge></TableCell>
+                                        <TableCell className="font-bold">{v.name}</TableCell>
+                                        <TableCell className="text-xs text-muted-foreground">{v.businessUnit}</TableCell>
+                                        <TableCell className="text-xs">
+                                            <div className="flex flex-col gap-0.5">
+                                                <span>{v.email}</span>
+                                                <span className="opacity-70">{v.phone}</span>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="text-right text-xs italic">{v.role}</TableCell>
+                                    </TableRow>
+                                );
+                            }
+                            return null;
+                        })}
+                    </TableBody>
+                </Table>
+            </Card>
+          )}
+
+          {!showAllAgents && searchResults.length === 0 && searchQuery.length >= 3 && (
+            <div className="flex flex-col items-center justify-center py-20 text-center animate-in fade-in slide-in-from-bottom-4">
+              <div className="p-6 bg-muted/50 rounded-full mb-6">
+                <Search className="h-12 w-12 text-muted-foreground opacity-20" />
+              </div>
+              <h3 className="text-xl font-bold font-headline mb-2">No results found for "{searchQuery}"</h3>
+              <p className="text-muted-foreground max-w-sm mb-6">Try refining your search terms, checking for typos, or switching the filter type.</p>
+              <Button onClick={() => router.push('/location-lookup')} variant="outline">
+                Clear Search & Try Again
+              </Button>
+            </div>
+          )}
+
+          {showAllAgents && (
+              <div className="space-y-6">
+                  <div className="flex items-center justify-between px-2">
+                    <h2 className="text-xl font-black uppercase tracking-tighter text-primary">All Network Agents ({filteredAgents.length})</h2>
+                    <Badge variant="secondary" className="font-mono">{selectedStateFilter}</Badge>
+                  </div>
+                  {viewMode === 'card' ? (
+                      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        {filteredAgents.map((loc, idx) => {
+                            const zones = getZonesForLocation(loc);
+                            return (
+                                <Card key={`all-agent-${idx}`} className="flex flex-col border-l-4 border-l-primary shadow-sm hover:shadow-md transition-shadow">
+                                    <CardHeader className="pb-3">
+                                        <div className="flex justify-between items-start">
+                                            <CardTitle className="text-lg font-bold flex items-center gap-2">
+                                                <Building className="h-4 w-4 text-primary" />
+                                                {loc["BUSINESS NAME"]}
+                                            </CardTitle>
+                                            <Badge variant="secondary" className="text-[10px]">{loc.State}</Badge>
+                                        </div>
+                                        <CardDescription className="text-xs truncate">{loc["AREA SERVICED"]}</CardDescription>
+                                    </CardHeader>
+                                    <CardContent className="space-y-3 text-xs flex-grow">
+                                        <div className="flex items-start gap-2">
+                                            <Phone className="h-3 w-3 text-muted-foreground mt-0.5" />
+                                            <span>{loc["OFFICE NUMBER"] || 'No Phone'}</span>
+                                        </div>
+                                        <div className="flex items-start gap-2">
+                                            <Mail className="h-3 w-3 text-muted-foreground mt-0.5" />
+                                            <span className="truncate">{loc["EMAIL ADDRESS"] || 'No Email'}</span>
+                                        </div>
+                                        <div className="flex items-start gap-2">
+                                            <MapPin className="h-3 w-3 text-muted-foreground mt-0.5" />
+                                            <span className="line-clamp-2">{loc["BUSINESS ADDRESS"]}</span>
+                                        </div>
+                                        <Separator className="my-1" />
+                                        <div className="grid grid-cols-3 gap-1 text-[9px] font-bold text-center">
+                                            <div className="p-1 bg-muted rounded">IPEC: {zones.ipec}</div>
+                                            <div className="p-1 bg-muted rounded">PRIO: {zones.prio}</div>
+                                            <div className="p-1 bg-muted rounded">PE: {zones.pe}</div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            );
+                        })}
+                      </div>
+                  ) : (
+                      <Card className="overflow-hidden shadow-sm">
+                          <Table>
+                              <TableHeader className="bg-muted/50">
+                                  <TableRow>
+                                      <TableHead className="text-[10px] font-black uppercase">Business Name</TableHead>
+                                      <TableHead className="text-[10px] font-black uppercase">Area Serviced</TableHead>
+                                      <TableHead className="text-[10px] font-black uppercase">Contact</TableHead>
+                                      <TableHead className="text-[10px] font-black uppercase">Zones (I/P/PE)</TableHead>
+                                      <TableHead className="text-right text-[10px] font-black uppercase">State</TableHead>
+                                  </TableRow>
+                              </TableHeader>
+                              <TableBody>
+                                  {filteredAgents.map((loc, idx) => {
+                                      const zones = getZonesForLocation(loc);
+                                      return (
+                                          <TableRow key={`all-list-agent-${idx}`} className="hover:bg-muted/30 transition-colors">
+                                              <TableCell className="font-bold text-sm">{loc["BUSINESS NAME"]}</TableCell>
+                                              <TableCell className="text-xs text-muted-foreground">{loc["AREA SERVICED"]}</TableCell>
+                                              <TableCell className="text-xs">
+                                                  <div className="flex flex-col">
+                                                      <span>{loc["OFFICE NUMBER"]}</span>
+                                                      <span className="opacity-60 truncate max-w-[150px]">{loc["EMAIL ADDRESS"]}</span>
+                                                  </div>
+                                              </TableCell>
+                                              <TableCell className="text-xs font-mono">
+                                                  {zones.ipec} / {zones.prio} / {zones.pe}
+                                              </TableCell>
+                                              <TableCell className="text-right font-bold">{loc.State}</TableCell>
+                                          </TableRow>
+                                      );
+                                  })}
+                              </TableBody>
+                          </Table>
+                      </Card>
+                  )}
+              </div>
+          )}
+      </div>
     </div>
   );
 }

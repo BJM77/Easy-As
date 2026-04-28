@@ -5,6 +5,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import type { UploadedRateEntry, RateComparisonItem, ServiceName, RateFileType } from '@/lib/types';
+import { SECURITY_APPLICABLE_SERVICES } from '@/lib/types';
 import { useSettings } from '@/context/SettingsContext';
 import { useRateOverrides } from '@/context/RateOverrideContext';
 import { useToast } from '@/hooks/use-toast';
@@ -206,7 +207,10 @@ export default function RateComparisonPageContent() {
 
         const oldBase = Math.max(entry.oldBasic! + (entry.oldKilo! * data.sampleWeight), entry.oldMin!);
         const newBase = Math.max(newBasic + (newKilo * data.sampleWeight), newMin);
-        const mult = (1 + standardFuelSurcharge/100) * (1 + globalSecuritySurchargePercent/100);
+        
+        const fuelMult = (1 + standardFuelSurcharge/100);
+        const secMult = SECURITY_APPLICABLE_SERVICES.includes('B2B Std') ? (1 + globalSecuritySurchargePercent/100) : 1;
+        const mult = fuelMult * secMult;
 
         return { 
           rateEntry: entry, 
@@ -248,7 +252,10 @@ export default function RateComparisonPageContent() {
 
         const oldBase = Math.max(entry.oldBasic! + (entry.oldKilo! * data.sampleWeight), entry.oldMin!);
         const newBase = newBasic + (newKilo * data.sampleWeight);
-        const mult = (1 + priorityFuelSurcharge/100) * (1 + globalSecuritySurchargePercent/100);
+        
+        const fuelMult = (1 + priorityFuelSurcharge/100);
+        const secMult = SECURITY_APPLICABLE_SERVICES.includes('B2B Priority') ? (1 + globalSecuritySurchargePercent/100) : 1;
+        const mult = fuelMult * secMult;
 
         return { 
           rateEntry: entry, 

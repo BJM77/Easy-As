@@ -145,7 +145,7 @@ import HeaderConfigDialog, { availableIcons } from './HeaderConfigDialog';
 import { useToast } from "@/hooks/use-toast";
 import { collection } from "firebase/firestore";
 import { GlobalSearch } from './GlobalSearch';
-
+import { Checkbox } from '@/components/ui/checkbox';
 function TopBar() {
   const { company } = useAuth();
   const { timezones, visibleTimezones, externalLinks } = useSettings();

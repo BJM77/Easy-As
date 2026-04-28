@@ -70,6 +70,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [viewAsCompanyId, setViewAsCompanyId] = useState<string | null>(null);
   const [viewAsRole, setViewAsRole] = useState<UserRole | null>(null);
   
+  // Safety fallback for initialization hangs
+  useEffect(() => {
+    if (loading) {
+      const timer = setTimeout(() => {
+        console.warn("[Auth] Initialization is taking longer than 4s. Forcing loading to false.");
+        setLoading(false);
+      }, 4000);
+      return () => clearTimeout(timer);
+    } else {
+        console.log("[Auth] Loading state resolved to false.");
+    }
+  }, [loading]);
+
   // Ref guard prevents stale listeners from previous sessions (v55.3.0)
   const activeUidRef = useRef<string | null>(null);
 
@@ -80,12 +93,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // 1. Auth State Observer
   useEffect(() => {
-    if (!firebase?.auth) return;
+    if (!firebase?.auth) {
+        console.log("[Auth] Firebase Auth instance not yet available.");
+        return;
+    }
     
+    console.log("[Auth] Starting Auth State Observer...");
     return onIdTokenChanged(firebase.auth, async (authUser) => {
       const uid = authUser?.uid || null;
       activeUidRef.current = uid;
       setUser(authUser);
+      console.log("[Auth] ID Token Changed. UID:", uid);
 
       if (!authUser) {
         setProfile(null); 
@@ -111,16 +129,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // 2. Profile Listener
   useEffect(() => {
     if (!firebase?.firestore || !user) {
-      if (!user) setLoading(false);
+      if (!user) {
+          console.log("[Auth] No user, setting loading to false in Effect #2.");
+          setLoading(false);
+      } else {
+          console.log("[Auth] Firestore not yet available for Profile Listener.");
+      }
       return;
     }
 
     const currentUid = user.uid;
+    console.log("[Auth] Starting Profile Listener for UID:", currentUid);
     const profileRef = doc(firebase.firestore, 'users', currentUid);
     
     const unsubscribe = onSnapshot(profileRef, (docSnap) => {
-      if (activeUidRef.current !== currentUid) return;
+      if (activeUidRef.current !== currentUid) {
+          console.log("[Auth] Stale Profile Listener callback ignored.");
+          return;
+      }
 
+      console.log("[Auth] Profile Document Snapshot received. Exists:", docSnap.exists());
       if (docSnap.exists()) {
         const data = docSnap.data() as UserProfile;
         setProfile(data);

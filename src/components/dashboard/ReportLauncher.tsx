@@ -29,6 +29,20 @@ export default function ReportLauncher() {
     const url = `https://teamglobalexp.lightning.force.com/one/one.app#${encodedPayload}`;
     window.open(url, '_blank');
   };
+
+  const openAccountSearchInSalesforce = () => {
+    if (!accountCode) {
+      toast({ title: "Account Number Required", description: "Please enter an account number to search in Salesforce.", variant: "destructive" });
+      return;
+    }
+    const payload = {
+      componentDef: "forceSearch:searchPageDesktop",
+      attributes: { term: accountCode, scopeMap: { type: "TOP_RESULTS" } }
+    };
+    const encodedPayload = btoa(JSON.stringify(payload));
+    const url = `https://teamglobalexp.lightning.force.com/one/one.app#${encodedPayload}`;
+    window.open(url, '_blank');
+  }
   
   const handleOpenTradingStats = () => {
     if (!accountCode) {
@@ -37,6 +51,16 @@ export default function ReportLauncher() {
     }
     const baseUrl = 'https://fleapaup005.agreenspace.local/Reports/report/TGE-Live/IPEC/Sales/General/Detailed%20Trading%20Stats';
     const url = `${baseUrl}?AccountCode=${encodeURIComponent(accountCode)}`;
+    window.open(url, '_blank');
+  };
+
+  const handleOpenIpecRates = () => {
+    if (!accountCode) {
+      toast({ title: "Account Number Required", description: "Please enter an account number.", variant: "destructive" });
+      return;
+    }
+    const baseUrl = 'https://fleapaup005.agreenspace.local/Reports/report/TGE-Live/IPEC/Sales/Quotes%20Analysis/Quote%20Enquiry?Account=';
+    const url = `${baseUrl}${encodeURIComponent(accountCode)}`;
     window.open(url, '_blank');
   };
   
@@ -88,6 +112,12 @@ export default function ReportLauncher() {
                     <Button onClick={() => window.open(`https://www.myteamge.com/search-shipment?p_p_id=searchportlet_WAR_searchportlet&p_p_lifecycle=0&p_p_state=normal&_searchportlet_WAR_searchportlet_shipmentReferences=${encodeURIComponent(connote)}`, '_blank')} variant="outline" size="sm" className="h-7 text-[8px] font-bold uppercase" disabled={!connote}>
                       MyTeamGE
                     </Button>
+                    <Button onClick={() => window.open(`http://ted-prod-reports.awsagreenspace.local/Reports/report/EDS_Reports/Connote%20Detail%20incl%20GPS%20Report?connote_id=${encodeURIComponent(connote)}`, '_blank')} variant="outline" size="sm" className="h-7 text-[8px] font-bold uppercase" disabled={!connote}>
+                      Live
+                    </Button>
+                    <Button onClick={() => window.open(`http://ted-prod-reports.awsagreenspace.local/Reports/report/EDS_Reports/Connote%20Detail%20Archive%20incl%20GPS%20Report?connote_id=${encodeURIComponent(connote)}`, '_blank')} variant="outline" size="sm" className="h-7 text-[8px] font-bold uppercase" disabled={!connote}>
+                      Archive
+                    </Button>
                 </div>
               </div>
             </div>
@@ -125,6 +155,12 @@ export default function ReportLauncher() {
                     </Button>
                     <Button onClick={handleOpenDifotReport} size="sm" className="h-7 text-[8px] font-bold uppercase" variant="secondary" disabled={!accountCode}>
                         DIFOT
+                    </Button>
+                    <Button onClick={handleOpenIpecRates} size="sm" className="h-7 text-[8px] font-bold uppercase" variant="secondary" disabled={!accountCode}>
+                        IPEC Rates
+                    </Button>
+                    <Button onClick={openAccountSearchInSalesforce} size="sm" className="h-7 text-[8px] font-bold uppercase" variant="secondary" disabled={!accountCode}>
+                        Salesforce
                     </Button>
                 </div>
                 <p className="text-[9px] text-muted-foreground italic">Requires account number.</p>

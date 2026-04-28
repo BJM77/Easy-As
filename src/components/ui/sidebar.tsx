@@ -761,10 +761,3 @@ export {
   SidebarTrigger,
   useSidebar,
 }
-
-```</content>
-  </change>
-  <change>
-    <file>src/firebase/firestore/use-doc.tsx</file>
-    <description>- no changes</description>
-    <content><![CDATA[
