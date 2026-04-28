@@ -97,13 +97,25 @@ export default function PricingResults({ results, optimizedResult, onOpenEmailQu
     const targetPC = Number(destinationPostcode);
     if (isNaN(targetPC)) return [];
 
-    return locationsData.filter(loc => {
+    return locationsData
+      .filter(loc => {
         const address = loc["BUSINESS ADDRESS"] || "";
         const pcMatch = address.match(/\b\d{4}\b/g);
         if (!pcMatch) return false;
         const locPC = parseInt(pcMatch[pcMatch.length - 1], 10);
         return Math.abs(locPC - targetPC) <= 20;
-    });
+      })
+      .sort((a, b) => {
+        const addrA = a["BUSINESS ADDRESS"] || "";
+        const addrB = b["BUSINESS ADDRESS"] || "";
+        const matchA = addrA.match(/\b\d{4}\b/g);
+        const matchB = addrB.match(/\b\d{4}\b/g);
+        
+        const pcA = matchA ? parseInt(matchA[matchA.length - 1], 10) : 0;
+        const pcB = matchB ? parseInt(matchB[matchB.length - 1], 10) : 0;
+        
+        return Math.abs(pcA - targetPC) - Math.abs(pcB - targetPC);
+      });
   }, [destinationPostcode, locationsData]);
 
   const filteredResults = useMemo(() => {
