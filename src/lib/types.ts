@@ -223,7 +223,7 @@ export const STANDARD_PALLET_MAPPED_SERVICES: ServiceName[] = ['B2B Pallets Expr
 export const RAS_APPLICABLE_SERVICES: ServiceName[] = [
   'LCP Std', 'LCP Priority', 'B2B Std', 'B2B Priority', 'B2C Std', 'B2C Priority', 'LCP GO Std', 'LCP GO Priority', 'LCP GO Std 167', 'LCP GO Priority 167'
 ];
-export const SECURITY_APPLICABLE_SERVICES: ServiceName[] = [ 'B2B Priority', 'B2C Priority', 'LCP Priority', 'LCP GO Priority 167' ];
+export const SECURITY_APPLICABLE_SERVICES: ServiceName[] = [ 'B2B Priority', 'B2C Priority', 'LCP Priority', 'LCP GO Priority', 'LCP GO Priority 167' ];
 
 export type UserRole = 'superadmin' | 'admin' | 'bdm' | 'driver' | 'agent' | 'user' | null;
 export const ALL_USER_ROLES: Exclude<UserRole, null>[] = ['superadmin', 'admin', 'bdm', 'driver', 'agent', 'user'];
