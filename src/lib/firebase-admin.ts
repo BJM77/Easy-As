@@ -63,7 +63,10 @@ async function initializeAdmin() {
   const apps = getApps();
   if (apps.length > 0) return apps[0]!;
 
-  const jsonCredentials = safeJsonParse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
+  const rawEnv = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON;
+  console.log(`[Admin Debug] Variable detected. Length: ${rawEnv?.length || 0}. Starts with: ${rawEnv?.substring(0, 20)}`);
+
+  const jsonCredentials = safeJsonParse(rawEnv);
   
   const separateId = clean(process.env.FIREBASE_PROJECT_ID || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID);
   const separateEmail = clean(process.env.FIREBASE_CLIENT_EMAIL);
