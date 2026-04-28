@@ -410,11 +410,7 @@
         "B2B Priority",
         "LCP Priority",
         "B2C Std",
-        "B2C Priority",
-        "LCP GO Std",
-        "LCP GO Priority",
-        "LCP GO Std 167",
-        "LCP GO Priority 167"
+        "B2C Priority"
       ]
     },
     {
@@ -678,11 +674,7 @@
         "B2B Priority",
         "LCP Priority",
         "B2C Std",
-        "B2C Priority",
-        "LCP GO Std",
-        "LCP GO Priority",
-        "LCP GO Std 167",
-        "LCP GO Priority 167"
+        "B2C Priority"
       ]
     },
     {
@@ -696,11 +688,7 @@
         "B2B Priority",
         "LCP Priority",
         "B2C Std",
-        "B2C Priority",
-        "LCP GO Std",
-        "LCP GO Priority",
-        "LCP GO Std 167",
-        "LCP GO Priority 167"
+        "B2C Priority"
       ]
     },
     {
@@ -942,11 +930,7 @@
         "B2B Priority",
         "LCP Priority",
         "B2C Std",
-        "B2C Priority",
-        "LCP GO Std",
-        "LCP GO Priority",
-        "LCP GO Std 167",
-        "LCP GO Priority 167"
+        "B2C Priority"
       ]
     },
     {
@@ -960,11 +944,7 @@
         "B2B Priority",
         "LCP Priority",
         "B2C Std",
-        "B2C Priority",
-        "LCP GO Std",
-        "LCP GO Priority",
-        "LCP GO Std 167",
-        "LCP GO Priority 167"
+        "B2C Priority"
       ]
     },
     {
@@ -1002,11 +982,7 @@
         "B2B Priority",
         "LCP Priority",
         "B2C Std",
-        "B2C Priority",
-        "LCP GO Std",
-        "LCP GO Priority",
-        "LCP GO Std 167",
-        "LCP GO Priority 167"
+        "B2C Priority"
       ]
     },
     {
@@ -1020,11 +996,7 @@
         "B2B Priority",
         "LCP Priority",
         "B2C Std",
-        "B2C Priority",
-        "LCP GO Std",
-        "LCP GO Priority",
-        "LCP GO Std 167",
-        "LCP GO Priority 167"
+        "B2C Priority"
       ]
     },
     {
@@ -1038,11 +1010,7 @@
         "B2B Priority",
         "LCP Priority",
         "B2C Std",
-        "B2C Priority",
-        "LCP GO Std",
-        "LCP GO Priority",
-        "LCP GO Std 167",
-        "LCP GO Priority 167"
+        "B2C Priority"
       ]
     },
     {
@@ -1056,11 +1024,7 @@
         "B2B Priority",
         "LCP Priority",
         "B2C Std",
-        "B2C Priority",
-        "LCP GO Std",
-        "LCP GO Priority",
-        "LCP GO Std 167",
-        "LCP GO Priority 167"
+        "B2C Priority"
       ]
     }
   ],
@@ -1280,11 +1244,6 @@
       "fuelSurchargePercent": 28.01,
       "surcharges": [
         {
-          "surchargeId": "security",
-          "value": 8.2,
-          "enabled": true
-        },
-        {
           "surchargeId": "oversize_item_fee",
           "value": 63,
           "enabled": true
@@ -1396,11 +1355,6 @@
       "name": "LCP GO Priority",
       "fuelSurchargePercent": 28.01,
       "surcharges": [
-        {
-          "surchargeId": "security",
-          "value": 8.2,
-          "enabled": true
-        },
         {
           "surchargeId": "oversize_item_fee",
           "value": 63,
@@ -1514,11 +1468,6 @@
       "fuelSurchargePercent": 28.01,
       "surcharges": [
         {
-          "surchargeId": "security",
-          "value": 8.2,
-          "enabled": true
-        },
-        {
           "surchargeId": "oversize_item_fee",
           "value": 63,
           "enabled": true
@@ -1630,11 +1579,6 @@
       "name": "LCP GO Priority 167",
       "fuelSurchargePercent": 28.01,
       "surcharges": [
-        {
-          "surchargeId": "security",
-          "value": 8.2,
-          "enabled": true
-        },
         {
           "surchargeId": "oversize_item_fee",
           "value": 63,
