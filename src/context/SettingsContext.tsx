@@ -15,7 +15,7 @@ const SURCHARGE_CONFIG_GROUPS: Record<SurchargeConfigGroupKey, { name: string, s
 };
 
 const PREDEFINED_SURCHARGES_INITIAL: SurchargeDefinition[] = [
-  { id: 'security', name: 'Security Surcharge', type: 'percentage', defaultValue: 8.2, isConfigurablePerService: false, isPredefined: true, applicableServices: SECURITY_APPLICABLE_SERVICES },
+  { id: 'security', name: 'Security Surcharge', type: 'percentage', defaultValue: 8.49, isConfigurablePerService: false, isPredefined: true, applicableServices: SECURITY_APPLICABLE_SERVICES },
   { id: 'oversize_item_fee', name: 'Oversize Fee (Length > 180cm per item)', type: 'fixed_per_shipment', defaultValue: 63.00, isConfigurablePerService: true, isPredefined: true, applicableServices: NON_PALLET_SERVICES },
   { id: 'manual_handling_gt30kg', name: 'Manual Handling Fee (>30kg & <35kg per item)', type: 'fixed_per_shipment', defaultValue: 16.50, isConfigurablePerService: true, isPredefined: true, applicableServices: NON_PALLET_SERVICES },
   { id: 'manual_handling_gt35kg', name: 'Oversize Fee (>=35kg per item)', type: 'fixed_per_shipment', defaultValue: 63.50, isConfigurablePerService: true, isPredefined: true, applicableServices: NON_PALLET_SERVICES },
@@ -110,7 +110,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
   const [priorityFuelSurcharge, setPriorityFuelSurcharge] = useState(28.58);
   const [palletFuelSurcharge, setPalletFuelSurcharge] = useState(56.97);
   const [standardFuelLastUpdated, setStandardFuelLastUpdated] = useState<string | null>(null);
-  const [globalSecuritySurchargePercent, setGlobalSecuritySurchargePercent] = useState(8.20);
+  const [globalSecuritySurchargePercent, setGlobalSecuritySurchargePercent] = useState(8.49);
   const [emailQuoteTemplate, setEmailQuoteTemplate] = useState(DEFAULT_EMAIL_QUOTE_TEMPLATE);
   const [perfectPlanPalletRate, setPerfectPlanPalletRate] = useState(200);
   const [perfectPlanParcelRate, setPerfectPlanParcelRate] = useState(20);
