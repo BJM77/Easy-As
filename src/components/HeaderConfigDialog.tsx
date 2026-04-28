@@ -88,10 +88,16 @@ export default function HeaderConfigDialog({ isOpen, onOpenChange }: HeaderConfi
     setLocalVisibleTimezones(prev => ({...prev, [zoneId]: checked }));
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setExternalLinks(localLinks);
     setVisibleTimezones(localVisibleTimezones);
-    toast({ title: "Header Settings Saved", description: "Your customizations have been applied." });
+    
+    // Attempt to persist if possible, otherwise it's just local for now
+    // Note: saveSettingsToServer usually requires a password in this app
+    // We'll rely on the user having the password if they want to persist globally,
+    // but the local state is already updated.
+    
+    toast({ title: "Header Settings Updated", description: "Changes applied to current session." });
     onOpenChange(false);
   };
   

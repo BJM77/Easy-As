@@ -147,6 +147,16 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 
   // --- Persistence ---
   useEffect(() => {
+    // Load local overrides first for instant response
+    const localTZ = localStorage.getItem('header_visible_timezones');
+    const localLinks = localStorage.getItem('header_external_links');
+    if (localTZ) {
+      try { setVisibleTimezones(JSON.parse(localTZ)); } catch(e) {}
+    }
+    if (localLinks) {
+      try { setExternalLinks(JSON.parse(localLinks)); } catch(e) {}
+    }
+
     if (!firestore) return;
     const settingsRef = doc(firestore, 'settings', 'global');
     const unsubscribe = onSnapshot(settingsRef, (snap) => {
@@ -184,6 +194,13 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
         pagePermissions,
         externalLinks,
         visibleTimezones,
+        emailQuoteTemplate,
+        perfectPlanPalletRate,
+        perfectPlanParcelRate,
+        perfectPlanSatchelRate,
+        stateEmailContacts,
+        quickActions,
+        showLcpRates,
         updatedAt: new Date().toISOString(),
         updatedBy: user?.email || 'unknown'
       }, { merge: true });
@@ -211,6 +228,16 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     setPagePermissions(prev => ({ ...prev, [role || 'null']: pages }));
   };
 
+  const setVisibleTimezonesWithLocal = (visible: Record<string, boolean>) => {
+    setVisibleTimezones(visible);
+    localStorage.setItem('header_visible_timezones', JSON.stringify(visible));
+  };
+
+  const setExternalLinksWithLocal = (links: ExternalLink[]) => {
+    setExternalLinks(links);
+    localStorage.setItem('header_external_links', JSON.stringify(links));
+  };
+
   const timezones = useMemo(() => {
     const zones: any = {};
     Object.entries(ALL_TIMEZONES).forEach(([id, info]) => {
@@ -229,7 +256,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     stateEmailContacts, setStateEmailContact: (s: any, i: any, e: any) => setStateEmailContacts((p: any) => ({ ...p, [s]: Object.assign([], p[s], { [i]: e }) })),
     quickActions, setQuickActions, servicePermissions, setServicePermissionsForRole, pagePermissions, setPagePermissionsForRole,
     isLoadingSettings, saveSettingsToServer, showLcpRates, setShowLcpRates, isAccountManagerMode, setIsAccountManagerMode,
-    externalLinks, setExternalLinks, timezones, visibleTimezones, setVisibleTimezones
+    externalLinks, setExternalLinks: setExternalLinksWithLocal, timezones, visibleTimezones, setVisibleTimezones: setVisibleTimezonesWithLocal
   };
 
   return <SettingsContext.Provider value={value as any}>{children}</SettingsContext.Provider>;

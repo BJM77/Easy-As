@@ -149,7 +149,16 @@ import { GlobalSearch } from './GlobalSearch';
 function TopBar() {
   const { company } = useAuth();
   const { timezones, visibleTimezones, externalLinks } = useSettings();
-  const activeTimezones = Object.entries(timezones).filter(([zoneId]) => visibleTimezones[zoneId]);
+  const [now, setNow] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setNow(new Date()), 60000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const activeTimezones = useMemo(() => {
+    return Object.entries(timezones).filter(([zoneId]) => visibleTimezones[zoneId]);
+  }, [timezones, visibleTimezones, now]);
 
   return (
     <div className="w-full py-1.5 px-4 border-b transition-colors" style={{ backgroundColor: company?.settings?.topMenuColor || 'hsl(var(--background))' }}>
