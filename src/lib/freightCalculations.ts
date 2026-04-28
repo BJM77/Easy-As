@@ -449,7 +449,7 @@ export async function calculateAllFreightPrices(options: CalcOptions): Promise<C
 
             const secCfg = serviceConfig.surcharges.find(s => s.surchargeId === 'security' && s.enabled);
             if (secCfg) {
-                const amount = (baseFreight + fuelAmount) * (secCfg.value / 100);
+                const amount = baseFreight * (secCfg.value / 100);
                 otherSurcharges.push({ name: 'Security Surcharge', amount, id: 'security' });
             }
 
