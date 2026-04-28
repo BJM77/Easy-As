@@ -327,8 +327,8 @@ export type PagePermissions = Partial<Record<Exclude<UserRole, null> | 'null', P
 
 export const DEFAULT_PAGE_PERMISSIONS: PagePermissions = {
     superadmin: ALL_PAGES,
-    admin: ALL_PAGES.filter(p => !['live-test', 'user-management', 'manual-onboard'].includes(p)),
-    bdm: ALL_PAGES.filter(p => !p.startsWith('admin/') && !['settings', 'user-management', 'role-settings', 'commercials', 'run-reports', 'live'].includes(p)).concat(['remittance', 'json-creator']),
+    admin: ALL_PAGES.filter(p => !['live-test', 'user-management', 'manual-onboard', 'notebook'].includes(p)),
+    bdm: ALL_PAGES.filter(p => !p.startsWith('admin/') && !['settings', 'user-management', 'role-settings', 'commercials', 'run-reports', 'live', 'notebook'].includes(p)).concat(['remittance', 'json-creator']),
     driver: ['live', 'find-it', 'grab-it', 'location-lookup', 'remittance', 'json-creator', 'about-tge'],
     agent: ['calculator', 'live', 'location-lookup', 'info', 'problem-log', 'remittance', 'json-creator', 'about-tge'],
     user: ['calculator', 'info', 'remittance', 'json-creator', 'about-tge', 'json-management'],
