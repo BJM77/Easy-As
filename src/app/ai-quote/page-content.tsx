@@ -95,8 +95,8 @@ export default function AiQuotePageContent() {
         userId: user?.uid,
         companyId: profile?.companyId,
         apiKey: apiKeyOverride,
-        serviceSettings,
-        surchargeDefinitions
+        serviceSettings: serviceSettings ?? [],
+        surchargeDefinitions: surchargeDefinitions ?? []
       });
 
       const assistantMessage: ChatMessage = {
@@ -108,7 +108,20 @@ export default function AiQuotePageContent() {
       };
 
       setMessages(prev => [...prev, assistantMessage]);
+      
+      // If the result contains an error in the trace, surface it as a toast for the developer/admin
+      const errorTrace = result.trace?.find(t => t.status === 'error');
+      if (errorTrace) {
+        console.error("Quote agent internal error:", errorTrace.detail);
+        toast({ 
+          title: errorTrace.title, 
+          description: errorTrace.detail, 
+          variant: "destructive" 
+        });
+      }
+
     } catch (error: any) {
+      console.error("Quote agent transport error:", error);
       toast({ title: "Intelligence Error", description: error.message || "Failed to process request.", variant: "destructive" });
     } finally {
       setIsThinking(false);

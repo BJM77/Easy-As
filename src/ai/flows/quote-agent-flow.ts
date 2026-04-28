@@ -394,7 +394,7 @@ export async function processQuoteQuery(input: QuoteQueryInput): Promise<QuoteAg
             ? 'API Quota Exceeded (429)'
             : isKeyError
             ? 'Missing or invalid GEMINI_API_KEY'
-            : 'Internal Service Error',
+            : `Internal Service Error: ${error.message}`,
           status: 'error',
         },
       ],
