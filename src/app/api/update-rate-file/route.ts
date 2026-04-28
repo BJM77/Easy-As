@@ -1,15 +1,8 @@
 
 import { NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
 import { z } from 'zod';
-import { getUserFromToken, checkSuperAdmin, checkCompanyAdmin } from '@/lib/firebase-admin';
+import { getUserFromToken, checkSuperAdmin, checkCompanyAdmin, getAdminDb } from '@/lib/firebase-admin';
 import { logAudit } from '@/lib/audit';
-
-/**
- * @fileOverview Hardened Rate File Update Endpoint.
- * Replaced hardcoded password with Token Claim Authorization.
- */
 
 const updateSchema = z.object({
   fileName: z.string().regex(/^[a-zA-Z0-9_]+\.json$/, "Invalid file name format."),
@@ -31,49 +24,44 @@ export async function POST(request: Request) {
     
     const { fileName, fileContentString } = validation.data;
 
-    // 1. Authorization: Verify user role and company context
     const user = await getUserFromToken(token);
     if (!user) return NextResponse.json({ error: 'UNAUTHORIZED' }, { status: 401 });
 
-    // Determine target company for the audit and security check
-    // Customer files (customer_*.json) are manageable by Company Admins
-    // Core files (*.json) are manageable ONLY by Superadmins
     const isCustomerFile = fileName.startsWith('customer_');
+    const db = await getAdminDb();
     
     if (isCustomerFile) {
-        // Verify the user is an admin for the current workspace
-        // We assume the caller is updating their own workspace's persistent rates
         await checkCompanyAdmin(token, user.companyId);
+        // Save to companyRates
+        const docId = `${user.companyId}_${fileName.replace('.json', '')}`;
+        await db.collection('companyRates').doc(docId).set({
+            id: docId,
+            companyId: user.companyId,
+            rateType: fileName.replace('customer_', '').replace('.json', ''),
+            data: JSON.parse(fileContentString),
+            updatedAt: new Date().toISOString(),
+            updatedBy: user.email || user.uid
+        }, { merge: true });
     } else {
-        // Core files require global Superadmin status
         await checkSuperAdmin(token);
+        // Save to globalRates (New persistent store for core JSONs)
+        await db.collection('globalRates').doc(fileName.replace('.json', '')).set({
+            fileName,
+            data: JSON.parse(fileContentString),
+            updatedAt: new Date().toISOString(),
+            updatedBy: user.email || user.uid
+        });
     }
 
-    // 2. Path Sanitization
-    if (fileName.includes('..') || fileName.includes('/')) {
-        return NextResponse.json({ error: 'Invalid file name.'}, { status: 400 });
-    }
-
-    const publicDir = path.join(process.cwd(), 'src', 'public');
-    const filePath = path.join(publicDir, fileName);
-
-    if (!filePath.startsWith(publicDir)) {
-        return NextResponse.json({ error: 'Access denied to filesystem target.'}, { status: 400 });
-    }
-
-    // 3. Persist Change
-    await fs.writeFile(filePath, fileContentString, 'utf8');
-
-    // 4. Log Audit
     await logAudit('RATE_FILE_UPDATE', {
         userId: user.uid,
         userEmail: user.email,
         companyId: user.companyId,
         targetId: fileName,
-        metadata: { fileSize: fileContentString.length }
+        metadata: { fileSize: fileContentString.length, persistent: true }
     });
 
-    return NextResponse.json({ message: `${fileName} updated successfully.` });
+    return NextResponse.json({ message: `${fileName} updated and persisted successfully.` });
 
   } catch (error: any) {
     console.error(`[API /api/update-rate-file] Error:`, error);

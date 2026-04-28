@@ -122,30 +122,43 @@ export const RateOverrideProvider = ({ children }: { children: ReactNode }) => {
     return query(collection(firestore, 'companyRates'), where('companyId', '==', targetCompanyId));
   }, [firestore, user, profile?.companyId, company?.id, authLoading]);
 
-  const { data: savedCompanyRates, isLoading: isLoadingFirestore } = useCollection<CompanyRate>(companyRatesQuery);
+  const globalRatesQuery = useMemoFirebase(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'globalRates'));
+  }, [firestore]);
 
-  const centralData = useMemo(() => ({
-    b2cRatesData: b2cData as B2CRateEntry[],
-    regionalLookupData: regionalLookup as RegionalLookupEntry[],
-    lcprdexData: lcprdex as LCPRdexRateEntry[],
-    lcpprioData: lcpprio as LCPPrioRateEntry[],
-    lcpgoData: lcpgo as LCPGoRateEntry[],
-    b2bStdData: undefined, 
-    b2bPriorityData: b2bPriority as B2BPriorityRateEntry[],
-    b2brdexData: b2brdex as B2BRdexEntry[],
-    pezoneData: pezones as PEZonesEntry[],
-    pe1Data: pe1 as TieredPalletRateEntry[],
-    pe2Data: pe2 as TieredPalletRateEntry[],
-    pe3Data: pe3 as TieredPalletRateEntry[],
-    pe4Data: pe4 as TieredPalletRateEntry[],
-    pe5Data: pe5 as TieredPalletRateEntry[],
-    pallet6Data: pallet6 as TieredPalletRateEntry[],
-    westEastData: westEast as WestEastRateEntry[],
-    rasData: ras as RASRateEntry[],
-    epratesData: undefined, 
-    allPostcodes: allPostcodesData as PostcodeData[],
-    locationsData: allLocationsData as LocationLookupData[],
-  }), []);
+  const { data: savedCompanyRates, isLoading: isLoadingFirestore } = useCollection<CompanyRate>(companyRatesQuery);
+  const { data: savedGlobalRates, isLoading: isLoadingGlobal } = useCollection<any>(globalRatesQuery);
+
+  const centralData = useMemo(() => {
+    const getGlobal = (key: string, fallback: any) => {
+        const found = (savedGlobalRates || []).find(r => r.id === key);
+        return found ? found.data : fallback;
+    };
+
+    return {
+        b2cRatesData: getGlobal('b2c', b2cData) as B2CRateEntry[],
+        regionalLookupData: getGlobal('regionallookup', regionalLookup) as RegionalLookupEntry[],
+        lcprdexData: getGlobal('lcprdex', lcprdex) as LCPRdexRateEntry[],
+        lcpprioData: getGlobal('lcpprio', lcpprio) as LCPPrioRateEntry[],
+        lcpgoData: getGlobal('lcpgo', lcpgo) as LCPGoRateEntry[],
+        b2bStdData: undefined, 
+        b2bPriorityData: getGlobal('b2b_priority', b2bPriority) as B2BPriorityRateEntry[],
+        b2brdexData: getGlobal('b2brdex', b2brdex) as B2BRdexEntry[],
+        pezoneData: getGlobal('PEZones', pezones) as PEZonesEntry[],
+        pe1Data: getGlobal('pe1', pe1) as TieredPalletRateEntry[],
+        pe2Data: getGlobal('pe2', pe2) as TieredPalletRateEntry[],
+        pe3Data: getGlobal('pe3', pe3) as TieredPalletRateEntry[],
+        pe4Data: getGlobal('pe4', pe4) as TieredPalletRateEntry[],
+        pe5Data: getGlobal('pe5', pe5) as TieredPalletRateEntry[],
+        pallet6Data: getGlobal('pallet6', pallet6) as TieredPalletRateEntry[],
+        westEastData: getGlobal('west_east', westEast) as WestEastRateEntry[],
+        rasData: getGlobal('ras', ras) as RASRateEntry[],
+        epratesData: undefined, 
+        allPostcodes: allPostcodesData as PostcodeData[],
+        locationsData: allLocationsData as LocationLookupData[],
+    };
+  }, [savedGlobalRates]);
 
   const linkLocalDirectory = async () => {
     if (!window.showDirectoryPicker) {
