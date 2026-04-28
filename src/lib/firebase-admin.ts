@@ -81,7 +81,7 @@ async function initializeAdmin() {
       });
     }
     else if (jsonCredentials && jsonCredentials.project_id && jsonCredentials.private_key) {
-      console.log("[Admin SDK] Initializing via Compact JSON String.");
+      console.log(`[Admin SDK] Initializing via Compact JSON String for project: ${jsonCredentials.project_id}`);
       if (jsonCredentials.private_key) {
           jsonCredentials.private_key = jsonCredentials.private_key.replace(/\\n/g, '\n');
       }
