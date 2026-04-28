@@ -138,12 +138,12 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
         fuelSurchargePercent: fuel,
         surcharges: surchargeDefinitions.filter(s => s.applicableServices.includes(service)).map(s => ({
           surchargeId: s.id,
-          value: s.defaultValue,
+          value: s.id === 'security' ? globalSecuritySurchargePercent : s.defaultValue,
           enabled: true
         }))
       };
     });
-  }, [standardFuelSurcharge, priorityFuelSurcharge, palletFuelSurcharge, surchargeDefinitions]);
+  }, [standardFuelSurcharge, priorityFuelSurcharge, palletFuelSurcharge, globalSecuritySurchargePercent, surchargeDefinitions]);
 
   // --- Persistence ---
   useEffect(() => {
