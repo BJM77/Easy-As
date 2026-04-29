@@ -755,6 +755,20 @@ export interface SpendBandCalculatedCost {
   isBestFit?: boolean;
 }
 
+export const CSV_EXPECTED_HEADERS: Partial<Record<RateFileType, string[]>> = {
+  b2c: ['Logic', 'Service', 'B2C1', 'B2C3', 'B2C5', 'KG', 'B2CP1', 'B2CP3', 'B2CP5', 'PKG'],
+  lcprdex: ['Logic', 'LCPRDEXBasic', 'LCPRDEXKg'],
+  lcpprio: ['Logic', 'LCPPrioBasic', 'LCPPrioKg'],
+  lcpgo: ['Logic', 'Go1', 'Go3', 'Go5', 'Go10', 'GoKilo'],
+  b2b_std: ['Logic', 'B1', 'K1', 'M1', 'B2', 'K2', 'M2', 'B3', 'K3', 'M3', 'B4', 'K4', 'M4', 'B5', 'K5', 'M5', 'B6', 'K6', 'M6'],
+  b2b_priority: ['Logic', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'K1', 'K2', 'K3', 'K4', 'K5', 'K6'],
+  b2brdex: ['Logic', 'Service', 'Origin', 'Destination', 'B1', 'K1', 'M1', 'B2', 'K2', 'M2', 'B3', 'K3', 'M3', 'B4', 'K4', 'M4', 'B5', 'K5', 'M5', 'B6', 'K6', 'M6'],
+  west_east: ['To', 'Basic', 'Minimum', '0-99999KGS'],
+  customer_b2b_priority: ['Logic', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'K1', 'K2', 'K3', 'K4', 'K5', 'K6'],
+  customer_b2brdex: ['Logic', 'Service', 'Origin', 'Destination', 'B1', 'K1', 'M1', 'B2', 'K2', 'M2', 'B3', 'K3', 'M3', 'B4', 'K4', 'M4', 'B5', 'K5', 'M5', 'B6', 'K6', 'M6'],
+  customer_b2c: ['Logic', 'Service', 'B2C1', 'B2C3', 'B2C5', 'KG', 'B2CP1', 'B2CP3', 'B2CP5', 'PKG'],
+};
+
 export type RateFileType =
   | 'b2c' | 'regionallookup' | 'lcprdex' | 'lcpprio' | 'lcpgo' | 'b2b_std' | 'b2b_priority' | 'b2brdex' | 'pezone' | 'pe1' | 'pe2' | 'pe3' | 'pe4' | 'pe5' | 'pallet6' | 'west_east' | 'ras' | 'eprates' | 'postcodes' | 'locations'
   | 'customer_b2b_priority' | 'customer_b2brdex' | 'customer_pe' | 'customer_b2c' | 'customer_lcpgo' | 'customer_lcprdex' | 'customer_lcpprio' | 'customer_west_east' | 'customer_b2bsatchel';

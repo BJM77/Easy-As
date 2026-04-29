@@ -4,6 +4,8 @@ import { FieldValue } from 'firebase-admin/firestore';
 import { getAdminDb, getAdminAuth, getUserFromToken } from '@/lib/firebase-admin';
 import { z } from 'zod';
 
+export const dynamic = 'force-dynamic';
+
 const updateProfileSchema = z.object({
   name: z.string().trim().min(1, 'Name is required.'),
 });
