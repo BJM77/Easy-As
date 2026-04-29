@@ -10,7 +10,7 @@ function arraysMatch(arr1: string[], arr2: string[]): boolean {
 }
 
 
-function parseCsvRow(row: string): string[] {
+export function parseCsvRow(row: string): string[] {
   const result: string[] = [];
   let currentCell = '';
   let inQuotes = false;

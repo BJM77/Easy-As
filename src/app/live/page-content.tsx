@@ -30,6 +30,7 @@ import AddressVerificationDialog from '@/components/live/AddressVerificationDial
 import { validateAddress } from '@/ai/flows/validate-address-flow';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Checkbox } from '@/components/ui/checkbox';
+import { parseCsvRow } from '@/lib/csvParser';
 
 
 interface ScannedInfo extends Consignment {}
@@ -755,10 +756,10 @@ export default function LiveTrackPageContent() {
         const lines = text.trim().split(/\r\n|\n/).slice(1); // Skip header
 
         const newConsignments: Omit<Consignment, 'id' | 'status'>[] = lines.map(line => {
-            const [address, description, type] = line.split(',');
+            const [address, description, type] = parseCsvRow(line);
             return {
-                address: address?.replace(/"/g, '') || '',
-                consignmentNumber: description?.replace(/"/g, '') || `MANUAL-${Date.now()}`,
+                address: address || '',
+                consignmentNumber: description || `MANUAL-${Date.now()}`,
                 carrier: 'Imported',
                 isLargeParcel: type?.toLowerCase().includes('large') || false,
                 fullData: line,

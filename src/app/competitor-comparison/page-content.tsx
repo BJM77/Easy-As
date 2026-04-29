@@ -14,6 +14,7 @@ import { calculateAllFreightPrices } from '@/lib/freightCalculations';
 import { analyzeCompetitorRates, type AnalysisSummary, type AnalysisInput } from '@/ai/flows/analyze-competitor-rates-flow';
 import { useSession } from '@/context/SessionContext';
 import { useAuth } from '@/firebase';
+import { parseCsvRow } from '@/lib/csvParser';
 
 
 import { Button } from '@/components/ui/button';
@@ -217,7 +218,7 @@ export default function CompetitorComparisonPageContent() {
       return;
     }
   
-    const header = lines[0].toLowerCase().split(',').map(h => h.trim().replace(/"/g, ''));
+    const header = parseCsvRow(lines[0].toLowerCase());
     const headerMap = {
         originSub: header.indexOf("origin sub"),
         originPC: header.indexOf("origin pc"),
@@ -250,7 +251,7 @@ export default function CompetitorComparisonPageContent() {
     };
   
     lines.slice(1).forEach((line, index) => {
-        const values = line.split(',').map(v => v.trim().replace(/"/g, ''));
+        const values = parseCsvRow(line);
         if (values.length < Object.keys(headerMap).length) {
             errorCount++;
             return;

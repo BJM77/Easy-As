@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkSuperAdmin, getAdminDb, getAdminAuth } from "@/lib/firebase-admin";
 import { ALL_USER_ROLES } from "@/lib/types";
+import { parseCsvRow } from "@/lib/csvParser";
 
 export async function POST(req: NextRequest) {
   try {
@@ -23,7 +24,7 @@ export async function POST(req: NextRequest) {
     if (!headerLine) {
         return NextResponse.json({ error: 'CSV is empty or has no header.' }, { status: 400 });
     }
-    const header = headerLine.toLowerCase().split(',');
+    const header = parseCsvRow(headerLine.toLowerCase());
     if (!header.includes('email') || !header.includes('role')) {
         return NextResponse.json({ error: 'CSV must contain "email" and "role" headers.' }, { status: 400 });
     }
@@ -35,7 +36,8 @@ export async function POST(req: NextRequest) {
     const errors: string[] = [];
 
     for (const line of lines) {
-        const values = line.split(',').map((v:string) => v.trim());
+        if (!line.trim()) continue;
+        const values = parseCsvRow(line);
         const email = values[emailIndex];
         const role = values[roleIndex]?.toLowerCase();
 
