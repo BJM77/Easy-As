@@ -181,7 +181,6 @@ export default function DashboardPageContent() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 <div className="lg:col-span-8 space-y-6">
                     <DashboardCalculator />
-                    <ReportLauncher />
                 </div>
 
                 <div className="lg:col-span-4 space-y-4">
@@ -192,6 +191,10 @@ export default function DashboardPageContent() {
                     />
                     <FuelSecurityWidget />
                 </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6">
+                <ReportLauncher />
             </div>
 
             <div className="pt-2">
