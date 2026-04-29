@@ -117,8 +117,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         const tokenResult = await getIdTokenResult(authUser);
         if (activeUidRef.current === uid) {
-          setActualRole(tokenResult.claims.role as UserRole || 'user');
-          setTokenCompanyId(tokenResult.claims.companyId as string || null);
+          const role = tokenResult.claims.role as UserRole || 'user';
+          const companyId = tokenResult.claims.companyId as string || null;
+          console.log(`[Auth] Custom claims resolved: role=${role}, companyId=${companyId}`);
+          setActualRole(role);
+          setTokenCompanyId(companyId);
         }
       } catch (err) {
         console.error("[Auth] Token resolution failed", err);
@@ -142,7 +145,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     console.log("[Auth] Starting Profile Listener for UID:", currentUid);
     const profileRef = doc(firebase.firestore, 'users', currentUid);
     
+    // Fail-safe for profile listener: if it doesn't fire, don't hang forever
+    const profileTimeout = setTimeout(() => {
+        if (loading) {
+            console.warn("[Auth] Profile listener timed out after 5s.");
+            setLoading(false);
+        }
+    }, 5000);
+
     const unsubscribe = onSnapshot(profileRef, (docSnap) => {
+      clearTimeout(profileTimeout);
       if (activeUidRef.current !== currentUid) {
           console.log("[Auth] Stale Profile Listener callback ignored.");
           return;
@@ -155,18 +167,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         
         getIdTokenResult(user).then(async (t) => {
           if (activeUidRef.current === currentUid && (!t.claims.companyId || t.claims.role !== data.role)) {
+            console.log("[Auth] Token/Profile mismatch detected. Refreshing token...");
             await user.getIdTokenResult(true);
           }
-        }).finally(() => setLoading(false));
+        }).finally(() => {
+            console.log("[Auth] Profile resolution complete.");
+            setLoading(false);
+        });
       } else {
+        console.warn("[Auth] Profile document does not exist for UID:", currentUid);
         setLoading(false);
       }
     }, (err) => {
       console.error("[Auth] Profile listener failed", err);
+      clearTimeout(profileTimeout);
       if (activeUidRef.current === currentUid) setLoading(false);
     });
 
-    return () => unsubscribe();
+    return () => {
+        unsubscribe();
+        clearTimeout(profileTimeout);
+    };
   }, [firebase, user]);
 
   // 3. Company Listener

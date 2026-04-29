@@ -159,7 +159,14 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 
     if (!firestore) return;
     const settingsRef = doc(firestore, 'settings', 'global');
+    
+    // Safety timeout: ensure we don't hang forever if permissions are denied or doc doesn't exist
+    const timeout = setTimeout(() => {
+      setIsLoadingSettings(false);
+    }, 5000);
+
     const unsubscribe = onSnapshot(settingsRef, (snap) => {
+      clearTimeout(timeout);
       if (snap.exists()) {
         const data = snap.data();
         if (data.standardFuelSurcharge) setStandardFuelSurcharge(data.standardFuelSurcharge);
@@ -173,8 +180,15 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
         if (data.visibleTimezones) setVisibleTimezones(data.visibleTimezones);
       }
       setIsLoadingSettings(false);
+    }, (error) => {
+      console.error("Settings listener error:", error);
+      clearTimeout(timeout);
+      setIsLoadingSettings(false);
     });
-    return () => unsubscribe();
+    return () => {
+      unsubscribe();
+      clearTimeout(timeout);
+    };
   }, [firestore]);
 
   const saveSettingsToServer = async (password: string) => {

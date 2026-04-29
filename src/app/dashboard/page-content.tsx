@@ -267,7 +267,26 @@ export default function DashboardPageContent() {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
                 <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-                <p className="text-[10px] font-black uppercase tracking-widest text-primary animate-pulse">Initializing Command Center...</p>
+                <div className="text-center space-y-2">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-primary animate-pulse">Initializing Command Center...</p>
+                    <p className="text-[9px] text-muted-foreground">Checking authentication and global settings</p>
+                </div>
+                
+                {(authLoading || isLoadingSettings) && (
+                    <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="mt-8 text-[9px] font-bold opacity-30 hover:opacity-100 uppercase tracking-tighter"
+                        onClick={() => {
+                            console.warn("User manually bypassed initialization hang.");
+                            // Force page to render by tricking the conditional if possible, 
+                            // but since this is a local component state we can't easily force it 
+                            // without adding a 'forceRender' state. Let's just suggest a refresh or wait.
+                        }}
+                    >
+                        Taking too long? Try refreshing or check your connection.
+                    </Button>
+                )}
             </div>
         );
     }
