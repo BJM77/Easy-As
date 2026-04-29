@@ -48,7 +48,7 @@ export async function testAiConnection() {
     if (error.message?.includes("404")) {
       userErrorMessage = "Model not found. The model 'gemini-2.0-flash' may not be available for this API key or region in the current project.";
     } else if (error.message?.includes("API key")) {
-      userErrorMessage = "Invalid API key. Please check your GEMINI_API_KEY configuration in the .env file.";
+      userErrorMessage = "Invalid API key. Please check your GEMINI_API_KEY configuration in Secret Manager or environment variables.";
     } else if (error.message?.includes("429")) {
       userErrorMessage = "Resource exhausted (429). Quota limit reached for this API key.";
     }

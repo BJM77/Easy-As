@@ -29,3 +29,7 @@ env:
     value: "1:1071384403415:web:b9f2aaf9e9fb7714033f92"
   - variable: NEXT_PUBLIC_FIREBASE_API_KEY
     value: AIzaSyBRBbKsrlciimPerPKcks1O1d1GFzpOWSo
+  - variable: NEXT_PUBLIC_GEMINI_API_KEY
+    value: AIzaSyBRBbKsrlciimPerPKcks1O1d1GFzpOWSo
+  - variable: NEXT_PUBLIC_GOOGLE_MAPS_EMBED_API_KEY
+    value: AIzaSyBRBbKsrlciimPerPKcks1O1d1GFzpOWSo
