@@ -1,0 +1,31 @@
+# Firebase App Hosting configuration
+# This file maps your Google Cloud Secrets to environment variables
+# Environment: enna
+
+runConfig:
+  minInstances: 0
+  maxInstances: 10
+  memoryR_MiB: 512
+
+env:
+  # Secrets from Google Cloud Secret Manager
+  - variable: GEMINI_API_KEY
+    secret: GEMINI_API_KEY
+  - variable: ADMIN_WRITE_PASSWORD
+    secret: ADMIN_WRITE_PASSWORD
+  - variable: GOOGLE_APPLICATION_CREDENTIALS_JSON
+    secret: GOOGLE_APPLICATION_CREDENTIALS_JSON
+
+  # Standard environment variables
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: studio-7521332906-59af2
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: studio-7521332906-59af2.firebaseapp.com
+  - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+    value: studio-7521332906-59af2.firebasestorage.app
+  - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+    value: "1071384403415"
+  - variable: NEXT_PUBLIC_FIREBASE_APP_ID
+    value: "1:1071384403415:web:b9f2aaf9e9fb7714033f92"
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    value: AIzaSyBRBbKsrlciimPerPKcks1O1d1GFzpOWSo
