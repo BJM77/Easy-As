@@ -12,19 +12,16 @@ import { googleAI, gemini } from '@genkit-ai/googleai';
  * falls back to the server-side GEMINI_API_KEY environment variable.
  */
 export function buildAi(apiKeyOverride?: string) {
-  const apiKey = apiKeyOverride || process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+  const apiKey = apiKeyOverride || process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
     console.error('[Genkit] CRITICAL: GEMINI_API_KEY is not set in environment.');
-    // Return a dummy instance that throws when used, or handle later
-    // For now, let's keep the throw but move it inside the call chain if possible.
-    // However, buildAi is called at top level below.
   }
 
   return genkit({
     plugins: [
       googleAI({
-        apiKey: apiKey || 'MISSING_KEY', // Avoid crash here
+        apiKey: apiKey || 'MISSING_KEY', 
         apiVersion: 'v1beta',
       }),
     ],

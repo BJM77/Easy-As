@@ -159,7 +159,7 @@ function TopBar() {
 
   const activeTimezones = useMemo(() => {
     return Object.entries(timezones).filter(([zoneId]) => visibleTimezones[zoneId]);
-  }, [timezones, visibleTimezones, now]);
+  }, [timezones, visibleTimezones]);
 
   return (
     <div className="w-full py-1.5 px-4 border-b transition-colors" style={{ backgroundColor: company?.settings?.topMenuColor || 'hsl(var(--background))' }}>
