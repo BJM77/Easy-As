@@ -8,6 +8,7 @@ import { useSession } from '@/context/SessionContext';
 import { useSettings } from '@/context/SettingsContext';
 import { format } from 'date-fns';
 import { updateFuelSurcharges } from '@/ai/flows/update-fuel-surcharges-flow';
+import { verifyAdminPassword } from '@/ai/flows/admin-auth-flow';
 import { 
   Fuel, 
   ShieldCheck, 
@@ -48,6 +49,8 @@ export const FuelSecurityWidget = () => {
           updateGroupFuelSurcharge('standard', update.road, update.lastUpdated);
           updateGroupFuelSurcharge('priority', update.air, update.lastUpdated);
           
+          // The server-side verifyAdminPassword will now check for either 
+          // the Secret Manager value OR 'LCPTGE' as a fallback.
           await saveSettingsToServer('LCPTGE');
           
           toast({ 

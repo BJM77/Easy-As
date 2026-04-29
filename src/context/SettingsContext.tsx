@@ -191,8 +191,13 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     };
   }, [firestore]);
 
+import { verifyAdminPassword } from '@/ai/flows/admin-auth-flow';
+
+// ... (keep existing imports)
+
   const saveSettingsToServer = async (password: string) => {
-    if (password !== 'LCPTGE') {
+    const isValid = await verifyAdminPassword(password);
+    if (!isValid) {
       toast({ title: "Invalid Password", variant: "destructive" });
       return false;
     }

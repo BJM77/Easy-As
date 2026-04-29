@@ -111,8 +111,12 @@ export default function RateCardPageContent() {
     fetchPostcodes();
   }, [toast]);
   
-  const handleLcpUnlock = () => {
-    if (lcpPassword === 'LCPTGE') {
+import { verifyAdminPassword } from '@/ai/flows/admin-auth-flow';
+
+// ... (in handleLcpUnlock)
+  const handleLcpUnlock = async () => {
+    const isValid = await verifyAdminPassword(lcpPassword);
+    if (isValid) {
       setShowLcpRates(true);
       toast({ title: "LCP Rates Unlocked", description: "LCP services are now available for selection." });
     } else {
