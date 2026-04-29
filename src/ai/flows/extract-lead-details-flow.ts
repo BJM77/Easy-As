@@ -1,10 +1,11 @@
 'use server';
 /**
- * @fileOverview An AI agent that extracts lead details from an image.
+ * @fileOverview AI agents for extracting lead details from images and text.
  */
 
 import {z} from 'genkit';
 import { logAiUsage } from '@/lib/aiUsage';
+import { ai } from '@/ai/genkit';
 
 const ExtractLeadInputSchema = z.object({
   photoDataUri: z
@@ -14,6 +15,11 @@ const ExtractLeadInputSchema = z.object({
     ),
 });
 export type ExtractLeadInput = z.infer<typeof ExtractLeadInputSchema>;
+
+const ExtractLeadTextSchema = z.object({
+  text: z.string().describe('Unstructured text containing lead details (e.g. notes from a call, email body).'),
+});
+export type ExtractLeadTextInput = z.infer<typeof ExtractLeadTextSchema>;
 
 const ExtractLeadOutputSchema = z.object({
   companyName: z.string().describe('The name of the company or business.'),
@@ -29,11 +35,8 @@ const ExtractLeadOutputSchema = z.object({
 });
 export type ExtractLeadOutput = z.infer<typeof ExtractLeadOutputSchema>;
 
-export async function extractLeadDetailsFromImage(input: ExtractLeadInput) {
-  // Dynamic import prevents Handlebars conflict in UI bundles
-  const { ai } = await import('@/ai/genkit');
-
-  const prompt = ai.definePrompt({
+// Image-based extraction prompt
+const extractLeadDetailsPrompt = ai.definePrompt({
     name: 'extractLeadDetailsPrompt',
     input: {schema: ExtractLeadInputSchema},
     output: {schema: ExtractLeadOutputSchema},
@@ -52,17 +55,44 @@ export async function extractLeadDetailsFromImage(input: ExtractLeadInput) {
     Image to analyze:
     {{media url=photoDataUri}}
     `,
-  });
+});
 
-  const response = await prompt(input);
+// Text-based extraction prompt
+const extractLeadFromTextPrompt = ai.definePrompt({
+    name: 'extractLeadFromTextPrompt',
+    input: {schema: ExtractLeadTextSchema},
+    output: {schema: ExtractLeadOutputSchema},
+    prompt: `You are an expert data extraction assistant. Your task is to analyze the provided unstructured text (like meeting notes or an email) and accurately extract lead contact details.
+
+    Instructions:
+    1.  Identify and extract the Company Name.
+    2.  Identify the person's full name and separate it into a First Name and a Last Name.
+    3.  Find and extract the Email Address.
+    4.  Find and extract the Phone Number.
+    5.  Identify the person's job Role or Title.
+    6.  Extract the physical address components: Street, Suburb, State, and Postcode.
+
+    Text to analyze:
+    {{text}}
+    `,
+});
+
+export async function extractLeadDetailsFromImage(input: ExtractLeadInput) {
+  const response = await extractLeadDetailsPrompt(input);
   const output = response.output;
-
   if (!output) {
     throw new Error('AI failed to extract lead details from the image.');
   }
+  await logAiUsage('Extract Lead Details from Image', response.usage);
+  return { details: output, usage: response.usage };
+}
 
-  const usage = response.usage;
-  await logAiUsage('Extract Lead Details from Image', usage);
-
-  return { details: output, usage };
+export async function extractLeadDetailsFromText(input: ExtractLeadTextInput) {
+    const response = await extractLeadFromTextPrompt(input);
+    const output = response.output;
+    if (!output) {
+      throw new Error('AI failed to extract lead details from the text.');
+    }
+    await logAiUsage('Extract Lead Details from Text', response.usage);
+    return { details: output, usage: response.usage };
 }

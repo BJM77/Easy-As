@@ -120,6 +120,7 @@ import { useAuth, useCollection, useMemoFirebase, initializeFirebase } from '@/f
 import { sendEmailVerification } from 'firebase/auth';
 import type { Alarm } from '@/firebase/auth/use-user';
 import NewProblemDialog from './NewProblemDialog';
+import NewLeadDialog from './NewLeadDialog';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -290,6 +291,7 @@ export default function AppHeader() {
   const [isApiKeysDialogOpen, setIsApiKeysDialogOpen] = useState(false);
   const [isHeaderConfigOpen, setIsHeaderConfigOpen] = useState(false);
   const [isProblemDialogOpen, setIsProblemDialogOpen] = useState(false);
+  const [isLeadDialogOpen, setIsLeadDialogOpen] = useState(false);
 
   const { 
     user, 
@@ -789,6 +791,14 @@ export default function AppHeader() {
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
+                        <Button variant="ghost" className="text-primary-foreground hover:bg-[rgba(var(--hover-color),0.2)] px-2 py-1 h-auto" onClick={() => setIsLeadDialogOpen(true)}>
+                          <UserPlus className="h-5 w-5" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent><p>New Lead</p></TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
                         <Button variant="ghost" className="text-primary-foreground hover:bg-[rgba(var(--hover-color),0.2)] px-2 py-1 h-auto" onClick={() => setIsProblemDialogOpen(true)}>
                           <ShieldAlert className="h-5 w-5" />
                         </Button>
@@ -895,6 +905,14 @@ export default function AppHeader() {
               <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
+                      <Button variant="ghost" size="icon" className="text-primary-foreground h-8 w-8 hover:bg-[rgba(var(--hover-color),0.2)]" onClick={() => setIsLeadDialogOpen(true)}>
+                        <UserPlus className="h-5 w-5" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent><p>New Lead</p></TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
                       <Button variant="ghost" size="icon" className="text-primary-foreground h-8 w-8 hover:bg-[rgba(var(--hover-color),0.2)]" onClick={handleOpenAlarmDialog}>
                         <AlarmClock className="h-5 w-5" />
                       </Button>
@@ -921,6 +939,7 @@ export default function AppHeader() {
       <ApiKeysDialog isOpen={isApiKeysDialogOpen} onOpenChange={setIsApiKeysDialogOpen} />
       <HeaderConfigDialog isOpen={isHeaderConfigOpen} onOpenChange={setIsHeaderConfigOpen} />
       <NewProblemDialog isOpen={isProblemDialogOpen} onOpenChange={setIsProblemDialogOpen} />
+      <NewLeadDialog isOpen={isLeadDialogOpen} onOpenChange={setIsLeadDialogOpen} />
 
       <Dialog open={isAlarmDialogOpen} onOpenChange={setIsAlarmDialogOpen}>
         <DialogContent>

@@ -15,9 +15,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { collection, doc } from 'firebase/firestore';
 import { leadSchema, industryOptions } from '@/lib/zodSchemas';
-import { ALL_STATES, ALL_BUSINESS_UNITS, ALL_LEAD_SALUTATIONS, ALL_LEAD_SOURCES, ALL_LEAD_FREQUENCIES } from '@/lib/types';
 import type { Lead, BusinessUnit, StateAbbreviation, LeadSalutation, LeadSource, LeadFrequency } from '@/lib/types';
-import { extractLeadDetailsFromImage } from '@/ai/flows/extract-lead-details-flow';
+import { ALL_STATES, ALL_BUSINESS_UNITS, ALL_LEAD_SALUTATIONS, ALL_LEAD_SOURCES, ALL_LEAD_FREQUENCIES } from '@/lib/types';
+import { extractLeadDetailsFromImage, extractLeadDetailsFromText } from '@/ai/flows/extract-lead-details-flow';
+import { Sparkles } from 'lucide-react';
 
 
 type LeadFormValues = z.infer<typeof leadSchema>;
@@ -37,6 +38,9 @@ export default function NewLeadDialog({ isOpen, onOpenChange, initialData }: New
   const firestore = useFirestore();
 
   const [isCameraDialogOpen, setIsCameraDialogOpen] = useState(false);
+  const [isAiTextDialogOpen, setIsAiTextDialogOpen] = useState(false);
+  const [aiNotes, setAiNotes] = useState('');
+  const [isExtractingText, setIsExtractingText] = useState(false);
   const [isCapturing, setIsCapturing] = useState(false);
   const photoVideoRef = useRef<HTMLVideoElement>(null);
   const photoCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -142,6 +146,34 @@ export default function NewLeadDialog({ isOpen, onOpenChange, initialData }: New
     }
   };
 
+  const handleTextExtract = async () => {
+    if (!aiNotes.trim()) return;
+    setIsExtractingText(true);
+    try {
+      const { details } = await extractLeadDetailsFromText({ text: aiNotes });
+      
+      if (details.companyName) form.setValue('companyName', details.companyName);
+      if (details.firstName) form.setValue('firstName', details.firstName);
+      if (details.lastName) form.setValue('lastName', details.lastName);
+      if (details.email) form.setValue('contactEmail', details.email);
+      if (details.phone) form.setValue('contactPhone', details.phone);
+      if (details.role) form.setValue('notes', `Role: ${details.role}\n\nOriginal Notes:\n${aiNotes}`);
+      if (details.street) form.setValue('street', details.street);
+      if (details.suburb) form.setValue('suburb', details.suburb);
+      if (details.state) form.setValue('state', details.state as StateAbbreviation);
+      if (details.postcode) form.setValue('postcode', details.postcode);
+
+      toast({ title: 'AI Extraction Complete', description: 'Form has been auto-filled from your notes.' });
+      setIsAiTextDialogOpen(false);
+      setAiNotes('');
+    } catch (error) {
+      console.error("Text extraction failed:", error);
+      toast({ title: "AI Error", description: "Could not extract details from text.", variant: "destructive" });
+    } finally {
+      setIsExtractingText(false);
+    }
+  };
+
   const onSubmit = async (data: LeadFormValues) => {
     if (!user?.email || !firestore || !profile?.companyId) {
       toast({ title: 'Not Authenticated', description: 'Session error. Please log in again.', variant: 'destructive' });
@@ -190,9 +222,14 @@ export default function NewLeadDialog({ isOpen, onOpenChange, initialData }: New
                   </DialogDescription>
                 </div>
               </div>
-              <Button variant="outline" size="sm" onClick={() => setIsCameraDialogOpen(true)}>
-                <Camera className="mr-2 h-4 w-4" /> Scan with Camera
-              </Button>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" onClick={() => setIsAiTextDialogOpen(true)}>
+                    <Sparkles className="mr-2 h-4 w-4 text-primary" /> AI Assistant
+                </Button>
+                <Button variant="outline" size="sm" onClick={() => setIsCameraDialogOpen(true)}>
+                    <Camera className="mr-2 h-4 w-4" /> Scan Card
+                </Button>
+              </div>
             </div>
           </DialogHeader>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 py-2 max-h-[70vh] overflow-y-auto pr-4">
@@ -463,6 +500,31 @@ export default function NewLeadDialog({ isOpen, onOpenChange, initialData }: New
             <Button onClick={handleCaptureAndExtract} disabled={isCapturing}>
               {isCapturing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Camera className="mr-2 h-4 w-4" />}
               Capture & Extract Details
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isAiTextDialogOpen} onOpenChange={setIsAiTextDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center"><Sparkles className="mr-2 h-5 w-5 text-primary" />AI Notes Assistant</DialogTitle>
+            <DialogDescription>Paste meeting notes, an email body, or any unstructured text to extract lead details.</DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            <Textarea 
+                value={aiNotes} 
+                onChange={(e) => setAiNotes(e.target.value)} 
+                placeholder="e.g. Just had a coffee with John Smith from ACME. He's the Ops Manager and is interested in our Perth to Sydney rates. His email is john@acme.com..."
+                rows={8}
+                className="resize-none font-sans text-sm"
+            />
+          </div>
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => setIsAiTextDialogOpen(false)}>Cancel</Button>
+            <Button onClick={handleTextExtract} disabled={isExtractingText || !aiNotes.trim()}>
+              {isExtractingText ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
+              Extract Details
             </Button>
           </DialogFooter>
         </DialogContent>
