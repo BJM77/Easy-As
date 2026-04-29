@@ -4,7 +4,7 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Sparkles, History, Trash2 } from 'lucide-react';
+import { Sparkles, History, Trash2, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
 
 interface GuruHistoryProps {
@@ -71,5 +71,3 @@ export default function GuruHistory({ history, onLoad, onDelete, onStartNew, isL
     </Card>
   );
 }
-
-import { Loader2 } from 'lucide-react';

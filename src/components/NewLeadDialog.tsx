@@ -123,7 +123,11 @@ export default function NewLeadDialog({ isOpen, onOpenChange, initialData }: New
     const dataUri = canvas.toDataURL('image/jpeg');
 
     try {
-      const { details } = await extractLeadDetailsFromImage({ photoDataUri: dataUri });
+      const { details } = await extractLeadDetailsFromImage({ 
+        photoDataUri: dataUri,
+        userId: user?.uid,
+        companyId: profile?.companyId
+      });
 
       if (details.companyName) form.setValue('companyName', details.companyName);
       if (details.firstName) form.setValue('firstName', details.firstName);
@@ -150,7 +154,11 @@ export default function NewLeadDialog({ isOpen, onOpenChange, initialData }: New
     if (!aiNotes.trim()) return;
     setIsExtractingText(true);
     try {
-      const { details } = await extractLeadDetailsFromText({ text: aiNotes });
+      const { details } = await extractLeadDetailsFromText({ 
+        text: aiNotes,
+        userId: user?.uid,
+        companyId: profile?.companyId
+      });
       
       if (details.companyName) form.setValue('companyName', details.companyName);
       if (details.firstName) form.setValue('firstName', details.firstName);

@@ -27,9 +27,36 @@ import { formatCurrency } from '@/lib/utils';
 type GuruFormValues = z.infer<typeof perfectPlanSchema>;
 type WizardStep = 'closed' | 'customerName' | 'sendingLocation' | 'volumes' | 'distributionProfile' | 'destinations' | 'summary' | 'calculating' | 'results';
 
+interface PricingResult {
+    destination: string;
+    legs: {
+        serviceName: string;
+        weight: number;
+        targetPrice: number;
+        tgePrice: number | null;
+        savings: number | null;
+        calculationFormula?: string;
+    }[];
+}
+
+interface AnalysisResult {
+    analysis: {
+        calculatedMonthlySpend: number;
+        recommendedSpendBand: string;
+        spendSource: string;
+    };
+    pricingByOrigin: {
+        originName: string;
+        results: PricingResult[];
+    }[];
+}
+
+const HISTORY_KEY = 'perfectPlanHistory';
+const SERVICES_FOR_SELECTION: ServiceName[] = ['LCP Std', 'B2B Std', 'B2C Std', 'LCP Priority', 'B2B Priority', 'B2C Priority', 'WA PE Special', 'B2B Pallets General Tiered', 'B2B Pallets Express'];
+
 export default function AIGuruPageContent() {
   const { toast } = useToast();
-  const [analysisResult, setAnalysisResult] = useState<any>(null);
+  const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [wizardStep, setWizardStep] = useState<WizardStep>('closed');
   const [comparisonHistory, setComparisonHistory] = useState<GuruFormValues[]>([]);
   const [currentWizardField, setCurrentWizardField] = useState<string>('none');
@@ -38,8 +65,6 @@ export default function AIGuruPageContent() {
   const { getRateFile, isLoading: areRatesLoading, pezoneData } = useRateOverrides();
   const [allPostcodes, setAllPostcodes] = useState<PostcodeData[]>([]);
   const { transcript, listening, isSupported, startListening, stopListening } = useSpeechRecognition();
-
-  const servicesForSelection: ServiceName[] = ['LCP Std', 'B2B Std', 'B2C Std', 'LCP Priority', 'B2B Priority', 'B2C Priority', 'WA PE Special', 'B2B Pallets General Tiered', 'B2B Pallets Express'];
 
   const form = useForm<GuruFormValues>({
     resolver: zodResolver(perfectPlanSchema),
@@ -67,7 +92,7 @@ export default function AIGuruPageContent() {
   };
 
   useEffect(() => {
-    const stored = localStorage.getItem('perfectPlanHistory');
+    const stored = localStorage.getItem(HISTORY_KEY);
     if (stored) setComparisonHistory(JSON.parse(stored));
     fetch('/api/postcodes').then(res => res.json()).then(setAllPostcodes).catch(() => {});
   }, []);
@@ -126,7 +151,7 @@ export default function AIGuruPageContent() {
       setAnalysisResult({ analysis: { calculatedMonthlySpend: finalMonthlySpend, recommendedSpendBand: band, spendSource: data.monthlySpend ? 'User-provided' : 'Calculated' }, pricingByOrigin: [{ originName: data.originLocationQuery, results }] });
       
       const history = [ { ...data, date: new Date().toISOString() }, ...comparisonHistory.slice(0, 19)];
-      localStorage.setItem('perfectPlanHistory', JSON.stringify(history));
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
       setComparisonHistory(history);
       setWizardStep('results');
     } catch (e) {
@@ -145,7 +170,7 @@ export default function AIGuruPageContent() {
           onLoad={(entry) => { form.reset(entry); setWizardStep('summary'); }} 
           onDelete={(idx) => {
             const newHist = [...comparisonHistory]; newHist.splice(idx, 1);
-            localStorage.setItem('perfectPlanHistory', JSON.stringify(newHist)); setComparisonHistory(newHist);
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(newHist)); setComparisonHistory(newHist);
           }} 
         />
       )}
@@ -261,7 +286,7 @@ export default function AIGuruPageContent() {
                                         placeholder="Where to? (e.g. Sydney NSW 2000)"
                                         className="h-12 font-semibold"
                                     />
-                                    <ServiceLegsFieldArray control={control} destIndex={i} servicesForSelection={servicesForSelection}/>
+                                    <ServiceLegsFieldArray control={control} destIndex={i} servicesForSelection={SERVICES_FOR_SELECTION}/>
                                 </div>
                             </Card>
                         ))}
