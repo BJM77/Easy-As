@@ -43,6 +43,18 @@ service cloud.firestore {
       allow read, write: if isSuperAdmin();
     }
 
+    // Global Rates (System-wide core rate overrides)
+    match /globalRates/{id} {
+      allow read: if isSignedIn();
+      allow write: if isSuperAdmin();
+    }
+
+    // Companies (Tenant metadata)
+    match /companies/{companyId} {
+      allow read: if isSignedIn();
+      allow write: if isSuperAdmin();
+    }
+
     // Tenant-isolated operational data
     match /problems/{id} {
       allow read: if hasCompanyAccess(resource.data.companyId);
