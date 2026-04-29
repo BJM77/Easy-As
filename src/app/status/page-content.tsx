@@ -76,6 +76,9 @@ export default function StatusPageContent() {
     const authStatus = authLoading ? 'loading' : user ? 'success' : 'error';
     const firestoreStatus = authLoading ? 'loading' : firestore ? 'success' : 'error';
 
+    // The AI Test Result now gives us the TRUE status of the server-side key
+    const isAiTrulyOnline = aiTestResult?.success;
+
     const loadedFilesCount = useMemo(() => {
         return fileOrder.filter(f => {
             const data = getRateFile(f);
