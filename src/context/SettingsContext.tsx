@@ -260,7 +260,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     return zones;
   }, []);
 
-  const value = {
+  const value = useMemo(() => ({
     serviceSettings, surchargeDefinitions, standardFuelSurcharge, priorityFuelSurcharge, palletFuelSurcharge, standardFuelLastUpdated,
     globalSecuritySurchargePercent, setGlobalSecuritySurchargePercent, addSurchargeDefinition: (d: any) => { setSurchargeDefinitions(p => [...p, d]); return true; },
     updateGroupFuelSurcharge, updateServiceSurcharge: () => {}, updateGroupOtherSurcharge: () => {},
@@ -271,7 +271,12 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     quickActions, setQuickActions, servicePermissions, setServicePermissionsForRole, pagePermissions, setPagePermissionsForRole,
     isLoadingSettings, saveSettingsToServer, showLcpRates, setShowLcpRates, isAccountManagerMode, setIsAccountManagerMode,
     externalLinks, setExternalLinks: setExternalLinksWithLocal, timezones, visibleTimezones, setVisibleTimezones: setVisibleTimezonesWithLocal
-  };
+  }), [
+    serviceSettings, surchargeDefinitions, standardFuelSurcharge, priorityFuelSurcharge, palletFuelSurcharge, standardFuelLastUpdated,
+    globalSecuritySurchargePercent, emailQuoteTemplate, perfectPlanPalletRate, perfectPlanParcelRate, perfectPlanSatchelRate,
+    stateEmailContacts, quickActions, servicePermissions, pagePermissions, isLoadingSettings, showLcpRates, isAccountManagerMode,
+    externalLinks, timezones, visibleTimezones
+  ]);
 
   return <SettingsContext.Provider value={value as any}>{children}</SettingsContext.Provider>;
 };

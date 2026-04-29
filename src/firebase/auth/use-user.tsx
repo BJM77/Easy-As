@@ -222,7 +222,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await updateDoc(doc(firebase.firestore, 'users', user.uid), { companyId });
   };
 
-  const value = {
+  const value = useMemo(() => ({
     user, profile, company, role: viewAsRole || actualRole, actualRole, loading, error,
     alarms, setAlarms, removeAlarm: (id: string) => setAlarms(p => p.filter(a => a.id !== id)),
     snoozeAlarm: (id: string, mins: number) => setAlarms(p => p.map(a => a.id === id ? { ...a, time: new Date(Date.now() + mins * 60000) } : a)),
@@ -231,7 +231,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     isSuperadmin: !!(actualRole === 'superadmin' || (user?.email && SUPERADMIN_EMAILS.includes(user.email))),
     isOrgAdmin: actualRole === 'admin',
     viewAsCompanyId, setViewAsCompanyId, viewAsRole, setViewAsRole, switchActiveCompany, tokenCompanyId
-  };
+  }), [
+    user, profile, company, viewAsRole, actualRole, loading, error, 
+    alarms, viewAsCompanyId, tokenCompanyId
+  ]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
