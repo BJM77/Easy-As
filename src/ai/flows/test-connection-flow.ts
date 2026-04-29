@@ -13,9 +13,9 @@ import { logAiUsage } from '@/lib/aiUsage';
  */
 export async function testAiConnection() {
   console.log("🔄 Testing Gemini AI connection via GenKit...");
-  
-  try {
-    const response = await ai.generate({
+  console.log("[Debug] Server-side GEMINI_API_KEY present:", !!process.env.GEMINI_API_KEY);
+
+  try {    const response = await ai.generate({
       prompt: "You are performing an API handshake. Reply with exactly: 'HANDSHAKE SUCCESSFUL'",
     });
 

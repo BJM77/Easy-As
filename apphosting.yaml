@@ -9,12 +9,22 @@ runConfig:
 
 env:
   # Secrets from Google Cloud Secret Manager
+  # availability: [BUILD, RUNTIME] is required to ensure keys work in server actions
   - variable: GEMINI_API_KEY
     secret: GEMINI_API_KEY
+    availability:
+      - BUILD
+      - RUNTIME
   - variable: ADMIN_WRITE_PASSWORD
     secret: ADMIN_WRITE_PASSWORD
+    availability:
+      - BUILD
+      - RUNTIME
   - variable: GOOGLE_APPLICATION_CREDENTIALS_JSON
     secret: GOOGLE_APPLICATION_CREDENTIALS_JSON
+    availability:
+      - BUILD
+      - RUNTIME
 
   # Standard environment variables
   - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
