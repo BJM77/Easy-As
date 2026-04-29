@@ -288,13 +288,19 @@ export default function ProposalEditorPageContent() {
   const handleAiAction = async (sectionId: ProposalSectionId) => {
     setIsAiLoading(prev => ({...prev, [sectionId]: true}));
     try {
+        const apiKey = localStorage.getItem('gemini_api_key_override') || undefined;
+        
         if (sectionId === 'execSummary') {
             const notes = proposalForm.getValues('sections.execSummary');
             if(!notes || notes.trim().length < 10) {
               toast({title: "Input Required", description: "Please provide some key points in the text area first.", variant: "default"});
               return;
             }
-            const { summary } = await generateExecutiveSummary({ customerName: proposalForm.getValues('customerCompanyName'), userNotes: notes });
+            const { summary } = await generateExecutiveSummary({ 
+                customerName: proposalForm.getValues('customerCompanyName'), 
+                userNotes: notes,
+                apiKey
+            });
             proposalForm.setValue('sections.execSummary', summary, { shouldDirty: true });
         } else if (sectionId === 'yourNeeds' || sectionId === 'benefits') {
             const points = (proposalForm.getValues(`dynamicFields.${sectionId}`) || []).filter(p => p && p.trim() !== '');
@@ -302,13 +308,17 @@ export default function ProposalEditorPageContent() {
                 toast({title: "Input Required", description: "Please add at least one need or benefit point.", variant: "default"});
                 return;
             }
-            const { paragraph } = await refinePointsToParagraph({ points, topic: sectionId === 'yourNeeds' ? 'customer needs' : 'solution benefits' });
+            const { paragraph } = await refinePointsToParagraph({ 
+                points, 
+                topic: sectionId === 'yourNeeds' ? 'customer needs' : 'solution benefits',
+                apiKey
+            });
             proposalForm.setValue(`sections.${sectionId}`, paragraph, { shouldDirty: true });
         }
         toast({title: "AI Assistant", description: "Content has been updated."});
-    } catch (e) {
+    } catch (e: any) {
         console.error("AI Action Error", e);
-        toast({title: "Error", description: "Could not generate AI content.", variant: "destructive"});
+        toast({title: "Error", description: e.message || "Could not generate AI content.", variant: "destructive"});
     } finally {
         setIsAiLoading(prev => ({...prev, [sectionId]: false}));
     }

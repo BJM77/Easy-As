@@ -15,15 +15,16 @@ export function buildAi(apiKeyOverride?: string) {
   const apiKey = apiKeyOverride || process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
   if (!apiKey) {
-    throw new Error(
-      'GEMINI_API_KEY is not set. Add it to your .env file or pass it as an override.'
-    );
+    console.error('[Genkit] CRITICAL: GEMINI_API_KEY is not set in environment.');
+    // Return a dummy instance that throws when used, or handle later
+    // For now, let's keep the throw but move it inside the call chain if possible.
+    // However, buildAi is called at top level below.
   }
 
   return genkit({
     plugins: [
       googleAI({
-        apiKey,
+        apiKey: apiKey || 'MISSING_KEY', // Avoid crash here
         apiVersion: 'v1beta',
       }),
     ],
@@ -31,5 +32,8 @@ export function buildAi(apiKeyOverride?: string) {
   });
 }
 
-// Default instance for shared use
+/**
+ * Default instance for shared use.
+ * Note: If GEMINI_API_KEY is missing, this instance will fail when called.
+ */
 export const ai = buildAi();
