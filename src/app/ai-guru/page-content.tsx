@@ -87,6 +87,18 @@ export default function AIGuruPageContent() {
     }
   }, [wizardStep, trigger, destinationFields, appendDestination, toast]);
 
+  const prevStep = useCallback(() => {
+    const stepOrder: WizardStep[] = ['customerName', 'sendingLocation', 'volumes', 'distributionProfile', 'destinations', 'summary', 'results'];
+    const currentIndex = stepOrder.indexOf(wizardStep);
+    if (currentIndex > 0) {
+        if (wizardStep === 'results') {
+            setWizardStep('summary');
+        } else {
+            setWizardStep(stepOrder[currentIndex - 1]);
+        }
+    }
+  }, [wizardStep]);
+
   const onSubmit = async (data: GuruFormValues) => {
     if (areRatesLoading) return;
     try {
@@ -264,9 +276,18 @@ export default function AIGuruPageContent() {
 
           <DialogFooter className="border-t pt-4">
             <div className="flex justify-between w-full">
-              <Button variant="ghost" onClick={() => setWizardStep('closed')}>Cancel</Button>
+              <div className="flex gap-2">
+                <Button variant="ghost" onClick={() => setWizardStep('closed')}>Cancel</Button>
+                {wizardStep !== 'customerName' && wizardStep !== 'calculating' && (
+                    <Button variant="outline" onClick={prevStep}>Back</Button>
+                )}
+              </div>
+              
               {['results'].includes(wizardStep) ? (
-                <div className="flex gap-2"><Button variant="outline" onClick={() => window.print()}><Printer className="mr-2 h-4 w-4"/>Print</Button><Button onClick={() => setWizardStep('customerName')}>Start New</Button></div>
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={() => window.print()}><Printer className="mr-2 h-4 w-4"/>Print</Button>
+                  <Button onClick={() => setWizardStep('customerName')}>Start New</Button>
+                </div>
               ) : wizardStep === 'summary' ? (
                 <Button onClick={() => { setWizardStep('calculating'); onSubmit(getValues()); }}>Generate Perfect Plan</Button>
               ) : (
