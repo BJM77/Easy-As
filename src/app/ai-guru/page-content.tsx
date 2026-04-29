@@ -1,27 +1,42 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import type { z } from 'zod';
+import { perfectPlanSchema } from '@/lib/zodSchemas';
 import type { PostcodeData, ServiceName, FreightFormValues } from '@/lib/types';
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { ArrowRight, Sparkles, Loader2, Save, Printer, Edit, Trash2 } from 'lucide-react';
+import { 
+  ArrowRight, 
+  Trash2, 
+  MapPin, 
+  Truck, 
+  ClipboardCheck, 
+  Sparkles, 
+  Loader2, 
+  Save, 
+  Printer, 
+  Edit, 
+  Mic,
+  PlusCircle
+} from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useRateOverrides } from '@/context/RateOverrideContext';
 import { useSettings } from '@/context/SettingsContext';
-import { calculateAllFreightPrices } from '@/lib/freightCalculations';
-import { perfectPlanSchema } from '@/lib/zodSchemas';
-import WizardInput from '@/components/ai-guru/WizardInput';
-import GuruHistory from '@/components/ai-guru/GuruHistory';
-import GuruResults from '@/components/ai-guru/GuruResults';
-import ServiceLegsFieldArray from '@/components/ai-guru/ServiceLegsFieldArray';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { useSpeechRecognition } from '@/hooks/use-speech-recognition';
+import { WizardInput } from '@/components/ai-guru/WizardInput';
+import { ServiceLegsFieldArray } from '@/components/ai-guru/ServiceLegsFieldArray';
+import { GuruResults } from '@/components/ai-guru/GuruResults';
+import { GuruHistory } from '@/components/ai-guru/GuruHistory';
+import { collection, query, where, orderBy, limit } from 'firebase/firestore';
+import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { calculateAllFreightPrices } from '@/lib/freightCalculations';
 import { formatCurrency } from '@/lib/utils';
 
 type GuruFormValues = z.infer<typeof perfectPlanSchema>;
@@ -71,18 +86,11 @@ export default function AIGuruPageContent() {
     defaultValues: { customerName: '', originLocationQuery: '', originLocation: null, palletsPerWeek: 0, parcelsPerWeek: 0, satchelsPerWeek: 0, monthlySpend: 0, destinations: [], addressType: 'Business', distributionArea: 'Both' },
   });
 
-  const { control, trigger, getValues, setValue, formState } = form;
+  const { control, trigger, getValues, setValue, formState, watch } = form;
   const { fields: destinationFields, append: appendDestination, remove: removeDestination } = useFieldArray({ control, name: 'destinations' });
 
-  useEffect(() => {
-    if (transcript && currentWizardField !== 'none') {
-      setValue(currentWizardField as any, transcript, { shouldValidate: true });
-      setCurrentWizardField('none');
-    }
-  }, [transcript, currentWizardField, setValue]);
-
   const handleVoiceInput = (fieldName: string) => {
-    if (listening && currentWizardField === fieldName) {
+    if (listening) {
       stopListening();
       setCurrentWizardField('none');
     } else {
@@ -125,11 +133,10 @@ export default function AIGuruPageContent() {
   }, [wizardStep]);
 
   const onSubmit = async (data: GuruFormValues) => {
-    if (areRatesLoading) return;
     try {
       const weeklySpend = (data.palletsPerWeek || 0) * perfectPlanPalletRate + (data.parcelsPerWeek || 0) * perfectPlanParcelRate + (data.satchelsPerWeek || 0) * perfectPlanSatchelRate;
       let finalMonthlySpend = weeklySpend * 4.3;
-      if (data.monthlySpend && Math.abs(finalMonthlySpend - data.monthlySpend) / data.monthlySpend <= 0.1) finalMonthlySpend = data.monthlySpend;
+      if (data.monthlySpend > 0) finalMonthlySpend = data.monthlySpend;
       
       const annualSpend = finalMonthlySpend * 12;
       const band = annualSpend < 50000 ? '1' : annualSpend < 200000 ? '2' : annualSpend < 350000 ? '3' : annualSpend < 500000 ? '4' : '5';
@@ -138,12 +145,28 @@ export default function AIGuruPageContent() {
       for (const dest of data.destinations) {
         const legs = [];
         for (const leg of dest.serviceLegs) {
-          const calcRes = await calculateAllFreightPrices({
-            formData: { ...data, spendBand: band, originLocation: data.originLocation, destinationLocation: dest.destinationLocation, items: [{ weight: leg.averageWeight, quantity: 1 }], selectedServices: [leg.service] } as any,
-            allServiceSettings: serviceSettings, allSurchargeDefinitions: surchargeDefinitions, getRateFile, pezoneData
-          });
-          const price = calcRes.find(r => r.serviceName.includes(leg.service));
-          legs.push({ serviceName: leg.service, weight: leg.averageWeight, targetPrice: leg.targetPrice, tgePrice: price?.finalPrice ?? null, savings: price?.finalPrice ? leg.targetPrice - price.finalPrice : null, calculationFormula: price?.calculationFormula });
+           const rateData = await getRateFile(leg.service);
+           const freightResults = calculateAllFreightPrices({
+             spendBand: band,
+             originLocation: data.originLocation!,
+             destinationLocation: dest.destinationLocation!,
+             items: [{ weight: leg.averageWeight, quantity: 1 }],
+             selectedServices: [leg.service],
+             applyGST: true,
+             globalNoCubic: false,
+             globalOnPallet: leg.service.includes('Pallet'),
+             additionalPercentageType: 'none'
+           }, rateData, serviceSettings, surchargeDefinitions, pezoneData || []);
+
+           const best = freightResults.find(r => r.serviceName === leg.service && r.isApplicable);
+           legs.push({
+             serviceName: leg.service,
+             weight: leg.averageWeight,
+             targetPrice: leg.targetPrice,
+             tgePrice: best?.finalPrice || null,
+             savings: best?.finalPrice ? leg.targetPrice - best.finalPrice : null,
+             calculationFormula: best?.calculationFormula
+           });
         }
         results.push({ destination: dest.destinationQuery, legs });
       }
@@ -296,6 +319,86 @@ export default function AIGuruPageContent() {
                     </Button>
                 </div>
             )}
+
+            {wizardStep === 'summary' && (
+                <div className="space-y-6 max-w-4xl mx-auto">
+                    <Card className="p-8 border-primary/20 shadow-lg bg-card">
+                        <div className="flex items-center gap-3 mb-8 pb-4 border-b">
+                            <div className="p-3 bg-primary/10 rounded-full">
+                                <ClipboardCheck className="h-6 w-6 text-primary" />
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-black uppercase tracking-tight">Review Your Perfect Plan</h3>
+                                <p className="text-xs text-muted-foreground">Verify the details before generating the strategic pricing analysis.</p>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                            <div className="space-y-6">
+                                <div className="space-y-1">
+                                    <Label className="text-[10px] font-black uppercase tracking-widest text-primary/60">Prospect Details</Label>
+                                    <p className="text-2xl font-bold">{getValues('customerName')}</p>
+                                    <p className="text-sm flex items-center gap-1.5 text-muted-foreground">
+                                        <Truck className="h-3.5 w-3.5" /> 
+                                        Sending from: <span className="font-bold text-foreground">{getValues('originLocationQuery')}</span>
+                                    </p>
+                                </div>
+
+                                <div className="space-y-3 pt-2">
+                                    <Label className="text-[10px] font-black uppercase tracking-widest text-primary/60">Weekly Volumes</Label>
+                                    <div className="grid grid-cols-3 gap-3">
+                                        <div className="p-3 rounded bg-muted/40 border">
+                                            <p className="text-[9px] font-black uppercase opacity-50">Pallets</p>
+                                            <p className="text-lg font-bold">{getValues('palletsPerWeek')}</p>
+                                        </div>
+                                        <div className="p-3 rounded bg-muted/40 border">
+                                            <p className="text-[9px] font-black uppercase opacity-50">Parcels</p>
+                                            <p className="text-lg font-bold">{getValues('parcelsPerWeek')}</p>
+                                        </div>
+                                        <div className="p-3 rounded bg-muted/40 border">
+                                            <p className="text-[9px] font-black uppercase opacity-50">Satchels</p>
+                                            <p className="text-lg font-bold">{getValues('satchelsPerWeek')}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4">
+                                <Label className="text-[10px] font-black uppercase tracking-widest text-primary/60">Target Analysis Zones</Label>
+                                <div className="space-y-2">
+                                    {getValues('destinations').map((dest, i) => (
+                                        <div key={i} className="p-3 rounded-lg border bg-muted/20 flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <Badge variant="outline" className="h-5 w-5 p-0 flex items-center justify-center font-black text-[10px] bg-background">{i+1}</Badge>
+                                                <span className="text-sm font-bold">{dest.destinationQuery || 'All Australia'}</span>
+                                            </div>
+                                            <div className="flex gap-1">
+                                                {dest.serviceLegs.map((leg, li) => (
+                                                    <Badge key={li} variant="secondary" className="text-[8px] h-4 font-bold uppercase">{leg.service.split(' ')[0]}</Badge>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                    {getValues('destinations').length === 0 && (
+                                        <p className="text-xs italic text-muted-foreground">No specific destinations added. Standard national breakdown will be used.</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </Card>
+                </div>
+            )}
+            
+            {wizardStep === 'calculating' && (
+                <div className="flex flex-col items-center justify-center py-20 space-y-4">
+                    <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
+                    <div className="text-center">
+                        <p className="text-lg font-black uppercase tracking-tighter animate-pulse">Analyzing Market Data...</p>
+                        <p className="text-xs text-muted-foreground italic">Running complex freight algorithms to find your Perfect Plan</p>
+                    </div>
+                </div>
+            )}
+
             {wizardStep === 'results' && analysisResult && <GuruResults analysis={analysisResult.analysis} pricingByOrigin={analysisResult.pricingByOrigin} />}
           </div>
 
