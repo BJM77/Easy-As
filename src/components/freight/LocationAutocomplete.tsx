@@ -162,7 +162,7 @@ export default function LocationAutocomplete({
     value && value.trim().length >= 2;
 
   return (
-    <div className={cn("relative w-full", className)}>
+    <div className="relative w-full">
       <Input
         id={inputId}
         type="text"
@@ -182,7 +182,7 @@ export default function LocationAutocomplete({
         }}
         placeholder={placeholder}
         autoComplete="off"
-        className="pr-10"
+        className={cn("pr-10", className)}
         autoFocus={autoFocus}
       />
       {(isLoading || isContextLoading) && ( 

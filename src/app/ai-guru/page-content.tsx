@@ -138,18 +138,126 @@ export default function AIGuruPageContent() {
       )}
 
       <Dialog open={wizardStep !== 'closed'} onOpenChange={(open) => !open && setWizardStep('closed')}>
-        <DialogContent className="max-w-[90vw] w-full max-h-[90vh] flex flex-col">
-          <DialogHeader>
-            <DialogTitle>Perfect Plan Assistant</DialogTitle>
-            <DialogDescription>{wizardStep.replace(/([A-Z])/g, ' $1').toLowerCase()}</DialogDescription>
+        <DialogContent className="max-w-5xl w-[95vw] max-h-[90vh] flex flex-col shadow-2xl border-primary/20">
+          <DialogHeader className="pb-4 border-b">
+            <DialogTitle className="text-3xl font-black font-headline text-primary tracking-tight">Perfect Plan Assistant</DialogTitle>
+            <DialogDescription className="text-xs uppercase tracking-[0.2em] font-black text-muted-foreground/60">{wizardStep.replace(/([A-Z])/g, ' $1').toLowerCase()}</DialogDescription>
           </DialogHeader>
           
-          <div className="flex-grow overflow-y-auto pr-4 -mr-4 space-y-4">
-            {wizardStep === 'customerName' && <WizardInput fieldName='customerName' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} autoFocus onLocationSelect={()=>{}} allPostcodes={[]} />}
-            {wizardStep === 'sendingLocation' && <WizardInput fieldName='originLocationQuery' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} isLocation autoFocus allPostcodes={allPostcodes} onLocationSelect={(l) => { setValue('originLocation', l, { shouldValidate: true }); if (l) setValue('originLocationQuery', `${l.suburb} ${l.state} ${l.postcode}`); }} />}
-            {wizardStep === 'volumes' && <div className="grid grid-cols-2 gap-4"><WizardInput type="number" fieldName='palletsPerWeek' label="Pallets/wk" form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} /><WizardInput type="number" fieldName='parcelsPerWeek' label="Parcels/wk" form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} /><WizardInput type="number" fieldName='satchelsPerWeek' label="Satchels/wk" form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} /><WizardInput type="number" fieldName='monthlySpend' label="User Spend ($)" form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} /></div>}
-            {wizardStep === 'distributionProfile' && <div className="space-y-4"><Controller name="addressType" control={control} render={({ field }) => (<RadioGroup onValueChange={field.onChange} value={field.value} className="flex gap-4"><div className="flex items-center space-x-2"><RadioGroupItem value="Residential" id="res"/><Label htmlFor="res">Residential</Label></div><div className="flex items-center space-x-2"><RadioGroupItem value="Business" id="bus"/><Label htmlFor="bus">Business</Label></div></RadioGroup>)}/><Controller name="distributionArea" control={control} render={({ field }) => (<RadioGroup onValueChange={field.onChange} value={field.value} className="flex gap-4"><div className="flex items-center space-x-2"><RadioGroupItem value="Metro" id="metro"/><Label htmlFor="metro">Metro</Label></div><div className="flex items-center space-x-2"><RadioGroupItem value="Regional" id="reg"/><Label htmlFor="reg">Regional</Label></div></RadioGroup>)} /></div>}
-            {wizardStep === 'destinations' && <div className="space-y-4">{destinationFields.map((dest, i) => (<Card key={dest.id} className="p-4 bg-muted/30"><div className="flex justify-between mb-2"><Label>Destination {i+1}</Label><Button variant="ghost" size="icon" onClick={() => removeDestination(i)}><Trash2 className="h-4 w-4"/></Button></div><WizardInput fieldName={`destinations.${i}.destinationQuery`} isLocation form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} allPostcodes={allPostcodes} onLocationSelect={(l) => { setValue(`destinations.${i}.destinationLocation`, l, { shouldValidate: true }); if (l) setValue(`destinations.${i}.destinationQuery`, `${l.suburb} ${l.state} ${l.postcode}`); }} /><ServiceLegsFieldArray control={control} destIndex={i} servicesForSelection={servicesForSelection}/></Card>))}<Button variant="outline" onClick={() => appendDestination({ id: `dest-${Date.now()}`, destinationQuery: '', destinationLocation: null, serviceLegs: [{ id: `leg-${Date.now()}`, service: 'B2B Priority', averageWeight: 0, targetPrice: 0 }] })}>Add Destination</Button></div>}
+          <div className="flex-grow overflow-y-auto pr-4 -mr-4 space-y-8 py-8">
+            {wizardStep === 'customerName' && (
+                <div className="space-y-4 max-w-4xl mx-auto">
+                    <Label className="text-[10px] font-black uppercase tracking-[0.1em] text-primary">Prospect / Company Name</Label>
+                    <WizardInput fieldName='customerName' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} autoFocus onLocationSelect={()=>{}} allPostcodes={[]} className="h-16 text-2xl font-bold shadow-sm" />
+                    <p className="text-[10px] text-muted-foreground italic">Enter the name of the business you are analyzing.</p>
+                </div>
+            )}
+            
+            {wizardStep === 'sendingLocation' && (
+                <div className="space-y-4 max-w-4xl mx-auto">
+                    <Label className="text-[10px] font-black uppercase tracking-[0.1em] text-primary">Origin Location</Label>
+                    <WizardInput fieldName='originLocationQuery' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} isLocation autoFocus allPostcodes={allPostcodes} onLocationSelect={(l) => { setValue('originLocation', l, { shouldValidate: true }); if (l) setValue('originLocationQuery', `${l.suburb} ${l.state} ${l.postcode}`); }} className="h-16 text-2xl font-bold shadow-sm" />
+                    <p className="text-[10px] text-muted-foreground italic">Where is this prospect primarily shipping from?</p>
+                </div>
+            )}
+
+            {wizardStep === 'volumes' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div className="space-y-3">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-primary">Weekly Pallets</Label>
+                        <WizardInput type="number" fieldName='palletsPerWeek' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} className="h-14 text-xl font-bold" />
+                    </div>
+                    <div className="space-y-3">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-primary">Weekly Parcels</Label>
+                        <WizardInput type="number" fieldName='parcelsPerWeek' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} className="h-14 text-xl font-bold" />
+                    </div>
+                    <div className="space-y-3">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-primary">Weekly Satchels</Label>
+                        <WizardInput type="number" fieldName='satchelsPerWeek' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} className="h-14 text-xl font-bold" />
+                    </div>
+                    <div className="space-y-3">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-primary">Monthly Spend ($)</Label>
+                        <WizardInput type="number" fieldName='monthlySpend' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} className="h-14 text-xl font-bold" />
+                    </div>
+                </div>
+            )}
+            {wizardStep === 'distributionProfile' && (
+                <div className="space-y-6 max-w-4xl mx-auto py-4">
+                    <div className="space-y-3">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-primary">Delivery Type</Label>
+                        <Controller name="addressType" control={control} render={({ field }) => (
+                            <RadioGroup onValueChange={field.onChange} value={field.value} className="flex gap-8">
+                                <div className="flex items-center space-x-3 bg-muted/30 p-4 rounded-lg border hover:bg-muted/50 transition-colors cursor-pointer">
+                                    <RadioGroupItem value="Residential" id="res"/>
+                                    <Label htmlFor="res" className="font-bold cursor-pointer">Residential</Label>
+                                </div>
+                                <div className="flex items-center space-x-3 bg-muted/30 p-4 rounded-lg border hover:bg-muted/50 transition-colors cursor-pointer">
+                                    <RadioGroupItem value="Business" id="bus"/>
+                                    <Label htmlFor="bus" className="font-bold cursor-pointer">Business</Label>
+                                </div>
+                            </RadioGroup>
+                        )}/>
+                    </div>
+                    
+                    <div className="space-y-3">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-primary">Service Region</Label>
+                        <Controller name="distributionArea" control={control} render={({ field }) => (
+                            <RadioGroup onValueChange={field.onChange} value={field.value} className="flex gap-8">
+                                <div className="flex items-center space-x-3 bg-muted/30 p-4 rounded-lg border hover:bg-muted/50 transition-colors cursor-pointer">
+                                    <RadioGroupItem value="Metro" id="metro"/>
+                                    <Label htmlFor="metro" className="font-bold cursor-pointer">Metro Focus</Label>
+                                </div>
+                                <div className="flex items-center space-x-3 bg-muted/30 p-4 rounded-lg border hover:bg-muted/50 transition-colors cursor-pointer">
+                                    <RadioGroupItem value="Regional" id="reg"/>
+                                    <Label htmlFor="reg" className="font-bold cursor-pointer">Regional Focus</Label>
+                                </div>
+                            </RadioGroup>
+                        )} />
+                    </div>
+                </div>
+            )}
+            {wizardStep === 'destinations' && (
+                <div className="space-y-6 max-w-4xl mx-auto">
+                    <div className="space-y-4">
+                        {destinationFields.map((dest, i) => (
+                            <Card key={dest.id} className="p-6 bg-muted/30 border-primary/10 shadow-sm relative overflow-hidden group">
+                                <div className="absolute left-0 top-0 w-1 h-full bg-primary opacity-20 group-hover:opacity-100 transition-opacity" />
+                                <div className="flex justify-between items-center mb-4">
+                                    <div className="flex items-center gap-2">
+                                        <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20 font-black">DEST {i+1}</Badge>
+                                        <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground">Target Destination & Legs</Label>
+                                    </div>
+                                    <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive hover:bg-destructive/10" onClick={() => removeDestination(i)}>
+                                        <Trash2 className="h-4 w-4"/>
+                                    </Button>
+                                </div>
+                                <div className="space-y-4">
+                                    <WizardInput 
+                                        fieldName={`destinations.${i}.destinationQuery`} 
+                                        isLocation 
+                                        form={form} 
+                                        handleVoiceInput={handleVoiceInput} 
+                                        isSupported={isSupported} 
+                                        listening={listening} 
+                                        currentWizardField={currentWizardField} 
+                                        allPostcodes={allPostcodes} 
+                                        onLocationSelect={(l) => { 
+                                            setValue(`destinations.${i}.destinationLocation`, l, { shouldValidate: true }); 
+                                            if (l) setValue(`destinations.${i}.destinationQuery`, `${l.suburb} ${l.state} ${l.postcode}`); 
+                                        }} 
+                                        placeholder="Where to? (e.g. Sydney NSW 2000)"
+                                        className="h-12 font-semibold"
+                                    />
+                                    <ServiceLegsFieldArray control={control} destIndex={i} servicesForSelection={servicesForSelection}/>
+                                </div>
+                            </Card>
+                        ))}
+                    </div>
+                    <Button variant="outline" className="w-full border-dashed h-12 text-primary font-black uppercase tracking-widest hover:bg-primary/5" onClick={() => appendDestination({ id: `dest-${Date.now()}`, destinationQuery: '', destinationLocation: null, serviceLegs: [{ id: `leg-${Date.now()}`, service: 'B2B Priority', averageWeight: 0, targetPrice: 0 }] })}>
+                        + Add Destination Zone
+                    </Button>
+                </div>
+            )}
             {wizardStep === 'results' && analysisResult && <GuruResults analysis={analysisResult.analysis} pricingByOrigin={analysisResult.pricingByOrigin} />}
           </div>
 
