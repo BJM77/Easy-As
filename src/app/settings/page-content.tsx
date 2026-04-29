@@ -1,64 +1,55 @@
 "use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { z } from 'zod';
 import { useSettings } from '@/context/SettingsContext';
-import type { ServiceName, SurchargeDefinition, SurchargeConfigGroupKey, StateAbbreviation, QuickActionKey, UserRole, ServicePermissions, PageKey, PagePermissions, ExternalLink, ServiceSettings } from '@/lib/types';
-import { ALL_SERVICES, ALL_STATES, NON_PALLET_SERVICES, LCP_SERVICES, STANDARD_ROAD_MAPPED_SERVICES, PRIORITY_MAPPED_SERVICES, STANDARD_PALLET_MAPPED_SERVICES, PALLET_LIKE_SERVICES, ALL_USER_ROLES, SECURITY_APPLICABLE_SERVICES, ALL_PAGES, ALL_TIMEZONES, DEFAULT_SERVICE_PERMISSIONS } from '@/lib/types';
+import { 
+  ALL_SERVICES, 
+  ALL_STATES 
+} from '@/lib/types';
+import type { 
+  SurchargeDefinition, 
+  ServiceName 
+} from '@/lib/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
-import { Fuel, Settings as SettingsIcon, Percent, PlusCircle, Edit3, Truck, Zap, Layers, ClipboardCheck, ShieldCheck, ExternalLink as ExternalLinkIcon, FileJson, Mail, Anchor, RefreshCw, Loader2, Sparkles, Users, Save, Lock, Computer, FolderOpen, AlertCircle } from 'lucide-react';
+import { 
+  Fuel, 
+  Settings as SettingsIcon, 
+  Percent, 
+  PlusCircle, 
+  Edit3, 
+  ShieldCheck, 
+  Mail, 
+  RefreshCw, 
+  Loader2, 
+  Save, 
+  Lock 
+} from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { newSurchargeSchema } from '@/lib/zodSchemas';
-import { format } from 'date-fns';
-import { Textarea } from '@/components/ui/textarea';
-import { updateFuelSurcharges, type FuelSurchargeUpdate } from '@/ai/flows/update-fuel-surcharges-flow';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { updateFuelSurcharges } from '@/ai/flows/update-fuel-surcharges-flow';
 import { useAuth } from '@/firebase';
+import { verifyAdminPassword } from '@/ai/flows/admin-auth-flow';
 
 type NewSurchargeFormValues = z.infer<typeof newSurchargeSchema>;
-
-interface AuthUser {
-  uid: string;
-  email?: string;
-  lastSignInTime?: string;
-  creationTime?: string;
-}
 
 export default function SettingsPageContent() {
   const {
     standardFuelSurcharge,
     priorityFuelSurcharge,
     palletFuelSurcharge,
-    standardFuelLastUpdated,
-    priorityFuelLastUpdated,
-    palletFuelLastUpdated,
     globalSecuritySurchargePercent,
     setGlobalSecuritySurchargePercent,
     updateGroupFuelSurcharge,
     surchargeDefinitions,
-    serviceSettings,
     addSurchargeDefinition,
-    updateGroupOtherSurcharge,
-    emailQuoteTemplate,
-    setEmailQuoteTemplate,
-    perfectPlanPalletRate,
-    setPerfectPlanPalletRate,
-    perfectPlanParcelRate,
-    setPerfectPlanParcelRate,
-    perfectPlanSatchelRate,
-    setPerfectPlanSatchelRate,
     stateEmailContacts,
     setStateEmailContact,
     saveSettingsToServer,
@@ -66,12 +57,23 @@ export default function SettingsPageContent() {
 
   const { toast } = useToast();
   const [isFetchingFuel, setIsFetchingFuel] = useState(false);
-  const [users, setUsers] = useState<AuthUser[]>([]);
-  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
-  const [isUsersDialogOpen, setIsUsersDialogOpen] = useState(false);
   const [savePassword, setSavePassword] = useState('');
   const [isSaving, setIsSaving] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
   const { role } = useAuth();
+
+  useEffect(() => {
+    const validate = async () => {
+      if (!savePassword) {
+        setIsPasswordValid(false);
+        return;
+      }
+      const isValid = await verifyAdminPassword(savePassword);
+      setIsPasswordValid(isValid);
+    };
+    const timer = setTimeout(validate, 300);
+    return () => clearTimeout(timer);
+  }, [savePassword]);
 
   const newSurchargeForm = useForm<NewSurchargeFormValues>({
     resolver: zodResolver(newSurchargeSchema),
@@ -87,55 +89,41 @@ export default function SettingsPageContent() {
   const handleAddSurchargeDefinition = (data: NewSurchargeFormValues) => {
     const success = addSurchargeDefinition(data as SurchargeDefinition);
     if (success) {
-      toast({
-        title: "Surcharge Added",
-        description: `Successfully defined '${data.name}'. This surcharge will now be available in the calculator.`,
-      });
+      toast({ title: "Surcharge Added" });
       newSurchargeForm.reset();
     } else {
-      toast({
-        title: "Error",
-        description: "A surcharge with this ID already exists. Please use a unique identifier.",
-        variant: "destructive",
-      });
+      toast({ title: "Error", description: "ID already exists.", variant: "destructive" });
     }
   };
 
   const handleGroupFuelChange = (groupType: 'standard' | 'priority' | 'pallet', value: string) => {
     const percentage = parseFloat(value);
-    if (!isNaN(percentage) && percentage >= 0 && percentage <= 100) {
+    if (!isNaN(percentage)) {
       updateGroupFuelSurcharge(groupType, percentage, new Date().toISOString());
     }
   };
 
-  const handleGlobalSecuritySurchargeChange = (value: string) => {
-    const percentage = parseFloat(value);
-    if (!isNaN(percentage) && percentage >= 0 && percentage <= 100) {
-      setGlobalSecuritySurchargePercent(percentage);
-    }
-  };
-
   const handleSaveChanges = async () => {
+    if (!isPasswordValid) {
+      toast({ title: "Unauthorized", variant: "destructive" });
+      return;
+    }
     setIsSaving(true);
     const success = await saveSettingsToServer(savePassword);
     if (success) {
-      toast({
-        title: "Settings Saved to Server",
-        description: "Your changes have been saved and will apply to all users on their next session.",
-      });
+      toast({ title: "Settings Saved" });
     }
     setIsSaving(false);
   };
   
   const handleFetchLatestFuelRates = async () => {
     setIsFetchingFuel(true);
-    toast({ title: "Fetching Latest Fuel Rates...", description: "Please wait, this may take a moment."});
     try {
       const { update } = await updateFuelSurcharges();
       updateGroupFuelSurcharge('pallet', update.pallet, update.lastUpdated);
       updateGroupFuelSurcharge('standard', update.road, update.lastUpdated);
       updateGroupFuelSurcharge('priority', update.air, update.lastUpdated);
-      toast({ title: "Fuel Rates Updated Successfully" });
+      toast({ title: "Fuel Rates Updated" });
     } catch(error) {
        toast({ title: "Error Fetching Fuel Rates", variant: "destructive" });
     } finally {
@@ -143,159 +131,82 @@ export default function SettingsPageContent() {
     }
   };
 
-  const handleFetchUsers = async () => {
-    setIsLoadingUsers(true);
-    try {
-      const response = await fetch('/api/users');
-      const data = await response.json();
-      if (!response.ok) throw new Error('Failed to fetch users');
-      setUsers(data);
-    } catch (error) {
-      toast({ title: "Error", description: `Could not fetch user list.`, variant: "destructive" });
-    } finally {
-      setIsLoadingUsers(false);
-    }
-  };
-
   if (role !== 'admin' && role !== 'superadmin') {
-    return <div className="p-20 text-center">Unauthorized. Administrator only.</div>;
+    return <div className="p-20 text-center">Unauthorized.</div>;
   }
 
   return (
-    <div className="space-y-8 pb-20">
+    <div className="space-y-8 pb-20 max-w-6xl mx-auto">
       <Card className="shadow-xl border-t-4 border-primary">
         <CardHeader>
           <CardTitle className="text-2xl font-headline flex items-center">
             <SettingsIcon className="mr-2 h-7 w-7 text-primary" /> Application Settings
           </CardTitle>
-          <CardDescription>Manage fuel surcharges, security surcharge, define other surcharges, and customize the email quote template.</CardDescription>
+          <CardDescription>Global configuration and surcharge definitions.</CardDescription>
         </CardHeader>
       </Card>
 
-      <Card>
-        <CardHeader>
-            <CardTitle className="text-xl font-semibold flex items-center"><Mail className="mr-2 h-6 w-6 text-primary" />State Email Contacts</CardTitle>
-            <CardDescription>Enter up to three email addresses for each state.</CardDescription>
-        </CardHeader>
-        <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {ALL_STATES.map(state => (
-                    <div key={state} className="p-4 border rounded-lg space-y-2 bg-muted/30">
-                        <Label className="font-semibold text-foreground">{state}</Label>
-                        {[0, 1, 2].map(index => (
-                             <Input
-                                key={index}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card>
+            <CardHeader><CardTitle className="text-lg">State Contacts</CardTitle></CardHeader>
+            <CardContent className="space-y-4">
+                <ScrollArea className="h-64 pr-4">
+                    {ALL_STATES.map(state => (
+                        <div key={state} className="mb-4 space-y-1">
+                            <Label className="text-xs font-bold">{state}</Label>
+                            <Input
                                 type="email"
-                                placeholder={`Email ${index + 1}`}
-                                value={stateEmailContacts[state]?.[index] || ''}
-                                onChange={(e) => setStateEmailContact(state, index, e.target.value)}
+                                value={stateEmailContacts[state]?.[0] || ''}
+                                onChange={(e) => setStateEmailContact(state, 0, e.target.value)}
+                                placeholder="Primary Email"
+                                className="h-8 text-xs"
                             />
-                        ))}
+                        </div>
+                    ))}
+                </ScrollArea>
+            </CardContent>
+        </Card>
+
+        <Card>
+            <CardHeader><CardTitle className="text-lg">Fuel & Security</CardTitle></CardHeader>
+            <CardContent className="space-y-4">
+                {['standard', 'priority', 'pallet'].map(g => (
+                    <div key={g} className="flex items-center justify-between">
+                        <Label className="capitalize">{g} Fuel %</Label>
+                        <Input 
+                            className="w-24 h-8 text-right font-mono" 
+                            value={(g === 'standard' ? standardFuelSurcharge : g === 'priority' ? priorityFuelSurcharge : palletFuelSurcharge).toString()}
+                            onChange={(e) => handleGroupFuelChange(g as any, e.target.value)}
+                        />
                     </div>
                 ))}
-            </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-xl font-semibold flex items-center"><Edit3 className="mr-2 h-6 w-6 text-primary" />Define New Surcharge</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-1"><Label>Surcharge ID</Label><Input {...newSurchargeForm.register('id')} placeholder="e.g., remote_area_fee" /></div>
-                <div className="space-y-1"><Label>Surcharge Name</Label><Input {...newSurchargeForm.register('name')} placeholder="e.g., Remote Area Fee" /></div>
-                <div className="space-y-1">
-                    <Label>Surcharge Type</Label>
-                    <Controller name="type" control={newSurchargeForm.control} render={({ field }) => (
-                      <Select onValueChange={field.onChange} value={field.value}>
-                        <SelectTrigger><SelectValue placeholder="Select type" /></SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="fixed_per_shipment">Fixed Per Shipment</SelectItem>
-                          <SelectItem value="fixed_per_kg">Fixed Per Kg</SelectItem>
-                          <SelectItem value="percentage">Percentage of Base</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    )} />
-                </div>
-                <div className="space-y-1"><Label>Default Value</Label><Input type="number" step="0.01" {...newSurchargeForm.register('defaultValue')} /></div>
-            </div>
-            <div className="space-y-3">
-              <Label className="font-semibold">Applicable Services</Label>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 border rounded-md max-h-60 overflow-y-auto">
-                {ALL_SERVICES.map((service) => (
-                  <div key={service} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`applicable-service-${service}`}
-                      checked={(newSurchargeForm.watch('applicableServices') || []).includes(service)}
-                      onCheckedChange={(checked) => {
-                        const current = newSurchargeForm.getValues('applicableServices') || [];
-                        const next = checked ? [...current, service] : current.filter(s => s !== service);
-                        newSurchargeForm.setValue('applicableServices', next, { shouldValidate: true });
-                      }}
+                <div className="pt-2 border-t flex items-center justify-between">
+                    <Label className="font-bold">Security %</Label>
+                    <Input 
+                        className="w-24 h-8 text-right font-mono" 
+                        value={globalSecuritySurchargePercent.toString()}
+                        onChange={(e) => setGlobalSecuritySurchargePercent(parseFloat(e.target.value) || 0)}
                     />
-                    <Label htmlFor={`applicable-service-${service}`} className="text-sm font-normal">{service}</Label>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <Button type="button" onClick={newSurchargeForm.handleSubmit(handleAddSurchargeDefinition)} className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              <PlusCircle className="mr-2 h-4 w-4" /> Add Surcharge Definition
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-      
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-xl font-semibold flex items-center"><ShieldCheck className="mr-2 h-6 w-6 text-primary" />Global Security Surcharge</CardTitle>
-        </CardHeader>
-        <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center p-3 border rounded-md">
-              <Label>Security Surcharge Percentage</Label>
-              <div className="flex items-center gap-2">
-                <Input type="number" value={globalSecuritySurchargePercent.toString()} onChange={(e) => handleGlobalSecuritySurchargeChange(e.target.value)} className="w-24" />
-                <Percent className="h-5 w-5 text-muted-foreground" />
-              </div>
-            </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
-            <div><CardTitle className="text-xl font-semibold flex items-center"><Fuel className="mr-2 h-6 w-6 text-primary" />Fuel Surcharges</CardTitle></div>
-            <Button onClick={handleFetchLatestFuelRates} disabled={isFetchingFuel}>
-              {isFetchingFuel ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <RefreshCw className="mr-2 h-4 w-4" />} Fetch Latest
-            </Button>
-        </CardHeader>
-        <CardContent className="space-y-6">
-            {['standard', 'priority', 'pallet'].map(group => (
-              <div key={group} className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center p-3 border rounded-md">
-                <Label className="capitalize">{group} Services</Label>
-                <div className="flex items-center gap-2">
-                  <Input type="number" value={(group === 'standard' ? standardFuelSurcharge : group === 'priority' ? priorityFuelSurcharge : palletFuelSurcharge).toString()} onChange={(e) => handleGroupFuelChange(group as any, e.target.value)} className="w-24" />
-                  <Percent className="h-5 w-5 text-muted-foreground" />
                 </div>
-              </div>
-            ))}
-        </CardContent>
-      </Card>
+                <Button onClick={handleFetchLatestFuelRates} disabled={isFetchingFuel} variant="outline" className="w-full mt-2 h-8 text-xs">
+                    {isFetchingFuel ? <Loader2 className="mr-2 h-3 w-3 animate-spin"/> : <RefreshCw className="mr-2 h-3 w-3" />} Sync Live Rates
+                </Button>
+            </CardContent>
+        </Card>
+      </div>
 
-      <Card className="bg-amber-50 dark:bg-amber-900/20 border-amber-500">
-        <CardHeader>
-            <CardTitle className="flex items-center text-amber-800 dark:text-amber-200"><ShieldCheck className="mr-2"/>Save Globally</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <Card className="bg-primary/5 border-primary">
+        <CardContent className="pt-6">
             <div className="flex flex-col sm:flex-row gap-4 items-end">
                 <div className="space-y-1 flex-grow">
-                    <Label>Server Write Password</Label>
-                    <Input id="savePassword" type="password" value={savePassword} onChange={(e) => setSavePassword(e.target.value)} placeholder="Required to persist..."/>
+                    <Label className="flex items-center gap-2"><Lock className="h-3 w-3" /> Admin Auth</Label>
+                    <Input type="password" value={savePassword} onChange={(e) => setSavePassword(e.target.value)} placeholder="Enter password to commit..."/>
                 </div>
-                <Button onClick={handleSaveChanges} disabled={isSaving || savePassword !== 'LCPTGE'}>
-                    {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Save className="mr-2 h-4 w-4"/>} Save Settings
+                <Button onClick={handleSaveChanges} disabled={isSaving || !isPasswordValid} className="px-10 shadow-md">
+                    {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Save className="mr-2 h-4 w-4"/>} Commit Changes
                 </Button>
             </div>
+            {!isPasswordValid && savePassword && <p className="text-[10px] text-destructive mt-2">Incorrect password.</p>}
         </CardContent>
       </Card>
     </div>

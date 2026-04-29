@@ -1,3 +1,4 @@
+import { verifyAdminPassword } from '@/ai/flows/admin-auth-flow';
 
 "use client";
 
@@ -29,6 +30,13 @@ export default function TopLinksPageContent() {
   const [newLinkIcon, setNewLinkIcon] = useState<keyof typeof availableIcons>('Link2');
   
   const [isSaving, setIsSaving] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  useEffect(() => {
+    const v = async () => { if(!password && !savePassword && !lcpPassword) return; const res = await verifyAdminPassword(password || savePassword || lcpPassword); setIsPasswordValid(res); };
+    const t = setTimeout(v, 300);
+    return () => clearTimeout(t);
+  }, [password, savePassword, lcpPassword]);
+
   const [savePassword, setSavePassword] = useState('');
 
   // Drag and drop state
@@ -100,7 +108,7 @@ export default function TopLinksPageContent() {
   };
 
   const handleSaveChanges = async () => {
-    if (savePassword !== 'LCPTGE') {
+    if (savePassword  === false) {
       toast({ title: "Unauthorized", description: "Incorrect password for server write.", variant: "destructive" });
       return;
     }
@@ -238,12 +246,12 @@ export default function TopLinksPageContent() {
                 onChange={(e) => setSavePassword(e.target.value)}
               />
             </div>
-            <Button onClick={handleSaveChanges} disabled={isSaving || savePassword !== 'LCPTGE'} className="w-full sm:w-auto">
+            <Button onClick={handleSaveChanges} disabled={isSaving || savePassword  === false} className="w-full sm:w-auto">
               {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
               Update Global Links
             </Button>
           </div>
-          {savePassword !== 'LCPTGE' && (
+          {savePassword  === false && (
             <p className="text-xs text-muted-foreground mt-2 flex items-center">
               <AlertCircle className="mr-1 h-3 w-3 text-amber-500" /> 
               Enter the admin password to enable the save button.
