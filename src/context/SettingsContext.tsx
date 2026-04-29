@@ -7,6 +7,7 @@ import { ALL_SERVICES, ALL_STATES, NON_PALLET_SERVICES, PALLET_SERVICES, LCP_SER
 import { useToast } from '@/hooks/use-toast';
 import { useAuth, useFirestore } from '@/firebase';
 import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore';
+import { verifyAdminPassword } from '@/ai/flows/admin-auth-flow';
 
 const SURCHARGE_CONFIG_GROUPS: Record<SurchargeConfigGroupKey, { name: string, services: ServiceName[] }> = {
   STANDARD_ROAD: { name: 'Standard Road Services', services: STANDARD_ROAD_MAPPED_SERVICES },
@@ -160,7 +161,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     if (!firestore) return;
     const settingsRef = doc(firestore, 'settings', 'global');
     
-    // Safety timeout: ensure we don't hang forever if permissions are denied or doc doesn't exist
+    // Safety timeout
     const timeout = setTimeout(() => {
       setIsLoadingSettings(false);
     }, 5000);
@@ -190,10 +191,6 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
       clearTimeout(timeout);
     };
   }, [firestore]);
-
-import { verifyAdminPassword } from '@/ai/flows/admin-auth-flow';
-
-// ... (keep existing imports)
 
   const saveSettingsToServer = async (password: string) => {
     const isValid = await verifyAdminPassword(password);
