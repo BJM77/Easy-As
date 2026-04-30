@@ -102,6 +102,17 @@ function resolvePostcode(query: string | null, allPostcodes: PostcodeData[]): Po
   if (!query || !allPostcodes) return null;
   const q = query.toLowerCase().trim();
 
+  // Handle "Perth 6000" or "Sydney 2000" format — split and try postcode first
+  const parts = q.split(/\s+/);
+  if (parts.length > 1) {
+    const lastPart = parts[parts.length - 1];
+    const postcodeFromString = parseInt(lastPart);
+    if (!isNaN(postcodeFromString) && lastPart.length === 4) {
+      const byPostcode = allPostcodes.find(p => p.postcode === postcodeFromString);
+      if (byPostcode) return byPostcode;
+    }
+  }
+
   const pc = parseInt(q);
   if (!isNaN(pc) && q.length === 4) {
     return allPostcodes.find(p => p.postcode === pc) || null;
@@ -150,6 +161,7 @@ Convert the user's latest query to JSON. Use the conversation history to resolve
 Assume 1kg if weight is missing. Determine if asking for price (isQuoteRequest) or info (isInfoRequest).
 
 Special Rules:
+- For originQuery and destinationQuery, extract EITHER the suburb name OR the 4-digit postcode alone — never both together.
 - If the user mentions "tail lift", "forklift", "tailgate", set requiresTailLift accordingly.
 - If the user mentions "fragile", "glass", "delicate", set isFragile to true.
 - Use context to see if they already answered a question about tail lifts.
