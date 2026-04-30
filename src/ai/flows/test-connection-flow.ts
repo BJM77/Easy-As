@@ -13,49 +13,43 @@ import { logAiUsage } from '@/lib/aiUsage';
  */
 export async function testAiConnection() {
   console.log("🔄 Testing Gemini AI connection via GenKit...");
-  console.log("[Debug] Server-side GEMINI_API_KEY present:", !!process.env.GEMINI_API_KEY);
+  const hasKey = !!process.env.GEMINI_API_KEY;
+  console.log("[Debug] Server-side GEMINI_API_KEY present:", hasKey);
 
-  try {    const response = await ai.generate({
-      prompt: "You are performing an API handshake. Reply with exactly: 'HANDSHAKE SUCCESSFUL'",
+  if (!hasKey) {
+    return { success: false, error: "Secret Manager key (GEMINI_API_KEY) is missing from the runtime environment." };
+  }
+
+  try {
+    // Attempt with the default model
+    const response = await ai.generate({
+      prompt: "Reply with: HANDSHAKE SUCCESSFUL",
     });
 
     const reply = (response.text || '').trim();
-    // Case-insensitive check for robustness
-    const isOnline = reply.toUpperCase().includes('HANDSHAKE SUCCESSFUL');
-
-    // Minimal usage logging
-    await logAiUsage('AI Connection Test', response.usage).catch(console.warn);
-
-    if (isOnline) {
-      return { 
-        success: true, 
-        status: 'online',
-        message: "✅ HANDSHAKE SUCCESSFUL - API key valid, logic healthy" 
-      };
-    } else {
+    if (reply.toUpperCase().includes('HANDSHAKE')) {
       return {
-        success: false,
-        status: 'UNEXPECTED_RESPONSE',
-        error: `Unexpected AI response: "${reply}"`
+        success: true,
+        status: 'online',
+        message: `✅ SUCCESS - Model: ${response.model}`
       };
     }
+
+    return { success: false, error: `Unexpected response: ${reply}` };
+
   } catch (error: any) {
     console.error("[AI TEST FLOW ERROR]", error);
-    
-    // Provide helpful error classification based on the actual failure
-    let userErrorMessage = error.message || "Unknown error during inference.";
-    
-    if (error.message?.includes("404")) {
-      userErrorMessage = "Model not found. The requested Gemini model may not be available for this API key or region in the current project.";
-    } else if (error.message?.includes("API key")) {
-      userErrorMessage = "Invalid API key. Please check your GEMINI_API_KEY configuration in Secret Manager or environment variables.";
-    } else if (error.message?.includes("429")) {
-      userErrorMessage = "Resource exhausted (429). Quota limit reached for this API key.";
+
+    let details = error.message || "Unknown error";
+
+    // If it's a 404, Google often provides a very specific reason in the message
+    if (details.includes("404") || details.includes("not found")) {
+        details = `Model Availability Error (404): ${details}. This often means the API key is valid but the specific model is not enabled for your project or region.`;
     }
-    
-    return { 
-      success: false, 
-      error: userErrorMessage
+
+    return {
+      success: false,
+      error: details
     };
   }
 }
