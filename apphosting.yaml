@@ -1,5 +1,5 @@
 # Firebase App Hosting configuration
-# This file maps your Google Cloud Secrets to environment variables
+# Updated to match the actual secret names in Secret Manager
 # Environment: enna
 
 runConfig:
@@ -9,17 +9,12 @@ runConfig:
 
 env:
   # Secrets from Google Cloud Secret Manager
-  # availability: [BUILD, RUNTIME] is required to ensure keys work in server actions
   - variable: GEMINI_API_KEY
-    secret: GEMINI_API_KEY
+    secret: GOOGLE_GENAI_API_KEY
     availability:
       - BUILD
       - RUNTIME
-  - variable: ADMIN_WRITE_PASSWORD
-    secret: ADMIN_WRITE_PASSWORD
-    availability:
-      - BUILD
-      - RUNTIME
+  
   - variable: GOOGLE_APPLICATION_CREDENTIALS_JSON
     secret: GOOGLE_APPLICATION_CREDENTIALS_JSON
     availability:
@@ -27,6 +22,9 @@ env:
       - RUNTIME
 
   # Standard environment variables
+  - variable: ADMIN_WRITE_PASSWORD
+    value: LCPTGE
+  
   - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
     value: studio-7521332906-59af2
   - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
