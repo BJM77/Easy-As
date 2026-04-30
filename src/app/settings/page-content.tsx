@@ -33,6 +33,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { newSurchargeSchema } from '@/lib/zodSchemas';
 import { updateFuelSurcharges } from '@/ai/flows/update-fuel-surcharges-flow';
 import { useAuth } from '@/firebase';
