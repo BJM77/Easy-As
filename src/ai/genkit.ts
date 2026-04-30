@@ -25,7 +25,7 @@ export function buildAi(apiKeyOverride?: string) {
         apiVersion: 'v1beta',
       }),
     ],
-    model: gemini('gemini-2.0-flash'),
+    model: gemini('gemini-1.5-flash'),
   });
 }
 
