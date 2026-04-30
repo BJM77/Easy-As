@@ -22,7 +22,7 @@ export function buildAi(apiKeyOverride?: string) {
         apiKey: apiKey || 'MISSING_KEY',
       }),
     ],
-    model: gemini('gemini-1.5-flash-latest'), // Try the 'latest' alias
+    model: gemini('gemini-2.5-flash'), // Use stable Gemini 2.5 Flash
   });
 }
 
