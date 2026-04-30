@@ -15,7 +15,7 @@ service cloud.firestore {
 
     function isSuperAdmin() {
       return isSignedIn() && (
-        request.auth.token.get('role', 'user') == "superadmin" ||
+        request.auth.token.role == "superadmin" ||
         request.auth.token.email in [
           "benjamin.mackie@teamglobalexp.com",
           "bjmack22277@gmail.com",
@@ -27,8 +27,8 @@ service cloud.firestore {
 
     function hasCompanyAccess(companyId) {
       return isSignedIn() && (
-        request.auth.token.get('companyId', '') == companyId ||
-        companyId in request.auth.token.get('assignedCompanyIds', [])
+        request.auth.token.companyId == companyId ||
+        (request.auth.token.assignedCompanyIds != null && companyId in request.auth.token.assignedCompanyIds)
       );
     }
 
@@ -37,11 +37,6 @@ service cloud.firestore {
     | COLLECTION RULES
     |--------------------------------------------------------------------------
     */
-
-    // Root-level bypass for diagnostics and simulation
-    match /{document=**} {
-      allow read, write: if isSuperAdmin();
-    }
 
     // Global Rates (System-wide core rate overrides)
     match /globalRates/{id} {
@@ -57,48 +52,47 @@ service cloud.firestore {
 
     // Tenant-isolated collections
     match /problems/{id} {
-      allow read: if hasCompanyAccess(resource.data.companyId);
-      allow create: if hasCompanyAccess(request.resource.data.companyId);
-      allow update: if hasCompanyAccess(resource.data.companyId);
+      allow read, update: if isSuperAdmin() || hasCompanyAccess(resource.data.companyId);
+      allow create: if isSuperAdmin() || hasCompanyAccess(request.resource.data.companyId);
     }
 
     match /leads/{id} {
-      allow read: if hasCompanyAccess(resource.data.companyId);
-      allow create: if hasCompanyAccess(request.resource.data.companyId);
+      allow read: if isSuperAdmin() || hasCompanyAccess(resource.data.companyId);
+      allow create: if isSuperAdmin() || hasCompanyAccess(request.resource.data.companyId);
     }
 
     match /ai_quotes/{id} {
-      allow read: if hasCompanyAccess(resource.data.companyId);
-      allow create: if hasCompanyAccess(request.resource.data.companyId);
+      allow read: if isSuperAdmin() || hasCompanyAccess(resource.data.companyId);
+      allow create: if isSuperAdmin() || hasCompanyAccess(request.resource.data.companyId);
     }
 
     match /companyRates/{id} {
-      allow read: if hasCompanyAccess(resource.data.companyId);
+      allow read: if isSuperAdmin() || hasCompanyAccess(resource.data.companyId);
     }
 
     match /vipContacts/{id} {
-      allow read: if hasCompanyAccess(resource.data.companyId);
-      allow write: if hasCompanyAccess(request.resource.data.companyId);
+      allow read: if isSuperAdmin() || hasCompanyAccess(resource.data.companyId);
+      allow write: if isSuperAdmin() || hasCompanyAccess(request.resource.data.companyId);
     }
 
     match /deliveryRuns/{id} {
-      allow read: if hasCompanyAccess(resource.data.companyId);
-      allow write: if hasCompanyAccess(request.resource.data.companyId);
+      allow read: if isSuperAdmin() || hasCompanyAccess(resource.data.companyId);
+      allow write: if isSuperAdmin() || hasCompanyAccess(request.resource.data.companyId);
     }
 
     match /tgeAccountApplications/{id} {
-      allow read: if hasCompanyAccess(resource.data.companyId);
-      allow create: if hasCompanyAccess(request.resource.data.companyId);
+      allow read: if isSuperAdmin() || hasCompanyAccess(resource.data.companyId);
+      allow create: if isSuperAdmin() || hasCompanyAccess(request.resource.data.companyId);
     }
 
     match /invitations/{id} {
-      allow read: if true; // Public access for acceptance
-      allow write: if hasCompanyAccess(request.resource.data.companyId);
+      allow read: if true; 
+      allow write: if isSuperAdmin() || hasCompanyAccess(request.resource.data.companyId);
     }
 
     match /notes/{id} {
-      allow read: if isSignedIn() && request.auth.uid == resource.data.userId;
-      allow write: if isSignedIn() && request.auth.uid == request.resource.data.userId;
+      allow read: if isSignedIn() && (isSuperAdmin() || request.auth.uid == resource.data.userId);
+      allow write: if isSignedIn() && (isSuperAdmin() || request.auth.uid == request.resource.data.userId);
     }
 
     match /quote_logs/{id} {
@@ -126,6 +120,11 @@ service cloud.firestore {
     match /ai_usage_log/{id} {
       allow read: if isSuperAdmin();
       allow create: if isSignedIn();
+    }
+
+    // Root-level bypass for superadmins
+    match /{document=**} {
+      allow read, write: if isSuperAdmin();
     }
   }
 }
