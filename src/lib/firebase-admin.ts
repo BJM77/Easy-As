@@ -64,19 +64,19 @@ async function initializeAdmin() {
   if (apps.length > 0) return apps[0]!;
 
   const rawEnv = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON;
-  console.log(`[Admin Debug] Variable detected. Length: ${rawEnv?.length || 0}. Starts with: ${rawEnv?.substring(0, 20)}`);
-
   const jsonCredentials = safeJsonParse(rawEnv);
   
   const separateId = clean(process.env.FIREBASE_PROJECT_ID || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID);
   const separateEmail = clean(process.env.FIREBASE_CLIENT_EMAIL);
   const separateKey = cleanPrivateKey(process.env.FIREBASE_PRIVATE_KEY);
 
+  console.log(`[Admin SDK] Auth Check: JSON_ENV=${!!rawEnv}, SEP_ID=${!!separateId}, SEP_EMAIL=${!!separateEmail}, SEP_KEY=${!!separateKey}`);
+
   try {
     let credential;
 
     if (separateId && separateEmail && separateKey) {
-      console.log("[Admin SDK] Initializing via Individual Environment Variables.");
+      console.log("[Admin SDK] Using Individual Vars.");
       credential = cert({
         projectId: separateId,
         clientEmail: separateEmail,
@@ -84,7 +84,7 @@ async function initializeAdmin() {
       });
     }
     else if (jsonCredentials && jsonCredentials.project_id && jsonCredentials.private_key) {
-      console.log(`[Admin SDK] Initializing via Compact JSON String for project: ${jsonCredentials.project_id}`);
+      console.log(`[Admin SDK] Using JSON Secret for project: ${jsonCredentials.project_id}, email: ${jsonCredentials.client_email}`);
       if (jsonCredentials.private_key) {
           jsonCredentials.private_key = jsonCredentials.private_key.replace(/\\n/g, '\n');
       }
@@ -92,6 +92,7 @@ async function initializeAdmin() {
     }
 
     if (!credential) {
+      console.error("[Admin SDK] No valid credential configuration found in environment variables.");
       throw new Error(`Missing credentials.`);
     }
 
