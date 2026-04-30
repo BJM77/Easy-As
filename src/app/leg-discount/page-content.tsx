@@ -51,6 +51,14 @@ const formatCurrency = (amount: number | null) => {
   return amount.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
 };
 
+function parseSafeNum(val: any): number {
+    if (typeof val === 'number') return val;
+    if (!val) return 0;
+    const clean = String(val).replace(/[^0-9.-]/g, '');
+    const num = parseFloat(clean);
+    return isNaN(num) ? 0 : num;
+}
+
 export default function LegDiscountPageContent() {
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState<CalculationResult[]>([]);
@@ -88,6 +96,11 @@ export default function LegDiscountPageContent() {
       'B2B Priority': { rateFileKey: 'b2b_priority', logicPrefix: '02 02', bkm_prefix: 'B', zoneKey: 'prio', usesMinRate: false },
       'LCP Std': { rateFileKey: 'lcprdex', logicPrefix: 'LCPRDEX', bkm_prefix: 'LCPRDEX', zoneKey: 'ipec', usesMinRate: false },
       'LCP Priority': { rateFileKey: 'lcpprio', logicPrefix: 'LCPPrio', bkm_prefix: 'LCPPrio', zoneKey: 'prio', usesMinRate: false },
+      'B2C Std': { rateFileKey: 'b2c', logicPrefix: 'B2C', bkm_prefix: 'B2C', zoneKey: 'ipec', usesMinRate: true },
+      'B2C Priority': { rateFileKey: 'b2c', logicPrefix: 'B2CP', bkm_prefix: 'B2CP', zoneKey: 'prio', usesMinRate: true },
+      'WA PE Special': { rateFileKey: 'pezone', logicPrefix: 'PE', bkm_prefix: 'PE', zoneKey: 'pallet', usesMinRate: true },
+      'B2B Pallets Express': { rateFileKey: 'pallet2', logicPrefix: 'PE', bkm_prefix: 'E', zoneKey: 'pallet', usesMinRate: true },
+      'B2B Pallets General Tiered': { rateFileKey: 'pallet1', logicPrefix: 'PG', bkm_prefix: 'G', zoneKey: 'pallet', usesMinRate: true },
     }[serviceName] || null;
   };
 
@@ -133,11 +146,11 @@ export default function LegDiscountPageContent() {
         let baseRate: number | null;
         let minRate: number | null;
         if (serviceDetails.bkm_prefix === 'B') {
-          baseRate = parseFloat(rateEntry[`B${spendBand}`]);
-          minRate = serviceDetails.usesMinRate ? parseFloat(rateEntry[`M${spendBand}`]) : 0;
+          baseRate = parseSafeNum(rateEntry[`B${spendBand}`] ?? rateEntry.Basic);
+          minRate = serviceDetails.usesMinRate ? parseSafeNum(rateEntry[`M${spendBand}`] ?? rateEntry.Min ?? rateEntry.Minimum ?? 0) : 0;
         } else {
-          baseRate = parseFloat(rateEntry[`${serviceDetails.bkm_prefix}Basic`]);
-          minRate = serviceDetails.usesMinRate ? parseFloat(rateEntry[`${serviceDetails.bkm_prefix}Min`]) : 0;
+          baseRate = parseSafeNum(rateEntry[`${serviceDetails.bkm_prefix}Basic`] ?? rateEntry.Basic);
+          minRate = serviceDetails.usesMinRate ? parseSafeNum(rateEntry[`${serviceDetails.bkm_prefix}Min`] ?? rateEntry.Min ?? rateEntry.Minimum ?? 0) : 0;
         }
         
         if (isNaN(baseRate as number)) {

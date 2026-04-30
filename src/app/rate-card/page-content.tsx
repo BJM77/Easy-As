@@ -61,7 +61,21 @@ export default function RateCardPageContent() {
     const fetchRates = async () => {
       setIsLoading(true);
       try {
-        const data = await getRateFile(selectedService);
+        const fileTypeMap: Partial<Record<ServiceName, string>> = {
+          'B2B Std': 'b2brdex',
+          'B2B Priority': 'b2b_priority',
+          'B2C Std': 'b2c',
+          'B2C Priority': 'b2c',
+          'B2B Pallets Express': 'pe1',
+          'B2B Pallets General Tiered': 'pe1',
+          'WA PE Special': 'west_east',
+          'LCP Std': 'lcprdex',
+          'LCP Priority': 'lcpprio',
+          'LCP GO Std': 'lcpgo',
+          'LCP GO Priority': 'lcpgo'
+        };
+        const rateKey = fileTypeMap[selectedService] || 'b2brdex';
+        const data = getRateFile(rateKey as any);
         setRateData(Array.isArray(data) ? data : []);
       } catch (e) {
         toast({ title: "Load Error", description: "Could not fetch rate card.", variant: "destructive" });
@@ -101,8 +115,8 @@ export default function RateCardPageContent() {
     const s = searchTerm.toLowerCase();
     return (
       String(row.Origin || '').toLowerCase().includes(s) ||
-      String(row.Dest || '').toLowerCase().includes(s) ||
-      String(row.Zone || '').toLowerCase().includes(s)
+      String(row.Dest || row.Destination || '').toLowerCase().includes(s) ||
+      String(row.Zone || row.Logic || '').toLowerCase().includes(s)
     );
   });
 
@@ -180,16 +194,24 @@ export default function RateCardPageContent() {
                             {isLoading ? (
                                 <TableRow><TableCell colSpan={6} className="text-center py-20"><Loader2 className="h-8 w-8 animate-spin mx-auto text-primary opacity-20" /></TableCell></TableRow>
                             ) : filteredRates.length > 0 ? (
-                                filteredRates.map((row, i) => (
-                                    <TableRow key={i}>
-                                        <TableCell className="font-bold text-xs uppercase">{row.Origin}</TableCell>
-                                        <TableCell className="font-bold text-xs uppercase">{row.Dest}</TableCell>
-                                        <TableCell className="text-center font-mono text-[10px] text-muted-foreground">{row.Zone}</TableCell>
-                                        <TableCell className="text-right font-mono text-xs">${(row.Basic || row.B1 || 0).toFixed(2)}</TableCell>
-                                        <TableCell className="text-right font-mono text-xs">${(row.Kilo || row.K1 || 0).toFixed(2)}</TableCell>
-                                        <TableCell className="text-right font-mono text-xs">${(row.Min || row.M1 || 0).toFixed(2)}</TableCell>
-                                    </TableRow>
-                                ))
+                                filteredRates.map((row, i) => {
+                                    const basic = row.Basic ?? row.B1 ?? row.LCPRDEXBasic ?? row.LCPPrioBasic ?? row.b2c1 ?? row.b2cp1 ?? row.EBasic ?? row.GBasic ?? 0;
+                                    const kilo = row.Kilo ?? row.K1 ?? row.Kg ?? row.LCPRDEXKg ?? row.LCPPrioKg ?? row.kg ?? row.pkg ?? 0;
+                                    const min = row.Min ?? row.M1 ?? row.Minimum ?? row.Eminimum ?? row.GMinimum ?? 0;
+                                    const origin = row.Origin || row.From || "N/A";
+                                    const dest = row.Dest || row.Destination || row.To || "N/A";
+                                    const logic = row.Logic || row["From - To"] || row.Zone || "N/A";
+                                    return (
+                                        <TableRow key={i}>
+                                            <TableCell className="font-bold text-xs uppercase">{origin}</TableCell>
+                                            <TableCell className="font-bold text-xs uppercase">{dest}</TableCell>
+                                            <TableCell className="text-center font-mono text-[10px] text-muted-foreground">{logic}</TableCell>
+                                            <TableCell className="text-right font-mono text-xs">${Number(basic).toFixed(2)}</TableCell>
+                                            <TableCell className="text-right font-mono text-xs">${Number(kilo).toFixed(2)}</TableCell>
+                                            <TableCell className="text-right font-mono text-xs">${Number(min).toFixed(2)}</TableCell>
+                                        </TableRow>
+                                    );
+                                })
                             ) : (
                                 <TableRow><TableCell colSpan={6} className="text-center py-20 text-muted-foreground italic">No matching rates found.</TableCell></TableRow>
                             )}
