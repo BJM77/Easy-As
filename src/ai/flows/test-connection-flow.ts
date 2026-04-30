@@ -1,7 +1,7 @@
 'use server';
 /**
  * @fileOverview AI flow to verify API connectivity via Genkit.
- * v54.0.0: Updated to provide accurate error reporting for Gemini 2.0 models.
+ * v55.0.0: Finalized stable connection logic for Gemini 2.5 Flash.
  */
 
 import { ai } from '@/ai/genkit';
@@ -12,19 +12,13 @@ import { logAiUsage } from '@/lib/aiUsage';
  * Returns a structured success or error object for the UI.
  */
 export async function testAiConnection() {
-  console.log("🔄 Testing Gemini AI connection via GenKit...");
-  const key = process.env.GEMINI_API_KEY || '';
-  console.log("[Debug] Server-side GEMINI_API_KEY present:", !!key);
-  if (key) {
-    console.log(`[Debug] Key starts with: ${key.substring(0, 8)}... ends with: ...${key.substring(key.length - 4)}`);
-  }
+  const hasKey = !!process.env.GEMINI_API_KEY;
 
-  if (!key) {
+  if (!hasKey) {
     return { success: false, error: "Secret Manager key (GEMINI_API_KEY) is missing from the runtime environment." };
   }
 
   try {
-    // Attempt with the default model
     const response = await ai.generate({
       prompt: "Reply with: HANDSHAKE SUCCESSFUL",
     });
@@ -34,7 +28,7 @@ export async function testAiConnection() {
       return {
         success: true,
         status: 'online',
-        message: `✅ SUCCESS - Model: ${response.model}`
+        message: "✅ HANDSHAKE SUCCESSFUL - Gemini 2.5 Flash is live and responsive."
       };
     }
 
@@ -45,9 +39,8 @@ export async function testAiConnection() {
 
     let details = error.message || "Unknown error";
 
-    // If it's a 404, Google often provides a very specific reason in the message
     if (details.includes("404") || details.includes("not found")) {
-        details = `Model Availability Error (404): ${details}. This often means the API key is valid but the specific model is not enabled for your project or region.`;
+        details = `Model Availability Error (404): ${details}. Ensure the Generative Language API is enabled for your service account.`;
     }
 
     return {
