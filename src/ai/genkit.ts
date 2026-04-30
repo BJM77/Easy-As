@@ -4,7 +4,7 @@
  * Forced to v1beta to ensure Gemini 2.0 Flash resolution in this SDK version.
  */
 import { genkit } from 'genkit';
-import { googleAI, gemini } from '@genkit-ai/googleai';
+import { googleAI, gemini15Flash } from '@genkit-ai/googleai';
 
 /**
  * Genkit factory
@@ -12,7 +12,12 @@ import { googleAI, gemini } from '@genkit-ai/googleai';
  * falls back to the server-side GEMINI_API_KEY environment variable.
  */
 export function buildAi(apiKeyOverride?: string) {
-  const apiKey = apiKeyOverride || process.env.GEMINI_API_KEY;
+  let apiKey = apiKeyOverride || process.env.GEMINI_API_KEY;
+
+  // Sanitize key: remove quotes and whitespace that can cause 404/403 errors
+  if (apiKey) {
+    apiKey = apiKey.trim().replace(/^["']|["']$/g, '');
+  }
 
   if (!apiKey) {
     console.error('[Genkit] CRITICAL: GEMINI_API_KEY is not set in environment.');
@@ -21,11 +26,10 @@ export function buildAi(apiKeyOverride?: string) {
   return genkit({
     plugins: [
       googleAI({
-        apiKey: apiKey || 'MISSING_KEY', 
-        apiVersion: 'v1beta',
+        apiKey: apiKey || 'MISSING_KEY',
       }),
     ],
-    model: gemini('gemini-1.5-flash'),
+    model: gemini15Flash,
   });
 }
 
