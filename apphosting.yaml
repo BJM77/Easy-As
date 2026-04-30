@@ -1,5 +1,5 @@
 # Firebase App Hosting configuration
-# Updated to match the actual secret names in Secret Manager
+# Pointing to the most recent GEMINI_API_KEY secret
 # Environment: enna
 
 runConfig:
@@ -10,7 +10,7 @@ runConfig:
 env:
   # Secrets from Google Cloud Secret Manager
   - variable: GEMINI_API_KEY
-    secret: GOOGLE_GENAI_API_KEY
+    secret: GEMINI_API_KEY
     availability:
       - BUILD
       - RUNTIME
