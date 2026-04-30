@@ -94,11 +94,12 @@ service cloud.firestore {
       allow read: if isSignedIn() && (
         isSuperAdmin() || 
         resource == null ||
-        request.auth.uid == resource.data.userId
+        resource.data.userId == request.auth.uid
       );
       allow write: if isSignedIn() && (
         isSuperAdmin() || 
-        request.auth.uid == request.resource.data.userId
+        request.resource.data.userId == request.auth.uid ||
+        resource.data.userId == request.auth.uid
       );
     }
 
