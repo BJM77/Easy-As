@@ -13,10 +13,13 @@ import { logAiUsage } from '@/lib/aiUsage';
  */
 export async function testAiConnection() {
   console.log("🔄 Testing Gemini AI connection via GenKit...");
-  const hasKey = !!process.env.GEMINI_API_KEY;
-  console.log("[Debug] Server-side GEMINI_API_KEY present:", hasKey);
+  const key = process.env.GEMINI_API_KEY || '';
+  console.log("[Debug] Server-side GEMINI_API_KEY present:", !!key);
+  if (key) {
+    console.log(`[Debug] Key starts with: ${key.substring(0, 8)}... ends with: ...${key.substring(key.length - 4)}`);
+  }
 
-  if (!hasKey) {
+  if (!key) {
     return { success: false, error: "Secret Manager key (GEMINI_API_KEY) is missing from the runtime environment." };
   }
 
