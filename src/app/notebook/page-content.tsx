@@ -31,11 +31,14 @@ export default function NotebookPageContent() {
 
   const notesQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
-    return query(collection(firestore, 'notes'), where('userId', '==', user.uid), orderBy('updatedAt', 'desc'));
+    return query(collection(firestore, 'notes'), where('userId', '==', user.uid));
   }, [firestore, user]);
 
   const { data: notesData, isLoading } = useCollection<Note>(notesQuery);
-  const notes = notesData ?? [];
+  const notes = useMemo(() => {
+    const raw = notesData ?? [];
+    return [...raw].sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+  }, [notesData]);
 
   const filteredNotes = useMemo(() => {
     if (!Array.isArray(notes)) return [];
