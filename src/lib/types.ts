@@ -194,7 +194,6 @@ export type ServiceName =
 export const ALL_SERVICES: ServiceName[] = [
   'LCP Std', 'LCP Priority',
   'LCP GO Std', 'LCP GO Priority',
-  'LCP GO Std 167', 'LCP GO Priority 167',
   'B2B Std', 'B2B Priority',
   'B2B Pallets Express', 'B2B Pallets General Tiered',
   'B2C Std', 'B2C Priority',
@@ -204,7 +203,6 @@ export const ALL_SERVICES: ServiceName[] = [
 export const LCP_SERVICES: ServiceName[] = [
   'LCP Std', 'LCP Priority',
   'LCP GO Std', 'LCP GO Priority',
-  'LCP GO Std 167', 'LCP GO Priority 167',
 ];
 
 export const PALLET_SERVICES: ServiceName[] = [
@@ -219,11 +217,11 @@ export const BASIC_KILO_MIN_SERVICES: ServiceName[] = [
   'B2B Std', 'B2B Priority', 'WA PE Special'
 ];
 
-export const STANDARD_ROAD_MAPPED_SERVICES: ServiceName[] = ['B2B Std', 'LCP Std', 'LCP GO Std', 'LCP GO Std 167'];
-export const PRIORITY_MAPPED_SERVICES: ServiceName[] = ['B2B Priority', 'LCP Priority', 'B2C Priority', 'LCP GO Priority', 'LCP GO Priority 167'];
+export const STANDARD_ROAD_MAPPED_SERVICES: ServiceName[] = ['B2B Std', 'LCP Std', 'LCP GO Std'];
+export const PRIORITY_MAPPED_SERVICES: ServiceName[] = ['B2B Priority', 'LCP Priority', 'B2C Priority', 'LCP GO Priority'];
 export const STANDARD_PALLET_MAPPED_SERVICES: ServiceName[] = ['B2B Pallets Express', 'B2B Pallets General Tiered'];
 export const RAS_APPLICABLE_SERVICES: ServiceName[] = [
-  'LCP Std', 'LCP Priority', 'B2B Std', 'B2B Priority', 'B2C Std', 'B2C Priority', 'LCP GO Std', 'LCP GO Priority', 'LCP GO Std 167', 'LCP GO Priority 167'
+  'LCP Std', 'LCP Priority', 'B2B Std', 'B2B Priority', 'B2C Std', 'B2C Priority', 'LCP GO Std', 'LCP GO Priority'
 ];
 export const SECURITY_APPLICABLE_SERVICES: ServiceName[] = [ 'B2B Priority', 'B2C Priority', 'LCP Priority' ];
 
