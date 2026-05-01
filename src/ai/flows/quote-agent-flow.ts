@@ -258,13 +258,14 @@ User question: ${input.query}`,
   });
 
   // Load rate files from the filesystem (server-side)
-  const [rdex, prio, b2c, regional, pallet1, pezone] = await Promise.all([
+  const [rdex, prio, b2c, regional, pallet1, pezone, ras] = await Promise.all([
     loadServerData('b2brdex.json'),
     loadServerData('b2b_priority.json'),
     loadServerData('b2c.json'),
     loadServerData('regionallookup.json'),
     loadServerData('pe1.json'),
     loadServerData('PEZones.json'),
+    loadServerData('ras.json'),
   ]);
 
   // Use settings passed from the client, or fall back to safe defaults.
@@ -310,6 +311,7 @@ User question: ${input.query}`,
         pe1: pallet1,
         b2c,
         regionallookup: regional,
+        ras,
       };
       return map[type];
     },

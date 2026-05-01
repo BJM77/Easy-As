@@ -394,6 +394,8 @@ export const CUSTOMER_SERVICE_NAME_MAPPINGS: Partial<Record<ServiceName, string>
   'LCP Priority': 'Customer LCP Priority', 
   'LCP GO Std': 'Customer LCP GO Standard', 
   'LCP GO Priority': 'Customer LCP GO Priority',
+  'LCP GO Std 167': 'Customer LCP GO Standard 167',
+  'LCP GO Priority 167': 'Customer LCP GO Priority 167',
 };
 
 export async function calculateAllFreightPrices(options: CalcOptions): Promise<CalculatedPriceItem[]> {
@@ -414,19 +416,21 @@ export async function calculateAllFreightPrices(options: CalcOptions): Promise<C
 
     let accountsToCalculate: { accountNumber?: string, data: RateData }[] = [];
     if (isOurRates && getAllRateFiles) {
-        const fileTypeMap: Partial<Record<ServiceName, RateFileType>> = { 'B2B Std': 'customer_b2brdex', 'B2B Priority': 'customer_b2b_priority', 'B2C Std': 'customer_b2c', 'B2C Priority': 'customer_b2c', 'B2B Pallets Express': 'customer_pe', 'B2B Pallets General Tiered': 'customer_pe', 'WA PE Special': 'customer_west_east', 'LCP Std': 'customer_lcprdex', 'LCP Priority': 'customer_lcpprio', 'LCP GO Std': 'customer_lcpgo', 'LCP GO Priority': 'customer_lcpgo' };
+        const fileTypeMap: Partial<Record<ServiceName, RateFileType>> = { 'B2B Std': 'customer_b2brdex', 'B2B Priority': 'customer_b2b_priority', 'B2C Std': 'customer_b2c', 'B2C Priority': 'customer_b2c', 'B2B Pallets Express': 'customer_pe', 'B2B Pallets General Tiered': 'customer_pe', 'WA PE Special': 'customer_west_east', 'LCP Std': 'customer_lcprdex', 'LCP Priority': 'customer_lcpprio', 'LCP GO Std': 'customer_lcpgo', 'LCP GO Priority': 'customer_lcpgo', 'LCP GO Std 167': 'customer_lcpgo', 'LCP GO Priority 167': 'customer_lcpgo' };
         const baseFileType = fileTypeMap[uiServiceName];
         if (baseFileType) accountsToCalculate = getAllRateFiles(baseFileType);
     } else {
-        const fileTypeMap: Partial<Record<ServiceName, RateFileType>> = { 'B2B Std': 'b2brdex', 'B2B Priority': 'b2b_priority', 'B2C Std': 'b2c', 'B2C Priority': 'b2c', 'B2B Pallets Express': `pe${spendBand}` as any, 'B2B Pallets General Tiered': `pe${spendBand}` as any, 'WA PE Special': 'west_east', 'LCP Std': 'lcprdex', 'LCP Priority': 'lcpprio', 'LCP GO Std': 'lcpgo', 'LCP GO Priority': 'lcpgo' };
+        const fileTypeMap: Partial<Record<ServiceName, RateFileType>> = { 'B2B Std': 'b2brdex', 'B2B Priority': 'b2b_priority', 'B2C Std': 'b2c', 'B2C Priority': 'b2c', 'B2B Pallets Express': `pe${spendBand}` as any, 'B2B Pallets General Tiered': `pe${spendBand}` as any, 'WA PE Special': 'west_east', 'LCP Std': 'lcprdex', 'LCP Priority': 'lcpprio', 'LCP GO Std': 'lcpgo', 'LCP GO Priority': 'lcpgo', 'LCP GO Std 167': 'lcpgo', 'LCP GO Priority 167': 'lcpgo' };
         const data = getRateFile(fileTypeMap[uiServiceName] || 'b2brdex');
         if (data) accountsToCalculate = [{ data }];
     }
 
     for (const account of accountsToCalculate) {
+        const cubicFactor = uiServiceName.includes('Pallet') ? CONFIG.CUBIC_FACTORS.PALLET : (uiServiceName.includes('167') ? CONFIG.CUBIC_FACTORS.LCP_GO_167 : CONFIG.CUBIC_FACTORS.PARCEL);
+        
         const context: PricingContext = {
             originLocation, destinationLocation, spendBand, isOurRates, uiServiceName,
-            chargeableWeightKg: calculateChargeableWeight(items, uiServiceName.includes('Pallet') ? CONFIG.CUBIC_FACTORS.PALLET : CONFIG.CUBIC_FACTORS.PARCEL, globalNoCubic),
+            chargeableWeightKg: calculateChargeableWeight(items, cubicFactor, globalNoCubic),
             totalDeadWeightKg: items.reduce((sum, i) => sum + ((i.weight || 0) * (i.quantity || 1)), 0)
         };
 
@@ -456,7 +460,7 @@ export async function calculateAllFreightPrices(options: CalcOptions): Promise<C
             if (RAS_APPLICABLE_SERVICES.includes(uiServiceName) && rasData) {
                 const rasEntry = rasData.find(r => Number(r.postcode) === Number(destinationLocation.postcode) && String(r.suburb || '').trim().toUpperCase() === String(destinationLocation.suburb || '').trim().toUpperCase());
                 if (rasEntry) {
-                    const amount = (PRIORITY_MAPPED_SERVICES.includes(uiServiceName) || uiServiceName.includes('Priority')) ? rasEntry.prio : rasEntry.ipec;
+                    const amount = (PRIORITY_MAPPED_SERVICES.includes(uiServiceName) || uiServiceName.includes('Priority') || uiServiceName.startsWith('LCP GO')) ? rasEntry.prio : rasEntry.ipec;
                     if (amount > 0) otherSurcharges.push({ name: 'Remote Area Surcharge', amount, id: 'remote_area_surcharge' });
                 }
             }

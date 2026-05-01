@@ -187,7 +187,9 @@ export type ServiceName =
   | 'Customer LCP Standard'
   | 'Customer LCP Priority'
   | 'Customer LCP GO Standard'
-  | 'Customer LCP GO Priority';
+  | 'Customer LCP GO Priority'
+  | 'Customer LCP GO Standard 167'
+  | 'Customer LCP GO Priority 167';
 
 export const ALL_SERVICES: ServiceName[] = [
   'LCP Std', 'LCP Priority',
