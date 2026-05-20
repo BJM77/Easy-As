@@ -2,7 +2,7 @@ import WholesalePageContent from "./page-content";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Wholesale Calculator - Admin",
+  title: "Sameday & Bulk Calculator - Admin",
   description: "Calculate B2B Priority rates with special wholesale logic.",
 };
 

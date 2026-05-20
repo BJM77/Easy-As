@@ -294,12 +294,12 @@ export default function WholesalePageContent() {
         return;
     }
     
-    const subject = `New Wholesale Freight Booking: ${formData.originQuery} to ${formData.destinationQuery}`;
-    let body = "A new wholesale freight movement has been submitted for actioning.\n\n";
+    const subject = `New Sameday & Bulk Freight Booking: ${formData.originQuery} to ${formData.destinationQuery}`;
+    let body = "A new Sameday & Bulk freight movement has been submitted for actioning.\n\n";
     body += "---CONSIGNMENT DETAILS---\n";
     body += `Origin: ${formData.originQuery}\n`;
     body += `Destination: ${formData.destinationQuery}\n`;
-    body += `Service: B2B Priority (Wholesale Rate)\n\n`;
+    body += `Service: B2B Priority (Sameday & Bulk Rate)\n\n`;
     
     body += "---ITEMS---\n";
     formData.items.forEach((item, i) => {
@@ -309,11 +309,11 @@ export default function WholesalePageContent() {
 
     body += "---PRICING---\n";
     if (calculatedResult) {
-        body += `Wholesale Rate Price (ex GST): ${new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(calculatedResult.finalPrice ?? 0)}\n`;
+        body += `Sameday & Bulk Rate Price (ex GST): ${new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(calculatedResult.finalPrice ?? 0)}\n`;
         body += `Chargeable Weight: ${calculatedResult.chargeableWeight.toFixed(2)} kg\n`;
     }
     if (calculatedFridayResult) {
-        body += `FRIDAY Wholesale Rate Price (ex GST): ${new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(calculatedFridayResult.finalPrice ?? 0)}\n`;
+        body += `FRIDAY Sameday & Bulk Rate Price (ex GST): ${new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(calculatedFridayResult.finalPrice ?? 0)}\n`;
     }
     body += "\n---END---\n";
 
@@ -333,7 +333,7 @@ export default function WholesalePageContent() {
       <CardHeader>
         <CardTitle className="flex items-center text-2xl font-headline">
           <Zap className="mr-2 h-7 w-7 text-primary" />
-          Wholesale B2B Priority Calculator
+          Sameday & Bulk B2B Priority Calculator
         </CardTitle>
         <CardDescription>
             Specialized calculator for B2B Priority on Spend Band 4, using a fixed $50 basic rate and a unique cubic weight rule. Also shows a special Friday rate for PER to MEL/ADL routes.
@@ -382,7 +382,7 @@ export default function WholesalePageContent() {
             
             <div className="flex flex-wrap gap-2">
                 <Button type="submit" className="text-lg py-3 px-6 bg-accent hover:bg-accent/90 text-accent-foreground flex-grow md:flex-grow-0" disabled={overallLoading}>
-                  {overallLoading ? (<><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Calculating...</>) : 'Calculate Wholesale Rate'}
+                  {overallLoading ? (<><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Calculating...</>) : 'Calculate Sameday & Bulk Rate'}
                 </Button>
                 <Button onClick={handlePrint} variant="outline" className="flex-grow md:flex-grow-0" type="button" disabled={!showResults || (!calculatedResult && !calculatedFridayResult)}>
                     <Printer className="mr-2 h-4 w-4" /> Print Quote
@@ -398,7 +398,7 @@ export default function WholesalePageContent() {
             {showResults && calculatedResult && (
                  <Card className="card-print">
                     <CardHeader>
-                        <CardTitle className="flex items-center text-xl font-semibold"><Package className="mr-2"/>B2B Priority Wholesale Result</CardTitle>
+                        <CardTitle className="flex items-center text-xl font-semibold"><Package className="mr-2"/>B2B Priority Sameday & Bulk Result</CardTitle>
                         <CardDescription>Final price calculated with a fixed $50 basic rate and special cubic logic.</CardDescription>
                     </CardHeader>
                     <CardContent>
