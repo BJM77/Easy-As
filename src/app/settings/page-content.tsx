@@ -54,6 +54,8 @@ export default function SettingsPageContent() {
     stateEmailContacts,
     setStateEmailContact,
     saveSettingsToServer,
+    premiumServiceFees,
+    setPremiumServiceFees,
   } = useSettings();
 
   const { toast } = useToast();
@@ -102,6 +104,11 @@ export default function SettingsPageContent() {
     if (!isNaN(percentage)) {
       updateGroupFuelSurcharge(groupType, percentage, new Date().toISOString());
     }
+  };
+
+  const handlePremiumFeeChange = (key: keyof typeof premiumServiceFees, value: string) => {
+    const num = parseFloat(value) || 0;
+    setPremiumServiceFees({ ...premiumServiceFees, [key]: num });
   };
 
   const handleSaveChanges = async () => {
@@ -192,6 +199,29 @@ export default function SettingsPageContent() {
                 <Button onClick={handleFetchLatestFuelRates} disabled={isFetchingFuel} variant="outline" className="w-full mt-2 h-8 text-xs">
                     {isFetchingFuel ? <Loader2 className="mr-2 h-3 w-3 animate-spin"/> : <RefreshCw className="mr-2 h-3 w-3" />} Sync Live Rates
                 </Button>
+            </CardContent>
+        </Card>
+
+        <Card>
+            <CardHeader><CardTitle className="text-lg">Premium Services (Sameday & Bulk)</CardTitle></CardHeader>
+            <CardContent className="space-y-4">
+                {[
+                  { key: 'sameDay', label: 'Same-Day' },
+                  { key: 'handToHand', label: 'Hand 2 Hand' },
+                  { key: 'highValue', label: 'High Value' },
+                  { key: 'timeSensitive', label: 'Time Sensitive' },
+                  { key: 'highlyMonitored', label: 'Highly Monitored' },
+                ].map(({ key, label }) => (
+                    <div key={key} className="flex items-center justify-between">
+                        <Label>{label} Fee ($)</Label>
+                        <Input 
+                            type="number"
+                            className="w-24 h-8 text-right font-mono" 
+                            value={premiumServiceFees[key as keyof typeof premiumServiceFees].toString()}
+                            onChange={(e) => handlePremiumFeeChange(key as keyof typeof premiumServiceFees, e.target.value)}
+                        />
+                    </div>
+                ))}
             </CardContent>
         </Card>
       </div>

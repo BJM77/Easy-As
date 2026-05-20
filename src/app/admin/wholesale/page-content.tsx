@@ -197,7 +197,7 @@ export default function WholesalePageContent() {
   const [showResults, setShowResults] = useState(false);
   const [calculatedResult, setCalculatedResult] = useState<CalculatedPriceItem | null>(null);
   const [calculatedFridayResult, setCalculatedFridayResult] = useState<CalculatedPriceItem | null>(null);
-  const { serviceSettings, surchargeDefinitions, stateEmailContacts } = useSettings();
+  const { serviceSettings, surchargeDefinitions, stateEmailContacts, premiumServiceFees } = useSettings();
   const { getRateFile, pezoneData, isLoading: isLoadingRates } = useRateOverrides();
   const { toast } = useToast();
 
@@ -501,6 +501,37 @@ export default function WholesalePageContent() {
                     </CardContent>
                  </Card>
             )}
+             {showResults && calculatedResult && (
+                 <Card className="mt-8 border-primary card-print">
+                     <CardHeader>
+                         <CardTitle className="text-xl font-semibold">Premium Services</CardTitle>
+                         <CardDescription>Estimated total price including the configured fixed additional fee for each service type.</CardDescription>
+                     </CardHeader>
+                     <CardContent>
+                         <div className="space-y-4">
+                         {[
+                             { key: 'sameDay', label: 'Same-Day' },
+                             { key: 'handToHand', label: 'Hand 2 Hand' },
+                             { key: 'highValue', label: 'High Value' },
+                             { key: 'timeSensitive', label: 'Time Sensitive' },
+                             { key: 'highlyMonitored', label: 'Highly Monitored' },
+                         ].map(({ key, label }) => {
+                             const fee = premiumServiceFees?.[key as keyof typeof premiumServiceFees] || 0;
+                             const premiumTotal = (calculatedResult.finalPrice ?? 0) + fee;
+                             return (
+                                 <div key={key} className="flex justify-between items-center py-2 border-b last:border-0">
+                                     <div className="font-semibold">{label}</div>
+                                     <div className="text-right">
+                                         <div className="font-bold text-lg">{new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(premiumTotal)}</div>
+                                         <div className="text-xs text-muted-foreground">+ {new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(fee)} fee</div>
+                                     </div>
+                                 </div>
+                             );
+                         })}
+                         </div>
+                     </CardContent>
+                 </Card>
+             )}
              {showResults && !calculatedResult && (
                  <Card className="mt-8"><CardContent className="pt-6 text-center text-muted-foreground">Calculation failed or no applicable rate was found.</CardContent></Card>
              )}

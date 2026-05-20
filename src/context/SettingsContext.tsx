@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react';
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
-import type { ServiceName, SurchargeDefinition, ActiveSurchargeSetting, SurchargeConfigGroupKey, StateAbbreviation, QuickActionKey, UserRole, ServicePermissions, PageKey, PagePermissions, ExternalLink, ServiceSettings } from '@/lib/types';
+import type { ServiceName, SurchargeDefinition, ActiveSurchargeSetting, SurchargeConfigGroupKey, StateAbbreviation, QuickActionKey, UserRole, ServicePermissions, PageKey, PagePermissions, ExternalLink, ServiceSettings, PremiumServiceFees } from '@/lib/types';
 import { ALL_SERVICES, ALL_STATES, NON_PALLET_SERVICES, PALLET_SERVICES, LCP_SERVICES, STANDARD_ROAD_MAPPED_SERVICES, PRIORITY_MAPPED_SERVICES, STANDARD_PALLET_MAPPED_SERVICES, PALLET_LIKE_SERVICES, ALL_USER_ROLES, SECURITY_APPLICABLE_SERVICES, ALL_PAGES, ALL_TIMEZONES, DEFAULT_SERVICE_PERMISSIONS } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth, useFirestore } from '@/firebase';
@@ -96,6 +96,8 @@ interface SettingsContextType {
   timezones: Record<string, { label: string; tz: string; time: string }>;
   visibleTimezones: Record<string, boolean>;
   setVisibleTimezones: (visible: Record<string, boolean>) => void;
+  premiumServiceFees: PremiumServiceFees;
+  setPremiumServiceFees: (fees: PremiumServiceFees) => void;
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
@@ -125,6 +127,13 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
   const [showLcpRates, setShowLcpRates] = useState(true);
   const [isAccountManagerMode, setIsAccountManagerMode] = useState(false);
   const [surchargeDefinitions, setSurchargeDefinitions] = useState<SurchargeDefinition[]>(PREDEFINED_SURCHARGES_INITIAL);
+  const [premiumServiceFees, setPremiumServiceFees] = useState<PremiumServiceFees>({
+    sameDay: 0,
+    handToHand: 0,
+    highValue: 0,
+    timeSensitive: 0,
+    highlyMonitored: 0
+  });
 
   // Derived Service Settings
   const serviceSettings = useMemo(() => {
@@ -179,6 +188,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
         if (data.pagePermissions) setPagePermissions(data.pagePermissions);
         if (data.externalLinks) setExternalLinks(data.externalLinks);
         if (data.visibleTimezones) setVisibleTimezones(data.visibleTimezones);
+        if (data.premiumServiceFees) setPremiumServiceFees(data.premiumServiceFees);
       }
       setIsLoadingSettings(false);
     }, (error) => {
@@ -217,6 +227,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
         stateEmailContacts,
         quickActions,
         showLcpRates,
+        premiumServiceFees,
         updatedAt: new Date().toISOString(),
         updatedBy: user?.email || 'unknown'
       }, { merge: true });
@@ -272,12 +283,13 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     stateEmailContacts, setStateEmailContact: (s: any, i: any, e: any) => setStateEmailContacts((p: any) => ({ ...p, [s]: Object.assign([], p[s], { [i]: e }) })),
     quickActions, setQuickActions, servicePermissions, setServicePermissionsForRole, pagePermissions, setPagePermissionsForRole,
     isLoadingSettings, saveSettingsToServer, showLcpRates, setShowLcpRates, isAccountManagerMode, setIsAccountManagerMode,
-    externalLinks, setExternalLinks: setExternalLinksWithLocal, timezones, visibleTimezones, setVisibleTimezones: setVisibleTimezonesWithLocal
+    externalLinks, setExternalLinks: setExternalLinksWithLocal, timezones, visibleTimezones, setVisibleTimezones: setVisibleTimezonesWithLocal,
+    premiumServiceFees, setPremiumServiceFees
   }), [
     serviceSettings, surchargeDefinitions, standardFuelSurcharge, priorityFuelSurcharge, palletFuelSurcharge, standardFuelLastUpdated,
     globalSecuritySurchargePercent, emailQuoteTemplate, perfectPlanPalletRate, perfectPlanParcelRate, perfectPlanSatchelRate,
     stateEmailContacts, quickActions, servicePermissions, pagePermissions, isLoadingSettings, showLcpRates, isAccountManagerMode,
-    externalLinks, timezones, visibleTimezones
+    externalLinks, timezones, visibleTimezones, premiumServiceFees
   ]);
 
   return <SettingsContext.Provider value={value as any}>{children}</SettingsContext.Provider>;

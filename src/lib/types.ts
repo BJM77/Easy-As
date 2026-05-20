@@ -366,6 +366,14 @@ export interface ServiceSettings {
   fuelSurchargePercent: number;
   surcharges: ActiveSurchargeSetting[];
 }
+
+export interface PremiumServiceFees {
+  sameDay: number;
+  handToHand: number;
+  highValue: number;
+  timeSensitive: number;
+  highlyMonitored: number;
+}
 export type SurchargeConfigGroupKey = 'STANDARD_ROAD' | 'PRIORITY_MIXED' | 'PALLET_SERVICES';
 
 export interface FreightItem {
