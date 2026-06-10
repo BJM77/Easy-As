@@ -154,6 +154,10 @@ const initialConverterStates: Record<string, ConverterState> = {
     { id: generateMappingId(), jsonKey: 'Minimum', excelMapping: '{K}', placeholder: 'Min Charge' },
     { id: generateMappingId(), jsonKey: '0-99999KGS', excelMapping: '{N}', placeholder: 'Kilo Rate' }
   ], false),
+  new_rate: createInitialConverterState('New Rate Card', 'new_rate_type', '2', [
+    { id: generateMappingId(), jsonKey: 'Logic', excelMapping: 'Prefix{F}{G}', placeholder: 'Logic (Prefix+From+To)' },
+    { id: generateMappingId(), jsonKey: 'Basic', excelMapping: '{L}', placeholder: 'Basic Charge' },
+  ], true, "Expected Format: Upload standard New Rate Excel. Origin in Col F, Dest in Col G."),
 };
 
 export default function CsvConverterPageContent() {

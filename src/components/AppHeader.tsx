@@ -552,6 +552,7 @@ export default function AppHeader() {
                 <DropdownMenuItem asChild><Link href="/admin/surcharges"><Fuel className="mr-2 h-4 w-4" /> Fees & Surcharges</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/admin/promo-codes"><Ticket className="mr-2 h-4 w-4" /> Promo Codes</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/admin/update-ras"><MapPin className="mr-2 h-4 w-4" /> Update RAS</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/admin/csv-converter"><FileUp className="mr-2 h-4 w-4" /> CSV Converter</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/admin/wholesale"><Calculator className="mr-2 h-4 w-4" /> Sameday & Bulk</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/price-test"><ListTree className="mr-2 h-4 w-4" /> Logic Tester</Link></DropdownMenuItem>
             </DropdownMenuGroup>
@@ -667,6 +668,7 @@ export default function AppHeader() {
             <NavItem href="/admin/roles" icon={Users} label="Permissions" isMobile />
             <NavItem href="/admin/promo-codes" icon={Ticket} label="Discount Codes" isMobile />
             <NavItem href="/admin/update-ras" icon={MapPin} label="Update RAS" isMobile />
+            <NavItem href="/admin/csv-converter" icon={FileUp} label="CSV Converter" isMobile />
             <NavItem href="/admin/wholesale" icon={Calculator} label="Sameday & Bulk" isMobile />
             <NavItem href="/price-test" icon={Cog} label="Logic Tester" isMobile />
             <NavItem href="/status" icon={Computer} label="System Health" isMobile />

@@ -778,8 +778,8 @@ export const CSV_EXPECTED_HEADERS: Partial<Record<RateFileType, string[]>> = {
 };
 
 export type RateFileType =
-  | 'b2c' | 'regionallookup' | 'lcprdex' | 'lcpprio' | 'lcpgo' | 'b2b_std' | 'b2b_priority' | 'b2brdex' | 'pezone' | 'pe1' | 'pe2' | 'pe3' | 'pe4' | 'pe5' | 'pallet6' | 'west_east' | 'ras' | 'eprates' | 'postcodes' | 'locations'
-  | 'customer_b2b_priority' | 'customer_b2brdex' | 'customer_pe' | 'customer_b2c' | 'customer_lcpgo' | 'customer_lcprdex' | 'customer_lcpprio' | 'customer_west_east' | 'customer_b2bsatchel';
+  | 'b2c' | 'regionallookup' | 'lcprdex' | 'lcpprio' | 'lcpgo' | 'b2b_std' | 'b2b_priority' | 'b2brdex' | 'pezone' | 'pe1' | 'pe2' | 'pe3' | 'pe4' | 'pe5' | 'pallet6' | 'west_east' | 'ras' | 'eprates' | 'postcodes' | 'locations' | 'new_rate_type'
+  | 'customer_b2b_priority' | 'customer_b2brdex' | 'customer_pe' | 'customer_b2c' | 'customer_lcpgo' | 'customer_lcprdex' | 'customer_lcpprio' | 'customer_west_east' | 'customer_b2bsatchel' | 'customer_new_rate_type';
 
 export type QuickActionKey = 'calculator' | 'competitor-comparison' | 'problem-log' | 'new-lead' | 'ai-guru' | 'rate-card' | 'sb-comparison' | 'rate-comparison' | 'multi' | 'leg-discount' | 'location-lookup' | 'csv-converter';
 
