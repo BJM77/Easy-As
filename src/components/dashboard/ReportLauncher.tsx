@@ -197,6 +197,34 @@ export default function ReportLauncher() {
                     </div>
                 </div>
             </div>
+
+            {/* External Reports & Tools */}
+            <div className="pt-8 border-t space-y-4">
+                <div className="flex items-center gap-2">
+                    <div className="h-8 w-1 bg-green-500 rounded-full" />
+                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-green-500">External Reports & Tools</h3>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                    <Button variant="outline" size="sm" className="h-11 justify-start font-bold text-[10px] uppercase tracking-tight hover:border-green-500 hover:text-green-500 transition-all" onClick={() => window.open('https://fleapaup005.agreenspace.local/Reports/powerbi/Business%20Performance/Revenue/TGE%20Reporting', '_blank')}>
+                        <BarChart3 className="mr-2 h-3.5 w-3.5 text-green-500" /> TGE Reporting
+                    </Button>
+                    <Button variant="outline" size="sm" className="h-11 justify-start font-bold text-[10px] uppercase tracking-tight hover:border-green-500 hover:text-green-500 transition-all" onClick={() => window.open('https://teamglobalexp.sharepoint.com/sites/CustomerDataBooks/', '_blank')}>
+                        <BookOpen className="mr-2 h-3.5 w-3.5 text-green-500" /> Customer Data Books
+                    </Button>
+                    <Button variant="outline" size="sm" className="h-11 justify-start font-bold text-[10px] uppercase tracking-tight hover:border-green-500 hover:text-green-500 transition-all" onClick={() => window.open('https://fleapaup005.agreenspace.local/Reports/browse/TGE-Live/IPEC/Sales/Quotes%20Analysis', '_blank')}>
+                        <ExternalLink className="mr-2 h-3.5 w-3.5 text-green-500" /> Quotes Analysis
+                    </Button>
+                    <Button variant="outline" size="sm" className="h-11 justify-start font-bold text-[10px] uppercase tracking-tight hover:border-green-500 hover:text-green-500 transition-all" onClick={() => window.open('https://fleapaup005.agreenspace.local/Reports/report/TGE-Live/IPEC/Sales/Management/Customer%20Trading%20Analysis/Customer%20Trading%20Analysis', '_blank')}>
+                        <BarChart3 className="mr-2 h-3.5 w-3.5 text-green-500" /> Customer Trading
+                    </Button>
+                    <Button variant="outline" size="sm" className="h-11 justify-start font-bold text-[10px] uppercase tracking-tight hover:border-green-500 hover:text-green-500 transition-all" onClick={() => window.open('https://fleapaup005.agreenspace.local/Reports/report/TGE-Live/IPEC/Sales/General/Detailed%20Trading%20Stats%20with%20address', '_blank')}>
+                        <BarChart3 className="mr-2 h-3.5 w-3.5 text-green-500" /> Detailed Trading
+                    </Button>
+                    <Button variant="outline" size="sm" className="h-11 justify-start font-bold text-[10px] uppercase tracking-tight hover:border-green-500 hover:text-green-500 transition-all" onClick={() => window.open('https://fleapaup005.agreenspace.local/Reports/report/TGE-Live/iTrak%20Consignments%20by%20Account', '_blank')}>
+                        <TableIcon className="mr-2 h-3.5 w-3.5 text-green-500" /> iTrak Consignments
+                    </Button>
+                </div>
+            </div>
         </div>
       </CardContent>
       <div className="bg-muted/30 p-3 flex items-center justify-center gap-6 border-t">
