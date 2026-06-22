@@ -20,6 +20,7 @@ const PREDEFINED_SURCHARGES_INITIAL: SurchargeDefinition[] = [
   { id: 'oversize_item_fee', name: 'Oversize Fee (Length > 180cm per item)', type: 'fixed_per_shipment', defaultValue: 63.00, isConfigurablePerService: true, isPredefined: true, applicableServices: NON_PALLET_SERVICES },
   { id: 'manual_handling_gt30kg', name: 'Manual Handling Fee (>30kg & <35kg per item)', type: 'fixed_per_shipment', defaultValue: 16.50, isConfigurablePerService: true, isPredefined: true, applicableServices: NON_PALLET_SERVICES },
   { id: 'manual_handling_gt35kg', name: 'Oversize Fee (>=35kg per item)', type: 'fixed_per_shipment', defaultValue: 63.50, isConfigurablePerService: true, isPredefined: true, applicableServices: NON_PALLET_SERVICES },
+  { id: 'manual_handling_120_179cm', name: 'Manual Handling Fee (L/W 120-179.9cm)', type: 'fixed_per_shipment', defaultValue: 16.50, isConfigurablePerService: true, isPredefined: true, applicableServices: NON_PALLET_SERVICES },
   { id: 'book_in_delivery_fee', name: 'Book-In Delivery', type: 'fixed_per_shipment', defaultValue: 25.00, isConfigurablePerService: true, isPredefined: true, applicableServices: ALL_SERVICES },
   { id: 'dg_consignment_fee', name: 'Dangerous Goods', type: 'fixed_per_shipment', defaultValue: 45.00, isConfigurablePerService: true, isPredefined: true, applicableServices: ALL_SERVICES },
   { id: 'hand_unload_fee', name: 'Hand Unload', type: 'fixed_per_shipment', defaultValue: 50.00, isConfigurablePerService: true, isPredefined: true, applicableServices: ALL_SERVICES },
@@ -179,11 +180,12 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
       clearTimeout(timeout);
       if (snap.exists()) {
         const data = snap.data();
-        if (data.standardFuelSurcharge) setStandardFuelSurcharge(data.standardFuelSurcharge);
-        if (data.priorityFuelSurcharge) setPriorityFuelSurcharge(data.priorityFuelSurcharge);
-        if (data.palletFuelSurcharge) setPalletFuelSurcharge(data.palletFuelSurcharge);
-        if (data.standardFuelLastUpdated) setStandardFuelLastUpdated(data.standardFuelLastUpdated);
-        if (data.globalSecuritySurchargePercent) setGlobalSecuritySurchargePercent(data.globalSecuritySurchargePercent);
+        if (data.standardFuelSurcharge !== undefined) setStandardFuelSurcharge(data.standardFuelSurcharge);
+        if (data.priorityFuelSurcharge !== undefined) setPriorityFuelSurcharge(data.priorityFuelSurcharge);
+        if (data.palletFuelSurcharge !== undefined) setPalletFuelSurcharge(data.palletFuelSurcharge);
+        if (data.standardFuelLastUpdated !== undefined) setStandardFuelLastUpdated(data.standardFuelLastUpdated);
+        if (data.globalSecuritySurchargePercent !== undefined) setGlobalSecuritySurchargePercent(data.globalSecuritySurchargePercent);
+        if (data.surchargeDefinitions) setSurchargeDefinitions(data.surchargeDefinitions);
         if (data.servicePermissions) setServicePermissions(data.servicePermissions);
         if (data.pagePermissions) setPagePermissions(data.pagePermissions);
         if (data.externalLinks) setExternalLinks(data.externalLinks);
@@ -216,6 +218,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
         palletFuelSurcharge,
         standardFuelLastUpdated,
         globalSecuritySurchargePercent,
+        surchargeDefinitions,
         servicePermissions,
         pagePermissions,
         externalLinks,
@@ -251,6 +254,12 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     setServicePermissions(prev => ({ ...prev, [role || 'null']: services }));
   };
 
+  const updateGroupOtherSurcharge = (groupKey: SurchargeConfigGroupKey, surchargeId: string, value: number, enabled: boolean) => {
+    setSurchargeDefinitions(prev => prev.map(s => 
+      s.id === surchargeId ? { ...s, defaultValue: value } : s
+    ));
+  };
+
   const setPagePermissionsForRole = (role: UserRole, pages: PageKey[]) => {
     setPagePermissions(prev => ({ ...prev, [role || 'null']: pages }));
   };
@@ -276,7 +285,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
   const value = useMemo(() => ({
     serviceSettings, surchargeDefinitions, standardFuelSurcharge, priorityFuelSurcharge, palletFuelSurcharge, standardFuelLastUpdated,
     globalSecuritySurchargePercent, setGlobalSecuritySurchargePercent, addSurchargeDefinition: (d: any) => { setSurchargeDefinitions(p => [...p, d]); return true; },
-    updateGroupFuelSurcharge, updateServiceSurcharge: () => {}, updateGroupOtherSurcharge: () => {},
+    updateGroupFuelSurcharge, updateServiceSurcharge: () => {}, updateGroupOtherSurcharge,
     getServiceConfig: (n: ServiceName) => serviceSettings.find(s => s.id === n),
     globalSpendBands: ["1", "2", "3", "4", "5", "6"], surchargeConfigGroups: SURCHARGE_CONFIG_GROUPS,
     emailQuoteTemplate, setEmailQuoteTemplate, perfectPlanPalletRate, setPerfectPlanPalletRate, perfectPlanParcelRate, setPerfectPlanParcelRate, perfectPlanSatchelRate, setPerfectPlanSatchelRate,

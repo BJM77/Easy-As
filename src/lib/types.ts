@@ -6,20 +6,20 @@ export interface PostcodeData {
   suburb: string;
   state: string;
   postcode: number;
-  prio: string; 
-  ipec: string;  
-  pallet: string; 
-  lat?: number; 
-  lng?: number; 
+  prio: string;
+  ipec: string;
+  pallet: string;
+  lat?: number;
+  lng?: number;
 }
 
 export interface PEZonesEntry {
   "Suburb"?: string;
-  "Rate Area": number; 
-  "Rate Area Zone Description": string; 
-  "Combined": string; 
-  "PE Suburb": string; 
-  "PE Zone": string; 
+  "Rate Area": number;
+  "Rate Area Zone Description": string;
+  "Combined": string;
+  "PE Suburb": string;
+  "PE Zone": string;
 }
 
 export interface LocationLookupData {
@@ -112,11 +112,11 @@ export interface LCPGORateEntry {
   Go3?: number;
   Go5?: number;
   Go10?: number;
-  GoKilo?: number; 
+  GoKilo?: number;
   [key: string]: number | string | undefined;
 }
 
-export interface B2BStdRateEntry { 
+export interface B2BStdRateEntry {
   Logic: string;
   B1?: number; K1?: number; M1?: number;
   B2?: number; K2?: number; M2?: number;
@@ -140,7 +140,7 @@ export interface B2BRdexEntry {
   B6?: number; K6?: number; M6?: number;
 }
 
-export interface B2BPriorityRateEntry { 
+export interface B2BPriorityRateEntry {
   Logic: string;
   B1: number; B2: number; B3: number; B4: number; B5: number; B6: number;
   K1: number; K2: number; K3: number; K4: number; K5: number; K6: number;
@@ -169,10 +169,10 @@ export type ServiceName =
   | 'LCP GO Priority'
   | 'LCP GO Std 167'
   | 'LCP GO Priority 167'
-  | 'B2B Std' 
-  | 'B2B Priority' 
-  | 'B2B Pallets Express' 
-  | 'B2B Pallets General Tiered' 
+  | 'B2B Std'
+  | 'B2B Priority'
+  | 'B2B Pallets Express'
+  | 'B2B Pallets General Tiered'
   | 'B2C Std'
   | 'B2C Priority'
   | 'WA PE Special'
@@ -223,7 +223,7 @@ export const STANDARD_PALLET_MAPPED_SERVICES: ServiceName[] = ['B2B Pallets Expr
 export const RAS_APPLICABLE_SERVICES: ServiceName[] = [
   'LCP Std', 'LCP Priority', 'B2B Std', 'B2B Priority', 'B2C Std', 'B2C Priority', 'LCP GO Std', 'LCP GO Priority'
 ];
-export const SECURITY_APPLICABLE_SERVICES: ServiceName[] = [ 'B2B Priority', 'B2C Priority', 'LCP Priority' ];
+export const SECURITY_APPLICABLE_SERVICES: ServiceName[] = ['B2B Priority', 'B2C Priority', 'LCP Priority'];
 
 export type UserRole = 'superadmin' | 'admin' | 'bdm' | 'driver' | 'agent' | 'user' | null;
 export const ALL_USER_ROLES: Exclude<UserRole, null>[] = ['superadmin', 'admin', 'bdm', 'driver', 'agent', 'user'];
@@ -233,7 +233,7 @@ export interface UserProfile {
   name: string;
   email: string;
   role: UserRole;
-  companyId: string; 
+  companyId: string;
   subscriptionStatus: 'active' | 'inactive' | 'past_due';
   tokens: number;
 }
@@ -326,13 +326,13 @@ export const ALL_PAGES: PageKey[] = [
 export type PagePermissions = Partial<Record<Exclude<UserRole, null> | 'null', PageKey[]>>;
 
 export const DEFAULT_PAGE_PERMISSIONS: PagePermissions = {
-    superadmin: ALL_PAGES,
-    admin: ALL_PAGES.filter(p => !['live-test', 'user-management', 'manual-onboard', 'notebook'].includes(p)),
-    bdm: ALL_PAGES.filter(p => !p.startsWith('admin/') && !['settings', 'user-management', 'role-settings', 'commercials', 'run-reports', 'live', 'notebook'].includes(p)).concat(['remittance', 'json-creator']),
-    driver: ['live', 'find-it', 'grab-it', 'location-lookup', 'remittance', 'json-creator', 'about-tge'],
-    agent: ['calculator', 'live', 'location-lookup', 'info', 'problem-log', 'remittance', 'json-creator', 'about-tge'],
-    user: ['calculator', 'info', 'remittance', 'json-creator', 'about-tge', 'json-management'],
-    null: [],
+  superadmin: ALL_PAGES,
+  admin: ALL_PAGES.filter(p => !['live-test', 'user-management', 'manual-onboard', 'notebook'].includes(p)),
+  bdm: ALL_PAGES.filter(p => !p.startsWith('admin/') && !['settings', 'user-management', 'role-settings', 'commercials', 'run-reports', 'live', 'notebook'].includes(p)).concat(['remittance', 'json-creator']),
+  driver: ['live', 'find-it', 'grab-it', 'location-lookup', 'remittance', 'json-creator', 'about-tge'],
+  agent: ['calculator', 'live', 'location-lookup', 'info', 'problem-log', 'remittance', 'json-creator', 'about-tge'],
+  user: ['calculator', 'info', 'remittance', 'json-creator', 'about-tge', 'json-management'],
+  null: [],
 };
 
 export const getAllowedServices = (role?: UserRole | null, permissions?: ServicePermissions): ServiceName[] => {
@@ -393,8 +393,8 @@ export interface FreightFormValues {
   destinationQuery: string;
   destinationLocation: PostcodeData | null;
   items: FreightItem[];
-  globalNoCubic: boolean; 
-  globalOnPallet: boolean; 
+  globalNoCubic: boolean;
+  globalOnPallet: boolean;
   selectedServices: ServiceName[];
   enableOtherRate?: boolean;
   otherRateBasic?: number;
@@ -406,15 +406,15 @@ export interface FreightFormValues {
   additionalPercentageType: AdditionalPercentageType;
   additionalPercentageCustom?: number;
   applyGST: boolean;
-  accountTransferRequired?: boolean; 
-  afterHoursCollection?: boolean; 
-  afterHoursDelivery?: boolean; 
-  publicHolidayService?: boolean; 
-  bookInDeliveryRequired?: boolean; 
-  dangerousGoodsConsignment?: boolean; 
-  handUnloadRequired?: boolean; 
-  routeViaMelbourne?: boolean; 
-  tailLiftRequired?: boolean; 
+  accountTransferRequired?: boolean;
+  afterHoursCollection?: boolean;
+  afterHoursDelivery?: boolean;
+  publicHolidayService?: boolean;
+  bookInDeliveryRequired?: boolean;
+  dangerousGoodsConsignment?: boolean;
+  handUnloadRequired?: boolean;
+  routeViaMelbourne?: boolean;
+  tailLiftRequired?: boolean;
 }
 
 export interface CalculatedPriceItem {
@@ -471,10 +471,10 @@ export interface RateCardDisplayEntry {
   originZone: string;
   destinationZone: string;
   zoneTypeDisplay: string;
-  basicRate: string; 
-  kiloRate: string;  
-  minRate: string;   
-  additionalRate?: string; 
+  basicRate: string;
+  kiloRate: string;
+  minRate: string;
+  additionalRate?: string;
   cubicFactor?: number;
   tier_0_250?: string;
   tier_251_750?: string;
@@ -827,15 +827,15 @@ export interface PendingProposalState {
 }
 
 export function isServiceEnabledForCompany(serviceName: ServiceName, company: Company | null, role?: UserRole): boolean {
-    if (role === 'superadmin' || role === 'admin') return true;
-    if (!company) return true; 
-    
-    const featureId = `service-${serviceName.toLowerCase().replace(/\s+/g, '-')}`;
-    return company.enabledFeatures?.[featureId] !== false;
+  if (role === 'superadmin' || role === 'admin') return true;
+  if (!company) return true;
+
+  const featureId = `service-${serviceName.toLowerCase().replace(/\s+/g, '-')}`;
+  return company.enabledFeatures?.[featureId] !== false;
 }
 
 export function normalizeServiceName(name: string): ServiceName {
-    return name.replace(/^Customer\s+/, '') as ServiceName;
+  return name.replace(/^Customer\s+/, '') as ServiceName;
 }
 
 export const getServiceFeatureId = (serviceName: ServiceName): string => {

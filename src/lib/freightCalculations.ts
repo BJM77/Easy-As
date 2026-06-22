@@ -502,14 +502,23 @@ export async function calculateAllFreightPrices(options: CalcOptions): Promise<C
             if (NON_PALLET_SERVICES.includes(uiServiceName) && !globalOnPallet) {
                 let handling = 0;
                 items.forEach(item => {
-                    let h = 0;
+                    let fees: number[] = [];
                     const gt35 = serviceConfig.surcharges.find(s => s.surchargeId === 'manual_handling_gt35kg' && s.enabled);
                     const overLen = serviceConfig.surcharges.find(s => s.surchargeId === 'oversize_item_fee' && s.enabled);
                     const gt30 = serviceConfig.surcharges.find(s => s.surchargeId === 'manual_handling_gt30kg' && s.enabled);
-                    if (gt35 && item.weight >= 35) h = Math.max(h, gt35.value);
-                    if (item.length && item.length > 180) h = Math.max(h, overLen?.value || 0);
-                    if (h === 0 && gt30 && item.weight > 30) h = Math.max(h, gt30.value);
-                    handling += h * item.quantity;
+                    const hwLenWidth = serviceConfig.surcharges.find(s => s.surchargeId === 'manual_handling_120_179cm' && s.enabled);
+                    
+                    // Oversize
+                    if (gt35 && item.weight >= 35) fees.push(gt35.value);
+                    if (overLen && ((item.length && item.length >= 180) || (item.width && item.width >= 180))) fees.push(overLen.value);
+                    
+                    // Manual Handling
+                    if (gt30 && item.weight > 30 && item.weight < 35) fees.push(gt30.value);
+                    if (hwLenWidth && ((item.length && item.length >= 120 && item.length < 180) || (item.width && item.width >= 120 && item.width < 180))) fees.push(hwLenWidth.value);
+
+                    if (fees.length > 0) {
+                        handling += Math.max(...fees) * (item.quantity || 1);
+                    }
                 });
                 if (handling > 0) otherSurcharges.push({ name: 'Oversize/Handling Fee', amount: handling, id: 'item_specific_handling_oversize_total' });
             }

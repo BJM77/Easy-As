@@ -80,10 +80,21 @@ export default function AdminSurchargesPageContent() {
       updateGroupFuelSurcharge('standard', update.road, update.lastUpdated);
       updateGroupFuelSurcharge('priority', update.air, update.lastUpdated);
 
-      toast({
-        title: "Rates Fetched",
-        description: `Successfully retrieved values. Pallet: ${update.pallet}%, Road: ${update.road}%, Air: ${update.air}%`,
-      });
+      if (isPasswordValid) {
+        const success = await saveSettingsToServer(password);
+        if (success) {
+          toast({
+            title: "Rates Fetched & Saved",
+            description: `Successfully retrieved and saved values. Pallet: ${update.pallet}%, Road: ${update.road}%, Air: ${update.air}%`,
+          });
+        }
+      } else {
+        toast({
+          title: "Rates Fetched (Action Required)",
+          description: `Successfully retrieved values. Pallet: ${update.pallet}%, Road: ${update.road}%, Air: ${update.air}%. PLEASE ENTER YOUR PASSWORD AND CLICK 'SAVE & UPDATE GLOBALLY' TO APPLY.`,
+          duration: 8000,
+        });
+      }
     } catch (error) {
       toast({
         title: "Fetch Failed",
