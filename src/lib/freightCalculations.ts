@@ -266,6 +266,7 @@ const PalletStrategy = (data: any[], context: PricingContext, pezoneData?: any[]
     const { originLocation, destinationLocation, chargeableWeightKg, isOurRates, uiServiceName } = context;
     
     const getPeZone = (loc: PostcodeData) => {
+        if (loc.isZoneDirect) return loc.suburb;
         if (!pezoneData) return null;
         const searchKey = `${loc.suburb.toUpperCase()} ${loc.state.toUpperCase()}`;
         return pezoneData.find(pz => String(pz["PE Suburb"] || "").toUpperCase() === searchKey)?.["PE Zone"];

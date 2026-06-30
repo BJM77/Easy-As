@@ -478,6 +478,7 @@ export default function AppHeader() {
               {hasPageAccess('sb-comparison') && <DropdownMenuItem asChild><Link href="/sb-comparison"><BarChartHorizontalBig className="mr-2 h-4 w-4" />SB Comparison</Link></DropdownMenuItem>}
               {hasPageAccess('rate-comparison') && <DropdownMenuItem asChild><Link href="/rate-comparison"><GitCompareArrows className="mr-2 h-4 w-4" />New/Old Rates</Link></DropdownMenuItem>}
               {hasPageAccess('competitor-comparison') && <DropdownMenuItem asChild><Link href="/competitor-comparison"><Scale className="mr-2 h-4 w-4" />Best SB</Link></DropdownMenuItem>}
+              {hasPageAccess('zone-sb') && <DropdownMenuItem asChild><Link href="/zone-sb"><Calculator className="mr-2 h-4 w-4" />Zone SB</Link></DropdownMenuItem>}
               {hasPageAccess('multi') && <DropdownMenuItem asChild><Link href="/multi"><Route className="mr-2 h-4 w-4" />Multi-Leg</Link></DropdownMenuItem>}
               {hasPageAccess('leg-discount') && <DropdownMenuItem asChild><Link href="/leg-discount"><ArrowRightLeft className="mr-2 h-4 w-4" />Leg Discount</Link></DropdownMenuItem>}
             </DropdownMenuContent>
@@ -601,6 +602,7 @@ export default function AppHeader() {
             {hasPageAccess('sb-comparison') && <NavItem href="/sb-comparison" icon={BarChartHorizontalBig} label="Spend Band Comp" isMobile />}
             {hasPageAccess('rate-comparison') && <NavItem href="/rate-comparison" icon={GitCompareArrows} label="Rate Comparison" isMobile />}
             {hasPageAccess('competitor-comparison') && <NavItem href="/competitor-comparison" icon={Scale} label="Best Spend Band" isMobile />}
+            {hasPageAccess('zone-sb') && <NavItem href="/zone-sb" icon={Calculator} label="Zone SB" isMobile />}
             {hasPageAccess('multi') && <NavItem href="/multi" icon={Route} label="Multi-Leg Tool" isMobile />}
             {hasPageAccess('leg-discount') && <NavItem href="/leg-discount" icon={ArrowRightLeft} label="Leg Discount" isMobile />}
           </AccordionContent>

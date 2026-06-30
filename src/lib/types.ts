@@ -11,6 +11,7 @@ export interface PostcodeData {
   pallet: string;
   lat?: number;
   lng?: number;
+  isZoneDirect?: boolean;
 }
 
 export interface PEZonesEntry {
@@ -313,14 +314,14 @@ export type PageKey =
   | 'rate-card' | 'sb-comparison' | 'rate-comparison' | 'competitor-comparison' | 'multi' | 'leg-discount' | 'all-167' | 'bulk'
   | 'settings' | 'user-management' | 'role-settings' | 'csv-converter' | 'rate-uploader' | 'remittance' | 'commercials' | 'price-test' | 'ai-log' | 'ai-mode' | 'run-reports' | 'qr-scan' | 'promo-codes'
   | 'notebook' | 'vip' | 'status' | 'priority-quiz' | 'find-it' | 'grab-it' | 'json-creator' | 'routing' | 'top-links' | 'calculations' | 'companies' | 'feature-management' | 'team' | 'branding' | 'profile' | 'org-account' | 'manual-onboard'
-  | 'manage-surcharges' | 'pdf-extractor' | 'core-rate-uploader' | 'salesforce-search-bar' | 'salesforce-widgets' | 'account-reports' | 'live-rates' | 'standard-spend-bands' | 'about-tge' | 'register-tge' | 'applications' | 'json-management' | 'ai-mode' | 'admin-menu' | 'ai-analytics' | 'audit-log' | 'quote-logs' | 'update-ras' | 'livetest' | 'live-test';
+  | 'manage-surcharges' | 'pdf-extractor' | 'core-rate-uploader' | 'salesforce-search-bar' | 'salesforce-widgets' | 'account-reports' | 'live-rates' | 'standard-spend-bands' | 'about-tge' | 'register-tge' | 'applications' | 'json-management' | 'ai-mode' | 'admin-menu' | 'ai-analytics' | 'audit-log' | 'quote-logs' | 'update-ras' | 'livetest' | 'live-test' | 'zone-sb';
 
 export const ALL_PAGES: PageKey[] = [
   'calculator', 'ai-guru', 'proposal', 'live', 'location-lookup', 'info', 'tge-way', 'problem-log', 'leads',
   'rate-card', 'sb-comparison', 'rate-comparison', 'competitor-comparison', 'multi', 'leg-discount', 'all-167', 'bulk',
   'settings', 'user-management', 'role-settings', 'csv-converter', 'rate-uploader', 'remittance', 'commercials', 'price-test', 'ai-log', 'ai-mode', 'run-reports', 'qr-scan', 'promo-codes',
   'notebook', 'vip', 'status', 'priority-quiz', 'find-it', 'grab-it', 'json-creator', 'routing', 'top-links', 'calculations', 'companies', 'feature-management', 'team', 'branding', 'profile', 'org-account', 'manual-onboard',
-  'manage-surcharges', 'pdf-extractor', 'core-rate-uploader', 'salesforce-search-bar', 'salesforce-widgets', 'account-reports', 'live-rates', 'standard-spend-bands', 'about-tge', 'register-tge', 'applications', 'json-management', 'ai-mode', 'admin-menu', 'ai-analytics', 'audit-log', 'quote-logs', 'update-ras', 'livetest', 'live-test'
+  'manage-surcharges', 'pdf-extractor', 'core-rate-uploader', 'salesforce-search-bar', 'salesforce-widgets', 'account-reports', 'live-rates', 'standard-spend-bands', 'about-tge', 'register-tge', 'applications', 'json-management', 'ai-mode', 'admin-menu', 'ai-analytics', 'audit-log', 'quote-logs', 'update-ras', 'livetest', 'live-test', 'zone-sb'
 ];
 
 export type PagePermissions = Partial<Record<Exclude<UserRole, null> | 'null', PageKey[]>>;
