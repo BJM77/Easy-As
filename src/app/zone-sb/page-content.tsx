@@ -1,398 +1,721 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import type { FreightFormValues, PostcodeData, ServiceName, FreightItem, SBComparisonResult, SpendBandPriceEntry, CalculatedPriceItem } from '@/lib/types';
-import { ALL_SERVICES, getAllowedServices, PALLET_LIKE_SERVICES } from '@/lib/types'; 
+import type { ServiceName, PostcodeData, FreightFormValues, CalculatedPriceItem } from '@/lib/types';
+import { ALL_SERVICES, PALLET_LIKE_SERVICES } from '@/lib/types';
+import { useSettings } from '@/context/SettingsContext';
+import { useRateOverrides } from '@/context/RateOverrideContext';
+import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
+import { calculateAllFreightPrices } from '@/lib/freightCalculations';
+import { analyzeCompetitorRates, type AnalysisSummary, type AnalysisInput } from '@/ai/flows/analyze-competitor-rates-flow';
+import { useSession } from '@/context/SessionContext';
+import { useAuth } from '@/firebase';
+import { parseCsvRow } from '@/lib/csvParser';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Loader2, Scale, PlusCircle, Trash2, ArrowRight, Settings, User, Briefcase, Printer, Eraser, Download, UploadCloud, Calculator, Sparkles, Mail, Clipboard, Check, Lock } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Package, Trash2, Loader2, Settings2, Truck, Zap, Anchor, Calculator } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
-import { useSettings } from '@/context/SettingsContext';
-import SBComparisonResults from '@/components/freight/SBComparisonResults';
-import { calculateAllFreightPrices } from '@/lib/freightCalculations';
-import { useRateOverrides } from '@/context/RateOverrideContext';
-import { useAuth } from '@/firebase'; 
-import { cn } from '@/lib/utils';
+import { Textarea } from '@/components/ui/textarea';
+import { format } from 'date-fns';
 
-const zoneSbFormSchema = z.object({
-  originZone: z.string().min(1, "Origin Zone is required"),
-  destinationZone: z.string().min(1, "Destination Zone is required"),
-  items: z.array(
-    z.object({
-      weight: z.number().min(0),
-      length: z.number().optional(),
-      width: z.number().optional(),
-      height: z.number().optional(),
-      quantity: z.number().min(1),
-    })
-  ).min(1, "At least one item is required"),
-  globalNoCubic: z.boolean().default(false),
-  globalOnPallet: z.boolean().default(false),
-  selectedServices: z.array(z.string()).min(1, "Select at least one service"),
+const zoneCompetitorComparisonFormSchema = z.object({
+  companyName: z.string().optional(),
+  competitorName: z.string().optional(),
+  date: z.date().optional(),
+  legs: z.array(z.object({
+    id: z.string(),
+    originZone: z.string().min(1, "Origin Zone is required."),
+    destinationZone: z.string().min(1, "Destination Zone is required."),
+    weight: z.coerce.number().positive("Weight must be positive."),
+    price: z.coerce.number().positive("Price must be positive."),
+  })).min(1, "At least one leg is required.").max(2000, "A maximum of 2000 legs can be compared at once."),
+  selectedServices: z.array(z.string()).min(1, "At least one service must be selected."),
 });
 
-type ZoneSbFormValues = z.infer<typeof zoneSbFormSchema>;
+type ZoneCompetitorComparisonFormValues = z.infer<typeof zoneCompetitorComparisonFormSchema>;
 
-const defaultBlankItem: FreightItem = {
-  weight: 0,
-  length: undefined,
-  width: undefined,
-  height: undefined,
-  quantity: 1,
+interface ServiceAnalysisResult {
+  serviceName: ServiceName;
+  status: 'competitive' | 'not_competitive' | 'no_rate_found' | 'error';
+  tgePrice?: number | null;
+  competitiveSpendBand?: string;
+  closestSpendBand?: string;
+  discountNeeded?: number;
+  remarks?: string;
+  calculationFormula?: string;
+  lookupKeyUsed?: string;
+}
+
+interface LegAnalysisResult {
+  originalLeg: {
+    id: string;
+    originZone: string;
+    destinationZone: string;
+    weight: number;
+    price: number;
+  };
+  analyses: ServiceAnalysisResult[];
+}
+
+interface AnalysisInfo {
+  results: LegAnalysisResult[];
+  companyName?: string;
+  competitorName?: string;
+}
+
+const formatCurrency = (amount: number | null | undefined) => {
+  if (amount === null || amount === undefined || isNaN(amount)) return "N/A";
+  return amount.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+};
+
+const formatRate = (rate: number | null | undefined): string => {
+  if (rate === null || rate === undefined || isNaN(rate)) return "N/A";
+  return `${rate.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })}/kg`;
 };
 
 export default function ZoneSbPageContent() {
-  const [isLoadingForm, setIsLoadingForm] = useState(false);
-  const [showResults, setShowResults] = useState(false);
-  const [calculatedSBResults, setCalculatedSBResults] = useState<SBComparisonResult[]>([]);
-  const { globalSpendBands, serviceSettings, surchargeDefinitions, servicePermissions } = useSettings();
-  const { role, company } = useAuth(); 
-  const { getRateFile, isLoading: isLoadingRates, areOurRatesLoaded, pezoneData } = useRateOverrides();
-  const [itemDimensionsVisibility, setItemDimensionsVisibility] = useState<boolean[]>([false]);
+  const { globalSpendBands, serviceSettings, surchargeDefinitions, showLcpRates } = useSettings();
+  const { toast } = useToast();
+  const { getRateFile, isLoading: isLoadingRates, pezoneData } = useRateOverrides();
+  const { addTokens } = useSession();
+  const { role } = useAuth();
 
-  const allowedServicesForRole = useMemo(() => getAllowedServices(role, servicePermissions), [role, servicePermissions]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [analysisInfo, setAnalysisInfo] = useState<AnalysisInfo | null>(null);
+  const [comparisonHistory, setComparisonHistory] = useState<ZoneCompetitorComparisonFormValues[]>([]);
+  const [fileName, setFileName] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysisSummary, setAnalysisSummary] = useState<AnalysisSummary | null>(null);
+  const [isCopied, setIsCopied] = useState(false);
 
-  const showStandardSpendBands = useMemo(() => {
-    if (role === 'superadmin') return true;
-    return company?.enabledFeatures?.['standard-spend-bands'] !== false;
-  }, [role, company]);
-
-  const form = useForm<ZoneSbFormValues>({
-    resolver: zodResolver(zoneSbFormSchema),
+  const form = useForm<ZoneCompetitorComparisonFormValues>({
+    resolver: zodResolver(zoneCompetitorComparisonFormSchema),
     defaultValues: {
-      originZone: '',
-      destinationZone: '',
-      items: [defaultBlankItem],
-      globalNoCubic: false,
-      globalOnPallet: false,
-      selectedServices: [], 
+      companyName: '',
+      competitorName: '',
+      date: new Date(),
+      legs: [{ id: '1', originZone: '', destinationZone: '', weight: 0, price: 0 }],
+      selectedServices: [],
     },
   });
-  
-  React.useEffect(() => {
-    if (!form || !form.setValue) return;
-    const defaultNonLCPServices = allowedServicesForRole.filter(s => !s.startsWith('LCP'));
-    if (allowedServicesForRole.length > 0) {
-      form.setValue('selectedServices', defaultNonLCPServices.length > 0 ? defaultNonLCPServices : [...allowedServicesForRole], { shouldValidate: true });
-    }
-  }, [allowedServicesForRole, form]);
 
   const { fields, append, remove, replace } = useFieldArray({
     control: form.control,
-    name: "items",
+    name: "legs",
   });
 
-  const { setValue, handleSubmit, watch, getValues } = form;
-  const currentSelectedServices = watch('selectedServices') || [];
-
-  const handleAddNewItem = () => {
-    append(defaultBlankItem);
-    setItemDimensionsVisibility(prev => [...prev, false]);
-  };
-
-  const handleRemoveItem = (index: number) => {
-    remove(index);
-    setItemDimensionsVisibility(prev => prev.filter((_, i) => i !== index));
-  };
-  
-  const toggleItemDimensions = (index: number) => {
-    setItemDimensionsVisibility(prev => {
-      const newVisibility = [...prev];
-      newVisibility[index] = !newVisibility[index];
-      if (!newVisibility[index]) {
-        setValue(`items.${index}.length`, undefined);
-        setValue(`items.${index}.width`, undefined);
-        setValue(`items.${index}.height`, undefined);
+  const saveToHistory = (data: ZoneCompetitorComparisonFormValues) => {
+    try {
+      if (typeof window !== 'undefined') {
+        const dataWithDate = { ...data, date: new Date() };
+        const storedHistory = localStorage.getItem('zoneCompetitorComparisonHistory');
+        let history: ZoneCompetitorComparisonFormValues[] = storedHistory ? JSON.parse(storedHistory) : [];
+        history = history.filter(entry => entry.companyName !== data.companyName || entry.competitorName !== data.competitorName);
+        history.unshift(dataWithDate);
+        const newHistory = history.slice(0, 3);
+        localStorage.setItem('zoneCompetitorComparisonHistory', JSON.stringify(newHistory));
+        setComparisonHistory(newHistory);
       }
-      return newVisibility;
+    } catch (e) {
+      console.error("Failed to save comparison history", e);
+    }
+  };
+
+  useEffect(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const storedHistory = localStorage.getItem('zoneCompetitorComparisonHistory');
+        if (storedHistory) {
+          const history: ZoneCompetitorComparisonFormValues[] = JSON.parse(storedHistory);
+          setComparisonHistory(history);
+        }
+      }
+    } catch (e) {
+      console.error('Failed to load competitor comparison history:', e);
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('zoneCompetitorComparisonHistory');
+      }
+    }
+  }, []);
+
+  const addLeg = () => {
+    if (fields.length < 2000) {
+      append({ id: (fields.length + 1).toString(), originZone: '', destinationZone: '', weight: 0, price: 0 });
+    } else {
+      toast({ title: "Limit Reached", description: "You can compare a maximum of 2000 legs at a time.", variant: "default" });
+    }
+  };
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      setFileName(file.name);
+      const reader = new FileReader();
+      reader.onload = (e) => parseAndSetLegs(e.target?.result as string);
+      reader.onerror = () => toast({ title: "File Read Error", description: "Could not read the selected file.", variant: "destructive" });
+      reader.readAsText(file);
+    }
+  };
+
+  const parseAndSetLegs = (csvText: string) => {
+    const lines = csvText.trim().split(/\r\n|\n/);
+    if (lines.length < 2) {
+      toast({ title: "CSV Error", description: "CSV must have a header and at least one data row.", variant: "destructive" });
+      return;
+    }
+    if (lines.length - 1 > 2000) {
+      toast({ title: "File Too Large", description: `File has ${lines.length - 1} rows. The maximum allowed is 2000.`, variant: "destructive" });
+      return;
+    }
+
+    const header = parseCsvRow(lines[0].toLowerCase());
+    const headerMap = {
+      originZone: header.indexOf("origin zone"),
+      destinationZone: header.indexOf("destination zone"),
+      weight: header.indexOf("weight"),
+      price: header.indexOf("price")
+    };
+
+    if (Object.values(headerMap).some(index => index === -1)) {
+      toast({ title: "CSV Header Error", description: "CSV must contain headers: 'Origin Zone', 'Destination Zone', 'Weight', 'Price'.", variant: "destructive", duration: 10000 });
+      return;
+    }
+
+    const newLegs: any[] = [];
+    let errorCount = 0;
+
+    lines.slice(1).forEach((line, index) => {
+      const values = parseCsvRow(line);
+      if (values.length < Object.keys(headerMap).length) {
+        errorCount++;
+        return;
+      }
+      const originZone = values[headerMap.originZone]?.trim();
+      const destinationZone = values[headerMap.destinationZone]?.trim();
+      const weight = parseFloat(values[headerMap.weight]);
+      const price = parseFloat(values[headerMap.price]);
+
+      if (!originZone || !destinationZone || isNaN(weight) || isNaN(price)) {
+        errorCount++;
+        return;
+      }
+
+      newLegs.push({
+        id: `csv-${index}`,
+        originZone,
+        destinationZone,
+        weight,
+        price,
+      });
+    });
+
+    if (newLegs.length > 0) {
+      replace(newLegs);
+    }
+    toast({
+      title: "CSV Processed",
+      description: `Successfully loaded ${newLegs.length} legs. ${errorCount > 0 ? `${errorCount} rows had errors and were skipped.` : ''}`
     });
   };
 
-  const onSubmit = async (data: ZoneSbFormValues) => {
-    setIsLoadingForm(true);
-    setShowResults(false); 
+  const handleClearUpload = () => {
+    setFileName(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+    toast({ title: "Upload Cleared" });
+  };
 
-    const finalResults: SBComparisonResult[] = [];
-    const servicesToCompare = (data.selectedServices as ServiceName[]).filter(s => allowedServicesForRole.includes(s));
+  const handleDownloadTemplate = () => {
+    const csvContent = "Origin Zone,Destination Zone,Weight,Price\r\nSYD,MEL,15,45.50\r\nPER,VIC1,120,210.00\n";
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.setAttribute('href', URL.createObjectURL(blob));
+    link.setAttribute('download', 'zone_competitor_legs_template.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
+    toast({ title: "Template Download Started" });
+  };
 
-    const originLocation: PostcodeData = {
-      suburb: data.originZone.toUpperCase(),
-      state: '',
-      postcode: 0,
-      prio: data.originZone.toUpperCase(),
-      ipec: data.originZone.toUpperCase(),
-      pallet: data.originZone.toUpperCase(),
-      isZoneDirect: true
-    };
+  const onSubmit = async (data: ZoneCompetitorComparisonFormValues) => {
+    setIsLoading(true);
+    setAnalysisInfo(null);
+    setAnalysisSummary(null);
+    saveToHistory(data);
 
-    const destinationLocation: PostcodeData = {
-      suburb: data.destinationZone.toUpperCase(),
-      state: '',
-      postcode: 0,
-      prio: data.destinationZone.toUpperCase(),
-      ipec: data.destinationZone.toUpperCase(),
-      pallet: data.destinationZone.toUpperCase(),
-      isZoneDirect: true
-    };
+    try {
+      const analysisPromises = data.legs.map(async (leg) => {
+        const analyses = await recalculateSingleLeg(leg, data.selectedServices as ServiceName[]);
+        return {
+          originalLeg: leg,
+          analyses,
+        };
+      });
 
-    for (const serviceName of servicesToCompare) {
-        const currentServiceSpendBandPrices: SpendBandPriceEntry[] = [];
-        let isThisServiceOverallApplicable = false;
-        const overallRemarksForThisService: string[] = [];
-        
-        const spendBandsToUse: string[] = [];
-        if (areOurRatesLoaded) spendBandsToUse.push('Customer Rates');
-        if (showStandardSpendBands) spendBandsToUse.push(...globalSpendBands);
+      const results = await Promise.all(analysisPromises);
+      const newAnalysisInfo = { results, companyName: data.companyName, competitorName: data.competitorName };
+      setAnalysisInfo(newAnalysisInfo);
 
-        for (const sb of spendBandsToUse) {
-            const tempFormData: FreightFormValues = {
-                spendBand: sb, 
-                originQuery: data.originZone,
-                originLocation,
-                destinationQuery: data.destinationZone,
-                destinationLocation,
-                items: data.items as FreightItem[],
-                globalNoCubic: data.globalNoCubic,
-                globalOnPallet: data.globalOnPallet,
-                selectedServices: [serviceName],
-                additionalPercentageType: 'none',
-                applyGST: false,
-                tailLiftRequired: false,
-            };
+      toast({ title: "Comparison Complete", description: "Analysis finished for all legs. Generating AI insights..." });
 
-            const singleServiceCalcResults: CalculatedPriceItem[] = await calculateAllFreightPrices({
-                formData: tempFormData,
-                allServiceSettings: serviceSettings,
-                allSurchargeDefinitions: surchargeDefinitions,
-                getRateFile,
-                pezoneData
-            });
+      const analysisForAI: AnalysisInput = {
+        analysisJSON: JSON.stringify(results.map(legResult => ({
+          origin: legResult.originalLeg.originZone,
+          destination: legResult.originalLeg.destinationZone,
+          weight: legResult.originalLeg.weight,
+          competitorPrice: legResult.originalLeg.price,
+          tgeAnalyses: legResult.analyses.map(analysis => ({
+            serviceName: analysis.serviceName,
+            tgePrice: analysis.tgePrice,
+            spendBand: analysis.competitiveSpendBand || analysis.closestSpendBand,
+            status: analysis.status,
+          })),
+        })))
+      };
 
-            const priceItemForSB = singleServiceCalcResults.find(r => r.serviceName === serviceName || r.serviceName.includes(serviceName));
+      setIsAnalyzing(true);
+      try {
+        const { summary, usage } = await analyzeCompetitorRates(analysisForAI);
+        addTokens(usage.totalTokens);
+        setAnalysisSummary(summary);
+      } catch (aiError) {
+        console.error("AI Analysis Error:", aiError);
+        toast({ title: "AI Analysis Failed", description: "Could not generate AI summary.", variant: "destructive" });
+      } finally {
+        setIsAnalyzing(false);
+      }
 
-            if (priceItemForSB) {
-                currentServiceSpendBandPrices.push({ spendBand: sb, priceItem: priceItemForSB });
-                if (priceItemForSB.isApplicable) isThisServiceOverallApplicable = true;
-                 if (!priceItemForSB.isApplicable && overallRemarksForThisService.length === 0 && priceItemForSB.remarks.length > 0) {
-                    overallRemarksForThisService.push(...priceItemForSB.remarks);
-                }
-            }
-        }
-        finalResults.push({
-            serviceName, spendBandPrices: currentServiceSpendBandPrices,
-            isOverallApplicable: isThisServiceOverallApplicable,
-            overallRemarks: !isThisServiceOverallApplicable && overallRemarksForThisService.length === 0 ? ["Service not applicable for any available spend band."] : overallRemarksForThisService,
+    } catch (error) {
+      console.error("An error occurred during competitor comparison:", error);
+      toast({
+        title: "Comparison Failed",
+        description: "An unexpected error occurred.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const handleExportCsv = () => {
+    if (!analysisInfo) {
+      toast({ title: "No data to export", description: "Please run an analysis first.", variant: "destructive" });
+      return;
+    }
+    const headers = ["Origin Zone", "Destination Zone", "Weight", "Competitor Price", "TGE Price", "Variance"];
+    let csvContent = "data:text/csv;charset=utf-8," + headers.join(',') + '\r\n';
+    analysisInfo.results.forEach(legResult => {
+      const { originalLeg, analyses } = legResult;
+      const bestAnalysis = analyses
+        .filter(a => a.tgePrice !== null && a.tgePrice !== undefined)
+        .reduce((best, current) => {
+          if (!best) return current;
+          const bestDiff = Math.abs(best.tgePrice! - originalLeg.price);
+          const currentDiff = Math.abs(current.tgePrice! - originalLeg.price);
+          return currentDiff < bestDiff ? current : best;
+        }, null as ServiceAnalysisResult | null);
+
+      const tgePrice = bestAnalysis?.tgePrice ?? null;
+      const variance = (tgePrice !== null) ? tgePrice - originalLeg.price : null;
+      const row = [
+        `"${originalLeg.originZone.replace(/"/g, '""')}"`,
+        `"${originalLeg.destinationZone.replace(/"/g, '""')}"`,
+        originalLeg.weight,
+        originalLeg.price,
+        tgePrice ?? 'N/A',
+        variance !== null ? variance.toFixed(2) : 'N/A'
+      ];
+      csvContent += row.join(',') + '\r\n';
+    });
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    const exportFileName = `Zone_Competitor_Analysis_${form.getValues('companyName') || 'Export'}_${format(new Date(), 'yyyy-MM-dd')}.csv`;
+    link.setAttribute("download", exportFileName);
+    link.setAttribute("href", encodedUri);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast({ title: "Export Started" });
+  };
+
+  const handleLoadHistory = (data: ZoneCompetitorComparisonFormValues) => {
+    const dataToLoad = { ...data, selectedServices: [] };
+    form.reset(dataToLoad);
+    toast({ title: "History Loaded", description: `Loaded comparison for ${data.companyName || 'previous entry'}.` });
+  };
+
+  const handleClearForm = () => {
+    form.reset({
+      companyName: '',
+      competitorName: '',
+      date: new Date(),
+      legs: [{ id: '1', originZone: '', destinationZone: '', weight: 0, price: 0 }],
+      selectedServices: [],
+    });
+    setAnalysisInfo(null);
+    setAnalysisSummary(null);
+    toast({ title: "Form Cleared" });
+  };
+
+  const handleCopyToClipboard = async () => {
+    if (analysisSummary?.suggestedEmailBody) {
+      try {
+        await navigator.clipboard.writeText(analysisSummary.suggestedEmailBody);
+        setIsCopied(true);
+        toast({ title: "Copied to clipboard!" });
+        setTimeout(() => setIsCopied(false), 2000);
+      } catch (err) {
+        console.error("Clipboard access denied:", err);
+        toast({
+          title: "Copy Failed",
+          description: "Browser permissions blocked clipboard access. Please manually select and copy the text.",
+          variant: "destructive"
         });
+      }
     }
-
-    setCalculatedSBResults(finalResults.filter(r => r.isOverallApplicable));
-    setIsLoadingForm(false);
-    setShowResults(true);
   };
 
-  const handleClearItems = () => {
-    replace([defaultBlankItem]);
-    setItemDimensionsVisibility([false]);
+  const recalculateSingleLeg = async (leg: any, selectedServices: ServiceName[]): Promise<ServiceAnalysisResult[]> => {
+    const serviceAnalysisPromises = selectedServices.map(async (serviceName) => {
+      const isSpendBandDependent = !serviceName.startsWith('LCP');
+      const spendBandsToCheck = isSpendBandDependent ? globalSpendBands : ["N/A"];
+      const pricesBySpendBand: { spendBand: string; price: number | null; calculationFormula?: string; lookupKeyUsed?: string }[] = [];
+
+      const originLocation: PostcodeData = {
+        suburb: leg.originZone.toUpperCase().trim(),
+        state: '',
+        postcode: 0,
+        prio: leg.originZone.toUpperCase().trim(),
+        ipec: leg.originZone.toUpperCase().trim(),
+        pallet: leg.originZone.toUpperCase().trim(),
+        isZoneDirect: true
+      };
+
+      const destinationLocation: PostcodeData = {
+        suburb: leg.destinationZone.toUpperCase().trim(),
+        state: '',
+        postcode: 0,
+        prio: leg.destinationZone.toUpperCase().trim(),
+        ipec: leg.destinationZone.toUpperCase().trim(),
+        pallet: leg.destinationZone.toUpperCase().trim(),
+        isZoneDirect: true
+      };
+
+      for (const sb of spendBandsToCheck) {
+        const freightFormValuesForCalc: FreightFormValues = {
+          spendBand: sb,
+          originLocation,
+          destinationLocation,
+          originQuery: leg.originZone,
+          destinationQuery: leg.destinationZone,
+          items: [{ weight: leg.weight, quantity: 1, length: undefined, width: undefined, height: undefined }],
+          globalNoCubic: true,
+          globalOnPallet: PALLET_LIKE_SERVICES.includes(serviceName),
+          selectedServices: [serviceName],
+          additionalPercentageType: 'none',
+          applyGST: false,
+          tailLiftRequired: false,
+        };
+        const resultsForSB = await calculateAllFreightPrices({
+          formData: freightFormValuesForCalc,
+          allServiceSettings: serviceSettings,
+          allSurchargeDefinitions: surchargeDefinitions,
+          getRateFile,
+          pezoneData
+        });
+        const priceItem = resultsForSB.find(r => r.serviceName === serviceName || r.serviceName.includes(serviceName));
+        pricesBySpendBand.push({ spendBand: sb, price: priceItem?.finalPrice ?? null, calculationFormula: priceItem?.calculationFormula, lookupKeyUsed: priceItem?.chargeZoneUsed });
+      }
+
+      const validPrices = pricesBySpendBand.filter(p => p.price !== null && p.price > 0);
+      if (validPrices.length === 0) return { serviceName, status: 'no_rate_found' as const, tgePrice: null, remarks: 'No applicable TGE rate found.', lookupKeyUsed: pricesBySpendBand[0]?.lookupKeyUsed };
+
+      const competitiveBands = validPrices.filter(p => p.price! <= leg.price);
+      if (competitiveBands.length > 0) {
+        // Find the one with highest price that is still <= competitor price (i.e. most profitable competitive one)
+        const bestSB = competitiveBands.reduce((prev, curr) => (curr.price! > prev.price! ? curr : prev));
+        return {
+          serviceName,
+          status: 'competitive' as const,
+          competitiveSpendBand: bestSB.spendBand,
+          tgePrice: bestSB.price,
+          calculationFormula: bestSB.calculationFormula,
+          lookupKeyUsed: bestSB.lookupKeyUsed
+        };
+      }
+
+      const closest = validPrices.reduce((prev, curr) => (Math.abs(curr.price! - leg.price) < Math.abs(prev.price! - leg.price) ? curr : prev));
+      const discountNeeded = ((closest.price! - leg.price) / closest.price!) * 100;
+      return { serviceName, status: 'not_competitive' as const, closestSpendBand: closest.spendBand, tgePrice: closest.price, discountNeeded, calculationFormula: closest.calculationFormula, lookupKeyUsed: closest.lookupKeyUsed };
+    });
+
+    return await Promise.all(serviceAnalysisPromises) as ServiceAnalysisResult[];
   };
 
-  const handleClearLocations = () => {
-    setValue('originZone', '', { shouldValidate: true, shouldDirty: true });
-    setValue('destinationZone', '', { shouldValidate: true, shouldDirty: true });
-  };
+  const servicesForDisplay = useMemo(() => {
+    return showLcpRates ? ALL_SERVICES : ALL_SERVICES.filter(s => !s.startsWith('LCP'));
+  }, [showLcpRates]);
 
-  const handleGroupSelection = (group: ServiceName[], checked: boolean) => {
-    const current = (getValues('selectedServices') as ServiceName[]) || [];
-    let newSelected: ServiceName[];
-    const groupInAllowed = group.filter(s => allowedServicesForRole.includes(s));
-    if (checked) {
-      newSelected = Array.from(new Set([...current, ...groupInAllowed]));
-    } else {
-      newSelected = current.filter(s => !groupInAllowed.includes(s));
-    }
-    setValue('selectedServices', newSelected, { shouldValidate: true });
-  };
+  const overallLoading = isLoading || isLoadingRates;
 
-  const areAllGroupServicesSelected = (group: ServiceName[]) => {
-      const groupInAllowed = group.filter(s => allowedServicesForRole.includes(s));
-      if (groupInAllowed.length === 0) return false;
-      return groupInAllowed.every(s => currentSelectedServices.includes(s));
-  };
-
-  const overallLoading = isLoadingForm || isLoadingRates;
+  if (role && !['admin', 'superadmin', 'rsm', 'bdm'].includes(role)) {
+    return (
+      <Card>
+        <CardHeader><CardTitle className="flex items-center"><Lock className="mr-2 h-5 w-5" />Access Denied</CardTitle></CardHeader>
+      </Card>
+    );
+  }
 
   return (
-    <Card className="w-full shadow-xl">
-      <CardHeader>
-        <CardTitle className="flex items-center text-2xl font-headline">
-          <Calculator className="mr-2 h-7 w-7 text-primary" />
-          Zone SB Comparison
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+    <div className="space-y-8 print-expand">
+      <Card className="shadow-xl print-hide">
+        <CardHeader>
+          <CardTitle className="text-2xl font-headline flex items-center">
+            <Scale className="mr-2 h-7 w-7 text-primary" /> Zone-Based Rate Comparison
+          </CardTitle>
+          <CardDescription>
+            Enter competitor freight legs using direct Zones to see which TGE spend band is most competitive.
+          </CardDescription>
+        </CardHeader>
+      </Card>
 
-          <Card className="w-full border rounded-lg shadow-sm bg-muted/20">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="print-hide">
+        <div className="space-y-6">
+          <Card>
             <CardHeader>
-                <CardTitle className="flex items-center text-xl font-semibold">
-                    <Settings2 className="mr-2 h-6 w-6 text-primary" />
-                    Comparison Options
-                </CardTitle>
+              <CardTitle>Comparison Details</CardTitle>
             </CardHeader>
-            <CardContent className="pt-4">
-                 <div className="space-y-2">
-                    <Label className="flex items-center font-semibold">
-                        Services to Compare
-                    </Label>
-                     {allowedServicesForRole.length > 0 ? (
-                        <div className="flex flex-wrap gap-x-4 gap-y-2 items-center p-2 border rounded-md bg-background">
-                            <div className="flex items-center space-x-2">
-                                <Checkbox id="group-road-sb" checked={areAllGroupServicesSelected(ALL_SERVICES.filter(s => s.includes('Std')))} onCheckedChange={(checked) => handleGroupSelection(ALL_SERVICES.filter(s => s.includes('Std')), Boolean(checked))} />
-                                <Label htmlFor="group-road-sb" className="font-medium cursor-pointer flex items-center"><Truck className="mr-1.5 h-4 w-4" />Standard</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <Checkbox id="group-priority-sb" checked={areAllGroupServicesSelected(ALL_SERVICES.filter(s => s.includes('Priority')))} onCheckedChange={(checked) => handleGroupSelection(ALL_SERVICES.filter(s => s.includes('Priority')), Boolean(checked))} />
-                                <Label htmlFor="group-priority-sb" className="font-medium cursor-pointer flex items-center"><Zap className="mr-1.5 h-4 w-4" />Priority</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <Checkbox id="group-pallets-sb" checked={areAllGroupServicesSelected(PALLET_LIKE_SERVICES)} onCheckedChange={(checked) => handleGroupSelection(PALLET_LIKE_SERVICES, Boolean(checked))} />
-                                <Label htmlFor="group-pallets-sb" className="font-medium cursor-pointer flex items-center"><Anchor className="mr-1.5 h-4 w-4" />Pallets</Label>
-                            </div>
-                        </div>
-                     ) : (
-                        <p className="text-sm text-muted-foreground p-2 border rounded-md bg-background">No services are available for your current user role.</p>
-                     )}
-                </div>
+            <CardContent className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <Label htmlFor="companyName" className="flex items-center"><User className="mr-2 h-4 w-4 text-muted-foreground" />Company Name</Label>
+                <Input id="companyName" {...form.register('companyName')} placeholder="e.g., ACME Corp" />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="competitorName" className="flex items-center"><Briefcase className="mr-2 h-4 w-4 text-muted-foreground" />Competitor Name</Label>
+                <Input id="competitorName" {...form.register('competitorName')} placeholder="e.g., Speedy Freight" />
+              </div>
+            </CardContent>
+            <CardFooter className="flex-wrap gap-4 justify-between border-t pt-4">
+              <div className="flex gap-2 flex-wrap items-center">
+                <span className="text-sm font-medium self-center text-muted-foreground">Load Previous:</span>
+                {comparisonHistory.map((entry, index) => (
+                  <Button key={index} type="button" variant="outline" size="sm" onClick={() => handleLoadHistory(entry)}>
+                    {entry.companyName || `Entry ${index + 1}`}
+                  </Button>
+                ))}
+              </div>
+              <Button type="button" variant="ghost" onClick={handleClearForm}>
+                <Eraser className="mr-2 h-4 w-4" /> Clear Form
+              </Button>
+            </CardFooter>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center"><UploadCloud className="mr-2 h-5 w-5" /> Bulk Upload Legs</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col sm:flex-row gap-2 items-center">
+              <Input id="csvFile" type="file" accept=".csv" onChange={handleFileUpload} ref={fileInputRef} className="flex-grow" />
+              <div className="flex gap-2 w-full sm:w-auto">
+                <Button type="button" variant="outline" size="sm" onClick={handleDownloadTemplate} className="flex-1 sm:flex-initial">
+                  <Download className="mr-2 h-4 w-4" /> Template
+                </Button>
+              </div>
             </CardContent>
           </Card>
 
-          <Separator />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Label htmlFor="originZone" className="flex items-center font-semibold">
-                Origin Zone
-              </Label>
-              <Input
-                id="originZone"
-                {...form.register('originZone')}
-                placeholder="e.g., PER, VIC1, BNE"
-                className="w-full"
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center"><Settings className="mr-2 h-5 w-5" /> Services to Compare</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Controller
+                name="selectedServices"
+                control={form.control}
+                render={({ field }) => (
+                  <div className="flex flex-wrap gap-x-6 gap-y-3">
+                    {servicesForDisplay.map((service) => (
+                      <div key={service} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`service-${service}`}
+                          checked={field.value.includes(service)}
+                          onCheckedChange={(checked) => {
+                            const newValue = checked
+                              ? [...field.value, service]
+                              : field.value.filter((s) => s !== service);
+                            field.onChange(newValue);
+                          }}
+                        />
+                        <Label htmlFor={`service-${service}`} className="font-normal cursor-pointer">{service}</Label>
+                      </div>
+                    ))}
+                  </div>
+                )}
               />
-            </div>
+            </CardContent>
+          </Card>
 
-            <div className="space-y-2">
-              <Label htmlFor="destinationZone" className="flex items-center font-semibold">
-                Destination Zone
-              </Label>
-              <Input
-                id="destinationZone"
-                {...form.register('destinationZone')}
-                placeholder="e.g., PER, VIC1, BNE"
-                className="w-full"
-              />
-            </div>
-          </div>
-
-          <Separator />
-
-          <div>
-            <h3 className="text-lg font-semibold mb-3 flex items-center">
-                <Package className="mr-2 h-5 w-5 text-muted-foreground" /> Item Details
-            </h3>
-            {fields.map((item, index) => (
-              <Card key={item.id} className="mb-4 p-4 border rounded-lg shadow-sm bg-muted/20">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-2 items-end">
-                  <div className="space-y-1">
-                    <Label htmlFor={`items.${index}.weight`} className="text-sm font-medium">Weight (kg)</Label>
-                    <div className="flex items-center gap-2">
-                        <Input id={`items.${index}.weight`} type="number" {...form.register(`items.${index}.weight`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} placeholder="0" className="w-full" />
-                        <Button type="button" variant="outline" size="sm" onClick={() => toggleItemDimensions(index)}>
-                            {itemDimensionsVisibility[index] ? 'Hide Dims' : 'Add Dims'}
-                        </Button>
+          <Card>
+            <CardContent className="pt-6 space-y-4">
+              {fields.map((field, index) => (
+                <Card key={field.id} className="p-4 bg-muted/30">
+                  <div className="grid grid-cols-1 lg:grid-cols-[2fr_2fr_1fr_1fr_auto] gap-4 items-end">
+                    <div className="space-y-1">
+                      <Label htmlFor={`legs.${index}.originZone`}>Origin Zone</Label>
+                      <Input
+                        id={`legs.${index}.originZone`}
+                        {...form.register(`legs.${index}.originZone`)}
+                        placeholder="e.g. SYD, MEL"
+                      />
                     </div>
-                  </div>
-
-                    {itemDimensionsVisibility[index] && (
-                        <>
-                            <div className="space-y-1">
-                                <Label htmlFor={`items.${index}.length`} className="text-sm font-medium">L (cm)</Label>
-                                <Input id={`items.${index}.length`} type="number" step="0.1" className="w-full" {...form.register(`items.${index}.length`)} onFocus={(e) => e.target.select()} placeholder="0" />
-                            </div>
-                            <div className="space-y-1">
-                                <Label htmlFor={`items.${index}.width`} className="text-sm font-medium">W (cm)</Label>
-                                <Input id={`items.${index}.width`} type="number" step="0.1" className="w-full" {...form.register(`items.${index}.width`)} onFocus={(e) => e.target.select()} placeholder="0" />
-                            </div>
-                            <div className="space-y-1">
-                                <Label htmlFor={`items.${index}.height`} className="text-sm font-medium">H (cm)</Label>
-                                <Input id={`items.${index}.height`} type="number" step="0.1" className="w-full" {...form.register(`items.${index}.height`)} onFocus={(e) => e.target.select()} placeholder="0" />
-                            </div>
-                        </>
+                    <div className="space-y-1">
+                      <Label htmlFor={`legs.${index}.destinationZone`}>Destination Zone</Label>
+                      <Input
+                        id={`legs.${index}.destinationZone`}
+                        {...form.register(`legs.${index}.destinationZone`)}
+                        placeholder="e.g. PER, BNE"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor={`legs.${index}.weight`}>Charge Kg</Label>
+                      <Input id={`legs.${index}.weight`} type="number" {...form.register(`legs.${index}.weight`, { valueAsNumber: true })} />
+                    </div>
+                    <div className="space-y-1">
+                      <Label htmlFor={`legs.${index}.price`}>Price ($)</Label>
+                      <Input id={`legs.${index}.price`} type="number" step="0.01" {...form.register(`legs.${index}.price`, { valueAsNumber: true })} />
+                    </div>
+                    {fields.length > 1 && (
+                      <Button variant="ghost" size="icon" onClick={() => remove(index)} className="h-10 w-10 shrink-0">
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
                     )}
-
-                  <div className="space-y-1">
-                    <Label htmlFor={`items.${index}.quantity`} className="text-sm font-medium">Quantity</Label>
-                    <Input id={`items.${index}.quantity`} type="number" step="1" className="w-full" {...form.register(`items.${index}.quantity`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} placeholder="1" />
                   </div>
+                </Card>
+              ))}
+              <div className="flex gap-2">
+                <Button type="button" onClick={addLeg} variant="outline" size="sm">
+                  <PlusCircle className="mr-2 h-4 w-4" /> Add Leg
+                </Button>
+              </div>
+              <Separator />
+              <div className="flex flex-wrap gap-2">
+                <Button type="submit" className="flex-grow md:flex-grow-0 text-lg py-3 px-6 bg-accent hover:bg-accent/90 text-accent-foreground" disabled={overallLoading}>
+                  {overallLoading ? <Loader2 className="mr-2 h-5 w-4 animate-spin" /> : 'Compare All Legs'}
+                </Button>
+                <Button onClick={handleExportCsv} variant="outline" className="flex-grow md:flex-grow-0" type="button" disabled={!analysisInfo || analysisInfo.results.length === 0}>
+                  <Download className="mr-2 h-4 w-4" /> Export CSV
+                </Button>
+                <Button onClick={handlePrint} variant="outline" className="flex-grow md:flex-grow-0" type="button" disabled={!analysisInfo || analysisInfo.results.length === 0}>
+                  <Printer className="mr-2 h-4 w-4" /> Export to PDF
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </form>
+
+      {(isAnalyzing || analysisSummary) && (
+        <Card className="mt-8 card-print">
+          <CardHeader><CardTitle className="flex items-center text-xl font-semibold"><Sparkles className="mr-2 h-6 w-6 text-accent" /> AI-Powered Analysis</CardTitle></CardHeader>
+          <CardContent>
+            {isAnalyzing && (
+              <div className="flex items-center space-x-2 text-muted-foreground"><Loader2 className="h-5 w-5 animate-spin" /><span>Generating insights...</span></div>
+            )}
+            {analysisSummary && (
+              <div className="space-y-4">
+                <div><h4 className="font-semibold">Overall Verdict</h4><p>{analysisSummary.overallVerdict}</p></div>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div><h4 className="font-semibold">Key Strengths</h4><ul className="list-disc list-inside">{analysisSummary.keyStrengths.map((item, i) => <li key={i}>{item}</li>)}</ul></div>
+                  <div><h4 className="font-semibold">Key Opportunities</h4><ul className="list-disc list-inside">{analysisSummary.keyOpportunities.map((item, i) => <li key={i}>{item}</li>)}</ul></div>
                 </div>
-                 {fields.length > 1 && (
-                    <div className="mt-2">
-                        <Button type="button" variant="destructive" size="sm" onClick={() => handleRemoveItem(index)}>
-                        <Trash2 className="h-4 w-4" />
-                        </Button>
-                    </div>
-                  )}
-              </Card>
-            ))}
-            <div className="mt-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2 md:items-center md:flex-wrap">
-                 <Controller
-                    name="globalOnPallet"
-                    control={form.control}
-                    render={({ field }) => (
-                        <div className="flex items-center">
-                            <Checkbox id="globalOnPalletSb" checked={field.value} onCheckedChange={field.onChange} className="peer sr-only" />
-                            <Label htmlFor="globalOnPalletSb" className={cn("flex items-center justify-center px-3 py-2 border rounded-md cursor-pointer text-xs font-medium transition-colors h-9", "bg-background hover:bg-accent hover:text-accent-foreground w-full md:w-auto", field.value ? "bg-primary text-primary-foreground hover:bg-primary/90 border-primary" : "border-input")}>
-                                On Pallet
-                            </Label>
-                        </div>
-                    )}
-                />
-                <Button type="button" variant="outline" size="sm" onClick={handleAddNewItem} className="w-full md:w-auto h-9">Add Item</Button>
-                <Button type="button" variant="outline" size="sm" onClick={handleClearItems} className="w-full md:w-auto h-9">Clear Details</Button>
-                <Button type="button" variant="outline" size="sm" onClick={handleClearLocations} className="w-full md:w-auto h-9">Clear Locations</Button>
-            </div>
-          </div>
+                <div><h4 className="font-semibold">Strategic Recommendation</h4><p>{analysisSummary.strategicRecommendation}</p></div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
-          <Separator />
+      {analysisSummary?.suggestedEmailBody && (
+        <Card className="mt-8 print-hide">
+          <CardHeader><CardTitle className="flex items-center text-xl font-semibold"><Mail className="mr-2 h-6 w-6 text-accent" /> AI-Generated Email Draft</CardTitle></CardHeader>
+          <CardContent><Textarea readOnly value={analysisSummary.suggestedEmailBody} className="h-64 font-mono text-sm" /></CardContent>
+          <CardFooter>
+            <Button onClick={handleCopyToClipboard}>
+              {isCopied ? <Check className="mr-2 h-4 w-4" /> : <Clipboard className="mr-2 h-4 w-4" />}
+              {isCopied ? 'Copied!' : 'Copy to Clipboard'}
+            </Button>
+          </CardFooter>
+        </Card>
+      )}
 
-          <Button type="submit" className="w-full md:w-auto text-lg py-3 px-6 bg-accent hover:bg-accent/90 text-accent-foreground" disabled={overallLoading || allowedServicesForRole.length === 0}>
-            {overallLoading ? (
-                <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    {isLoadingRates ? 'Loading Rates...' : 'Calculating Comparison...'}
-                </>
-            ) : (allowedServicesForRole.length === 0 ? 'No Services Available' : 'Compare')}
-          </Button>
-        </form>
-
-        {overallLoading && !showResults && (
-          <div className="mt-8 flex flex-col items-center justify-center space-y-2 py-10">
-            <Loader2 className="h-12 w-12 animate-spin text-primary" />
-            <p className="text-lg text-muted-foreground">{isLoadingRates ? 'Loading rate data...' : 'Generating comparison...'}</p>
-          </div>
-        )}
-
-        {!overallLoading && showResults && (
-          <div className="mt-8">
-            <SBComparisonResults results={calculatedSBResults} />
-          </div>
-        )}
-      </CardContent>
-    </Card>
+      {analysisInfo && analysisInfo.results.length > 0 && (
+        <Card className="mt-8 card-print">
+          <CardHeader><CardTitle>Comparison Analysis</CardTitle></CardHeader>
+          <CardContent className="space-y-6">
+            {analysisInfo.results.map((result, index) => {
+              const competitorEffectiveRate = result.originalLeg.weight > 0 ? result.originalLeg.price / result.originalLeg.weight : null;
+              return (
+                <div key={`result-${index}`}>
+                  <div className="flex items-center space-x-2 p-3 bg-muted rounded-t-md flex-wrap gap-2">
+                    <h3 className="font-semibold text-lg flex-grow">
+                      Leg {index + 1}: {result.originalLeg.originZone} <ArrowRight className="inline mx-1 h-4 w-4" /> {result.originalLeg.destinationZone}
+                    </h3>
+                    <Badge>Weight: {result.originalLeg.weight}kg</Badge>
+                    <Badge variant="default">{formatRate(competitorEffectiveRate)}</Badge>
+                    <Badge>Price: {formatCurrency(result.originalLeg.price)}</Badge>
+                  </div>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>TGE Service</TableHead>
+                        <TableHead>Outcome</TableHead>
+                        <TableHead className="flex items-center"><Calculator className="mr-2 h-4 w-4" />Calculation</TableHead>
+                        <TableHead className="text-right">TGE Price</TableHead>
+                        <TableHead className="text-right">Variance</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {result.analyses.map(analysis => {
+                        const variance = (analysis.tgePrice !== null && analysis.tgePrice !== undefined) ? analysis.tgePrice - result.originalLeg.price : null;
+                        return (
+                          <TableRow key={analysis.serviceName}>
+                            <TableCell className="font-medium">{analysis.serviceName}</TableCell>
+                            <TableCell>
+                              {analysis.status === 'competitive' && <Badge variant="default" className="bg-green-600">Competitive at SB {analysis.competitiveSpendBand}</Badge>}
+                              {analysis.status === 'not_competitive' && <Badge variant="secondary">Closest: SB {analysis.closestSpendBand} ({analysis.discountNeeded?.toFixed(1)}% gap)</Badge>}
+                              {analysis.status === 'no_rate_found' && <Badge variant="destructive">No Rate Found</Badge>}
+                            </TableCell>
+                            <TableCell className="text-xs text-muted-foreground whitespace-nowrap">{analysis.calculationFormula || 'N/A'}</TableCell>
+                            <TableCell className="text-right font-mono">{formatCurrency(analysis.tgePrice)}</TableCell>
+                            <TableCell className={cn("text-right font-mono", variance !== null && variance > 0 && "text-destructive", variance !== null && variance < 0 && "text-green-600")}>{formatCurrency(variance)}</TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </div>
+              )
+            })}
+          </CardContent>
+        </Card>
+      )}
+    </div>
   );
 }
