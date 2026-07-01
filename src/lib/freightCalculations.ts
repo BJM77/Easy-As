@@ -249,14 +249,25 @@ const B2CStrategy = (data: any[], context: PricingContext, regionalData: any[]):
     const r5 = parseSafeNum(entry[isPriority ? 'b2cp5' : 'b2c5']);
     const rKg = parseSafeNum(entry[isPriority ? 'pkg' : 'kg']);
 
-    if (chargeableWeightKg <= 1) baseRate = r1;
-    else if (chargeableWeightKg <= 3) baseRate = r3;
-    else if (chargeableWeightKg <= 5) baseRate = r5;
-    else baseRate = r5 + ((chargeableWeightKg - 5) * rKg);
+    let calculationFormula = '';
+    if (chargeableWeightKg <= 1) {
+        baseRate = r1;
+        calculationFormula = `${r1} (1kg)`;
+    } else if (chargeableWeightKg <= 3) {
+        baseRate = r3;
+        calculationFormula = `${r3} (3kg)`;
+    } else if (chargeableWeightKg <= 5) {
+        baseRate = r5;
+        calculationFormula = `${r5} (5kg)`;
+    } else {
+        baseRate = r5 + ((chargeableWeightKg - 5) * rKg);
+        calculationFormula = `(${r5} + (${chargeableWeightKg - 5} * ${rKg}))`;
+    }
 
     return { 
         baseRate, 
         chargeZoneUsed: logicKey, 
+        calculationFormula,
         isApplicable: true,
         rateEntryUsed: entry
     };
