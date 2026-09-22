@@ -22,13 +22,12 @@ const nextConfig = {
     '@google-cloud/firestore',
     '@grpc/grpc-js',
   ],
-  experimental: {
-    allowedDevOrigins: [
-      '6000-firebase-studio-1762260425529.cluster-y3k7ko3fang56qzieg3trwgyfg.cloudworkstations.dev',
-      '9000-firebase-studio-1762260425529.cluster-y3k7ko3fang56qzieg3trwgyfg.cloudworkstations.dev',
-      '9002-firebase-studio-1762260425529.cluster-y3k7ko3fang56qzieg3trwgyfg.cloudworkstations.dev',
-    ],
-  },
+  turbopack: {},
+  allowedDevOrigins: [
+    '6000-firebase-studio-1762260425529.cluster-y3k7ko3fang56qzieg3trwgyfg.cloudworkstations.dev',
+    '9000-firebase-studio-1762260425529.cluster-y3k7ko3fang56qzieg3trwgyfg.cloudworkstations.dev',
+    '9002-firebase-studio-1762260425529.cluster-y3k7ko3fang56qzieg3trwgyfg.cloudworkstations.dev',
+  ],
   webpack: (config) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
