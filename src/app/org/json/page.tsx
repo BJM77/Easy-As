@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: "JSON Management - FreightAssist.Online",
+  title: "JSON Management - Freight assist.online",
   description: "Manage and persist company-specific contract pricing JSON data.",
 };
 

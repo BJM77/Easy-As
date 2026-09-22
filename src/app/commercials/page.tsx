@@ -3,7 +3,7 @@ import CommercialsPageContent from "./page-content";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Commercials - FreightAssist.Online",
+  title: "Commercials - Freight assist.online",
   description: "In-depth pricing analysis and profitability tools.",
 };
 

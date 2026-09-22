@@ -2,7 +2,7 @@ import UpdateRasPageContent from "./page-content";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Update RAS - Admin | FreightAssist.Online",
+  title: "Update RAS - Admin | Freight assist.online",
   description: "Update Remote Area Surcharges for IPEC and Priority networks.",
 };
 

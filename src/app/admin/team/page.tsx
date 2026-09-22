@@ -3,7 +3,7 @@ import TeamManagementPageContent from "./page-content";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Team Management - FreightAssist.Online",
+  title: "Team Management - Freight assist.online",
   description: "Manage your organization's users and invitations.",
 };
 

@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: "Upload Customer Rates - FreightAssist.Online",
+  title: "Upload Customer Rates - Freight assist.online",
   description: "Upload and manage custom client-specific pricing rate data.",
 };
 

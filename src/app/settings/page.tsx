@@ -2,7 +2,7 @@
 import SettingsPageContent from "./page-content";
 
 export const metadata = {
-  title: "Settings - FreightAssist.Online",
+  title: "Settings - Freight assist.online",
   description: "Configure application settings including surcharges and spend bands.",
 };
 

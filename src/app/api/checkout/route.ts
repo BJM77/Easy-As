@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
           price_data: {
             currency: 'aud',
             product_data: {
-              name: 'FreightAssist.Online Monthly Subscription',
+              name: 'Freight assist.online Monthly Subscription',
               description: `Monthly access for ${companyName}`,
             },
             unit_amount: 995, // $9.95 in cents
