@@ -5,7 +5,7 @@ import { Loader2 } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: "Login - Freight assist.online",
-  description: "Login to your Freight assist.online account.",
+  description: "Log in to your Freight assist.online account.",
 };
 
 export default function LoginPage() {
