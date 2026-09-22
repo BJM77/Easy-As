@@ -211,7 +211,7 @@ export default function CompaniesPageContent() {
             <div className="space-y-4">
               <div className="space-y-1">
                 <Label htmlFor="comp-name">Company Name</Label>
-                <Input id="comp-name" value={name} onChange={e => setName(e.target.value)} placeholder="e.g., Freight assist.online" />
+                <Input id="comp-name" value={name} onChange={e => setName(e.target.value)} placeholder="e.g., Acme Logistics" />
               </div>
               <div className="space-y-1">
                 <Label htmlFor="comp-domain">Primary Domain (Optional)</Label>
