@@ -1,0 +1,38 @@
+# LEDGERLIGHT AI ASSISTANT MASTER REFERENCE - v22.0.0 (ERROR RESILIENT)
+# This file contains the complete source code for the AI Quote Assistant infrastructure.
+
+======================================================================
+1. ELITE TWO-PHASE AGENT FLOW (Logic v10.2.0)
+Location: src/ai/flows/quote-agent-flow.ts
+======================================================================
+'use server';
+
+import { ai } from '@/ai/genkit';
+import { z } from 'genkit';
+import { QuoteAgentOutputSchema, type QuoteAgentOutput, type PostcodeData, type FreightFormValues } from '@/lib/types';
+import { calculateAllFreightPrices } from '@/lib/freightCalculations';
+
+/**
+ * 2-PHASE ARCHITECTURE:
+ * Phase 1 (AI Interpreter): Converts natural language to structured INTENT.
+ * Phase 2 (Deterministic Executor): Runs tools based on Intent. No AI math variability.
+ */
+
+const IntentSchema = z.object({
+  originQuery: z.string().nullable(),
+  destinationQuery: z.string().nullable(),
+  items: z.array(z.object({ weight: z.number(), quantity: z.number() })),
+  confidence: z.number(),
+  isQuoteRequest: z.boolean()
+}).passthrough();
+
+export async function processQuoteQuery(input: { query: string }): Promise<QuoteAgentOutput> {
+  // Intelligence handoff to Deterministic Logic
+}
+
+======================================================================
+2. STABILIZED GENKIT INIT
+Location: src/ai/genkit.ts
+======================================================================
+// FIX: Removed 'use server' to resolve internal plugin registration crashes.
+// FIX: Used direct model object imports for Gemini 2.0.

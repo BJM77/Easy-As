@@ -1,0 +1,42 @@
+# LEDGERLIGHT ADMIN & SECURITY MASTER REFERENCE - v4.0.0 (FINALIZED)
+# This file contains the finalized architecture for Admin access and simulation stability.
+
+======================================================================
+1. AUTHORIZED SUPERADMIN IDENTITIES
+======================================================================
+The following UIDs and Emails are granted root-level recursive access:
+- mEjDsCe2dTV3UQRFPkdxbipxtHv2 (Benjamin Mackie)
+- bjmack22277@gmail.com
+- 1@1.com (Developer Bypass)
+
+======================================================================
+2. FINALIZED HIERARCHICAL SECURITY RULES
+======================================================================
+Pattern: Recursive Superadmin Bypass + Immutability Protection.
+
+match /databases/{database}/documents {
+  // ROOT BYPASS
+  match /{document=**} { allow read, write: if isSuperAdmin(); }
+
+  // TENANT COLLECTIONS
+  match /problems/{id} { allow read: if hasAccess(resource.data.companyId); }
+  
+  // USER PROTECTION
+  match /users/{userId} {
+    allow update: if isSuperAdmin() || (isOwner() && !roleChanged() && !companyChanged());
+  }
+}
+
+======================================================================
+3. AUTOMATED TOKEN REFRESH (Simulation Stability)
+======================================================================
+- The AuthProvider monitors for Firestore profile deltas.
+- If simulated 'role' or 'companyId' differs from JWT claims, a background `getIdToken(true)` is triggered.
+- This ensures the "Permission Denied" errors never occur during high-speed role switching.
+
+======================================================================
+4. DATA QUERY HARDENING
+======================================================================
+- ALL frontend queries for non-Superadmins MUST include:
+- where('companyId', '==', activeCompanyId)
+- This satisfies the Firestore Query Coverage requirement for production rules.

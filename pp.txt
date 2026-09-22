@@ -1,0 +1,1907 @@
+This file contains all the code relevant to the "Perfect Plan" feature located at /src/app/ai-guru/ for analysis and improvement.
+
+======================================================================
+1. Main UI Component: /src/app/ai-guru/page-content.tsx
+======================================================================
+
+"use client";
+
+import React, { useState, useEffect, useCallback } from 'react';
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import type { PostcodeData, FreightFormValues, CalculatedPriceItem, ServiceName, RateCardDisplayEntry, PEZonesEntry, RegionalLookupEntry, B2BRdexRateEntry, LCPRdexRateEntry, B2BPriorityRateEntry, LCPPrioRateEntry, TieredPalletRateEntry, WestEastRateEntry, B2CRateEntry, RateFileType } from '@/lib/types';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Loader2, Sparkles, Building, MapPin, Package, BarChart, FileText, Info, Printer, ArrowRight, Table as TableIcon, Download, CheckSquare, RefreshCcw, PlusCircle, Trash2, Mic, Bot, Edit, X } from 'lucide-react';
+import LocationAutocomplete from '@/components/freight/LocationAutocomplete';
+import { useToast } from '@/hooks/use-toast';
+import { useRateOverrides } from '@/context/RateOverrideContext';
+import { useSettings } from '@/context/SettingsContext';
+import { calculateAllFreightPrices } from '@/lib/freightCalculations';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Separator } from '@/components/ui/separator';
+import { format } from 'date-fns';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useSpeechRecognition } from '@/hooks/use-speech-recognition';
+import { cn } from '@/lib/utils';
+import { perfectPlanSchema } from '@/lib/zodSchemas';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+
+
+type GuruFormValues = z.infer<typeof perfectPlanSchema>;
+type ServiceType = 'palletExpress' | 'palletGeneral' | 'priority' | 'road' | 'b2c' | 'waPeSpecial' | 'lcpStd' | 'lcpPrio';
+type WizardStep = 'closed' | 'customerName' | 'sendingLocation' | 'volumes' | 'distributionProfile' | 'destinations' | 'summary' | 'calculating' | 'results';
+
+interface AnalysisResult {
+  analysis: {
+    calculatedMonthlySpend: number;
+    spendSource: 'User-provided' | 'Calculated';
+    recommendedSpendBand: string;
+  };
+  pricingByOrigin: {
+      origin: PostcodeData;
+      originName: string;
+      results: {
+        destination: string;
+        waSpecialPrice: number | null;
+        waSpecialSavings: number | null;
+        palletExpressPrice: number | null;
+        palletExpressSavings: number | null;
+        palletGeneralPrice: number | null;
+        palletGeneralSavings: number | null;
+        priorityPrice: number | null;
+        prioritySavings: number | null;
+        roadPrice: number | null;
+        roadSavings: number | null;
+        b2cStdPrice: number | null;
+        b2cStdSavings: number | null;
+        b2cPrioPrice: number | null;
+        b2cPrioSavings: number | null;
+      }[];
+    }[];
+}
+
+const formatCurrency = (amount: number | null | undefined | string) => {
+    if (amount === null || amount === undefined || amount === 'N/A' || (typeof amount === 'string' && isNaN(parseFloat(amount)))) return "N/A";
+    const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+    return numAmount.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+};
+
+const WizardInput = ({ fieldName, isLocation, onLocationSelect, autoFocus = false, form, allPostcodes, isSupported, handleVoiceInput, listening, currentWizardField, ...props }: any) => {
+    const handleVoice = () => {
+        handleVoiceInput(fieldName);
+        if (props.type === 'number') {
+            form.setValue(fieldName, '', { shouldValidate: true });
+        }
+    };
+    
+    const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+      event.target.select();
+      if (window.innerWidth < 768) { // Only scroll on mobile
+          setTimeout(() => {
+              event.target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+      }
+    };
+    
+    return (
+        <div className="relative">
+            <Controller
+                name={fieldName}
+                control={form.control}
+                render={({ field }) => {
+                    const value = field.value === 0 && (fieldName.includes('Weight') || fieldName.includes('Price') || fieldName.includes('PerWeek') || fieldName.includes('Spend')) ? '' : field.value;
+                    
+                    return isLocation ? (
+                        <LocationAutocomplete
+                            inputId={field.name}
+                            value={field.value as string}
+                            onValueChange={field.onChange}
+                            onLocationSelect={(l: PostcodeData | null) => onLocationSelect(l)}
+                            allPostcodes={allPostcodes}
+                            autoFocus={autoFocus}
+                            {...props}
+                        />
+                    ) : (
+                        <Input
+                            {...field}
+                            value={value}
+                            autoFocus={autoFocus}
+                            {...props}
+                            onFocus={handleFocus}
+                        />
+                    )
+                }}
+            />
+            {isSupported && (
+                <Button type="button" size="icon" variant="ghost" onClick={handleVoice} className="absolute right-1 top-1 h-8 w-8">
+                    <Mic className={cn("h-4 w-4", listening && currentWizardField === fieldName ? "text-destructive" : "")}/>
+                </Button>
+            )}
+        </div>
+    );
+};
+
+
+export default function AIGuruPageContent() {
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
+  const [displayPricingByOrigin, setDisplayPricingByOrigin] = useState<AnalysisResult['pricingByOrigin']>([]);
+  const [selectedSpendBand, setSelectedSpendBand] = useState<string | null>(null);
+
+  const [selectedServicesForCard, setSelectedServicesForCard] = useState<Record<ServiceType, boolean>>({
+    palletExpress: false, palletGeneral: false, priority: false, road: false, b2c: false, waPeSpecial: false, lcpStd: false, lcpPrio: false
+  });
+  const [isGeneratingCard, setIsGeneratingCard] = useState(false);
+  const [rateCardData, setRateCardData] = useState<RateCardDisplayEntry[]>([]);
+  const [palletRateCardData, setPalletRateCardData] = useState<RateCardDisplayEntry[]>([]);
+  const [nonPalletRateCardData, setNonPalletRateCardData] = useState<RateCardDisplayEntry[]>([]);
+
+
+  const {
+    serviceSettings, surchargeDefinitions, globalSpendBands,
+    perfectPlanPalletRate, perfectPlanParcelRate, perfectPlanSatchelRate
+  } = useSettings();
+  const { getRateFile, isLoading: areRatesLoading, pezoneData } = useRateOverrides();
+  const [allPostcodes, setAllPostcodes] = useState<PostcodeData[]>([]);
+  
+  const [wizardStep, setWizardStep] = useState<WizardStep>('closed');
+  const [currentWizardField, setCurrentWizardField] = useState<keyof GuruFormValues | `destinations.${number}.destinationQuery` | `destinations.${number}.averageWeight` | `destinations.${number}.targetPrice` | 'originLocationQuery' | 'none'>('none');
+  
+  const { transcript, listening, isSupported, startListening, stopListening } = useSpeechRecognition();
+
+  const servicesForSelection: ServiceName[] = [
+      'B2B Pallets Express', 'B2B Pallets General Tiered', 'WA PE Special',
+      'B2B Std', 'B2B Priority', 'B2C Std', 'B2C Priority', 'LCP Std', 'LCP Priority'
+  ];
+
+  const form = useForm<GuruFormValues>({
+    resolver: zodResolver(perfectPlanSchema),
+    defaultValues: {
+      customerName: '',
+      originLocationQuery: '',
+      originLocation: null,
+      palletsPerWeek: 0,
+      parcelsPerWeek: 0,
+      satchelsPerWeek: 0,
+      monthlySpend: 0,
+      destinations: [],
+      addressType: 'Business',
+      distributionArea: 'Both'
+    },
+  });
+  
+  const { fields: destinationFields, append: appendDestination, remove: removeDestination } = useFieldArray({
+    control: form.control,
+    name: "destinations",
+  });
+  
+  const handleVoiceInput = (field: typeof currentWizardField) => {
+    if(listening && currentWizardField === field) {
+        stopListening();
+    } else {
+        setCurrentWizardField(field);
+        startListening();
+    }
+  };
+  
+  useEffect(() => {
+    const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+      event.target.select();
+      if (window.innerWidth < 768) { // Only scroll on mobile
+        setTimeout(() => {
+          event.target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    };
+    
+    const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+    inputs.forEach(input => {
+      input.addEventListener('focus', handleFocus as any);
+    });
+
+    return () => {
+      inputs.forEach(input => {
+        input.removeEventListener('focus', handleFocus as any);
+      });
+    };
+  }, [wizardStep]);
+
+
+  useEffect(() => {
+    if (transcript && currentWizardField !== 'none') {
+        const fieldName = currentWizardField as any;
+        if (['palletsPerWeek', 'parcelsPerWeek', 'satchelsPerWeek', 'monthlySpend', 'averageWeight', 'targetPrice'].some(key => fieldName.includes(key))) {
+             const numericValue = parseFloat(transcript.replace(/[^0-9.-]+/g, ''));
+             if (!isNaN(numericValue)) {
+                form.setValue(fieldName, numericValue, { shouldValidate: true });
+                if (listening) stopListening();
+             }
+        } else {
+             form.setValue(fieldName, transcript, { shouldValidate: true });
+             if (listening) stopListening();
+        }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [transcript, currentWizardField, form]);
+
+  
+  const startWizard = useCallback(() => {
+    form.reset({
+      customerName: '',
+      originLocationQuery: '',
+      originLocation: null,
+      palletsPerWeek: 0, parcelsPerWeek: 0, satchelsPerWeek: 0, monthlySpend: 0,
+      destinations: [],
+      addressType: 'Business', distributionArea: 'Both'
+    });
+    setAnalysisResult(null);
+    setWizardStep('customerName');
+  }, [form]);
+
+  useEffect(() => {
+    const fetchPostcodes = async () => {
+        try {
+            const response = await fetch('/api/postcodes');
+            if (!response.ok) throw new Error('Failed to fetch postcodes');
+            const data: PostcodeData[] = await response.json();
+            setAllPostcodes(data);
+        } catch (error) {
+            console.error("Error fetching postcodes for Guru page:", error);
+            toast({ title: "Error", description: "Could not load postcode data.", variant: "destructive" });
+        }
+    };
+    fetchPostcodes();
+  }, [toast]);
+  
+
+  const nextStep = useCallback(async () => {
+    const stepOrder: WizardStep[] = ['customerName', 'sendingLocation', 'volumes', 'distributionProfile', 'destinations', 'summary'];
+    const currentIndex = stepOrder.indexOf(wizardStep);
+    let proceed = true;
+
+    if (wizardStep === 'customerName') proceed = await form.trigger('customerName');
+    else if (wizardStep === 'sendingLocation') proceed = await form.trigger('originLocation');
+    else if (wizardStep === 'volumes') proceed = await form.trigger(['palletsPerWeek', 'parcelsPerWeek', 'satchelsPerWeek', 'monthlySpend']);
+    else if (wizardStep === 'distributionProfile') proceed = await form.trigger(['addressType', 'distributionArea']);
+    else if (wizardStep === 'destinations') proceed = await form.trigger('destinations');
+
+
+    if (!proceed) {
+      toast({ title: "Validation Error", description: "Please correct the errors before proceeding.", variant: "destructive" });
+      return;
+    }
+
+    if (currentIndex < stepOrder.length - 1) {
+      let nextStepName = stepOrder[currentIndex + 1];
+      if (nextStepName === 'destinations' && destinationFields.length === 0) {
+        appendDestination({ 
+          id: String(Date.now()), 
+          destinationQuery: '', 
+          destinationLocation: null, 
+          averageWeight: 0, 
+          targetPrice: 0,
+          selectedServices: []
+        });
+      }
+      setWizardStep(nextStepName);
+    }
+  }, [wizardStep, form, destinationFields, appendDestination, toast]);
+
+  const handleGetSolution = async () => {
+    const isFormValid = await form.trigger();
+    if (!isFormValid) {
+        toast({ title: "Validation Error", description: "Please correct all errors before getting a solution.", variant: "destructive" });
+        return;
+    }
+    const data = form.getValues();
+    setWizardStep('calculating');
+    await onSubmit(data);
+  };
+
+
+  const calculateFormattedResults = async (spendBand: string, formData: GuruFormValues): Promise<AnalysisResult['pricingByOrigin']> => {
+      const pricingByOrigin: AnalysisResult['pricingByOrigin'] = [];
+      const origin = formData.originLocation;
+
+      if (!origin) return [];
+      
+      const allCalculations: { destIndex: number, results: CalculatedPriceItem[] }[] = [];
+    
+      for (let i = 0; i < formData.destinations.length; i++) {
+          const dest = formData.destinations[i];
+          if (!dest.destinationLocation || dest.selectedServices.length === 0) continue;
+          
+          const freightFormValues: FreightFormValues = {
+              spendBand: spendBand,
+              originLocation: origin,
+              destinationLocation: dest.destinationLocation,
+              originQuery: formData.originLocationQuery,
+              destinationQuery: dest.destinationQuery,
+              items: [{ weight: dest.averageWeight, quantity: 1, length: 30, width: 30, height: 30 }],
+              globalNoCubic: false,
+              globalOnPallet: true,
+              selectedServices: dest.selectedServices,
+              additionalPercentageType: 'none',
+              applyGST: false,
+          };
+          
+          const results = await calculateAllFreightPrices(
+              freightFormValues, serviceSettings, surchargeDefinitions,
+              getRateFile('b2c'), getRateFile('regionallookup'), getRateFile('lcprdex'),
+              getRateFile('lcpprio'), getRateFile('lcpgo'), getRateFile('b2b_std'),
+              getRateFile('b2b_priority'), getRateFile('b2brdex'), pezoneData,
+              null, // peZoneLookupData is not needed here as it's handled internally in freightCalculations now.
+              getRateFile('pe1'), getRateFile('pe2'), getRateFile('pe3'),
+              getRateFile('pe4'), getRateFile('pe5'), null,
+              getRateFile('west_east'), getRateFile('ras')
+          );
+          allCalculations.push({ destIndex: i, results });
+      }
+  
+      const formattedResults = formData.destinations.map((location, index) => {
+          if (!location.destinationLocation) return null;
+          const calcsForThisLocation = allCalculations.find(c => c.destIndex === index);
+          const targetPrice = location.targetPrice;
+          
+          const getResultForService = (service: ServiceName) => {
+              // Important: Only find results for services the user explicitly selected for this destination.
+              if (!location.selectedServices.includes(service)) return undefined;
+              return calcsForThisLocation?.results.find(r => r.serviceName === service);
+          }
+
+          const waSpecialResult = getResultForService('WA PE Special');
+          const palletExpressResult = getResultForService('B2B Pallets Express');
+          const palletGeneralResult = getResultForService('B2B Pallets General Tiered');
+          const priorityResult = getResultForService('B2B Priority');
+          const roadResult = getResultForService('B2B Std');
+          const b2cStdResult = getResultForService('B2C Std');
+          const b2cPrioResult = getResultForService('B2C Priority');
+          
+          const calcSavings = (price: number | null | undefined) => (price !== null && price !== undefined) ? targetPrice - price : null;
+
+          return {
+              destination: `${location.destinationLocation.suburb || 'N/A'} ${location.destinationLocation.state} ${location.destinationLocation.postcode || ''}`,
+              waSpecialPrice: waSpecialResult?.finalPrice ?? null,
+              waSpecialSavings: calcSavings(waSpecialResult?.finalPrice),
+              palletExpressPrice: palletExpressResult?.finalPrice ?? null,
+              palletExpressSavings: calcSavings(palletExpressResult?.finalPrice),
+              palletGeneralPrice: palletGeneralResult?.finalPrice ?? null,
+              palletGeneralSavings: calcSavings(palletGeneralResult?.finalPrice),
+              priorityPrice: priorityResult?.finalPrice ?? null,
+              prioritySavings: calcSavings(priorityResult?.finalPrice),
+              roadPrice: roadResult?.finalPrice ?? null,
+              roadSavings: calcSavings(roadResult?.finalPrice),
+              b2cStdPrice: b2cStdResult?.finalPrice ?? null,
+              b2cStdSavings: calcSavings(b2cStdResult?.finalPrice),
+              b2cPrioPrice: b2cPrioResult?.finalPrice ?? null,
+              b2cPrioSavings: calcSavings(b2cPrioResult?.finalPrice),
+          };
+      }).filter(Boolean) as AnalysisResult['pricingByOrigin'][0]['results'];
+
+      pricingByOrigin.push({
+          origin: origin,
+          originName: formData.originLocationQuery,
+          results: formattedResults
+      });
+      return pricingByOrigin;
+  }
+
+  const handleSpendBandChange = async (newSpendBand: string) => {
+    setSelectedSpendBand(newSpendBand);
+    setIsLoading(true);
+    const formData = form.getValues();
+    const newPricing = await calculateFormattedResults(newSpendBand, formData);
+    setDisplayPricingByOrigin(newPricing);
+    setIsLoading(false);
+  };
+
+  const onSubmit = async (data: GuruFormValues) => {
+    if (areRatesLoading) {
+      toast({ title: "Please wait", description: "Rate data is still loading. Please try again in a moment.", variant: "default"});
+      setWizardStep('summary');
+      return;
+    }
+    
+    try {
+        await new Promise(res => setTimeout(res, 500));
+        
+        const weeklySpend = (data.palletsPerWeek! * perfectPlanPalletRate) + (data.parcelsPerWeek! * perfectPlanParcelRate) + (data.satchelsPerWeek! * perfectPlanSatchelRate);
+        const calculatedMonthlySpend = weeklySpend * 4.3;
+
+        let finalMonthlySpend = calculatedMonthlySpend;
+        let spendSource: 'User-provided' | 'Calculated' = 'Calculated';
+
+        const userMonthlySpend = data.monthlySpend || 0;
+        if (userMonthlySpend > 0) {
+            const variance = Math.abs(calculatedMonthlySpend - userMonthlySpend) / userMonthlySpend;
+            if (variance <= 0.10) {
+                finalMonthlySpend = userMonthlySpend;
+                spendSource = 'User-provided';
+            }
+        }
+        
+        const annualSpend = finalMonthlySpend * 12;
+
+        let recommendedSpendBand: string;
+        if (annualSpend < 50000) recommendedSpendBand = "1";
+        else if (annualSpend < 200000) recommendedSpendBand = "2";
+        else if (annualSpend < 350000) recommendedSpendBand = "3";
+        else if (annualSpend < 500000) recommendedSpendBand = "4";
+        else recommendedSpendBand = "5";
+
+        const formattedResults = await calculateFormattedResults(recommendedSpendBand, data);
+        
+        setAnalysisResult({
+            analysis: { calculatedMonthlySpend: finalMonthlySpend, spendSource, recommendedSpendBand },
+            pricingByOrigin: formattedResults,
+        });
+        setDisplayPricingByOrigin(formattedResults);
+        setSelectedSpendBand(recommendedSpendBand);
+
+    } catch(e) {
+        console.error("Guru page calculation failed:", e);
+        toast({ title: "Calculation Failed", description: "An error occurred while calculating the solution. Please check the console.", variant: "destructive"});
+    } finally {
+        setWizardStep('results');
+    }
+  };
+  
+  const handlePrint = () => { window.print(); };
+
+  const getVarianceDisplay = (savings: number | null) => {
+    if (savings === null) return null;
+    const isInvestigationNeeded = savings < -200;
+    
+    if (isInvestigationNeeded) {
+        return <span className="text-xs text-amber-600">(Investigate)</span>;
+    }
+    
+    const colorClass = savings >= 0 ? 'text-green-600' : 'text-red-600';
+    return <span className={`text-xs ${colorClass}`}>{formatCurrency(savings)}</span>;
+  };
+  
+  const handleCreateRateCard = async () => {
+    if (!analysisResult) { toast({ title: "No analysis available", description: "Please generate a solution first.", variant: "destructive"}); return; }
+    if (Object.values(selectedServicesForCard).every(v => !v)) { toast({ title: "No services selected", description: "Please select at least one service to create a rate card.", variant: "destructive"}); return; }
+    if (allPostcodes.length === 0) { toast({ title: "Postcode data not loaded", description: "Cannot generate full rate card without postcode data.", variant: "destructive" }); return; }
+
+    setIsGeneratingCard(true);
+    setRateCardData([]);
+    
+    const newRateCardData: RateCardDisplayEntry[] = [];
+    const formData = form.getValues();
+    const customerLocation = formData.originLocation;
+    if (!customerLocation) {
+        toast({ title: "Error", description: "Sending location data is missing.", variant: "destructive"});
+        setIsGeneratingCard(false);
+        return;
+    }
+    const spendBand = selectedSpendBand || analysisResult.analysis.recommendedSpendBand;
+    
+    const allRateDataArgs = { 
+        b2cRatesData: getRateFile('b2c'), regionalLookupData: getRateFile('regionallookup'), lcprdexData: getRateFile('lcprdex'), 
+        lcpprioData: getRateFile('lcpprio'), b2brdexData: getRateFile('b2brdex'), b2bPriorityData: getRateFile('b2b_priority'),
+        pezoneData: getRateFile('pezone'), 
+        palletSpendBandData: getRateFile(`pe${spendBand}` as RateFileType), 
+        westEastData: getRateFile('west_east')
+    };
+
+    const serviceMap: Partial<Record<ServiceType, ServiceName[]>> = {
+      // If user selects palletExpress or palletGeneral, we want to calculate for BOTH B2B Pallets services.
+      palletExpress: ['B2B Pallets Express', 'B2B Pallets General Tiered'], 
+      palletGeneral: ['B2B Pallets Express', 'B2B Pallets General Tiered'], 
+      waPeSpecial: ['WA PE Special'],
+      priority: ['B2B Priority'], road: ['B2B Std'], lcpStd: ['LCP Std'], lcpPrio: ['LCP Priority'], b2c: ['B2C Std', 'B2C Priority'],
+    };
+
+    const getPeZone = (location: PostcodeData): string => {
+        if (!pezoneData || !location || !location.postcode) return 'N/A';
+        const peEntry = (pezoneData as PEZonesEntry[]).find(p => p["Rate Area"] === location.postcode);
+        return peEntry?.["Rate Area Zone Description"] || 'N/A (Not in PEZones.json)';
+    };
+
+    const uniqueIpecZones = [...new Set(allPostcodes.map(p => p.ipec).filter(Boolean))];
+    const uniquePrioZones = [...new Set(allPostcodes.map(p => p.prio).filter(Boolean))];
+    const uniquePeZones = allRateDataArgs.pezoneData ? [...new Set((allRateDataArgs.pezoneData as PEZonesEntry[]).map(p => p["Rate Area Zone Description"]).filter(Boolean))] : [];
+    
+    const getSampleForZone = (zone: string, type: 'ipec' | 'prio' | 'pe'): PostcodeData | undefined => {
+        if (type === 'pe') {
+            const peEntry = (pezoneData as PEZonesEntry[])?.find(p => p["Rate Area Zone Description"] === zone);
+            const postcodeEntry = peEntry ? allPostcodes.find(p => p.postcode === peEntry["Rate Area"]) : undefined;
+            return postcodeEntry;
+        }
+        return allPostcodes.find(p => p[type] === zone);
+    };
+    
+    const getRawRates = (serviceName: ServiceName, origin: PostcodeData, dest: PostcodeData): Partial<RateCardDisplayEntry> => {
+        let rateEntry: any; let logicKey: string = 'N/A';
+
+        if (serviceName === 'B2B Std') {
+            logicKey = `Parcel${origin.ipec}${dest.ipec}`;
+            rateEntry = (allRateDataArgs.b2brdexData as B2BRdexRateEntry[])?.find(r => r.Logic === logicKey);
+            return rateEntry ? { basicRate: String(rateEntry[`B${spendBand}`]), kiloRate: String(rateEntry[`K${spendBand}`]), minRate: String(rateEntry[`M${spendBand}`]) } : {};
+        }
+        if (serviceName === 'B2B Priority') {
+            logicKey = `02 02${origin.prio}${dest.prio}`;
+            rateEntry = (allRateDataArgs.b2bPriorityData as B2BPriorityRateEntry[])?.find(r => r.Logic === logicKey);
+            return rateEntry ? { basicRate: String(rateEntry[`B${spendBand}`]), kiloRate: String(rateEntry[`K${spendBand}`]), minRate: 'N/A' } : {};
+        }
+        if (serviceName.startsWith('B2B Pallets')) {
+            const originPE = getPeZone(origin); const destPE = getPeZone(dest);
+            if(originPE !== 'N/A' && destPE !== 'N/A') {
+               logicKey = `${originPE.toUpperCase()}${destPE.toUpperCase()}`;
+               rateEntry = (allRateDataArgs.palletSpendBandData as TieredPalletRateEntry[])?.find(r => r["From - To"] === logicKey);
+
+               if(rateEntry) {
+                   const prefix = serviceName === 'B2B Pallets Express' ? 'E' : 'G';
+                   const minField = prefix === 'E' ? 'Eminimum' : 'GMinimum';
+                   const tier250Field = prefix === 'E' ? 'E0 - 250' : 'G0 - 250';
+                   const tier750Field = prefix === 'E' ? 'E251 - 750' : 'G251 - 750';
+                   const tier1500Field = prefix === 'E' ? 'E751 - 1500' : 'G751 - 1500';
+                   const tier3000Field = prefix === 'E' ? 'E1501 - 3000' : 'G1501 - 3000';
+                   const tier5000Field = prefix === 'E' ? 'E3001 - 5000' : 'G3001 - 5000';
+                   const tier5001Field = prefix === 'E' ? 'E5001 - 99999' : 'G5001 - 99999';
+
+                   return { 
+                       basicRate: String(rateEntry[`${prefix}Basic`]), minRate: String(rateEntry[minField]), 
+                       tier_0_250: String(rateEntry[tier250Field]), tier_251_750: String(rateEntry[tier750Field]), 
+                       tier_751_1500: String(rateEntry[tier1500Field]), tier_1501_3000: String(rateEntry[tier3000Field]), 
+                       tier_3001_5000: String(rateEntry[tier5000Field]), tier_5001_plus: String(rateEntry[tier5001Field]), 
+                   };
+               }
+            }
+        }
+        if (serviceName === 'WA PE Special') {
+            const cityToPrioMap: Record<string, string> = { "SYDNEY": "SYD", "MELBOURNE": "MEL", "BRISBANE": "BNE", "ADELAIDE": "ADL" };
+            const invertedCityToPrioMap = Object.fromEntries(Object.entries(cityToPrioMap).map(([k, v]) => [v, k]));
+            const destinationCity = invertedCityToPrioMap[dest.prio];
+            rateEntry = (allRateDataArgs.westEastData as WestEastRateEntry[])?.find(r => r.To.toUpperCase() === destinationCity);
+            return rateEntry ? { basicRate: String(rateEntry.Basic), kiloRate: String(rateEntry['0-99999KGS']), minRate: String(rateEntry.Minimum) } : {};
+        }
+        if (serviceName === 'B2C Std' || serviceName === 'B2C Priority') {
+            const regionalEntry = (allRateDataArgs.regionalLookupData as RegionalLookupEntry[])?.find(r => r.LUP === `${origin.prio}${dest.prio}`);
+            if(regionalEntry) {
+                logicKey = `${spendBand}${regionalEntry.Journey}`; rateEntry = (allRateDataArgs.b2cRatesData as B2CRateEntry[])?.find(r => r.Logic === logicKey);
+                 if(rateEntry) {
+                    const prefix = serviceName === 'B2C Std' ? 'b2c' : 'b2cp'; const suffix = serviceName === 'B2C Std' ? 'kg' : 'pkg';
+                    return { basicRate: String(rateEntry[`${prefix}1`]), kiloRate: String(rateEntry[`${prefix}3`]), minRate: String(rateEntry[`${prefix}5`]), additionalRate: String(rateEntry[suffix]) }
+                 }
+            }
+        }
+        if (serviceName === 'LCP Std') {
+            logicKey = `LCPRDEX${origin.ipec}${dest.ipec}`; rateEntry = (allRateDataArgs.lcprdexData as LCPRdexRateEntry[])?.find(r => r.Logic === logicKey);
+            return rateEntry ? { basicRate: String(rateEntry.LCPRDEXBasic), kiloRate: String(rateEntry.LCPRDEXKilo), minRate: 'N/A' } : {};
+        }
+        if (serviceName === 'LCP Priority') {
+            logicKey = `LCPPrio${origin.prio}${dest.prio}`; rateEntry = (allRateDataArgs.lcpprioData as LCPPrioRateEntry[])?.find(r => r.Logic === logicKey);
+            return rateEntry ? { basicRate: String(rateEntry.LCPPrioBasic), kiloRate: String(rateEntry.LCPPrioKg), minRate: 'N/A' } : {};
+        }
+        return {};
+    };
+
+    const uniqueServicesToCalculate = new Set<ServiceName>();
+    for (const [serviceType, isSelected] of Object.entries(selectedServicesForCard)) {
+      if (isSelected) {
+        const services = serviceMap[serviceType as ServiceType] || [];
+        services.forEach(s => uniqueServicesToCalculate.add(s));
+      }
+    }
+    
+    for (const serviceName of Array.from(uniqueServicesToCalculate)) {
+      let destTargets: { zone: string, type: 'ipec' | 'prio' | 'pe' }[];
+      
+      if (serviceName.includes('Std') && !serviceName.includes('Pallet')) destTargets = uniqueIpecZones.map(zone => ({ zone, type: 'ipec' }));
+      else if (serviceName.includes('Priority') || serviceName.includes('B2C') || serviceName.includes('WA PE Special')) destTargets = uniquePrioZones.map(zone => ({ zone, type: 'prio' }));
+      else if (serviceName.includes('Pallet')) destTargets = uniquePeZones.map(zone => ({ zone, type: 'pe' }));
+      else destTargets = [];
+
+      for (const destTarget of destTargets) {
+        const sampleDest = getSampleForZone(destTarget.zone, destTarget.type);
+        if(!sampleDest) continue;
+        
+        const outboundRates = getRawRates(serviceName, customerLocation, sampleDest);
+        if(Object.keys(outboundRates).length > 0) {
+            newRateCardData.push({ 
+                serviceName, spendBand, 
+                sendingPostcodeFull: `${customerLocation.suburb} ${customerLocation.postcode}`, 
+                originZone: destTarget.type === 'pe' ? getPeZone(customerLocation) : customerLocation[destTarget.type], 
+                destinationZone: destTarget.zone, 
+                zoneTypeDisplay: destTarget.type.toUpperCase(), ...outboundRates 
+            });
+        }
+        
+        const returnRates = getRawRates(serviceName, sampleDest, customerLocation);
+        if(Object.keys(returnRates).length > 0) {
+             newRateCardData.push({ 
+                serviceName, spendBand, 
+                sendingPostcodeFull: `${sampleDest.suburb} ${sampleDest.postcode}`, 
+                originZone: destTarget.zone, 
+                destinationZone: destTarget.type === 'pe' ? getPeZone(customerLocation) : customerLocation[destTarget.type], 
+                zoneTypeDisplay: destTarget.type.toUpperCase(), ...returnRates 
+            });
+        }
+      }
+    }
+    
+    setRateCardData(newRateCardData);
+    setPalletRateCardData(newRateCardData.filter(r => r.serviceName.includes('Pallet')));
+    setNonPalletRateCardData(newRateCardData.filter(r => !r.serviceName.includes('Pallet')));
+
+    setIsGeneratingCard(false);
+    toast({ title: "Rate Card Created", description: `Generated ${newRateCardData.length} rate entries.`});
+  };
+
+  const handleExportCsv = () => {
+    if (rateCardData.length === 0) { toast({ title: "No Data", description: "No rate card data to export.", variant: "destructive" }); return; }
+    
+    const headers = [ "Service", "Spend Band", "Sending Location", "Origin Zone", "Destination Zone", "Zone Type", "Basic/1kg", "Kilo/3kg", "Min/5kg", "Per Kg (>5kg)", "Cubic Factor", "0-250", "251-750", "751-1500", "1501-3000", "3001-5000", "5001+" ];
+    let csvContent = "data:text/csv;charset=utf-8," + headers.join(',') + '\r\n';
+    
+    rateCardData.forEach(rate => {
+      const row = [ rate.serviceName, `SB ${rate.spendBand}`, `"${rate.sendingPostcodeFull}"`, rate.originZone, `"${rate.destinationZone}"`, rate.zoneTypeDisplay, rate.basicRate ?? 'N/A', rate.kiloRate ?? 'N/A', rate.minRate ?? 'N/A', rate.additionalRate ?? 'N/A', rate.cubicFactor ?? 'N/A', rate.tier_0_250 ?? 'N/A', rate.tier_251_750 ?? 'N/A', rate.tier_751_1500 ?? 'N/A', rate.tier_1501_3000 ?? 'N/A', rate.tier_3001_5000 ?? 'N/A', rate.tier_5001_plus ?? 'N/A' ];
+      csvContent += row.join(',') + '\r\n';
+    });
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `Perfect_Plan_Rate_Card_${form.getValues('customerName').replace(/ /g, '_')}_${format(new Date(), 'yyyy-MM-dd')}.csv`);
+    document.body.appendChild(link); link.click(); document.body.removeChild(link);
+  };
+  
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' && e.target instanceof HTMLInputElement) {
+      e.preventDefault();
+      nextStep();
+    }
+  };
+
+  const serviceCheckboxes: { id: ServiceType; label: string }[] = [
+    { id: 'waPeSpecial', label: 'WA PE Special' },
+    { id: 'palletExpress', label: 'PE Express' },
+    { id: 'palletGeneral', label: 'PE General' },
+    { id: 'priority', label: 'Priority' },
+    { id: 'road', label: 'Road Exp.' },
+    { id: 'b2c', label: 'B2C' },
+    { id: 'lcpStd', label: 'LCP Std' },
+    { id: 'lcpPrio', label: 'LCP Prio' },
+  ];
+
+  return (
+    <div className="space-y-8">
+      <Card className="text-center">
+          <CardHeader>
+              <CardTitle>AI-Powered "Perfect Plan" Assistant</CardTitle>
+              <CardDescription>Answer a few questions to get an AI-powered solution, spend band analysis, and reciprocal rate card for new customer opportunities.</CardDescription>
+          </CardHeader>
+          <CardContent>
+              <Button onClick={startWizard} size="lg">
+                  <Sparkles className="mr-2 h-5 w-5" /> Start New Perfect Plan
+              </Button>
+          </CardContent>
+      </Card>
+      
+      <Dialog open={wizardStep !== 'closed'} onOpenChange={(open) => !open && setWizardStep('closed')}>
+        <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col" onKeyDown={handleKeyDown}>
+            <DialogHeader className="flex-shrink-0">
+                <DialogTitle>Perfect Plan Assistant</DialogTitle>
+                <DialogDescription>
+                    {wizardStep === 'customerName' && "Let's start with the customer's name."}
+                    {wizardStep === 'sendingLocation' && `Where will the customer be sending freight from?`}
+                    {wizardStep === 'volumes' && "What are their estimated weekly volumes and monthly spend?"}
+                    {wizardStep === 'distributionProfile' && "Tell me about their distribution profile."}
+                    {wizardStep === 'destinations' && `Finally, what are some of their top destinations? (Destination ${destinationFields.length} of 5)`}
+                    {wizardStep === 'summary' && "Please review the entered information before generating the solution."}
+                    {wizardStep === 'calculating' && "Please wait while we generate the perfect plan..."}
+                    {wizardStep === 'results' && `Generated Solution for ${form.watch('customerName') || 'your customer'}.`}
+                </DialogDescription>
+            </DialogHeader>
+            <div className="flex-grow overflow-y-auto pr-4 -mr-4 space-y-4">
+                {wizardStep === 'customerName' && (<div className="space-y-1"><Label>Customer Name</Label><WizardInput fieldName='customerName' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} autoFocus /><p className="text-sm text-destructive">{form.formState.errors.customerName?.message}</p></div>)}
+                
+                {wizardStep === 'sendingLocation' && (
+                    <div className="space-y-4">
+                        <Label>Sending Location</Label>
+                        <WizardInput fieldName='originLocationQuery' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} isLocation autoFocus allPostcodes={allPostcodes}
+                            onLocationSelect={(l: PostcodeData | null) => { 
+                                form.setValue('originLocation', l, { shouldValidate: true }); 
+                                if (l) form.setValue('originLocationQuery', `${l.suburb} ${l.state} ${l.postcode}`);
+                            }}
+                        />
+                        {form.formState.errors.originLocation && <p className="text-sm text-destructive">{form.formState.errors.originLocation?.message}</p>}
+                    </div>
+                )}
+                 
+                {wizardStep === 'volumes' && (
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-1"><Label>Pallets/week</Label><WizardInput type="number" fieldName='palletsPerWeek' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} autoFocus /></div>
+                        <div className="space-y-1"><Label>Parcels/week</Label><WizardInput type="number" fieldName='parcelsPerWeek' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} /></div>
+                        <div className="space-y-1"><Label>Satchels/week</Label><WizardInput type="number" fieldName='satchelsPerWeek' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} /></div>
+                        <div className="space-y-1"><Label>User-entered Monthly Spend ($)</Label><WizardInput type="number" fieldName='monthlySpend' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} /></div>
+                    </div>
+                )}
+                {wizardStep === 'distributionProfile' && (
+                    <div className="space-y-4">
+                        <Controller name="addressType" control={form.control} render={({ field }) => ( <div className="space-y-2"><Label>Address Type</Label><RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-4"><div className="flex items-center space-x-2"><RadioGroupItem value="Residential" id="res"/><Label htmlFor="res">Residential</Label></div><div className="flex items-center space-x-2"><RadioGroupItem value="Business" id="bus"/><Label htmlFor="bus">Business</Label></div><div className="flex items-center space-x-2"><RadioGroupItem value="Both" id="both-addr"/><Label htmlFor="both-addr">Both</Label></div></RadioGroup></div> )}/>
+                        <Controller name="distributionArea" control={form.control} render={({ field }) => ( <div className="space-y-2"><Label>Distribution Area</Label><RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-4"><div className="flex items-center space-x-2"><RadioGroupItem value="Metro" id="metro"/><Label htmlFor="metro">Metro</Label></div><div className="flex items-center space-x-2"><RadioGroupItem value="Regional" id="regional"/><Label htmlFor="regional">Regional</Label></div><div className="flex items-center space-x-2"><RadioGroupItem value="Both" id="both-dist"/><Label htmlFor="both-dist">Both</Label></div></RadioGroup></div> )}/>
+                    </div>
+                )}
+                
+                {wizardStep === 'destinations' && (
+                    <div className="space-y-4">
+                        {destinationFields.map((field, index) => (
+                             <Card key={field.id} className="p-4 bg-muted/30 border-none shadow-inner">
+                                <div className="flex justify-between items-center">
+                                    <Label>Destination {index + 1}</Label>
+                                    {destinationFields.length > 1 && <Button type="button" variant="ghost" size="icon" onClick={() => removeDestination(index)}><Trash2 className="h-4 w-4 text-destructive"/></Button>}
+                                </div>
+                                <div className="space-y-4 mt-2">
+                                    <div><Label>Destination Location</Label>
+                                    <WizardInput fieldName={`destinations.${index}.destinationQuery`} isLocation autoFocus={index === destinationFields.length - 1} form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} allPostcodes={allPostcodes}
+                                        onLocationSelect={(l: PostcodeData | null) => { 
+                                            form.setValue(`destinations.${index}.destinationLocation`, l, { shouldValidate: true });
+                                            if (l) form.setValue(`destinations.${index}.destinationQuery`, `${l.suburb} ${l.state} ${l.postcode}`);
+                                        }} />
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <Label>Services for this Destination</Label>
+                                        <Controller
+                                            name={`destinations.${index}.selectedServices`}
+                                            control={form.control}
+                                            render={({ field: controllerField }) => (
+                                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-2">
+                                                    {servicesForSelection.map(service => (
+                                                        <div key={service} className="flex items-center space-x-2">
+                                                            <Checkbox
+                                                                id={`dest-${index}-service-${service}`}
+                                                                checked={controllerField.value.includes(service)}
+                                                                onCheckedChange={checked => {
+                                                                    const newValue = checked
+                                                                        ? [...controllerField.value, service]
+                                                                        : controllerField.value.filter(s => s !== service);
+                                                                    controllerField.onChange(newValue);
+                                                                }}
+                                                            />
+                                                            <Label htmlFor={`dest-${index}-service-${service}`} className="text-sm font-normal">{service}</Label>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        />
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-2">
+                                        <div className="space-y-1"><Label>Avg. Weight (kg)</Label><WizardInput type="number" fieldName={`destinations.${index}.averageWeight`} form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} /></div>
+                                        <div className="space-y-1"><Label>Target Price ($)</Label><WizardInput type="number" fieldName={`destinations.${index}.targetPrice`} form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} /></div>
+                                    </div>
+                                </div>
+                            </Card>
+                        ))}
+                        {destinationFields.length < 5 && <Button type="button" variant="outline" onClick={() => appendDestination({ id: String(Date.now()), destinationQuery: '', destinationLocation: null, averageWeight: 0, targetPrice: 0, selectedServices: [] })}>Add Another Destination</Button>}
+                    </div>
+                )}
+                 
+                 {wizardStep === 'summary' && (
+                    <div className="space-y-4">
+                        <Card>
+                            <CardHeader className="flex flex-row items-center justify-between p-4"><CardTitle className="text-base">Customer &amp; Origin</CardTitle><Button size="sm" variant="ghost" onClick={() => setWizardStep('customerName')}><Edit className="mr-2 h-4 w-4"/>Edit</Button></CardHeader>
+                            <CardContent className="p-4 pt-0 text-sm">
+                                <p><strong>Name:</strong> {form.watch('customerName')}</p>
+                                <p><strong>From:</strong> {form.watch('originLocationQuery')}</p>
+                            </CardContent>
+                        </Card>
+                         <Card>
+                            <CardHeader className="flex flex-row items-center justify-between p-4"><CardTitle className="text-base">Volumes &amp; Profile</CardTitle><Button size="sm" variant="ghost" onClick={() => setWizardStep('volumes')}><Edit className="mr-2 h-4 w-4"/>Edit</Button></CardHeader>
+                            <CardContent className="p-4 pt-0 text-sm grid grid-cols-2 gap-2">
+                                <p><strong>Pallets/wk:</strong> {form.watch('palletsPerWeek')}</p>
+                                <p><strong>Parcels/wk:</strong> {form.watch('parcelsPerWeek')}</p>
+                                <p><strong>Satchels/wk:</strong> {form.watch('satchelsPerWeek')}</p>
+                                <p><strong>Monthly Spend:</strong> {formatCurrency(form.watch('monthlySpend'))}</p>
+                                <p><strong>Address Type:</strong> {form.watch('addressType')}</p>
+                                <p><strong>Distribution Area:</strong> {form.watch('distributionArea')}</p>
+                            </CardContent>
+                        </Card>
+                         <Card>
+                            <CardHeader className="flex flex-row items-center justify-between p-4"><CardTitle className="text-base">Destinations</CardTitle><Button size="sm" variant="ghost" onClick={() => setWizardStep('destinations')}><Edit className="mr-2 h-4 w-4"/>Edit</Button></CardHeader>
+                            <CardContent className="p-4 pt-0 text-sm space-y-2">
+                               {form.watch('destinations').map((dest, i) => (
+                                    <div key={i} className="p-2 border-b">
+                                        <p><strong>To:</strong> {dest.destinationQuery}</p>
+                                        <p><strong>Avg. Wt:</strong> {dest.averageWeight} kg, <strong>Target Price:</strong> {formatCurrency(dest.targetPrice)}</p>
+                                        <p className="text-xs text-muted-foreground"><strong>Services:</strong> {dest.selectedServices.join(', ')}</p>
+                                    </div>
+                                ))}
+                            </CardContent>
+                        </Card>
+                    </div>
+                 )}
+                {wizardStep === 'calculating' && (
+                  <div className="flex items-center justify-center space-x-2 text-muted-foreground h-40">
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                    <span>Calculating...</span>
+                  </div>
+                )}
+                 {wizardStep === 'results' && analysisResult && (
+                    <div className="space-y-6">
+                        <Card className="bg-muted/30 p-4">
+                            <CardHeader className="p-0 pb-2"><CardTitle className="text-lg flex items-center"><BarChart className="mr-2"/>Analysis Summary</CardTitle></CardHeader>
+                            <CardContent className="p-0 text-sm space-y-2">
+                                <p><strong className="text-foreground">Monthly Spend:</strong> {formatCurrency(analysisResult.analysis.calculatedMonthlySpend)} (source: {analysisResult.analysis.spendSource})</p>
+                                <p><strong className="text-foreground">Estimated Annual Spend:</strong> {formatCurrency(analysisResult.analysis.calculatedMonthlySpend * 12)}</p>
+                                 <div className="flex items-center gap-2">
+                                    <strong className="text-foreground">Spend Band:</strong>
+                                    {selectedSpendBand ? (<Select onValueChange={handleSpendBandChange} value={selectedSpendBand}><SelectTrigger className="w-[180px] h-8 bg-background"><SelectValue /></SelectTrigger><SelectContent>{globalSpendBands.map(band => (<SelectItem key={band} value={band}>{band === analysisResult.analysis.recommendedSpendBand ? `SB ${band} (Recommended)` : `Spend Band ${band}`}</SelectItem>))}</SelectContent></Select>) : (<span className="font-semibold text-primary">{analysisResult.analysis.recommendedSpendBand}</span>)}
+                                </div>
+                            </CardContent>
+                        </Card>
+                        <div className="space-y-8">
+                            {displayPricingByOrigin.length > 0 && displayPricingByOrigin.map((originData, originIndex) => (
+                              <div key={originIndex}>
+                                <div className="flex justify-between items-center mb-2">
+                                  <h3 className="text-xl font-semibold flex items-center"><Package className="mr-2"/>Pricing from <span className="text-primary ml-1">{originData.originName}</span></h3>
+                                  <Button size="sm" variant="outline" onClick={() => setWizardStep('destinations')}><Edit className="mr-2 h-4 w-4"/>Edit Destinations</Button>
+                                </div>
+                                <Table><TableHeader><TableRow>
+                                    <TableHead>Destination</TableHead><TableHead className="text-center">WA Special</TableHead><TableHead className="text-center">PE Express</TableHead><TableHead className="text-center">PE General</TableHead><TableHead className="text-center">Priority</TableHead><TableHead className="text-center">Road Exp.</TableHead><TableHead className="text-center">B2C Std</TableHead><TableHead className="text-center">B2C Prio</TableHead>
+                                </TableRow></TableHeader><TableBody>
+                                {originData.results.map((loc, locIndex) => (
+                                    <TableRow key={locIndex}>
+                                        <TableCell className="font-medium">{loc.destination}</TableCell>
+                                        <TableCell className="text-center"><div>{formatCurrency(loc.waSpecialPrice)}</div>{getVarianceDisplay(loc.waSpecialSavings)}</TableCell>
+                                        <TableCell className="text-center"><div>{formatCurrency(loc.palletExpressPrice)}</div>{getVarianceDisplay(loc.palletExpressSavings)}</TableCell>
+                                        <TableCell className="text-center"><div>{formatCurrency(loc.palletGeneralPrice)}</div>{getVarianceDisplay(loc.palletGeneralSavings)}</TableCell>
+                                        <TableCell className="text-center"><div>{formatCurrency(loc.priorityPrice)}</div>{getVarianceDisplay(loc.prioritySavings)}</TableCell>
+                                        <TableCell className="text-center"><div>{formatCurrency(loc.roadPrice)}</div>{getVarianceDisplay(loc.roadSavings)}</TableCell>
+                                        <TableCell className="text-center"><div>{formatCurrency(loc.b2cStdPrice)}</div>{getVarianceDisplay(loc.b2cStdSavings)}</TableCell>
+                                        <TableCell className="text-center"><div>{formatCurrency(loc.b2cPrioPrice)}</div>{getVarianceDisplay(loc.b2cPrioSavings)}</TableCell>
+                                    </TableRow>
+                                ))}
+                                </TableBody></Table>
+                              </div>
+                            ))}
+                        </div>
+                        <div className="mt-8 pt-6 border-t">
+                            <h3 className="text-xl font-semibold mb-2 flex items-center"><CheckSquare className="mr-2"/>Create Rate Card</h3>
+                            <p className="text-sm text-muted-foreground mb-4">Select services to include in a rate card. Uses the first sending location as primary.</p>
+                            <div className="flex flex-wrap gap-x-6 gap-y-3 p-4 border rounded-md">
+                                {serviceCheckboxes.map(service => (
+                                  <div key={service.id} className="flex items-center space-x-2">
+                                    <Checkbox 
+                                      id={`cb-${service.id}`} 
+                                      checked={selectedServicesForCard[service.id]} 
+                                      onCheckedChange={(checked) => 
+                                        setSelectedServicesForCard(prev => ({...prev, [service.id]: !!checked}))
+                                      }
+                                    />
+                                    <Label htmlFor={`cb-${service.id}`} className="font-normal">{service.label}</Label>
+                                  </div>
+                                ))}
+                            </div>
+                            <Button onClick={handleCreateRateCard} disabled={isGeneratingCard} className="mt-4">{isGeneratingCard ? <><Loader2 className="mr-2 h-4 w-4 animate-spin"/>Generating...</> : <><RefreshCcw className="mr-2 h-4 w-4"/>Create Reciprocal Rate Card</>}</Button>
+                        </div>
+                        {rateCardData.length > 0 && (
+                            <>
+                                <div className="mt-8">
+                                    <div className="flex justify-between items-center mb-4">
+                                        <h3 className="text-xl font-semibold flex items-center"><TableIcon className="mr-2"/>Parcel & Satchel Rates</h3>
+                                        <Button onClick={handleExportCsv} variant="outline" size="sm"><Download className="mr-2 h-4 w-4"/>Export Full CSV</Button>
+                                    </div>
+                                    {nonPalletRateCardData.length > 0 ? (
+                                        <Table>
+                                            <TableHeader><TableRow>
+                                                <TableHead>Service</TableHead><TableHead>Sending Loc</TableHead><TableHead>Dest Zone</TableHead>
+                                                <TableHead className="text-right">Basic/1kg</TableHead><TableHead className="text-right">Kilo/3kg</TableHead><TableHead className="text-right">Min/5kg</TableHead><TableHead className="text-right">Add. Rate</TableHead>
+                                            </TableRow></TableHeader>
+                                            <TableBody>
+                                                {nonPalletRateCardData.map((rate, index) => (
+                                                    <TableRow key={`nonpallet-${index}`}>
+                                                        <TableCell>{rate.serviceName}</TableCell><TableCell>{rate.sendingPostcodeFull}</TableCell><TableCell>{rate.destinationZone}</TableCell>
+                                                        <TableCell className="text-right">{formatCurrency(rate.basicRate)}</TableCell>
+                                                        <TableCell className="text-right">{formatCurrency(rate.kiloRate)}</TableCell>
+                                                        <TableCell className="text-right">{formatCurrency(rate.minRate)}</TableCell>
+                                                        <TableCell className="text-right">{formatCurrency(rate.additionalRate)}</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    ) : (
+                                        <p className="text-sm text-muted-foreground">No non-pallet rates were generated for the selected services.</p>
+                                    )}
+                                </div>
+                                <div className="mt-8">
+                                    <h3 className="text-xl font-semibold flex items-center mb-4"><TableIcon className="mr-2"/>Pallet Rates</h3>
+                                    {palletRateCardData.length > 0 ? (
+                                        <Table>
+                                            <TableHeader><TableRow>
+                                                <TableHead>Service</TableHead><TableHead>Sending Loc</TableHead><TableHead>Dest Zone</TableHead>
+                                                <TableHead className="text-right">Basic</TableHead><TableHead className="text-right">Min</TableHead>
+                                                <TableHead className="text-right">0-250</TableHead><TableHead className="text-right">251-750</TableHead><TableHead className="text-right">751-1500</TableHead><TableHead className="text-right">1501-3000</TableHead><TableHead className="text-right">3001-5000</TableHead><TableHead className="text-right">5001+</TableHead>
+                                            </TableRow></TableHeader>
+                                            <TableBody>
+                                                {palletRateCardData.map((rate, index) => (
+                                                    <TableRow key={`pallet-${index}`}>
+                                                        <TableCell>{rate.serviceName}</TableCell><TableCell>{rate.sendingPostcodeFull}</TableCell><TableCell>{rate.destinationZone}</TableCell>
+                                                        <TableCell className="text-right">{formatCurrency(rate.basicRate)}</TableCell>
+                                                        <TableCell className="text-right">{formatCurrency(rate.minRate)}</TableCell>
+                                                        <TableCell className="text-right">{formatCurrency(rate.tier_0_250)}</TableCell>
+                                                        <TableCell className="text-right">{formatCurrency(rate.tier_251_750)}</TableCell>
+                                                        <TableCell className="text-right">{formatCurrency(rate.tier_751_1500)}</TableCell>
+                                                        <TableCell className="text-right">{formatCurrency(rate.tier_1501_3000)}</TableCell>
+                                                        <TableCell className="text-right">{formatCurrency(rate.tier_3001_5000)}</TableCell>
+                                                        <TableCell className="text-right">{formatCurrency(rate.tier_5001_plus)}</TableCell>
+                                                    </TableRow>
+                                                ))}
+                                            </TableBody>
+                                        </Table>
+                                    ) : (
+                                        <p className="text-sm text-muted-foreground">No pallet rates were generated for the selected services.</p>
+                                    )}
+                                </div>
+                            </>
+                        )}
+                    </div>
+                 )}
+            </div>
+            
+            <DialogFooter className="flex-shrink-0">
+                 <div className="flex justify-between w-full">
+                    <Button variant="ghost" onClick={() => setWizardStep('closed')}>Cancel</Button>
+                    {(wizardStep !== 'calculating' && wizardStep !== 'summary' && wizardStep !== 'results') && (
+                        <Button onClick={nextStep} type="button">Next <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                    )}
+                    {wizardStep === 'summary' && (
+                        <Button onClick={handleGetSolution}>Get Solution</Button>
+                    )}
+                    {wizardStep === 'results' && (
+                       <div className="flex gap-2">
+                        <Button onClick={handlePrint} variant="outline"><Printer className="mr-2 h-4 w-4"/>Print</Button>
+                        <Button onClick={startWizard}><Sparkles className="mr-2 h-4 w-4"/>Start New</Button>
+                       </div>
+                    )}
+                </div>
+            </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
+
+======================================================================
+2. Page Entry Point: /src/app/ai-guru/page.tsx
+======================================================================
+
+import AIGuruPageContent from "./page-content";
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Perfect Plan - FreightMate",
+  description: "Get AI-powered solutions and spend band analysis for new customer opportunities.",
+};
+
+export default function AIGuruPage() {
+  return <AIGuruPageContent />;
+}
+
+
+======================================================================
+3. Core Calculation Logic: /src/lib/freightCalculations.ts
+======================================================================
+
+import type {
+  FreightFormValues,
+  CalculatedPriceItem,
+  ServiceSettings,
+  SurchargeDefinition,
+  B2CRateEntry,
+  RegionalLookupEntry,
+  LCPRdexRateEntry,
+  LCPPrioRateEntry,
+  LCPGoRateEntry,
+  B2BPriorityRateEntry,
+  B2BRdexRateEntry,
+  TieredPalletRateEntry,
+  ServiceName,
+  FreightItem,
+  B2BStdRateEntry,
+  PEZonesEntry,
+  ActiveSurchargeSetting,
+  WestEastRateEntry,
+  RASRateEntry,
+  PostcodeData,
+} from './types';
+import { ALL_SERVICES, NON_PALLET_SERVICES, PALLET_LIKE_SERVICES, PALLET_SERVICES, PRIORITY_MAPPED_SERVICES, RAS_APPLICABLE_SERVICES } from './types';
+import type { PEZoneLookupEntry } from '@/app/api/pezone-lookup/route';
+
+const roundUp = (num: number, decimalPlaces: number = 0): number => {
+  const factor = Math.pow(10, decimalPlaces);
+  return Math.ceil(num * factor) / factor;
+};
+
+const formatCurrency = (amount: number | null) => {
+  if (amount === null || isNaN(amount)) return "N/A";
+  return amount.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+};
+
+
+export function calculateChargeableWeight(
+  items: FreightFormValues['items'],
+  cubicFactor: number,
+  globalNoCubic: boolean
+): number {
+  let totalDeadWeight = 0;
+  let totalCubicWeight = 0;
+
+  items.forEach(item => {
+    const deadWeightKg = item.weight * item.quantity;
+    totalDeadWeight += deadWeightKg;
+
+    if (!globalNoCubic && item.length != null && item.length > 0 && item.width != null && item.width > 0 && item.height != null && item.height > 0) {
+      const cubicVolumeM3 = (item.length / 100) * (item.width / 100) * (item.height / 100) * item.quantity;
+      const itemCubicWeightKg = cubicVolumeM3 * cubicFactor;
+      totalCubicWeight += itemCubicWeightKg;
+    }
+  });
+
+  return roundUp(Math.max(totalDeadWeight, totalCubicWeight));
+}
+
+function calculateTotalDeadWeight(items: FreightFormValues['items']): number {
+  return items.reduce((sum, item) => sum + (item.weight * item.quantity), 0);
+}
+
+const GST_RATE = 0.10;
+
+
+export async function calculateAllFreightPrices(
+  formData: FreightFormValues,
+  allServiceSettings: ServiceSettings[],
+  allSurchargeDefinitions: SurchargeDefinition[],
+  b2cRatesData: B2CRateEntry[] | undefined,
+  regionalLookupData: RegionalLookupEntry[] | undefined,
+  lcprdexData: LCPRdexRateEntry[] | undefined,
+  lcpprioData: LCPPrioRateEntry[] | undefined,
+  lcpgoData: LCPGoRateEntry[] | undefined,
+  _b2bStdData_unused: B2BStdRateEntry[] | undefined,
+  b2bPriorityData: B2BPriorityRateEntry[] | undefined,
+  b2brdexData: B2BRdexRateEntry[] | undefined,
+  pezoneData: PEZonesEntry[] | undefined,
+  _peZoneLookupData_unused: PEZoneLookupEntry[] | undefined,
+  pe1Data: TieredPalletRateEntry[] | undefined,
+  pe2Data: TieredPalletRateEntry[] | undefined,
+  pe3Data: TieredPalletRateEntry[] | undefined,
+  pe4Data: TieredPalletRateEntry[] | undefined,
+  pe5Data: TieredPalletRateEntry[] | undefined,
+  pallet6Data: TieredPalletRateEntry[] | undefined,
+  westEastData: WestEastRateEntry[] | undefined,
+  rasData: RASRateEntry[] | undefined
+): Promise<CalculatedPriceItem[]> {
+
+  const {
+    originLocation, destinationLocation, spendBand, items,
+    globalNoCubic, globalOnPallet,
+    additionalPercentageType, additionalPercentageCustom, applyGST,
+    accountTransferRequired, afterHoursCollection, afterHoursDelivery,
+    publicHolidayService, bookInDeliveryRequired, dangerousGoodsConsignment,
+    handUnloadRequired, routeViaMelbourne, globalExtras
+  } = formData;
+
+  const totalExtrasAmount = globalExtras || 0;
+
+  const initialCalculatedPriceItem: Omit<CalculatedPriceItem, 'serviceName' | 'isApplicable' | 'remarks'> = {
+    baseRate: null,
+    chargeableWeight: 0,
+    chargeZoneUsed: "N/A",
+    fuelSurchargeAmount: 0,
+    fuelSurchargePercentApplied: undefined,
+    securitySurchargePercentApplied: undefined,
+    otherSurcharges: [],
+    totalSurcharges: 0,
+    totalExtrasAmount: totalExtrasAmount,
+    subTotalBeforeMarkupAndGST: null,
+    additionalMarkupPercentApplied: null,
+    additionalMarkupAmount: null,
+    subTotalBeforeGST: null,
+    gstAmount: null,
+    finalPrice: null,
+    calculationFormula: undefined,
+    rateEntryUsed: undefined,
+  };
+
+  if (!originLocation || !destinationLocation) {
+    const defaultRemarks = ["Origin or Destination not selected."];
+    const initialResults = ALL_SERVICES.map(serviceName => ({
+        ...initialCalculatedPriceItem,
+        serviceName,
+        chargeZoneUsed: "N/A (Origin/Dest Missing)",
+        fuelSurchargePercentApplied: allServiceSettings.find(s => s.id === serviceName)?.fuelSurchargePercent || 0,
+        remarks: defaultRemarks,
+        isApplicable: false,
+    }));
+     if (formData.enableOtherRate) {
+        initialResults.push({
+            ...initialCalculatedPriceItem,
+            serviceName: "Manual Rate",
+            remarks: defaultRemarks, isApplicable: false,
+        });
+    }
+    return initialResults;
+  }
+
+  const results: CalculatedPriceItem[] = [];
+
+  const getPEZone = (location: PostcodeData | null): string | undefined => {
+    if (!pezoneData || !location || !location.postcode) {
+      return undefined;
+    }
+    const peEntry = pezoneData.find(p => p["Rate Area"] === location.postcode);
+    return peEntry ? peEntry["Rate Area Zone Description"] : undefined;
+  };
+  
+  const sanitizePEZoneForLUP = (zone: string | undefined): string | undefined => {
+    return zone ? zone.toUpperCase().replace(/\s+/g, '') : undefined;
+  }
+
+  for (const uiServiceName of ALL_SERVICES) {
+    const serviceConfig = allServiceSettings.find(s => s.id === uiServiceName);
+     let currentResult: CalculatedPriceItem = {
+        ...initialCalculatedPriceItem,
+        serviceName: uiServiceName,
+        isApplicable: true,
+        remarks: [],
+        fuelSurchargePercentApplied: serviceConfig?.fuelSurchargePercent || 0,
+    };
+
+    if (!serviceConfig) {
+        currentResult.remarks.push("Service configuration not found.");
+        currentResult.isApplicable = false;
+        results.push(currentResult);
+        continue;
+    }
+
+    let chargeableWeightKg: number;
+    let baseFreight: number | null = null;
+    let chargeZoneUsed: string = "N/A";
+    let securitySurchargePercentAppliedLocally: number | undefined = undefined;
+
+    let isCurrentServicePallet = PALLET_LIKE_SERVICES.includes(uiServiceName as ServiceName);
+    let cubicFactor = isCurrentServicePallet ? 333 : 250;
+
+    chargeableWeightKg = calculateChargeableWeight(items, cubicFactor, globalNoCubic);
+    currentResult.chargeableWeight = chargeableWeightKg;
+    const totalDeadWeightKg = calculateTotalDeadWeight(items);
+
+    const calculateGenericB2BStyleRate = (
+        rateData: any[] | undefined, logicPrefix: string, zoneKeySource: 'ipec' | 'prio',
+        fileName: string, fieldPrefix: 'B'
+    ): void => {
+        chargeZoneUsed = `N/A (${uiServiceName} Initial)`;
+        if (!rateData || rateData.length === 0) {
+            currentResult.remarks.push(`${uiServiceName} rates data (${fileName}) could not be loaded or is empty.`);
+            currentResult.isApplicable = false; return;
+        }
+        const originZoneVal = originLocation[zoneKeySource];
+        const destZoneVal = destinationLocation[zoneKeySource];
+        if (!originZoneVal || !destZoneVal) {
+            currentResult.remarks.push(`${uiServiceName} ${zoneKeySource.toUpperCase()} zone missing. Origin: ${originLocation.suburb} ${originLocation.postcode}, Dest: ${destinationLocation.suburb} ${destinationLocation.postcode}. Check postcodes.json.`);
+            currentResult.isApplicable = false; return;
+        }
+        const logicKey = `${logicPrefix}${originZoneVal}${destZoneVal}`;
+        chargeZoneUsed = logicKey;
+        currentResult.chargeZoneUsed = chargeZoneUsed;
+        const rateEntry = rateData.find(r => r.Logic === logicKey);
+        currentResult.rateEntryUsed = rateEntry;
+
+        if (!rateEntry) {
+            currentResult.remarks.push(`${uiServiceName} rate entry not found in ${fileName} for Logic Key: "${logicKey}".`);
+            currentResult.isApplicable = false; return;
+        }
+        const basicRateKey = `${fieldPrefix}${spendBand}`;
+        const kiloRateKey = `K${spendBand}`;
+        const basicRateValue = Number(rateEntry[basicRateKey]);
+        const kiloRateValue = Number(rateEntry[kiloRateKey]);
+        if (!isNaN(basicRateValue) && !isNaN(kiloRateValue)) {
+            const calculatedRate = basicRateValue + (kiloRateValue * chargeableWeightKg);
+            if (uiServiceName === 'B2B Priority') { 
+                baseFreight = calculatedRate;
+                currentResult.calculationFormula = `(${basicRateKey}: ${basicRateValue} + (${kiloRateKey}: ${kiloRateValue} * CW: ${chargeableWeightKg}))`;
+            }
+            else {
+                const minRateKey = `M${spendBand}`;
+                const minRateValue = Number(rateEntry[minRateKey]);
+                if (!isNaN(minRateValue)) { 
+                    baseFreight = Math.max(calculatedRate, minRateValue);
+                    currentResult.calculationFormula = `MAX( (${basicRateKey}: ${basicRateValue} + (${kiloRateKey}: ${kiloRateValue} * CW: ${chargeableWeightKg.toFixed(2)})), ${minRateKey}: ${minRateValue} )`;
+                }
+                else { 
+                    currentResult.remarks.push(`Minimum rate (e.g., ${minRateKey}) invalid or missing in ${fileName} for ${logicKey}.`); 
+                    currentResult.isApplicable = false; 
+                }
+            }
+        } else { currentResult.remarks.push(`Basic or Kilo rate (e.g., ${basicRateKey}, ${kiloRateKey}) invalid or missing in ${fileName} for ${logicKey}.`); currentResult.isApplicable = false; }
+    };
+
+    if (uiServiceName === 'LCP Std') {
+        chargeZoneUsed = `N/A (LCP Std Initial)`;
+        if (!lcprdexData || lcprdexData.length === 0) {
+            currentResult.remarks.push("LCP Std rates data (lcprdex.json) missing or empty.");
+            currentResult.isApplicable = false;
+        } else {
+            const originIpec = originLocation.ipec;
+            const destIpec = destinationLocation.ipec;
+            if (!originIpec || !destIpec) {
+                currentResult.remarks.push(`LCP Std IPEC zone missing. Origin: ${originIpec}, Dest: ${destIpec}. Check postcodes.json.`);
+                currentResult.isApplicable = false;
+            } else {
+                const logicKey = `LCPRDEX${originIpec}${destIpec}`;
+                chargeZoneUsed = logicKey;
+                currentResult.chargeZoneUsed = chargeZoneUsed;
+                const rateEntry = lcprdexData.find(r => r.Logic === logicKey);
+                currentResult.rateEntryUsed = rateEntry;
+                if (!rateEntry || typeof rateEntry.LCPRDEXBasic !== 'number' || typeof rateEntry.LCPRDEXKg !== 'number') {
+                    currentResult.remarks.push(`LCP Std rate entry or fields (LCPRDEXBasic/LCPRDEXKg) missing/invalid in lcprdex.json for Logic key: ${logicKey}.`);
+                    currentResult.isApplicable = false;
+                } else {
+                    baseFreight = (chargeableWeightKg * rateEntry.LCPRDEXKg) + rateEntry.LCPRDEXBasic;
+                    currentResult.calculationFormula = `((LCPRDEXKg: ${rateEntry.LCPRDEXKg} * CW: ${chargeableWeightKg.toFixed(2)}) + LCPRDEXBasic: ${rateEntry.LCPRDEXBasic})`;
+                }
+            }
+        }
+    } else if (uiServiceName === 'LCP Priority') {
+        chargeZoneUsed = `N/A (LCP Prio Initial)`;
+         if (!lcpprioData || lcpprioData.length === 0) { currentResult.remarks.push("LCP Priority rates data (lcpprio.json) missing or empty."); currentResult.isApplicable = false; }
+        else {
+            const originPrio = originLocation.prio; const destPrio = destinationLocation.prio;
+            if (!originPrio || !destPrio) { currentResult.remarks.push(`LCP Priority PRIO zone missing. Origin: ${originPrio}, Dest: ${destPrio}. Check postcodes.json.`); currentResult.isApplicable = false; }
+            else {
+                const logicKey = `LCPPrio${originPrio}${destPrio}`; chargeZoneUsed = logicKey; currentResult.chargeZoneUsed = chargeZoneUsed;
+                const rateEntry = lcpprioData.find(r => r.Logic === logicKey);
+                currentResult.rateEntryUsed = rateEntry;
+                 if (!rateEntry || typeof rateEntry.LCPPrioBasic !== 'number' || typeof rateEntry.LCPPrioKg !== 'number') { currentResult.remarks.push(`LCP Priority rate entry or fields (LCPPrioBasic/Kg) missing/invalid in lcpprio.json for ${logicKey}.`); currentResult.isApplicable = false; }
+                else { 
+                    baseFreight = (chargeableWeightKg * rateEntry.LCPPrioKg) + rateEntry.LCPPrioBasic; 
+                    currentResult.calculationFormula = `((LCPPrioKg: ${rateEntry.LCPPrioKg} * CW: ${chargeableWeightKg.toFixed(2)}) + LCPPrioBasic: ${rateEntry.LCPPrioBasic})`;
+                }
+            }
+        }
+    } else if (uiServiceName === 'LCP GO Std' || uiServiceName === 'LCP GO Priority') {
+        chargeZoneUsed = `N/A (LCP GO Initial)`;
+        if (!lcpgoData || lcpgoData.length === 0) { currentResult.remarks.push("LCP GO rates data (lcpgo.json) could not be loaded or is empty."); currentResult.isApplicable = false; }
+        else {
+            let isOutOfScope = false;
+            if (totalDeadWeightKg > 10.01) { isOutOfScope = true; currentResult.remarks.push(`${uiServiceName}: Out of Scope - Total dead weight ${totalDeadWeightKg.toFixed(2)}kg exceeds 10.01kg.`); }
+            items.forEach(item => { if (!globalNoCubic && item.length != null && item.width != null && item.height != null && (item.length > 120 || item.width > 80 || item.height > 60)) { isOutOfScope = true; currentResult.remarks.push(`${uiServiceName}: Out of Scope - Item dimensions (L:${item.length} W:${item.width} H:${item.height}) exceed 120x80x60cm.`); } });
+            if (isOutOfScope) { currentResult.isApplicable = false; }
+            else {
+                const originPrio = originLocation.prio; const destPrio = destinationLocation.prio;
+                if (!originPrio || !destPrio) { currentResult.remarks.push(`Origin or Destination PRIO zone missing for ${uiServiceName}. Origin: ${originPrio}, Dest: ${destPrio}. Check postcodes.json.`); currentResult.isApplicable = false; }
+                else {
+                    const prefix = uiServiceName === 'LCP GO Std' ? "GoOff Peak" : "GoPriority";
+                    const logicKey = `${prefix}${originPrio}${destPrio}`; chargeZoneUsed = logicKey; currentResult.chargeZoneUsed = chargeZoneUsed;
+                    const rateEntry = lcpgoData.find(r => r.Logic === logicKey);
+                    currentResult.rateEntryUsed = rateEntry;
+                    if (!rateEntry) { currentResult.remarks.push(`${uiServiceName} rate entry not found in lcpgo.json for Logic Key: "${logicKey}".`); currentResult.isApplicable = false; }
+                    else {
+                        let selectedGoRate: number | undefined = undefined; let tierUsed: string = 'N/A';
+                        if (totalDeadWeightKg <= 1) { selectedGoRate = rateEntry.Go1; tierUsed = 'Go1'; }
+                        else if (totalDeadWeightKg <= 3) { selectedGoRate = rateEntry.Go3; tierUsed = 'Go3'; }
+                        else if (totalDeadWeightKg <= 5) { selectedGoRate = rateEntry.Go5; tierUsed = 'Go5'; }
+                        else if (totalDeadWeightKg <= 10) { selectedGoRate = rateEntry.Go10; tierUsed = 'Go10'; }
+                        
+                        if (typeof selectedGoRate === 'number') { 
+                            baseFreight = selectedGoRate; 
+                            currentResult.calculationFormula = `Tiered rate for Dead Wt ${totalDeadWeightKg.toFixed(2)}kg. Selected Tier: ${tierUsed} (${baseFreight})`;
+                        }
+                        else { currentResult.remarks.push(`${uiServiceName}: Rate for weight ${totalDeadWeightKg.toFixed(2)}kg not found or invalid in lcpgo.json for ${logicKey}.`); currentResult.isApplicable = false; }
+                    }
+                }
+            }
+        }
+    } else if (uiServiceName.startsWith('B2C')) {
+        chargeZoneUsed = `N/A (B2C Initial)`;
+        if (!regionalLookupData || regionalLookupData.length === 0) { currentResult.remarks.push("Regional Lookup data (regionallookup.json) could not be loaded or is empty for B2C."); currentResult.isApplicable = false; }
+        else if (!b2cRatesData || b2cRatesData.length === 0) { currentResult.remarks.push("B2C rates data (b2c.json) could not be loaded or is empty."); currentResult.isApplicable = false; }
+        else {
+            const originPrio = originLocation.prio; const destPrio = destinationLocation.prio;
+            if (!originPrio || !destPrio) { currentResult.remarks.push(`Origin or Destination PRIO zone missing for ${uiServiceName}. Origin: ${originPrio}, Dest: ${destPrio}. Check postcodes.json.`); currentResult.isApplicable = false; }
+            else {
+                const lupKey = `${originPrio}${destPrio}`; const regionalEntry = regionalLookupData.find(r => r.LUP === lupKey);
+                if (!regionalEntry || !regionalEntry.Journey) { currentResult.remarks.push(`Journey entry not found in regionallookup.json for LUP key: "${lupKey}" (Service: ${uiServiceName}).`); chargeZoneUsed = `LUP Key: ${lupKey} (Journey Not Found)`; currentResult.isApplicable = false; }
+                else {
+                    const journeyIdentifier = regionalEntry.Journey; const b2cRateLogicKey = `${spendBand}${journeyIdentifier}`; chargeZoneUsed = b2cRateLogicKey; currentResult.chargeZoneUsed = chargeZoneUsed;
+                    const rateEntryB2CRates = b2cRatesData.find(r => r.Logic === b2cRateLogicKey);
+                    currentResult.rateEntryUsed = rateEntryB2CRates;
+                    if (!rateEntryB2CRates) { currentResult.remarks.push(`B2C Rate entry not found in b2c.json for Logic Key: "${b2cRateLogicKey}".`); currentResult.isApplicable = false; }
+                    else {
+                        let rate1kg, rate3kg, rate5kg, kiloRateOver5kg; let rateFieldsValid = false; let usedTier = ''; let usedFields = {};
+                        if (uiServiceName === 'B2C Std') { rate1kg = rateEntryB2CRates.b2c1; rate3kg = rateEntryB2CRates.b2c3; rate5kg = rateEntryB2CRates.b2c5; kiloRateOver5kg = rateEntryB2CRates.kg; if (typeof rate1kg === 'number' && typeof rate3kg === 'number' && typeof rate5kg === 'number' && typeof kiloRateOver5kg === 'number') { rateFieldsValid = true; usedFields = { b2c1: rate1kg, b2c3: rate3kg, b2c5: rate5kg, kg: kiloRateOver5kg }; } else { currentResult.remarks.push(`One or more B2C Std rate fields (b2c1, b2c3, b2c5, kg) missing/invalid in b2c.json for ${b2cRateLogicKey}.`); } }
+                        else if (uiServiceName === 'B2C Priority') { rate1kg = rateEntryB2CRates.b2cp1; rate3kg = rateEntryB2CRates.b2cp3; rate5kg = rateEntryB2CRates.b2cp5; kiloRateOver5kg = rateEntryB2CRates.pkg; if (typeof rate1kg === 'number' && typeof rate3kg === 'number' && typeof rate5kg === 'number' && typeof kiloRateOver5kg === 'number') { rateFieldsValid = true; usedFields = { b2cp1: rate1kg, b2cp3: rate3kg, b2cp5: rate5kg, pkg: kiloRateOver5kg }; } else { currentResult.remarks.push(`One or more B2C Priority rate fields (b2cp1, b2cp3, b2cp5, pkg) missing/invalid in b2c.json for ${b2cRateLogicKey}.`); } }
+                        if (rateFieldsValid) { 
+                            if (chargeableWeightKg <= 1) { baseFreight = rate1kg!; usedTier = '1kg'; }
+                            else if (chargeableWeightKg <= 3) { baseFreight = rate3kg!; usedTier = '3kg'; }
+                            else if (chargeableWeightKg <= 5) { baseFreight = rate5kg!; usedTier = '5kg'; }
+                            else { baseFreight = rate5kg! + ((chargeableWeightKg - 5) * kiloRateOver5kg!); usedTier = '>5kg'; }
+                            currentResult.calculationFormula = `Tiered Rate for CW ${chargeableWeightKg.toFixed(2)}kg. Using ${usedTier} tier. Base Rate: ${baseFreight.toFixed(2)}`;
+                        }
+                        else { currentResult.isApplicable = false; }
+                    }
+                }
+            }
+        }
+    } else if (uiServiceName === 'B2B Std') { calculateGenericB2BStyleRate(b2brdexData, `Parcel`, 'ipec', 'b2brdex.json', 'B'); }
+    else if (uiServiceName === 'B2B Priority') { calculateGenericB2BStyleRate(b2bPriorityData, `02 02`, 'prio', 'b2b_priority.json', 'B'); }
+    else if (uiServiceName === 'B2B Pallets Express' || uiServiceName === 'B2B Pallets General Tiered') {
+        chargeZoneUsed = `N/A (${uiServiceName} Initial)`;
+        let palletSpendBandData: TieredPalletRateEntry[] | undefined;
+        let palletFileName = `pe${spendBand}.json`;
+
+        switch (spendBand) {
+            case "1": palletSpendBandData = pe1Data; break;
+            case "2": palletSpendBandData = pe2Data; break;
+            case "3": palletSpendBandData = pe3Data; break;
+            case "4": palletSpendBandData = pe4Data; break;
+            case "5": palletSpendBandData = pe5Data; break;
+            default:
+                currentResult.remarks.push(`Invalid spend band '${spendBand}' for pallet services.`);
+                currentResult.isApplicable = false;
+        }
+
+        if (!currentResult.isApplicable) { /* skip */ }
+        else if (!palletSpendBandData || palletSpendBandData.length === 0) {
+            currentResult.remarks.push(`${uiServiceName} rates data for SB${spendBand} (${palletFileName}) could not be loaded or is empty.`);
+            currentResult.isApplicable = false;
+        }
+        else {
+            const originPEZone = sanitizePEZoneForLUP(getPEZone(originLocation));
+            const destPEZone = sanitizePEZoneForLUP(getPEZone(destinationLocation));
+
+            if (!originPEZone || !destPEZone) {
+                currentResult.remarks.push(`${uiServiceName} PE zone missing. Origin: ${originLocation.suburb} ${originLocation.state} (PE Zone: ${getPEZone(originLocation) || 'Not Found'}), Dest: ${destinationLocation.suburb} ${destinationLocation.state} (PE Zone: ${getPEZone(destinationLocation) || 'Not Found'}). Ensure PEZones.json has postcode entry.`);
+                currentResult.isApplicable = false;
+            } else {
+                const lupKeyToFind = `${originPEZone}${destPEZone}`;
+                chargeZoneUsed = lupKeyToFind;
+                currentResult.chargeZoneUsed = chargeZoneUsed;
+
+                const rateEntry = palletSpendBandData.find(r => r["From - To"] === lupKeyToFind);
+                currentResult.rateEntryUsed = rateEntry;
+                if (!rateEntry) {
+                    currentResult.remarks.push(`${uiServiceName} rate entry not found in ${palletFileName} for LUP key: "${lupKeyToFind}".`);
+                    currentResult.isApplicable = false;
+                } else {
+                    let selectedBasicRate: number | undefined, selectedMinRate: number | undefined, selectedKiloRate: number | undefined;
+
+                    const fieldsToUse = uiServiceName === 'B2B Pallets Express'
+                        ? { basicKey: 'EBasic', minKey: 'Eminimum', tiers: { 250: 'E0 - 250', 750: 'E251 - 750', 1500: 'E751 - 1500', 3000: 'E1501 - 3000', 5000: 'E3001 - 5000', "99999": 'E5001 - 99999' } }
+                        : { basicKey: 'GBasic', minKey: 'GMinimum', tiers: { 250: 'G0 - 250', 750: 'G251 - 750', 1500: 'G751 - 1500', 3000: 'G1501 - 3000', 5000: 'G3001 - 5000', "99999": 'G5001 - 99999' } };
+
+                    selectedBasicRate = Number(rateEntry[fieldsToUse.basicKey]);
+                    selectedMinRate = Number(rateEntry[fieldsToUse.minKey]);
+
+                    let kiloRateKeyToUse: string | undefined;
+                    if (chargeableWeightKg <= 250) kiloRateKeyToUse = fieldsToUse.tiers[250];
+                    else if (chargeableWeightKg <= 750) kiloRateKeyToUse = fieldsToUse.tiers[750];
+                    else if (chargeableWeightKg <= 1500) kiloRateKeyToUse = fieldsToUse.tiers[1500];
+                    else if (chargeableWeightKg <= 3000) kiloRateKeyToUse = fieldsToUse.tiers[3000];
+                    else if (chargeableWeightKg <= 5000) kiloRateKeyToUse = fieldsToUse.tiers[5000];
+                    else kiloRateKeyToUse = fieldsToUse.tiers["99999"];
+
+                    if (kiloRateKeyToUse) {
+                        selectedKiloRate = Number(rateEntry[kiloRateKeyToUse]);
+                    }
+                    
+                    if (typeof selectedBasicRate === 'number' && !isNaN(selectedBasicRate) &&
+                        typeof selectedMinRate === 'number' && !isNaN(selectedMinRate) &&
+                        typeof selectedKiloRate === 'number' && !isNaN(selectedKiloRate) ) {
+                        const calculatedRate = selectedBasicRate + (selectedKiloRate * chargeableWeightKg);
+                        baseFreight = Math.max(calculatedRate, selectedMinRate);
+                        currentResult.calculationFormula = `MAX( (${fieldsToUse.basicKey}: ${selectedBasicRate} + (${kiloRateKeyToUse}: ${selectedKiloRate} * CW: ${chargeableWeightKg.toFixed(2)})), ${fieldsToUse.minKey}: ${selectedMinRate} )`;
+                    } else {
+                        currentResult.remarks.push(`Invalid tiered rate fields (Basic, Min, or Kilo for weight ${chargeableWeightKg}kg) in ${palletFileName} for ${lupKeyToFind}.`);
+                        currentResult.isApplicable = false;
+                    }
+                }
+            }
+        }
+    } else if (uiServiceName === 'WA PE Special') {
+        chargeZoneUsed = `N/A (WA PE Initial)`;
+        if (!westEastData || westEastData.length === 0) {
+            currentResult.remarks.push("WA PE Special rates data (west_east.json) missing or empty.");
+            currentResult.isApplicable = false;
+        } else {
+            const originPrio = originLocation.prio;
+            const destPrio = destinationLocation.prio;
+            if (originPrio !== 'PER') {
+                currentResult.remarks.push(`WA PE Special is only valid for origins in the PER zone.`);
+                currentResult.isApplicable = false;
+            } else if (!destPrio) {
+                currentResult.remarks.push(`Destination PRIO zone missing for WA PE Special.`);
+                currentResult.isApplicable = false;
+            } else {
+                const cityToPrioMap: Record<string, string> = { "SYDNEY": "SYD", "MELBOURNE": "MEL", "BRISBANE": "BNE", "ADELAIDE": "ADL" };
+                const invertedCityToPrioMap = Object.fromEntries(Object.entries(cityToPrioMap).map(([k, v]) => [v, k]));
+                const destinationCity = invertedCityToPrioMap[destPrio];
+
+                chargeZoneUsed = `${originPrio} > ${destPrio} (${destinationCity || 'Unknown City'})`;
+                currentResult.chargeZoneUsed = chargeZoneUsed;
+
+                if (!destinationCity) {
+                    currentResult.remarks.push(`No matching city found for destination PRIO zone: ${destPrio}.`);
+                    currentResult.isApplicable = false;
+                } else {
+                    const rateEntry = (westEastData as WestEastRateEntry[]).find(r => r.To && r.To.toUpperCase() === destinationCity);
+                    currentResult.rateEntryUsed = rateEntry;
+                    if (!rateEntry) {
+                        currentResult.remarks.push(`No WA PE Special rate found for destination city: ${destinationCity}.`);
+                        currentResult.isApplicable = false;
+                    } else {
+                        const basic = Number(rateEntry.Basic);
+                        const min = Number(rateEntry.Minimum);
+                        const kiloRate = Number(rateEntry["0-99999KGS"]);
+
+                        if (isNaN(basic) || isNaN(min) || isNaN(kiloRate)) {
+                            currentResult.remarks.push(`Invalid rate values in west_east.json for ${destinationCity}.`);
+                            currentResult.isApplicable = false;
+                        } else {
+                            chargeableWeightKg = calculateChargeableWeight(items, 333, globalNoCubic);
+                            currentResult.chargeableWeight = chargeableWeightKg;
+
+                            const calculatedRate = basic + (kiloRate * chargeableWeightKg);
+                            baseFreight = Math.max(calculatedRate, min);
+                            currentResult.calculationFormula = `MAX( (Basic: ${basic} + (KiloRate: ${kiloRate} * CW: ${chargeableWeightKg.toFixed(2)})), Min: ${min} )`;
+                        }
+                    }
+                }
+            }
+        }
+    } else { currentResult.remarks.push(`Service ${uiServiceName} has no defined calculation logic.`); currentResult.isApplicable = false; }
+
+    currentResult.baseRate = baseFreight;
+
+    let fuelSurchargeAmount = 0;
+    const otherSurchargesApplied: CalculatedPriceItem['otherSurcharges'] = [];
+    let currentTotalOtherSurcharges = 0;
+
+    const isLcpGoService = uiServiceName === 'LCP GO Std' || uiServiceName === 'LCP GO Priority';
+
+    if (currentResult.isApplicable && baseFreight !== null) {
+      if (isLcpGoService) {
+        // LCP GO is all-inclusive, so fuel is 0 unless special logic is added
+        fuelSurchargeAmount = 0;
+      } else {
+        fuelSurchargeAmount = baseFreight * (serviceConfig.fuelSurchargePercent / 100);
+      }
+
+      if (rasData && RAS_APPLICABLE_SERVICES.includes(uiServiceName as ServiceName)) {
+        const rasEntry = rasData.find(r => 
+            r.postcode === destinationLocation.postcode && 
+            r.suburb.trim().toUpperCase() === destinationLocation.suburb.trim().toUpperCase()
+        );
+
+        if (rasEntry) {
+            const isPriorityBased = PRIORITY_MAPPED_SERVICES.includes(uiServiceName as ServiceName) || uiServiceName.startsWith('B2C');
+            const rasAmount = isPriorityBased ? rasEntry.prio : rasEntry.ipec;
+            
+            if (typeof rasAmount === 'number' && rasAmount > 0) {
+                otherSurchargesApplied.push({ name: 'Remote Area Surcharge', amount: rasAmount, id: 'remote_area_surcharge' });
+                currentTotalOtherSurcharges += rasAmount;
+            }
+        }
+      }
+
+      const surchargeTriggers: { flagKey: keyof FreightFormValues, surchargeId: string }[] = [
+        { flagKey: 'bookInDeliveryRequired', surchargeId: 'book_in_delivery_fee' },
+        { flagKey: 'routeViaMelbourne', surchargeId: 'citylink_surcharge_melbourne_percent' },
+        { flagKey: 'dangerousGoodsConsignment', surchargeId: 'dg_consignment_fee' },
+        { flagKey: 'handUnloadRequired', surchargeId: 'hand_unload_fee' },
+        { flagKey: 'accountTransferRequired', surchargeId: 'account_transfer_fee'},
+        { flagKey: 'afterHoursCollection', surchargeId: 'after_hours_collection_fee'},
+        { flagKey: 'afterHoursDelivery', surchargeId: 'after_hours_delivery_fee'},
+        { flagKey: 'publicHolidayService', surchargeId: 'public_holiday_service_fee'},
+      ];
+
+      surchargeTriggers.forEach(trigger => {
+        if (formData[trigger.flagKey]) {
+          const activeSurcharge = serviceConfig.surcharges.find(s => s.surchargeId === trigger.surchargeId && s.enabled);
+          if (activeSurcharge) {
+            const definition = allSurchargeDefinitions.find(def => def.id === trigger.surchargeId);
+            if (definition && definition.applicableServices.includes(uiServiceName as ServiceName)) {
+              let surchargeAmount = 0;
+              if (definition.type === 'fixed_per_shipment') surchargeAmount = activeSurcharge.value;
+              else if (definition.type === 'fixed_per_kg') surchargeAmount = activeSurcharge.value * chargeableWeightKg;
+              else if (definition.type === 'percentage') surchargeAmount = baseFreight! * (activeSurcharge.value / 100);
+              
+              otherSurchargesApplied.push({ name: definition.name, amount: surchargeAmount, id: definition.id });
+              currentTotalOtherSurcharges += surchargeAmount;
+            }
+          }
+        }
+      });
+      
+      if (isCurrentServicePallet && originLocation.state === "WA" && (destinationLocation.state === "WA" || destinationLocation.state === "NT")) {
+          const exWaConsignmentFeeConfig = serviceConfig.surcharges.find(s => s.surchargeId === 'ex_wa_pickup_consignment_fee' && s.enabled);
+          if (exWaConsignmentFeeConfig) {
+              const definition = allSurchargeDefinitions.find(def => def.id === 'ex_wa_pickup_consignment_fee');
+              if(definition) {
+                  otherSurchargesApplied.push({ name: definition.name, amount: exWaConsignmentFeeConfig.value, id: definition.id });
+                  currentTotalOtherSurcharges += exWaConsignmentFeeConfig.value;
+              }
+          }
+
+          let exWaKgRateSurchargeId = '';
+          if (chargeableWeightKg <= 1000) exWaKgRateSurchargeId = 'ex_wa_pickup_kg_rate_tier1';
+          else if (chargeableWeightKg <= 3000) exWaKgRateSurchargeId = 'ex_wa_pickup_kg_rate_tier2';
+          else if (chargeableWeightKg <= 8000) exWaKgRateSurchargeId = 'ex_wa_pickup_kg_rate_tier3';
+          else exWaKgRateSurchargeId = 'ex_wa_pickup_kg_rate_tier4';
+
+          const exWaKgRateConfig = serviceConfig.surcharges.find(s => s.surchargeId === exWaKgRateSurchargeId && s.enabled);
+          if (exWaKgRateConfig) {
+               const definition = allSurchargeDefinitions.find(def => def.id === exWaKgRateSurchargeId);
+               if(definition) {
+                  const kgAmount = exWaKgRateConfig.value * chargeableWeightKg;
+                  otherSurchargesApplied.push({ name: definition.name, amount: kgAmount, id: definition.id });
+                  currentTotalOtherSurcharges += kgAmount;
+               }
+          }
+      }
+
+      const securitySurchargeConfig = serviceConfig.surcharges.find(s => s.surchargeId === 'security' && s.enabled);
+      if (securitySurchargeConfig) {
+        const definition = allSurchargeDefinitions.find(def => def.id === 'security');
+        if (definition) {
+          const securityAmount = (baseFreight! + fuelSurchargeAmount) * (securitySurchargeConfig.value / 100);
+          otherSurchargesApplied.push({ name: definition.name, amount: securityAmount, id: definition.id });
+          currentTotalOtherSurcharges += securityAmount;
+          securitySurchargePercentAppliedLocally = securitySurchargeConfig.value;
+        }
+      }
+
+      let accumulatedItemSpecificFees = 0;
+      const appliedItemSurchargeTypesForConsolidatedName: string[] = [];
+      if (NON_PALLET_SERVICES.includes(uiServiceName as ServiceName) && !globalOnPallet) {
+        items.forEach(item => {
+          let highestFeeForThisItem = 0; let feeIdForThisItem: string | null = null;
+          const oversizeGTE35kgConfig = serviceConfig.surcharges.find(s => s.surchargeId === 'manual_handling_gt35kg' && s.enabled);
+          const oversizeLengthConfig = serviceConfig.surcharges.find(s => s.surchargeId === 'oversize_item_fee' && s.enabled);
+          const manualHandlingGT30LT35Config = serviceConfig.surcharges.find(s => s.surchargeId === 'manual_handling_gt30kg' && s.enabled);
+          const oversizeGTE35kgFeeValue = oversizeGTE35kgConfig?.value ?? 0;
+          const oversizeLengthFeeValue = oversizeLengthConfig?.value ?? 0;
+          const manualHandlingGT30LT35FeeValue = manualHandlingGT30LT35Config?.value ?? 0;
+          if (oversizeGTE35kgConfig && item.weight >= 35) { if (oversizeGTE35kgFeeValue > highestFeeForThisItem) { highestFeeForThisItem = oversizeGTE35kgFeeValue; feeIdForThisItem = 'manual_handling_gt35kg'; } }
+          if (oversizeLengthConfig && !globalNoCubic && item.length != null && item.length > 180) { if (oversizeLengthFeeValue > highestFeeForThisItem) { highestFeeForThisItem = oversizeLengthFeeValue; feeIdForThisItem = 'oversize_item_fee'; } }
+          if (highestFeeForThisItem === 0 && manualHandlingGT30LT35Config) {
+            const meetsMidTierWeight = item.weight > 30 && item.weight < 35;
+            const meetsMidTierDimension = !globalNoCubic && item.length != null && item.width != null && item.height != null && (item.length > 120 || item.width > 120 || item.height > 120);
+            if (meetsMidTierWeight || meetsMidTierDimension) { if (manualHandlingGT30LT35FeeValue > highestFeeForThisItem) { highestFeeForThisItem = manualHandlingGT30LT35FeeValue; feeIdForThisItem = 'manual_handling_gt30kg'; } }
+          }
+          accumulatedItemSpecificFees += highestFeeForThisItem * item.quantity;
+          if (feeIdForThisItem && !appliedItemSurchargeTypesForConsolidatedName.includes(feeIdForThisItem)) { appliedItemSurchargeTypesForConsolidatedName.push(feeIdForThisItem); }
+        });
+        if (accumulatedItemSpecificFees > 0) {
+          let consolidatedName = "Item Handling/Oversize Fee";
+          if (appliedItemSurchargeTypesForConsolidatedName.length === 1) { const singleId = appliedItemSurchargeTypesForConsolidatedName[0]; consolidatedName = allSurchargeDefinitions.find(d => d.id === singleId)?.name || consolidatedName; }
+          else if (appliedItemSurchargeTypesForConsolidatedName.length > 1) { consolidatedName = "Multiple Item Handling/Oversize Fees"; }
+          otherSurchargesApplied.push({ name: consolidatedName, amount: accumulatedItemSpecificFees, id: "item_specific_handling_oversize_total" });
+          currentTotalOtherSurcharges += accumulatedItemSpecificFees;
+        }
+      }
+    }
+
+    currentResult.fuelSurchargeAmount = fuelSurchargeAmount;
+    currentResult.otherSurcharges = otherSurchargesApplied;
+    currentResult.totalSurcharges = fuelSurchargeAmount + currentTotalOtherSurcharges;
+    currentResult.securitySurchargePercentApplied = securitySurchargePercentAppliedLocally;
+    currentResult.totalExtrasAmount = totalExtrasAmount;
+    currentResult.subTotalBeforeMarkupAndGST = (currentResult.isApplicable && currentResult.baseRate !== null) ? currentResult.baseRate + currentResult.totalSurcharges + currentResult.totalExtrasAmount : null;
+
+    let additionalMarkupActualPercent = 0;
+    if (additionalPercentageType !== 'none' && currentResult.subTotalBeforeMarkupAndGST !== null) {
+        if (additionalPercentageType === 'other') { additionalMarkupActualPercent = Number(additionalPercentageCustom) || 0; }
+        else { additionalMarkupActualPercent = Number(additionalPercentageType) || 0; }
+        currentResult.additionalMarkupPercentApplied = additionalMarkupActualPercent;
+        currentResult.additionalMarkupAmount = currentResult.subTotalBeforeMarkupAndGST * (additionalMarkupActualPercent / 100);
+    } else { currentResult.additionalMarkupPercentApplied = 0; currentResult.additionalMarkupAmount = 0; }
+
+    currentResult.subTotalBeforeGST = (currentResult.subTotalBeforeMarkupAndGST !== null && currentResult.additionalMarkupAmount !== null) ? currentResult.subTotalBeforeMarkupAndGST + currentResult.additionalMarkupAmount : null;
+
+    if (applyGST && currentResult.subTotalBeforeGST !== null) {
+        currentResult.gstAmount = currentResult.subTotalBeforeGST * GST_RATE;
+        currentResult.finalPrice = currentResult.subTotalBeforeGST + currentResult.gstAmount;
+    } else { currentResult.gstAmount = 0; currentResult.finalPrice = currentResult.subTotalBeforeGST; }
+
+    if (!currentResult.isApplicable && currentResult.remarks.length === 0) { currentResult.remarks.push("Service not applicable or rate not found for the given criteria."); }
+    if (currentResult.isApplicable && currentResult.baseRate === null && currentResult.remarks.length === 0 && !currentResult.remarks.some(r => r.includes("Out of Scope"))) { currentResult.remarks.push("Rate entry found but resulted in null base freight after calculation or rates were invalid."); }
+    results.push(currentResult);
+  }
+
+  if (formData.enableOtherRate) {
+    let manualResult: CalculatedPriceItem = { ...initialCalculatedPriceItem, serviceName: "Manual Rate", isApplicable: true, remarks: [], chargeableWeight: calculateChargeableWeight(items, 250, globalNoCubic), fuelSurchargePercentApplied: Number(formData.otherRateFuelPercent) || 0, };
+    const otherRateBasicNum = Number(formData.otherRateBasic); const otherRateKiloNum = Number(formData.otherRateKilo); const otherRateMinNum = Number(formData.otherRateMin);
+    const otherRateFuelPercentNum = Number(formData.otherRateFuelPercent) || 0; const otherRateSecurityPercentNum = Number(formData.otherRateSecurityPercent) || 0;
+    if (isNaN(otherRateBasicNum) || isNaN(otherRateKiloNum) || isNaN(otherRateMinNum)) { manualResult.remarks.push("Manual Basic, Kilo, or Min rate input is invalid."); manualResult.isApplicable = false; }
+    else {
+        manualResult.baseRate = Math.max((otherRateBasicNum + (otherRateKiloNum * manualResult.chargeableWeight)), otherRateMinNum);
+        manualResult.calculationFormula = `MAX( (${otherRateBasicNum} + (${otherRateKiloNum} * ${manualResult.chargeableWeight.toFixed(2)})), ${otherRateMinNum} )`;
+        if (manualResult.baseRate !== null) {
+            manualResult.fuelSurchargeAmount = manualResult.baseRate * (otherRateFuelPercentNum / 100);
+            const manualSecuritySurchargeAmount = (manualResult.baseRate + manualResult.fuelSurchargeAmount) * (otherRateSecurityPercentNum / 100);
+            manualResult.otherSurcharges.push({ name: "Manual Security Surcharge", amount: manualSecuritySurchargeAmount, id: "manual_security" });
+            manualResult.securitySurchargePercentApplied = otherRateSecurityPercentNum;
+            let manualOtherSurchargesTotal = manualSecuritySurchargeAmount;
+
+            const manualSurchargeTriggers: { flagKey: keyof FreightFormValues, surchargeId: string }[] = [
+              { flagKey: 'bookInDeliveryRequired', surchargeId: 'book_in_delivery_fee' },
+              { flagKey: 'routeViaMelbourne', surchargeId: 'citylink_surcharge_melbourne_percent' },
+              { flagKey: 'dangerousGoodsConsignment', surchargeId: 'dg_consignment_fee' },
+              { flagKey: 'handUnloadRequired', surchargeId: 'hand_unload_fee' },
+              { flagKey: 'accountTransferRequired', surchargeId: 'account_transfer_fee'},
+              { flagKey: 'afterHoursCollection', surchargeId: 'after_hours_collection_fee'},
+              { flagKey: 'afterHoursDelivery', surchargeId: 'after_hours_delivery_fee'},
+              { flagKey: 'publicHolidayService', surchargeId: 'public_holiday_service_fee'},
+            ];
+
+            const representativeServiceConfig = allServiceSettings.find(s => s.id === 'B2B Std');
+
+            manualSurchargeTriggers.forEach(trigger => {
+              if (formData[trigger.flagKey] && representativeServiceConfig) {
+                const activeSurcharge = representativeServiceConfig.surcharges.find(s => s.surchargeId === trigger.surchargeId && s.enabled);
+                if (activeSurcharge) {
+                  const definition = allSurchargeDefinitions.find(def => def.id === trigger.surchargeId);
+                  if (definition) {
+                    let surchargeAmount = 0;
+                    if (definition.type === 'fixed_per_shipment') surchargeAmount = activeSurcharge.value;
+                    else if (definition.type === 'fixed_per_kg') surchargeAmount = activeSurcharge.value * manualResult.chargeableWeight;
+                    else if (definition.type === 'percentage') surchargeAmount = manualResult.baseRate! * (activeSurcharge.value / 100);
+                    manualResult.otherSurcharges.push({ name: definition.name, amount: surchargeAmount, id: definition.id });
+                    manualOtherSurchargesTotal += surchargeAmount;
+                  }
+                }
+              }
+            });
+            manualResult.totalSurcharges = manualResult.fuelSurchargeAmount + manualOtherSurchargesTotal;
+        } else { manualResult.isApplicable = false; manualResult.remarks.push("Manual base rate could not be calculated (resulted in null)."); }
+    }
+    manualResult.totalExtrasAmount = totalExtrasAmount;
+    manualResult.subTotalBeforeMarkupAndGST = (manualResult.isApplicable && manualResult.baseRate !== null) ? manualResult.baseRate + manualResult.totalSurcharges + manualResult.totalExtrasAmount : null;
+    let manualAdditionalMarkupActualPercent = 0;
+    if (additionalPercentageType !== 'none' && manualResult.subTotalBeforeMarkupAndGST !== null) {
+        if (additionalPercentageType === 'other') { manualAdditionalMarkupActualPercent = Number(additionalPercentageCustom) || 0; }
+        else { manualAdditionalMarkupActualPercent = Number(additionalPercentageType) || 0; }
+        manualResult.additionalMarkupPercentApplied = manualAdditionalMarkupActualPercent;
+        manualResult.additionalMarkupAmount = manualResult.subTotalBeforeMarkupAndGST * (manualAdditionalMarkupActualPercent / 100);
+    } else { manualResult.additionalMarkupPercentApplied = 0; manualResult.additionalMarkupAmount = 0; }
+    manualResult.subTotalBeforeGST = (manualResult.subTotalBeforeMarkupAndGST !== null && manualResult.additionalMarkupAmount !== null) ? manualResult.subTotalBeforeMarkupAndGST + manualResult.additionalMarkupAmount : null;
+    if (applyGST && manualResult.subTotalBeforeGST !== null) { manualResult.gstAmount = manualResult.subTotalBeforeGST * GST_RATE; manualResult.finalPrice = manualResult.subTotalBeforeGST + manualResult.gstAmount; }
+    else { manualResult.gstAmount = 0; manualResult.finalPrice = manualResult.subTotalBeforeGST; }
+    results.push(manualResult);
+  }
+  return results;
+}
+
+
+======================================================================
+4. Relevant Type Definitions: /src/lib/types.ts
+======================================================================
+(Showing only the most relevant types for brevity)
+
+export interface PostcodeData {
+  suburb: string;
+  state: string;
+  postcode: number;
+  prio: string; 
+  ipec: string;
+  pallet: string;
+}
+
+export interface PEZonesEntry {
+  "Suburb"?: string;
+  "Rate Area": number;
+  "Rate Area Zone Description": string;
+  "Combined": string;
+}
+
+export interface TieredPalletRateEntry {
+  "From - To": string;
+  "From": string;
+  "To": string;
+  "EBasic": number;
+  "Eminimum": number;
+  "E0 - 250": number;
+  "E251 - 750": number;
+  "E751 - 1500": number;
+  "E1501 - 3000": number;
+  "E3001 - 5000": number;
+  "E5001 - 99999": number;
+  "GBasic": number;
+  "GMinimum": number;
+  "G0 - 250": number;
+  "G251 - 750": number;
+  "G751 - 1500": number;
+  "G1501 - 3000": number;
+  "G3001 - 5000": number;
+  "G5001 - 99999": number;
+  [key: string]: any;
+}
+
+export type RateCardDisplayEntry = {
+  serviceName: ServiceName;
+  spendBand: string;
+  sendingPostcodeFull: string;
+  originZone: string;
+  destinationZone: string;
+  zoneTypeDisplay: string;
+  basicRate: string; // Tier 1 / Basic / 1kg
+  kiloRate: string;  // Tier 2 / Kilo / 3kg
+  minRate: string;   // Tier 3 / Min / 5kg
+  additionalRate?: string; // New field for B2C per-kg rate
+  cubicFactor: number;
+  tier_0_250?: string;
+  tier_251_750?: string;
+  tier_751_1500?: string;
+  tier_1501_3000?: string;
+  tier_3001_5000?: string;
+  tier_5001_plus?: string;
+};
+
+
+======================================================================
+5. Relevant Zod Schema: /src/lib/zodSchemas.ts
+======================================================================
+
+import { z } from 'zod';
+import type { PostcodeData, ServiceName, AdditionalPercentageType } from './types';
+import { ALL_SERVICES } from './types';
+
+// Zod Schema for the AI Guru / Perfect Plan page
+const guruDestinationSchema = z.object({
+  id: z.string(),
+  destinationQuery: z.string().min(1, 'Location is required'),
+  destinationLocation: z.custom<PostcodeData | null>(data => data !== null, 'Valid location is required'),
+  averageWeight: z.coerce.number().positive('Weight must be positive'),
+  targetPrice: z.coerce.number().positive('Target price must be positive'),
+  selectedServices: z.array(z.enum(ALL_SERVICES as [ServiceName, ...ServiceName[]])).min(1, "At least one service must be selected."),
+});
+
+export const perfectPlanSchema = z.object({
+  customerName: z.string().min(1, "Customer name is required."),
+  originLocationQuery: z.string().min(1, 'Sending location is required.'),
+  originLocation: z.custom<PostcodeData | null>(data => data !== null, 'Valid sending location is required.'),
+  palletsPerWeek: z.coerce.number().int().min(0).optional().default(0),
+  parcelsPerWeek: z.coerce.number().int().min(0).optional().default(0),
+  satchelsPerWeek: z.coerce.number().int().min(0).optional().default(0),
+  addressType: z.enum(['Residential', 'Business', 'Both']),
+  distributionArea: z.enum(['Metro', 'Regional', 'Both']),
+  monthlySpend: z.coerce.number().min(0, "Monthly spend cannot be negative").optional().default(0),
+  destinations: z.array(guruDestinationSchema).min(1, 'At least one destination is required').max(5, 'Maximum of 5 destinations allowed'),
+});
+
+
+======================================================================
+6. Settings Context: /src/context/SettingsContext.tsx
+======================================================================
+(Showing relevant parts for brevity)
+
+export const SettingsProvider = ({ children }: { children: ReactNode }) => {
+
+  const [perfectPlanPalletRate, setPerfectPlanPalletRateState] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('perfectPlanPalletRate');
+      return stored ? parseFloat(stored) : 200;
+    }
+    return 200;
+  });
+
+  const [perfectPlanParcelRate, setPerfectPlanParcelRateState] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('perfectPlanParcelRate');
+      return stored ? parseFloat(stored) : 20;
+    }
+    return 20;
+  });
+
+  const [perfectPlanSatchelRate, setPerfectPlanSatchelRateState] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('perfectPlanSatchelRate');
+      return stored ? parseFloat(stored) : 12;
+    }
+    return 12;
+  });
+
+  const setPerfectPlanPalletRate = useCallback((rate: number) => {
+    setPerfectPlanPalletRateState(rate);
+    if (typeof window !== 'undefined') localStorage.setItem('perfectPlanPalletRate', rate.toString());
+  }, []);
+
+  const setPerfectPlanParcelRate = useCallback((rate: number) => {
+    setPerfectPlanParcelRateState(rate);
+    if (typeof window !== 'undefined') localStorage.setItem('perfectPlanParcelRate', rate.toString());
+  }, []);
+  
+  const setPerfectPlanSatchelRate = useCallback((rate: number) => {
+    setPerfectPlanSatchelRateState(rate);
+    if (typeof window !== 'undefined') localStorage.setItem('perfectPlanSatchelRate', rate.toString());
+  }, []);
+
+  return (
+    <SettingsContext.Provider value={{
+        // ... other settings
+        perfectPlanPalletRate,
+        setPerfectPlanPalletRate,
+        perfectPlanParcelRate,
+        setPerfectPlanParcelRate,
+        perfectPlanSatchelRate,
+        setPerfectPlanSatchelRate,
+      }}>
+      {children}
+    </SettingsContext.Provider>
+  );
+};
+
+
+======================================================================
+7. Rate Override Context: /src/context/RateOverrideContext.tsx
+======================================================================
+(Showing relevant parts for brevity)
+
+export const RateOverrideProvider = ({ children }: { children: ReactNode }) => {
+  // ... state for all rate files
+  const [pezoneData, setPEZonesData] = useState<PEZonesEntry[] | undefined>(undefined);
+  const [pe1Data, setPe1Data] = useState<TieredPalletRateEntry[] | undefined>(undefined);
+  const [pe2Data, setPe2Data] = useState<TieredPalletRateEntry[] | undefined>(undefined);
+  const [pe3Data, setPe3Data] = useState<TieredPalletRateEntry[] | undefined>(undefined);
+  const [pe4Data, setPe4Data] = useState<TieredPalletRateEntry[] | undefined>(undefined);
+  const [pe5Data, setPe5Data] = useState<TieredPalletRateEntry[] | undefined>(undefined);
+  
+  useEffect(() => {
+    // ... loadRateFile function definition
+    loadRateFile('/api/pezone', setPEZonesData, setIsLoadingPEZones);
+    loadRateFile('/api/pe1', setPe1Data, setIsLoadingPe1);
+    loadRateFile('/api/pe2', setPe2Data, setIsLoadingPe2);
+    loadRateFile('/api/pe3', setPe3Data, setIsLoadingPe3);
+    loadRateFile('/api/pe4', setPe4Data, setIsLoadingPe4);
+    loadRateFile('/api/pe5', setPe5Data, setIsLoadingPe5);
+    // ... other files being loaded
+  }, []);
+
+  const getRateFile = useCallback((type: RateFileType): RateData | undefined => {
+    if (overriddenRates[type]) {
+      return overriddenRates[type];
+    }
+    const centralDataMap: Record<RateFileType, RateData | undefined> = {
+      // ... other rate files mapped
+      pezone: pezoneData,
+      pe1: pe1Data, 
+      pe2: pe2Data,
+      pe3: pe3Data,
+      pe4: pe4Data,
+      pe5: pe5Data,
+      // ... other rate files mapped
+    };
+    return centralDataMap[type];
+  }, [ // ... all dependencies
+  ]);
+
+  return (
+    <RateOverrideContext.Provider value={{
+        // ... all values
+        pezoneData,
+        pe1Data,
+        pe2Data,
+        pe3Data,
+        pe4Data,
+        pe5Data,
+        getRateFile,
+        // ... all other values
+    }}>
+      {children}
+    </RateOverrideContext.Provider>
+  );
+};

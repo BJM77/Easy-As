@@ -1,0 +1,1351 @@
+
+"use client";
+
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import type { PostcodeData, FreightFormValues, CalculatedPriceItem, ServiceName, RateCardDisplayEntry, PEZonesEntry, RegionalLookupEntry, B2BRdexEntry, B2BPriorityRateEntry, LCPRdexRateEntry, LCPPrioRateEntry, TieredPalletRateEntry, WestEastRateEntry, B2CRateEntry, RateFileType, ProposalDetails, ProposalSection, ProposalSectionId } from '@/lib/types';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Loader2, Sparkles, Settings, MapPin, Package, BarChart, FileText, Info, Printer, ArrowRight, Table as TableIcon, Download, CheckSquare, RefreshCcw, PlusCircle, Trash2, Mic, Bot, Edit, X, History, Mail, Send, Package as PackageIcon, Building, Phone, User as UserIcon, Calendar as CalendarIcon, FileSignature, UploadCloud } from 'lucide-react';
+import LocationAutocomplete from '@/components/freight/LocationAutocomplete';
+import { useToast } from '@/hooks/use-toast';
+import { useRateOverrides } from '@/context/RateOverrideContext';
+import { useSettings } from '@/context/SettingsContext';
+import { calculateAllFreightPrices } from '@/lib/freightCalculations';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Separator } from '@/components/ui/separator';
+import { format } from 'date-fns';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useSpeechRecognition } from '@/hooks/use-speech-recognition';
+import { cn } from '@/lib/utils';
+import { perfectPlanSchema, proposalDetailsSchema } from '@/lib/zodSchemas';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from '@/components/ui/dialog';
+import CalculationBreakdownDialog from '@/components/freight/CalculationBreakdownDialog';
+import { PALLET_SERVICES } from '@/lib/types';
+import { Textarea } from '@/components/ui/textarea';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import WizardInput from '@/components/ai-guru/WizardInput';
+import * as XLSX from 'xlsx';
+import Image from 'next/image';
+import { generateExecutiveSummary, refinePointsToParagraph } from '@/ai/flows/proposal-assist-flow';
+
+
+export type GuruFormValues = z.infer<typeof perfectPlanSchema>;
+type ServiceType = 'palletExpress' | 'palletGeneral' | 'priority' | 'road' | 'b2c' | 'waPeSpecial' | 'lcpStd' | 'lcpPrio';
+type WizardStep = 'closed' | 'customerAndLocation' | 'volumesAndProfile' | 'destinations' | 'summary' | 'calculating' | 'results';
+
+interface AnalysisResult {
+  analysis: {
+    calculatedMonthlySpend: number;
+    spendSource: 'User-provided' | 'Calculated';
+    recommendedSpendBand: string;
+  };
+  pricingByOrigin: {
+      origin: PostcodeData;
+      originName: string;
+      results: {
+        destination: string;
+        waSpecialPrice: number | null;
+        waSpecialSavings: number | null;
+        palletExpressPrice: number | null;
+        palletExpressSavings: number | null;
+        palletGeneralPrice: number | null;
+        palletGeneralSavings: number | null;
+        priorityPrice: number | null;
+        prioritySavings: number | null;
+        roadPrice: number | null;
+        roadSavings: number | null;
+        b2cStdPrice: number | null;
+        b2cStdSavings: number | null;
+        b2cPrioPrice: number | null;
+        b2cPrioSavings: number | null;
+      }[];
+    }[];
+}
+
+const defaultProposalSections: Omit<ProposalDetails, 'proposalDate' | 'customerCompanyName' | 'customerContactName' | 'salesProfessionalName' | 'salesProfessionalEmail' | 'salesProfessionalPhone'> = {
+  sections: {
+    execSummary: "Based on our analysis, we are confident that our tailored freight solution can deliver significant value by addressing your key needs around [Client's Primary Need]...",
+    yourNeeds: "During our discussions, we identified several key requirements for your business:\n• A need for reliable, on-time delivery.\n• A desire for greater visibility and tracking.\n• A goal to reduce overall logistics costs.",
+    overviewSolution: "Team Global Express proposes a multi-faceted solution leveraging our core services. We recommend a primary engagement with our B2B Priority service for time-sensitive deliveries, complemented by our cost-effective B2B Standard service for less urgent stock movements.",
+    solutionDetail: "The specific details of the proposed rate structure are attached in the 'Pricing Quotation' section. Our rates are based on Spend Band [X], which we believe offers the most competitive value.",
+    investment: "The investment for this solution is detailed in the pricing schedule. We offer flexible payment terms and are committed to transparent invoicing with no hidden fees.",
+    benefits: "By partnering with Team Global Express, you will benefit from:\n• Increased reliability and on-time performance.\n• Access to our advanced tracking portal.\n• Tangible cost savings through optimized routing.",
+    nextSteps: "The next steps are as follows:\n1. Review this proposal.\n2. Schedule a follow-up call to discuss questions.\n3. Finalize the service agreement and begin onboarding.",
+    authorityToProceed: "To proceed with this proposal, please sign and return this document by [Date]. We look forward to working with you.",
+  },
+  dynamicFields: {
+    yourNeeds: [''],
+    benefits: ['']
+  }
+};
+
+
+interface SalesProDetails {
+  name: string;
+  email: string;
+  phone: string;
+}
+const SALES_PRO_HISTORY_KEY = 'salesProHistory';
+
+
+const formatCurrency = (amount: number | null | undefined | string) => {
+    if (amount === null || amount === undefined || amount === 'N/A' || (typeof amount === 'string' && isNaN(parseFloat(amount))) || String(amount).trim() === '') return "";
+    const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+    return numAmount.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+};
+
+const formatValue = (value: string | number | null | undefined): string => {
+  if (value === null || value === undefined || value === 'N/A' || String(value).trim() === '') return '';
+  if (typeof value === 'number') {
+    return value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  }
+  return String(value);
+};
+
+const formatSendingLocationsForProposal = (locations: PostcodeData[] | undefined): string => {
+    if (!locations || locations.length === 0) return "No sending locations specified.";
+    return locations.map(loc => `${loc.suburb} ${loc.postcode}, ${loc.state}`).join('; ');
+};
+
+
+export default function AIGuruPageContent() {
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
+  const [fullCalculationResults, setFullCalculationResults] = useState<CalculatedPriceItem[]>([]);
+  const [displayPricingByOrigin, setDisplayPricingByOrigin] = useState<AnalysisResult['pricingByOrigin']>([]);
+  const [selectedSpendBand, setSelectedSpendBand] = useState<string | null>(null);
+
+  const [selectedServicesForCard, setSelectedServicesForCard] = useState<Record<ServiceType, boolean>>({
+    palletExpress: false, palletGeneral: false, priority: false, road: false, b2c: false, waPeSpecial: false, lcpStd: false, lcpPrio: false
+  });
+  const [isGeneratingCard, setIsGeneratingCard] = useState(false);
+  const [generatedRates, setGeneratedRates] = useState<RateCardDisplayEntry[]>([]);
+  const [palletRateCardData, setPalletRateCardData] = useState<RateCardDisplayEntry[]>([]);
+  const [nonPalletRateCardData, setNonPalletRateCardData] = useState<RateCardDisplayEntry[]>([]);
+  const [isBreakdownOpen, setIsBreakdownOpen] = useState(false);
+  const [selectedResultForBreakdown, setSelectedResultForBreakdown] = useState<CalculatedPriceItem | null>(null);
+  const [history, setHistory] = useState<GuruFormValues[]>([]);
+  const [isSettingsDialogOpen, setIsSettingsDialogOpen] = useState(false);
+  const [fileName, setFileName] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  const [showProposalEditor, setShowProposalEditor] = useState(false);
+  const [isAiLoading, setIsAiLoading] = useState<Partial<Record<ProposalSectionId, boolean>>>({});
+
+
+  const {
+    serviceSettings, surchargeDefinitions, globalSpendBands,
+    perfectPlanPalletRate, setPerfectPlanPalletRate,
+    perfectPlanParcelRate, setPerfectPlanParcelRate,
+    perfectPlanSatchelRate, setPerfectPlanSatchelRate
+  } = useSettings();
+  const { getRateFile, isLoading: areRatesLoading } = useRateOverrides();
+  const [allPostcodes, setAllPostcodes] = useState<PostcodeData[]>([]);
+  
+  const [wizardStep, setWizardStep] = useState<WizardStep>('closed');
+  const [currentWizardField, setCurrentWizardField] = useState<keyof GuruFormValues | `destinations.${number}.destinationQuery` | `destinations.${number}.averageWeight` | `destinations.${number}.targetPrice` | 'originLocationQuery' | 'none'>('none');
+  
+  const { transcript, listening, isSupported, startListening, stopListening } = useSpeechRecognition();
+
+  const servicesForSelection: ServiceName[] = [
+      'B2B Pallets Express', 'B2B Pallets General Tiered', 'WA PE Special',
+      'B2B Std', 'B2B Priority', 'B2C Std', 'B2C Priority', 'LCP Std', 'LCP Priority'
+  ];
+  
+  const HISTORY_KEY = 'perfectPlanHistory';
+
+  useEffect(() => {
+    try {
+      const storedHistory = localStorage.getItem(HISTORY_KEY);
+      if (storedHistory) {
+        setHistory(JSON.parse(storedHistory));
+      }
+    } catch (e) {
+      console.error("Failed to load Perfect Plan history:", e);
+      localStorage.removeItem(HISTORY_KEY);
+    }
+  }, []);
+
+  const saveToHistory = (data: GuruFormValues) => {
+    setHistory(currentHistory => {
+        const newHistory = [data, ...currentHistory.filter(h => h.customerName !== data.customerName)].slice(0, 3);
+        try {
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(newHistory));
+        } catch (e) {
+            console.error("Failed to save Perfect Plan history:", e);
+        }
+        return newHistory;
+    });
+  };
+
+  const handleLoadHistory = (data: GuruFormValues) => {
+    form.reset(data);
+    toast({ title: "History Loaded", description: `Loaded plan for ${data.customerName}. Click "Next" to continue.`});
+    setWizardStep('customerAndLocation');
+  };
+
+  const form = useForm<GuruFormValues>({
+    resolver: zodResolver(perfectPlanSchema),
+    defaultValues: {
+      customerName: '',
+      originLocationQuery: '',
+      originLocation: null,
+      palletsPerWeek: 0,
+      parcelsPerWeek: 0,
+      satchelsPerWeek: 0,
+      monthlySpend: 0,
+      destinations: [],
+      addressType: 'Business',
+      distributionArea: 'Both',
+      uploadedLegs: [],
+      invoiceFile: undefined,
+    },
+  });
+  
+  const proposalForm = useForm<ProposalDetails>({
+    resolver: zodResolver(proposalDetailsSchema),
+    defaultValues: {
+      proposalDate: new Date(),
+      customerCompanyName: '',
+      customerContactName: '',
+      salesProfessionalName: '',
+      salesProfessionalEmail: '',
+      salesProfessionalPhone: '',
+      ...defaultProposalSections
+    }
+  });
+
+  const { fields: destinationFields, append: appendDestination, remove: removeDestination, replace: replaceDestinations } = useFieldArray({
+    control: form.control,
+    name: "destinations",
+  });
+
+  const { fields: needsFields, append: appendNeed, remove: removeNeed } = useFieldArray({ control: proposalForm.control, name: "dynamicFields.yourNeeds" });
+  const { fields: benefitsFields, append: appendBenefit, remove: removeBenefit } = useFieldArray({ control: proposalForm.control, name: "dynamicFields.benefits" });
+  
+  const handleVoiceInput = (field: typeof currentWizardField) => {
+    if(listening && currentWizardField === field) {
+        stopListening();
+    } else {
+        setCurrentWizardField(field);
+        startListening();
+    }
+  };
+  
+  useEffect(() => {
+    const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+      event.target.select();
+      if (window.innerWidth < 768) { // Only scroll on mobile
+        setTimeout(() => {
+          event.target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    };
+    
+    const inputs = document.querySelectorAll('input[type="number"], input[type="text"]');
+    inputs.forEach(input => {
+      input.addEventListener('focus', handleFocus as any);
+    });
+
+    return () => {
+      inputs.forEach(input => {
+        input.removeEventListener('focus', handleFocus as any);
+      });
+    };
+  }, [wizardStep]);
+
+
+  useEffect(() => {
+    if (transcript && currentWizardField !== 'none') {
+        const fieldName = currentWizardField as any;
+        if (['palletsPerWeek', 'parcelsPerWeek', 'satchelsPerWeek', 'monthlySpend', 'averageWeight', 'targetPrice'].some(key => fieldName.includes(key))) {
+             const numericValue = parseFloat(transcript.replace(/[^0-9.-]+/g, ''));
+             if (!isNaN(numericValue)) {
+                form.setValue(fieldName, numericValue, { shouldValidate: true });
+                if (listening) stopListening();
+             }
+        } else {
+             form.setValue(fieldName, transcript, { shouldValidate: true });
+             if (listening) stopListening();
+        }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [transcript, currentWizardField, form]);
+
+  
+  const startWizard = useCallback(() => {
+    form.reset({
+      customerName: '',
+      originLocationQuery: '',
+      originLocation: null,
+      palletsPerWeek: 0, parcelsPerWeek: 0, satchelsPerWeek: 0, monthlySpend: 0,
+      destinations: [],
+      addressType: 'Business', distributionArea: 'Both',
+      invoiceFile: undefined,
+      uploadedLegs: [],
+    });
+    setFileName(null);
+    if(fileInputRef.current) fileInputRef.current.value = '';
+    setAnalysisResult(null);
+    setShowProposalEditor(false);
+    setWizardStep('customerAndLocation');
+  }, [form]);
+
+  useEffect(() => {
+    const fetchPostcodes = async () => {
+        try {
+            const response = await fetch('/api/postcodes');
+            if (!response.ok) throw new Error('Failed to fetch postcodes');
+            const data: PostcodeData[] = await response.json();
+            setAllPostcodes(data);
+        } catch (error) {
+            console.error("Error fetching postcodes for Guru page:", error);
+            toast({ title: "Error", description: "Could not load postcode data.", variant: "destructive" });
+        }
+    };
+    fetchPostcodes();
+  }, [toast]);
+  
+
+  const nextStep = useCallback(async () => {
+    const stepOrder: WizardStep[] = ['customerAndLocation', 'volumesAndProfile', 'destinations', 'summary'];
+    const currentIndex = stepOrder.indexOf(wizardStep);
+    let proceed = true;
+
+    if (wizardStep === 'customerAndLocation') proceed = await form.trigger(['customerName', 'originLocation']);
+    else if (wizardStep === 'volumesAndProfile') proceed = await form.trigger(['palletsPerWeek', 'parcelsPerWeek', 'satchelsPerWeek', 'monthlySpend', 'addressType', 'distributionArea']);
+    else if (wizardStep === 'destinations') proceed = await form.trigger('destinations');
+
+    if (!proceed) {
+      toast({ title: "Validation Error", description: "Please correct the errors before proceeding.", variant: "destructive" });
+      return;
+    }
+
+    if (currentIndex < stepOrder.length - 1) {
+      let nextStepName = stepOrder[currentIndex + 1];
+      if (nextStepName === 'destinations' && destinationFields.length === 0 && (form.getValues('uploadedLegs') || []).length === 0) {
+        appendDestination({ 
+          id: String(Date.now()), 
+          destinationQuery: '', 
+          destinationLocation: null, 
+          averageWeight: 0, 
+          targetPrice: 0,
+          selectedServices: []
+        });
+      }
+      setWizardStep(nextStepName);
+    }
+  }, [wizardStep, form, destinationFields, appendDestination, toast]);
+
+  const handleGetSolution = async () => {
+    const isFormValid = await form.trigger();
+    if (!isFormValid) {
+        toast({ title: "Validation Error", description: "Please correct all errors before getting a solution.", variant: "destructive" });
+        return;
+    }
+    const data = form.getValues();
+    saveToHistory(data);
+    setWizardStep('calculating');
+    await onSubmit(data);
+  };
+
+
+  const calculateFormattedResults = async (spendBand: string, formData: GuruFormValues): Promise<AnalysisResult['pricingByOrigin']> => {
+      const pricingByOrigin: AnalysisResult['pricingByOrigin'] = [];
+      const origin = formData.originLocation;
+
+      if (!origin) return [];
+      
+      const allCalculations: { destIndex: number, results: CalculatedPriceItem[] }[] = [];
+      let allResultsForBreakdown: CalculatedPriceItem[] = [];
+    
+      for (let i = 0; i < formData.destinations.length; i++) {
+          const dest = formData.destinations[i];
+          if (!dest.destinationLocation || dest.selectedServices.length === 0) continue;
+          
+          const freightFormValues: FreightFormValues = {
+              spendBand: spendBand,
+              originLocation: origin,
+              destinationLocation: dest.destinationLocation,
+              originQuery: formData.originLocationQuery,
+              destinationQuery: dest.destinationQuery,
+              items: [{ weight: dest.averageWeight, quantity: 1, length: 30, width: 30, height: 30 }],
+              globalNoCubic: false,
+              globalOnPallet: false, // Assume non-pallet for general guru calcs unless specified
+              selectedServices: dest.selectedServices,
+              additionalPercentageType: 'none',
+              applyGST: false,
+          };
+          
+          const results = await calculateAllFreightPrices(
+              freightFormValues, serviceSettings, surchargeDefinitions,
+              getRateFile('b2c'), getRateFile('regionallookup'), getRateFile('lcprdex'),
+              getRateFile('lcpprio'), getRateFile('lcpgo'), getRateFile('b2b_std'),
+              getRateFile('b2b_priority'), getRateFile('b2brdex'), getRateFile('pezone'),
+              getRateFile('pe1'), getRateFile('pe2'), getRateFile('pe3'),
+              getRateFile('pe4'), getRateFile('pe5'), getRateFile('pallet6'),
+              getRateFile('west_east'), getRateFile('ras')
+          );
+          allCalculations.push({ destIndex: i, results });
+          // Add a unique identifier to each result for the breakdown dialog
+          const resultsWithId = results.map(r => ({...r, uniqueId: `${i}-${r.serviceName}`}));
+          allResultsForBreakdown = [...allResultsForBreakdown, ...resultsWithId];
+      }
+      setFullCalculationResults(allResultsForBreakdown);
+  
+      const formattedResults = formData.destinations.map((location, index) => {
+          if (!location.destinationLocation) return null;
+          const calcsForThisLocation = allCalculations.find(c => c.destIndex === index);
+          const targetPrice = location.targetPrice;
+          
+          const getResultForService = (service: ServiceName) => {
+              if (!location.selectedServices.includes(service)) return undefined;
+              return calcsForThisLocation?.results.find(r => r.serviceName === service);
+          }
+
+          const waSpecialResult = getResultForService('WA PE Special');
+          const palletExpressResult = getResultForService('B2B Pallets Express');
+          const palletGeneralResult = getResultForService('B2B Pallets General Tiered');
+          const priorityResult = getResultForService('B2B Priority');
+          const roadResult = getResultForService('B2B Std');
+          const b2cStdResult = getResultForService('B2C Std');
+          const b2cPrioResult = getResultForService('B2C Priority');
+          
+          const calcSavings = (price: number | null | undefined) => (price !== null && price !== undefined) ? targetPrice - price : null;
+
+          return {
+              destination: `${location.destinationLocation.suburb || 'N/A'} ${location.destinationLocation.state} ${location.destinationLocation.postcode || ''}`,
+              waSpecialPrice: waSpecialResult?.finalPrice ?? null,
+              waSpecialSavings: calcSavings(waSpecialResult?.finalPrice),
+              palletExpressPrice: palletExpressResult?.finalPrice ?? null,
+              palletExpressSavings: calcSavings(palletExpressResult?.finalPrice),
+              palletGeneralPrice: palletGeneralResult?.finalPrice ?? null,
+              palletGeneralSavings: calcSavings(palletGeneralResult?.finalPrice),
+              priorityPrice: priorityResult?.finalPrice ?? null,
+              prioritySavings: calcSavings(priorityResult?.finalPrice),
+              roadPrice: roadResult?.finalPrice ?? null,
+              roadSavings: calcSavings(roadResult?.finalPrice),
+              b2cStdPrice: b2cStdResult?.finalPrice ?? null,
+              b2cStdSavings: calcSavings(b2cStdResult?.finalPrice),
+              b2cPrioPrice: b2cPrioResult?.finalPrice ?? null,
+              b2cPrioSavings: calcSavings(b2cPrioResult?.finalPrice),
+          };
+      }).filter(Boolean) as AnalysisResult['pricingByOrigin'][0]['results'];
+
+      pricingByOrigin.push({
+          origin: origin,
+          originName: formData.originLocationQuery,
+          results: formattedResults
+      });
+      return pricingByOrigin;
+  }
+
+  const handleSpendBandChange = async (newSpendBand: string) => {
+    setSelectedSpendBand(newSpendBand);
+    setIsLoading(true);
+    const formData = form.getValues();
+    const newPricing = await calculateFormattedResults(newSpendBand, formData);
+    setDisplayPricingByOrigin(newPricing);
+    setIsLoading(false);
+  };
+  
+  const handleOpenBreakdown = (destination: any, serviceName: ServiceName) => {
+    const destLoc = form.getValues().destinations.find(
+      (d) =>
+        `${d.destinationLocation?.suburb || 'N/A'} ${d.destinationLocation?.state} ${d.destinationLocation?.postcode || ''}` ===
+        destination.destination
+    );
+
+    if (!destLoc || !destLoc.destinationLocation) return;
+    
+    // Find a result that matches service name, origin, destination, and weight.
+    const relevantResult = fullCalculationResults.find(r => {
+        return r.serviceName === serviceName &&
+               r.isApplicable &&
+               r.chargeableWeight === destLoc.averageWeight &&
+               r.chargeZoneUsed !== 'N/A' // Attempt to get a more specific match
+    });
+
+    const fallbackResult = fullCalculationResults.find(r => 
+        r.serviceName === serviceName &&
+        r.isApplicable
+    );
+
+    const resultToShow = relevantResult || fallbackResult;
+
+    if (resultToShow) {
+        setSelectedResultForBreakdown(resultToShow);
+        setIsBreakdownOpen(true);
+    } else {
+        toast({ title: "Breakdown not available", description: `Could not find detailed calculation for ${serviceName}.`, variant: "default" });
+    }
+  };
+
+  const onSubmit = async (data: GuruFormValues) => {
+    if (areRatesLoading) {
+      toast({ title: "Please wait", description: "Rate data is still loading. Please try again in a moment.", variant: "default"});
+      setWizardStep('summary');
+      return;
+    }
+    
+    try {
+        await new Promise(res => setTimeout(res, 500));
+        
+        const weeklySpend = (data.palletsPerWeek! * perfectPlanPalletRate) + (data.parcelsPerWeek! * perfectPlanParcelRate) + (data.satchelsPerWeek! * perfectPlanSatchelRate);
+        const calculatedMonthlySpend = weeklySpend * 4.3;
+
+        let finalMonthlySpend = calculatedMonthlySpend;
+        let spendSource: 'User-provided' | 'Calculated' = 'Calculated';
+
+        const userMonthlySpend = data.monthlySpend || 0;
+        if (userMonthlySpend > 0) {
+            const variance = Math.abs(calculatedMonthlySpend - userMonthlySpend) / userMonthlySpend;
+            if (variance <= 0.10) {
+                finalMonthlySpend = userMonthlySpend;
+                spendSource = 'User-provided';
+            }
+        }
+        
+        const annualSpend = finalMonthlySpend * 12;
+
+        let recommendedSpendBand: string;
+        if (annualSpend < 50000) recommendedSpendBand = "1";
+        else if (annualSpend < 200000) recommendedSpendBand = "2";
+        else if (annualSpend < 350000) recommendedSpendBand = "3";
+        else if (annualSpend < 500000) recommendedSpendBand = "4";
+        else recommendedSpendBand = "5";
+
+        const formattedResults = await calculateFormattedResults(recommendedSpendBand, data);
+        
+        setAnalysisResult({
+            analysis: { calculatedMonthlySpend: finalMonthlySpend, spendSource, recommendedSpendBand },
+            pricingByOrigin: formattedResults,
+        });
+        setDisplayPricingByOrigin(formattedResults);
+        setSelectedSpendBand(recommendedSpendBand);
+
+    } catch(e) {
+        console.error("Guru page calculation failed:", e);
+        toast({ title: "Calculation Failed", description: "An error occurred while calculating the solution. Please check the console.", variant: "destructive"});
+    } finally {
+        setWizardStep('results');
+    }
+  };
+  
+  const handlePrint = () => { window.print(); };
+
+  const getVarianceDisplay = (savings: number | null) => {
+    if (savings === null) return null;
+    const isInvestigationNeeded = savings < -200;
+    
+    if (isInvestigationNeeded) {
+        return <span className="text-xs text-amber-600">(Investigate)</span>;
+    }
+    
+    const colorClass = savings >= 0 ? 'text-green-600' : 'text-red-600';
+    return <span className={`text-xs ${colorClass}`}>{formatCurrency(savings)}</span>;
+  };
+  
+  const handleCreateRateCard = async () => {
+    if (!analysisResult) { toast({ title: "No analysis available", description: "Please generate a solution first.", variant: "destructive"}); return; }
+    if (Object.values(selectedServicesForCard).every(v => !v)) { toast({ title: "No services selected", description: "Please select at least one service to create a rate card.", variant: "destructive"}); return; }
+    
+    setIsGeneratingCard(true);
+    await new Promise(res => setTimeout(res, 20)); // Small delay for UI update
+
+    const newGeneratedRates: RateCardDisplayEntry[] = [];
+    const formData = form.getValues();
+    const customerLocation = formData.originLocation;
+    
+    if (!customerLocation) {
+        toast({ title: "Error", description: "Sending location data is missing.", variant: "destructive"});
+        setIsGeneratingCard(false);
+        return;
+    }
+    const spendBand = selectedSpendBand || analysisResult.analysis.recommendedSpendBand;
+
+    const allRateDataArgs = {
+        b2cRates: getRateFile('b2c') as B2CRateEntry[] | undefined, 
+        regionalLookup: getRateFile('regionallookup') as RegionalLookupEntry[] | undefined,
+        lcprdex: getRateFile('lcprdex') as LCPRdexRateEntry[] | undefined, 
+        lcpprio: getRateFile('lcpprio') as LCPPrioRateEntry[] | undefined,
+        b2brdex: getRateFile('b2brdex') as B2BRdexEntry[] | undefined, 
+        b2bPriority: getRateFile('b2b_priority') as B2BPriorityRateEntry[] | undefined,
+        pezoneData: getRateFile('pezone') as PEZonesEntry[] | undefined,
+        palletSpendBand: getRateFile(`pe${spendBand}` as RateFileType) as TieredPalletRateEntry[] | undefined,
+        westEast: getRateFile('west_east') as WestEastRateEntry[] | undefined,
+    };
+    
+    const getPeZone = (location: PostcodeData, pezoneData: PEZonesEntry[] | undefined): string | undefined => {
+        if (!pezoneData || !location?.suburb || !location?.state) return undefined;
+        const searchKey = `${location.suburb.toUpperCase()} ${location.state.toUpperCase()}`;
+        const peEntry = pezoneData.find(p => p["PE Suburb"]?.toUpperCase() === searchKey);
+        return peEntry ? peEntry["PE Zone"] : undefined;
+    };
+    
+    const naToBlank = (val: any) => (val === 'N/A' || val === null || val === undefined) ? '' : String(val);
+
+    const serviceMap: Partial<Record<ServiceType, ServiceName[]>> = {
+      palletExpress: ['B2B Pallets Express'],
+      palletGeneral: ['B2B Pallets General Tiered'],
+      waPeSpecial: ['WA PE Special'],
+      priority: ['B2B Priority'],
+      road: ['B2B Std'],
+      lcpStd: ['LCP Std'],
+      lcpPrio: ['LCP Priority'],
+      b2c: ['B2C Std', 'B2C Priority'],
+    };
+
+    const uniqueServicesToCalculate = new Set<ServiceName>();
+    for (const [serviceType, isSelected] of Object.entries(selectedServicesForCard)) {
+      if (isSelected) {
+        const services = serviceMap[serviceType as ServiceType] || [];
+        services.forEach(s => uniqueServicesToCalculate.add(s));
+      }
+    }
+
+    const originIpec = customerLocation.ipec;
+    const originPrio = customerLocation.prio;
+    const originPe = getPeZone(customerLocation, allRateDataArgs.pezoneData);
+
+    for (const service of Array.from(uniqueServicesToCalculate)) {
+        if (PALLET_SERVICES.includes(service as ServiceName) && originPe && allRateDataArgs.palletSpendBand) {
+            const relevantRates = allRateDataArgs.palletSpendBand.filter(r => r.From.toUpperCase() === originPe.toUpperCase());
+            for (const rate of relevantRates) {
+                const fieldsPrefix = service === 'B2B Pallets Express' ? 'E' : 'G';
+                const minField = fieldsPrefix === 'E' ? 'Eminimum' : 'GMinimum';
+                newGeneratedRates.push({
+                  serviceName: service as ServiceName, spendBand, sendingPostcodeFull: `${customerLocation.suburb} ${customerLocation.postcode}`,
+                  originZone: rate.From, destinationZone: rate.To, zoneTypeDisplay: 'PE', cubicFactor: 333,
+                  basicRate: naToBlank(rate[`${fieldsPrefix}Basic`]), minRate: naToBlank(rate[minField]), kiloRate: '',
+                  tier_0_750: naToBlank(rate[`${fieldsPrefix}251 - 750`] || rate[`${fieldsPrefix}0 - 250`]),
+                  tier_751_1500: naToBlank(rate[`${fieldsPrefix}751 - 1500`]),
+                  tier_1501_3000: naToBlank(rate[`${fieldsPrefix}1501 - 3000`]),
+                  tier_3001_5000: naToBlank(rate[`${fieldsPrefix}3001 - 5000`]),
+                  tier_5001_plus: naToBlank(rate[`${fieldsPrefix}5001 - 99999`]),
+                });
+            }
+        } else if (service === 'WA PE Special' && allRateDataArgs.westEast) {
+            const destinationCities = ["SYDNEY", "MELBOURNE", "BRISBANE", "ADELAIDE"];
+            for (const city of destinationCities) {
+                const rate = allRateDataArgs.westEast.find(r => r.To?.toUpperCase() === city);
+                if (rate) {
+                    newGeneratedRates.push({
+                        serviceName: service, spendBand, sendingPostcodeFull: `${customerLocation.suburb} ${customerLocation.postcode}`,
+                        originZone: 'PER', destinationZone: city, zoneTypeDisplay: 'CITY', cubicFactor: 333,
+                        basicRate: naToBlank(rate.Basic), kiloRate: naToBlank(rate['0-99999KGS']), minRate: naToBlank(rate.Minimum),
+                    });
+                }
+            }
+        } else if (service === 'B2B Std' && originIpec && allRateDataArgs.b2brdex) {
+            const relevantRates = allRateDataArgs.b2brdex.filter(r => r.Logic.startsWith(`Parcel${originIpec}`));
+            for(const rate of relevantRates) {
+              const destZone = rate.Logic.substring(`Parcel${originIpec}`.length);
+              newGeneratedRates.push({
+                serviceName: service, spendBand, sendingPostcodeFull: `${customerLocation.suburb} ${customerLocation.postcode}`,
+                originZone: originIpec, destinationZone: destZone, zoneTypeDisplay: 'IPEC', cubicFactor: 250,
+                basicRate: naToBlank(rate[`B${spendBand}`]), kiloRate: naToBlank(rate[`K${spendBand}`]), minRate: naToBlank(rate[`M${spendBand}`]),
+              });
+            }
+        } else if (service === 'LCP Std' && originIpec && allRateDataArgs.lcprdex) {
+            const relevantRates = allRateDataArgs.lcprdex.filter(r => r.Logic.startsWith(`LCPRDEX${originIpec}`));
+            for(const rate of relevantRates) {
+              const destZone = rate.Logic.substring(`LCPRDEX${originIpec}`.length);
+              newGeneratedRates.push({
+                serviceName: service, spendBand, sendingPostcodeFull: `${customerLocation.suburb} ${customerLocation.postcode}`,
+                originZone: originIpec, destinationZone: destZone, zoneTypeDisplay: 'IPEC', cubicFactor: 250,
+                basicRate: naToBlank(rate.LCPRDEXBasic), kiloRate: naToBlank(rate.LCPRDEXKg), minRate: 'N/A'
+              });
+            }
+        } else if (service === 'B2B Priority' && originPrio && allRateDataArgs.b2bPriority) {
+             const relevantRates = allRateDataArgs.b2bPriority.filter(r => r.Logic.startsWith(`02 02${originPrio}`));
+             for(const rate of relevantRates) {
+                const destZone = rate.Logic.substring(`02 02${originPrio}`.length);
+                newGeneratedRates.push({
+                    serviceName: service, spendBand, sendingPostcodeFull: `${customerLocation.suburb} ${customerLocation.postcode}`,
+                    originZone: originPrio, destinationZone: destZone, zoneTypeDisplay: 'PRIO', cubicFactor: 250,
+                    basicRate: naToBlank(rate[`B${spendBand}`]), kiloRate: naToBlank(rate[`K${spendBand}`]), minRate: naToBlank(rate[`M${spendBand}`])
+                });
+             }
+        } else if (service === 'LCP Priority' && originPrio && allRateDataArgs.lcpprio) {
+            const relevantRates = allRateDataArgs.lcpprio.filter(r => r.Logic.startsWith(`LCPPrio${originPrio}`));
+            for(const rate of relevantRates) {
+                const destZone = rate.Logic.substring(`LCPPrio${originPrio}`.length);
+                newGeneratedRates.push({
+                    serviceName: service, spendBand, sendingPostcodeFull: `${customerLocation.suburb} ${customerLocation.postcode}`,
+                    originZone: originPrio, destinationZone: destZone, zoneTypeDisplay: 'PRIO', cubicFactor: 250,
+                    basicRate: naToBlank(rate.LCPPrioBasic), kiloRate: naToBlank(rate.LCPPrioKg), minRate: 'N/A'
+                });
+            }
+        } else if (service.startsWith('B2C') && originPrio && allRateDataArgs.regionalLookup && allRateDataArgs.b2cRates) {
+            const relevantJourneys = allRateDataArgs.regionalLookup.filter(r => r.LUP.startsWith(originPrio));
+            for(const journey of relevantJourneys) {
+                const b2cRateEntry = allRateDataArgs.b2cRates.find(r => r.Logic === `${spendBand}${journey.Journey}`);
+                if (b2cRateEntry) {
+                    const destZone = journey.LUP.substring(originPrio.length);
+                    const isStdSelected = uniqueServicesToCalculate.has('B2C Std');
+                    const isPrioSelected = uniqueServicesToCalculate.has('B2C Priority');
+                    if (isStdSelected) {
+                        newGeneratedRates.push({
+                            serviceName: 'B2C Std', spendBand, sendingPostcodeFull: `${customerLocation.suburb} ${customerLocation.postcode}`,
+                            originZone: originPrio, destinationZone: destZone, zoneTypeDisplay: 'PRIO', cubicFactor: 250,
+                            basicRate: naToBlank(b2cRateEntry.b2c1), kiloRate: naToBlank(b2cRateEntry.b2c3), minRate: naToBlank(b2cRateEntry.b2c5), additionalRate: naToBlank(b2cRateEntry.kg)
+                        });
+                    }
+                    if (isPrioSelected) {
+                         newGeneratedRates.push({
+                            serviceName: 'B2C Priority', spendBand, sendingPostcodeFull: `${customerLocation.suburb} ${customerLocation.postcode}`,
+                            originZone: originPrio, destinationZone: destZone, zoneTypeDisplay: 'PRIO', cubicFactor: 250,
+                            basicRate: naToBlank(b2cRateEntry.b2cp1), kiloRate: naToBlank(b2cRateEntry.b2cp3), minRate: naToBlank(b2cRateEntry.b2cp5), additionalRate: naToBlank(b2cRateEntry.pkg)
+                        });
+                    }
+                }
+            }
+        }
+    }
+    
+    setGeneratedRates(newGeneratedRates);
+    setPalletRateCardData(newGeneratedRates.filter(r => PALLET_SERVICES.includes(r.serviceName) || r.serviceName.includes('WA PE Special')));
+    setNonPalletRateCardData(newGeneratedRates.filter(r => !PALLET_SERVICES.includes(r.serviceName) && !r.serviceName.includes('WA PE Special')));
+
+    setIsGeneratingCard(false);
+    if (newGeneratedRates.length > 0) {
+      toast({ title: "Rate Card Created", description: `Generated ${newGeneratedRates.length} rate entries.`});
+    } else {
+      toast({ title: "No Rates Generated", description: "No matching rates were found for the selected services and locations. Check that the required rate files are loaded.", variant: 'default' });
+    }
+  };
+
+  const handleExportCsv = () => {
+    if (generatedRates.length === 0) { toast({ title: "No Data", description: "No rate card data to export.", variant: "destructive" }); return; }
+    
+    const headers = [ "Service", "Spend Band", "Sending Location", "Origin Zone", "Destination Zone", "Zone Type", "Basic/1kg", "Kilo/3kg", "Min/5kg", "Per Kg (>5kg)", "Cubic Factor", "0-750KGS", "751-1500KGS", "1501-3000KGS", "3001-5000KGS", "5001+KGS" ];
+    let csvContent = "data:text/csv;charset=utf-8," + headers.join(',') + '\r\n';
+    
+    generatedRates.forEach(rate => {
+      const row = [ rate.serviceName, `SB ${rate.spendBand}`, `"${rate.sendingPostcodeFull}"`, rate.originZone, `"${rate.destinationZone}"`, rate.zoneTypeDisplay, rate.basicRate ?? '', rate.kiloRate ?? '', rate.minRate ?? '', rate.additionalRate ?? '', rate.cubicFactor ?? '', rate.tier_0_750 ?? '', rate.tier_751_1500 ?? '', rate.tier_1501_3000 ?? '', rate.tier_3001_5000 ?? '', rate.tier_5001_plus ?? '' ];
+      csvContent += row.join(',') + '\r\n';
+    });
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `Perfect_Plan_Rate_Card_${form.getValues('customerName').replace(/ /g, '_')}_${format(new Date(), 'yyyy-MM-dd')}.csv`);
+    document.body.appendChild(link); link.click(); document.body.removeChild(link);
+  };
+  
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' && e.target instanceof HTMLInputElement) {
+      e.preventDefault();
+      nextStep();
+    }
+  };
+
+  const handleShowProposal = async () => {
+    const isValid = await form.trigger();
+    if (!isValid) {
+        toast({ title: "Incomplete Form", description: "Please fill out all required fields before creating a proposal.", variant: "destructive" });
+        return;
+    }
+    const formValues = form.getValues();
+    proposalForm.setValue('customerCompanyName', formValues.customerName);
+    
+    const newSections = defaultProposalSections.sections;
+    proposalForm.setValue('sections', newSections);
+    
+    setShowProposalEditor(true);
+    toast({ title: "Proposal Editor Ready", description: "The proposal editor is now visible at the bottom of the page." });
+  };
+  
+  const handleSectionContentChange = (id: ProposalSectionId, content: string) => {
+    proposalForm.setValue(`sections.${id}`, content);
+  };
+  
+   const handleAiAction = async (sectionId: ProposalSectionId) => {
+    setIsAiLoading(prev => ({...prev, [sectionId]: true}));
+    try {
+        if (sectionId === 'execSummary') {
+            const notes = proposalForm.getValues('sections.execSummary');
+            if(!notes || notes.trim().length < 10) {
+              toast({title: "Input Required", description: "Please provide some key points in the text area first.", variant: "default"});
+              return;
+            }
+            const { summary } = await generateExecutiveSummary({ customerName: proposalForm.getValues('customerCompanyName'), userNotes: notes });
+            proposalForm.setValue('sections.execSummary', summary, { shouldDirty: true });
+        } else if (sectionId === 'yourNeeds' || sectionId === 'benefits') {
+            const points = (proposalForm.getValues(`dynamicFields.${sectionId}`) || []).filter(p => p.trim() !== '');
+            if(points.length === 0) {
+                toast({title: "Input Required", description: "Please add at least one point.", variant: "default"});
+                return;
+            }
+            const { paragraph } = await refinePointsToParagraph({ points, topic: sectionId === 'yourNeeds' ? 'customer needs' : 'solution benefits' });
+            proposalForm.setValue(`sections.${sectionId}`, paragraph, { shouldDirty: true });
+        }
+        toast({title: "AI Assistant", description: "Content has been updated."});
+    } catch (e) {
+        console.error("AI Action Error", e);
+        toast({title: "Error", description: "Could not generate AI content.", variant: "destructive"});
+    } finally {
+        setIsAiLoading(prev => ({...prev, [sectionId]: false}));
+    }
+  };
+
+  const handleEmailProposal = (currentDetails: ProposalDetails) => {
+    let text = `EXECUTIVE FREIGHT SUMMARY\n================================\n\nPROPOSAL DETAILS\n--------------------------------\nDate: ${format(currentDetails.proposalDate, 'PPP')}\nTo: ${currentDetails.customerContactName || 'Valued Customer'}, ${currentDetails.customerCompanyName}\nFrom: ${currentDetails.salesProfessionalName}, Team Global Express\nEmail: ${currentDetails.salesProfessionalEmail} | Phone: ${currentDetails.salesProfessionalPhone}\n\n`;
+    (Object.keys(defaultProposalSections.sections) as ProposalSectionId[]).forEach(sectionId => {
+      const sectionTitle = sectionId.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+      text += `SECTION: ${sectionTitle.toUpperCase()}\n--------------------------------\n${currentDetails.sections?.[sectionId]}\n\n`;
+    });
+    
+    text += "PRICING QUOTATION\n--------------------------------\n";
+    if (generatedRates.length > 0) {
+        generatedRates.forEach(rate => {
+          text += `Service: ${rate.serviceName}\nSpend Band: ${rate.spendBand === "N/A" ? "N/A" : `SB ${rate.spendBand}`}\nSending Loc.: ${rate.sendingPostcodeFull}\nOrigin Zone: ${rate.originZone}\nDestination Zone: ${rate.destinationZone}\nZone Type: ${rate.zoneTypeDisplay}\n`;
+          if (rate.serviceName.startsWith('B2C')) { text += `1kg Rate: ${formatCurrency(rate.basicRate)}\n3kg Rate: ${formatCurrency(rate.kiloRate)}\n5kg Rate: ${formatCurrency(rate.minRate)}\nPer Kg Rate (>5kg): ${formatCurrency(rate.additionalRate)}\n`; }
+          else { text += `Basic: ${formatValue(rate.basicRate)}\nKilo: ${formatValue(rate.kiloRate)}\nMin: ${formatValue(rate.minRate)}\n`; }
+          text += `Cubic Factor: ${rate.cubicFactor}\n----\n`;
+        });
+    } else { text += "No pricing details available.\n\n"; }
+    text += `\n--------------------------------\n© ${new Date().getFullYear()} Team Global Express. All rights reserved.\n`;
+    const subject = `Freight Proposal for ${currentDetails.customerCompanyName} from BD Assist`;
+    const mailtoLink = `mailto:${currentDetails.customerContactName ? '' : currentDetails.salesProfessionalEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+    if (mailtoLink.length > 2000) { toast({ title: "Email Link Long", description: "The generated email content is very long and might not open correctly in all email clients.", variant: "default", duration: 10000 }); }
+    try { window.location.href = mailtoLink; toast({ title: "Email Client Opened", description: "Your email client should now be open with the proposal." }); }
+    catch (error) { console.error("Error opening mailto link:", error); toast({ title: "Error", description: "Could not open your email client.", variant: "destructive" }); }
+  };
+  
+  const watchedProposalDetails = proposalForm.watch();
+  
+  const PriceDisplay = ({ loc, serviceName, serviceKey }: { loc: any, serviceName: ServiceName, serviceKey: string }) => {
+      const price = loc[serviceKey + 'Price'];
+      const savings = loc[serviceKey + 'Savings'];
+  
+      return (
+          <TableCell className="text-center">
+              <Button
+                  variant="link"
+                  className="p-0 h-auto"
+                  onClick={() => handleOpenBreakdown(loc, serviceName)}
+                  disabled={price === null || price === undefined}
+              >
+                  {formatCurrency(price)}
+              </Button>
+              {getVarianceDisplay(savings)}
+          </TableCell>
+      );
+  };
+
+  const serviceCheckboxes: { id: ServiceType; label: string }[] = [
+    { id: 'waPeSpecial', label: 'WA PE Special' },
+    { id: 'palletExpress', label: 'PE Express' },
+    { id: 'palletGeneral', label: 'PE General' },
+    { id: 'priority', label: 'Priority' },
+    { id: 'road', label: 'Road Exp.' },
+    { id: 'b2c', label: 'B2C' },
+    { id: 'lcpStd', label: 'LCP Std' },
+    { id: 'lcpPrio', label: 'LCP Prio' },
+  ];
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+        const file = event.target.files[0];
+        setFileName(file.name);
+        const reader = new FileReader();
+
+        const processAndSetLegs = (data: any[][]) => {
+            const newLegs = data.map((row, index) => {
+                const originSuburb = String(row[0] || '');
+                const originPC = String(row[1] || '');
+                const destSuburb = String(row[2] || '');
+                const destPC = String(row[3] || '');
+                const weight = parseFloat(String(row[4] || 0));
+                const price = parseFloat(String(row[5] || 0));
+
+                const originLocation = allPostcodes.find(p => p.postcode.toString() === originPC.trim() && p.suburb.toLowerCase() === originSuburb.toLowerCase().trim());
+                const destinationLocation = allPostcodes.find(p => p.postcode.toString() === destPC.trim() && p.suburb.toLowerCase() === destSuburb.toLowerCase().trim());
+                
+                if (!originLocation || !destinationLocation || isNaN(weight) || isNaN(price)) {
+                    console.warn(`Skipping invalid row ${index + 1}:`, row);
+                    return null;
+                }
+
+                return {
+                    id: `leg-${Date.now()}-${index}`,
+                    destinationQuery: `${destinationLocation.suburb} ${destinationLocation.state} ${destinationLocation.postcode}`,
+                    destinationLocation,
+                    averageWeight: weight,
+                    targetPrice: price,
+                    selectedServices: servicesForSelection,
+                };
+            }).filter(Boolean);
+
+            if (newLegs.length > 0) {
+                replaceDestinations(newLegs as any);
+                toast({ title: "Invoice Processed", description: `Loaded ${newLegs.length} legs from the file.` });
+            } else {
+                toast({ title: "Processing Failed", description: "No valid legs could be parsed from the file. Please check the format.", variant: "destructive" });
+            }
+        };
+
+        if (file.name.endsWith('.csv')) {
+            reader.onload = (e) => {
+                const text = e.target?.result as string;
+                const rows = text.split(/\r\n|\n/).slice(1); // Skip header
+                const data = rows.map(row => row.split(','));
+                processAndSetLegs(data);
+            };
+            reader.readAsText(file);
+        } else if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
+            reader.onload = (e) => {
+                const data = new Uint8Array(e.target?.result as ArrayBuffer);
+                const workbook = XLSX.read(data, { type: "array" });
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+                const jsonData = XLSX.utils.sheet_to_json<any[]>(worksheet, { header: 1, raw: false });
+                processAndSetLegs(jsonData.slice(1)); // Skip header
+            };
+            reader.readAsArrayBuffer(file);
+        }
+    }
+  };
+
+
+  return (
+    <div className="space-y-8">
+      <Card className="text-center">
+          <CardHeader>
+              <CardTitle>"Perfect Plan" Assistant</CardTitle>
+              <CardDescription>Answer a few questions to get a spend band analysis and reciprocal rate card for new customer opportunities.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+              <Button onClick={startWizard} size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
+                  <Sparkles className="mr-2 h-5 w-5" /> Start New Perfect Plan
+              </Button>
+              {history.length > 0 && (
+                <Card className="mt-4 text-left">
+                    <CardHeader className="p-3">
+                        <CardTitle className="text-base flex items-center"><History className="mr-2 h-4 w-4"/>Recent Plans</CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-3 pt-0 space-y-2">
+                        {history.map((item, index) => (
+                            <Button key={index} variant="ghost" className="w-full justify-start" onClick={() => handleLoadHistory(item)}>
+                                {item.customerName || `Plan ${index + 1}`}
+                            </Button>
+                        ))}
+                    </CardContent>
+                </Card>
+              )}
+          </CardContent>
+      </Card>
+      
+      <Dialog open={wizardStep !== 'closed'} onOpenChange={(open) => !open && setWizardStep('closed')}>
+        <DialogContent className="max-w-5xl max-h-[90vh] flex flex-col" onKeyDown={handleKeyDown}>
+            <DialogHeader className="flex-shrink-0">
+                <DialogTitle>Perfect Plan Assistant</DialogTitle>
+                <DialogDescription>
+                    {wizardStep === 'customerAndLocation' && "Let's start with the customer's name and sending location."}
+                    {wizardStep === 'volumesAndProfile' && "What are their estimated weekly volumes, spend and distribution profile?"}
+                    {wizardStep === 'destinations' && "Upload an invoice or manually enter their top destinations."}
+                    {wizardStep === 'summary' && "Please review the entered information before generating the solution."}
+                    {wizardStep === 'calculating' && "Please wait while we generate the perfect plan..."}
+                    {wizardStep === 'results' && `Generated Solution for ${form.watch('customerName') || 'your customer'}.`}
+                </DialogDescription>
+            </DialogHeader>
+            <div className="flex-grow overflow-y-auto pr-4 -mr-4 space-y-4">
+                {wizardStep === 'customerAndLocation' && (
+                  <div className="space-y-4">
+                      <div className="space-y-1"><Label>Customer Name</Label><WizardInput fieldName='customerName' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} autoFocus maxLength={100} className="w-full max-w-sm" /><p className="text-sm text-destructive">{form.formState.errors.customerName?.message}</p>}</div>
+                      <div className="space-y-1"><Label>Sending Location</Label><WizardInput fieldName='originLocationQuery' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} isLocation allPostcodes={allPostcodes}
+                          onLocationSelect={(l: PostcodeData | null) => { 
+                              form.setValue('originLocation', l, { shouldValidate: true }); 
+                              if (l) form.setValue('originLocationQuery', `${l.suburb} ${l.state} ${l.postcode}`);
+                          }}/>
+                      {form.formState.errors.originLocation && <p className="text-sm text-destructive">{form.formState.errors.originLocation.message}</p>}
+                      </div>
+                  </div>
+                )}
+                 
+                {wizardStep === 'volumesAndProfile' && (
+                    <div className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-1"><Label>Pallets/week</Label><WizardInput type="number" fieldName='palletsPerWeek' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} autoFocus /></div>
+                            <div className="space-y-1"><Label>Parcels/week</Label><WizardInput type="number" fieldName='parcelsPerWeek' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} /></div>
+                            <div className="space-y-1"><Label>Satchels/week</Label><WizardInput type="number" fieldName='satchelsPerWeek' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} /></div>
+                            <div className="space-y-1"><Label>User-entered Monthly Spend ($)</Label><WizardInput type="number" fieldName='monthlySpend' form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} /></div>
+                        </div>
+                        <Separator/>
+                        <Controller name="addressType" control={form.control} render={({ field }) => ( <div className="space-y-2"><Label>Address Type</Label><RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-4"><div className="flex items-center space-x-2"><RadioGroupItem value="Residential" id="res"/><Label htmlFor="res">Residential</Label></div><div className="flex items-center space-x-2"><RadioGroupItem value="Business" id="bus"/><Label htmlFor="bus">Business</Label></div><div className="flex items-center space-x-2"><RadioGroupItem value="Both" id="both-addr"/><Label htmlFor="both-addr">Both</Label></div></RadioGroup></div> )}/>
+                        <Controller name="distributionArea" control={form.control} render={({ field }) => ( <div className="space-y-2"><Label>Distribution Area</Label><RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex gap-4"><div className="flex items-center space-x-2"><RadioGroupItem value="Metro" id="metro"/><Label htmlFor="metro">Metro</Label></div><div className="flex items-center space-x-2"><RadioGroupItem value="Regional" id="regional"/><Label htmlFor="regional">Regional</Label></div><div className="flex items-center space-x-2"><RadioGroupItem value="Both" id="both-dist"/><Label htmlFor="both-dist">Both</Label></div></RadioGroup></div> )}/>
+                    </div>
+                )}
+                
+                {wizardStep === 'destinations' && (
+                    <div className="space-y-4">
+                        <Card className="p-4 bg-muted/30">
+                            <CardTitle className="text-base flex items-center mb-2"><UploadCloud className="mr-2 h-4 w-4"/>Upload Invoice (Recommended)</CardTitle>
+                            <CardDescription className="text-xs mb-2">Upload a CSV or Excel file with headers: Origin Suburb, Origin PC, Destination Suburb, Destination PC, Weight, Price.</CardDescription>
+                            <Input
+                                id="invoiceFile"
+                                type="file"
+                                accept=".csv, .xlsx, .xls"
+                                ref={fileInputRef}
+                                onChange={handleFileUpload}
+                                className="w-full max-w-sm"
+                            />
+                            {fileName && <p className="text-xs text-muted-foreground mt-2">Loaded: {fileName}</p>}
+                        </Card>
+                        <Separator />
+                        <p className="text-sm text-center text-muted-foreground">OR</p>
+                        <Label>Manually Add Top Destinations</Label>
+                        {destinationFields.map((field, index) => (
+                             <Card key={field.id} className="p-4 bg-muted/30 border-none shadow-inner">
+                                <div className="flex justify-between items-center">
+                                    <Label>Destination {index + 1}</Label>
+                                    {destinationFields.length > 1 && <Button type="button" variant="ghost" size="icon" onClick={() => removeDestination(index)}><Trash2 className="h-4 w-4 text-destructive"/></Button>}
+                                </div>
+                                <div className="space-y-4 mt-2">
+                                    <div>
+                                        <Label>Destination Location</Label>
+                                        <WizardInput fieldName={`destinations.${index}.destinationQuery`} isLocation autoFocus={index === destinationFields.length - 1} form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} allPostcodes={allPostcodes}
+                                            onLocationSelect={(l: PostcodeData | null) => { 
+                                                form.setValue(`destinations.${index}.destinationLocation`, l, { shouldValidate: true });
+                                                if (l) form.setValue(`destinations.${index}.destinationQuery`, `${l.suburb} ${l.state} ${l.postcode}`);
+                                            }} />
+                                        {form.formState.errors.destinations?.[index]?.destinationLocation && <p className="text-sm text-destructive mt-1">{form.formState.errors.destinations?.[index]?.destinationLocation?.message}</p>}
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <Label>Services for this Destination</Label>
+                                        <Controller
+                                            name={`destinations.${index}.selectedServices`}
+                                            control={form.control}
+                                            render={({ field: controllerField }) => (
+                                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-2">
+                                                    {servicesForSelection.map(service => (
+                                                        <div key={service} className="flex items-center space-x-2">
+                                                            <Checkbox
+                                                                id={`dest-${index}-service-${service}`}
+                                                                checked={(controllerField.value || []).includes(service)}
+                                                                onCheckedChange={checked => {
+                                                                    const currentServices = controllerField.value || [];
+                                                                    const newValue = checked
+                                                                        ? [...currentServices, service]
+                                                                        : currentServices.filter(s => s !== service);
+                                                                    controllerField.onChange(newValue);
+                                                                }}
+                                                            />
+                                                            <Label htmlFor={`dest-${index}-service-${service}`} className="text-sm font-normal">{service}</Label>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        />
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-2">
+                                        <div className="space-y-1"><Label>Avg. Weight (kg)</Label><WizardInput type="number" fieldName={`destinations.${index}.averageWeight`} form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} /></div>
+                                        <div className="space-y-1"><Label>Target Price ($)</Label><WizardInput type="number" fieldName={`destinations.${index}.targetPrice`} form={form} handleVoiceInput={handleVoiceInput} isSupported={isSupported} listening={listening} currentWizardField={currentWizardField} /></div>
+                                    </div>
+                                </div>
+                            </Card>
+                        ))}
+                        {destinationFields.length < 5 && <Button type="button" variant="outline" onClick={() => appendDestination({ id: String(Date.now()), destinationQuery: '', destinationLocation: null, averageWeight: 0, targetPrice: 0, selectedServices: [] })}>Add Another Destination</Button>}
+                    </div>
+                )}
+                 
+                 {wizardStep === 'summary' && (
+                    <div className="space-y-4">
+                        <Card>
+                            <CardHeader className="flex flex-row items-center justify-between p-4"><CardTitle className="text-base">Customer &amp; Origin</CardTitle><Button size="sm" variant="ghost" onClick={() => setWizardStep('customerAndLocation')}><Edit className="mr-2 h-4 w-4"/>Edit</Button></CardHeader>
+                            <CardContent className="p-4 pt-0 text-sm">
+                                <p><strong>Name:</strong> {form.watch('customerName')}</p>
+                                <p><strong>From:</strong> {form.watch('originLocationQuery')}</p>
+                            </CardContent>
+                        </Card>
+                         <Card>
+                            <CardHeader className="flex flex-row items-center justify-between p-4"><CardTitle className="text-base">Volumes &amp; Profile</CardTitle><Button size="sm" variant="ghost" onClick={() => setWizardStep('volumesAndProfile')}><Edit className="mr-2 h-4 w-4"/>Edit</Button></CardHeader>
+                            <CardContent className="p-4 pt-0 text-sm grid grid-cols-2 gap-2">
+                                <p><strong>Pallets/wk:</strong> {form.watch('palletsPerWeek')}</p>
+                                <p><strong>Parcels/wk:</strong> {form.watch('parcelsPerWeek')}</p>
+                                <p><strong>Satchels/wk:</strong> {form.watch('satchelsPerWeek')}</p>
+                                <p><strong>Monthly Spend:</strong> {formatCurrency(form.watch('monthlySpend'))}</p>
+                                <p><strong>Address Type:</strong> {form.watch('addressType')}</p>
+                                <p><strong>Distribution Area:</strong> {form.watch('distributionArea')}</p>
+                            </CardContent>
+                        </Card>
+                         <Card>
+                            <CardHeader className="flex flex-row items-center justify-between p-4"><CardTitle className="text-base">Destinations</CardTitle><Button size="sm" variant="ghost" onClick={() => setWizardStep('destinations')}><Edit className="mr-2 h-4 w-4"/>Edit</Button></CardHeader>
+                            <CardContent className="p-4 pt-0 text-sm space-y-2">
+                               {form.watch('destinations').map((dest, i) => (
+                                    <div key={i} className="p-2 border-b">
+                                        <p><strong>To:</strong> {dest.destinationQuery}</p>
+                                        <p><strong>Avg. Wt:</strong> {dest.averageWeight} kg, <strong>Target Price:</strong> {formatCurrency(dest.targetPrice)}</p>
+                                        <p className="text-xs text-muted-foreground"><strong>Services:</strong> {dest.selectedServices.join(', ')}</p>
+                                    </div>
+                                ))}
+                            </CardContent>
+                        </Card>
+                    </div>
+                 )}
+                {wizardStep === 'calculating' && (
+                  <div className="flex items-center justify-center space-x-2 text-muted-foreground h-40">
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                    <span>Calculating...</span>
+                  </div>
+                )}
+                 {wizardStep === 'results' && analysisResult && (
+                    <div className="space-y-6">
+                        <Card className="bg-muted/30 p-4">
+                            <CardHeader className="p-0 pb-2"><CardTitle className="text-lg flex items-center"><BarChart className="mr-2"/>Analysis Summary</CardTitle></CardHeader>
+                            <CardContent className="p-0 text-sm space-y-2">
+                                <p><strong className="text-foreground">Monthly Spend:</strong> {formatCurrency(analysisResult.analysis.calculatedMonthlySpend)} (source: {analysisResult.analysis.spendSource})</p>
+                                <p><strong className="text-foreground">Estimated Annual Spend:</strong> {formatCurrency(analysisResult.analysis.calculatedMonthlySpend * 12)}</p>
+                                 <div className="flex items-center gap-2">
+                                    <strong className="text-foreground">Spend Band:</strong>
+                                    {selectedSpendBand ? (<Select onValueChange={handleSpendBandChange} value={selectedSpendBand}><SelectTrigger className="w-[180px] h-8 bg-background"><SelectValue /></SelectTrigger><SelectContent>{globalSpendBands.map(band => (<SelectItem key={band} value={band}>{band === analysisResult.analysis.recommendedSpendBand ? `SB ${band} (Recommended)` : `Spend Band ${band}`}</SelectItem>))}</SelectContent></Select>) : (<span className="font-semibold text-primary">{analysisResult.analysis.recommendedSpendBand}</span>)}
+                                </div>
+                            </CardContent>
+                        </Card>
+                        <div className="space-y-8">
+                            {displayPricingByOrigin.length > 0 && displayPricingByOrigin.map((originData, originIndex) => (
+                              <div key={originIndex}>
+                                <div className="flex justify-between items-center mb-2">
+                                  <h3 className="text-xl font-semibold flex items-center"><Package className="mr-2"/>Pricing from <span className="text-primary ml-1">{originData.originName}</span></h3>
+                                  <Button size="sm" variant="outline" onClick={() => setWizardStep('destinations')}><Edit className="mr-2 h-4 w-4"/>Edit Destinations</Button>
+                                </div>
+                                <Table><TableHeader><TableRow>
+                                    <TableHead>Destination</TableHead><TableHead className="text-center">WA Special</TableHead><TableHead className="text-center">PE Express</TableHead><TableHead className="text-center">PE General</TableHead><TableHead className="text-center">Priority</TableHead><TableHead className="text-center">Road Exp.</TableHead><TableHead className="text-center">B2C Std</TableHead><TableHead className="text-center">B2C Prio</TableHead>
+                                </TableRow></TableHeader><TableBody>
+                                {originData.results.map((loc, locIndex) => (
+                                    <TableRow key={locIndex}>
+                                        <TableCell className="font-medium">{loc.destination}</TableCell>
+                                        <PriceDisplay loc={loc} serviceName="WA PE Special" serviceKey="waSpecial" />
+                                        <PriceDisplay loc={loc} serviceName="B2B Pallets Express" serviceKey="palletExpress" />
+                                        <PriceDisplay loc={loc} serviceName="B2B Pallets General Tiered" serviceKey="palletGeneral" />
+                                        <PriceDisplay loc={loc} serviceName="B2B Priority" serviceKey="priority" />
+                                        <PriceDisplay loc={loc} serviceName="B2B Std" serviceKey="road" />
+                                        <PriceDisplay loc={loc} serviceName="B2C Std" serviceKey="b2cStd" />
+                                        <PriceDisplay loc={loc} serviceName="B2C Priority" serviceKey="b2cPrio" />
+                                    </TableRow>
+                                ))}
+                                </TableBody></Table>
+                              </div>
+                            ))}
+                        </div>
+                        <div className="mt-8 pt-6 border-t">
+                            <h3 className="text-xl font-semibold mb-2 flex items-center"><CheckSquare className="mr-2"/>Create Rate Card</h3>
+                            <p className="text-sm text-muted-foreground mb-4">Select services to include in a rate card. Uses the first sending location as primary.</p>
+                            <div className="flex flex-wrap gap-x-6 gap-y-3 p-4 border rounded-md">
+                                {serviceCheckboxes.map(service => (
+                                  <div key={service.id} className="flex items-center space-x-2">
+                                    <Checkbox 
+                                      id={`cb-${service.id}`} 
+                                      checked={selectedServicesForCard[service.id]} 
+                                      onCheckedChange={(checked) => 
+                                        setSelectedServicesForCard(prev => ({...prev, [service.id]: !!checked}))
+                                      }
+                                    />
+                                    <Label htmlFor={`cb-${service.id}`} className="font-normal">{service.label}</Label>
+                                  </div>
+                                ))}
+                            </div>
+                            <div className="flex gap-2 mt-4 flex-wrap">
+                                <Button onClick={handleCreateRateCard} disabled={isGeneratingCard}>{isGeneratingCard ? <><Loader2 className="mr-2 h-4 w-4 animate-spin"/>Generating...</> : <><RefreshCcw className="mr-2 h-4 w-4"/>Create Reciprocal Rate Card</>}</Button>
+                                <Button onClick={handleShowProposal} variant="outline"><FileSignature className="mr-2 h-4 w-4" />Show Proposal Editor</Button>
+                            </div>
+                        </div>
+                        {generatedRates.length > 0 && (
+                          <div className="mt-8">
+                              <div className="flex justify-between items-center mb-4">
+                                <h3 className="text-xl font-semibold flex items-center"><TableIcon className="mr-2"/>Generated Rate Card</h3>
+                                <Button onClick={handleExportCsv} variant="outline" size="sm"><Download className="mr-2 h-4 w-4"/>Export Full CSV</Button>
+                              </div>
+                              {nonPalletRateCardData.length > 0 && (
+                                  <div className="mb-6">
+                                      <h4 className="font-semibold mb-2">Parcel & Satchel Rates</h4>
+                                      <Table>
+                                          <TableHeader><TableRow><TableHead>Service</TableHead><TableHead>Sending Loc</TableHead><TableHead>Dest Zone</TableHead><TableHead className="text-right">Basic/1kg</TableHead><TableHead className="text-right">Kilo/3kg</TableHead><TableHead className="text-right">Min/5kg</TableHead><TableHead className="text-right">Add. Rate</TableHead></TableRow></TableHeader>
+                                          <TableBody>{nonPalletRateCardData.map((rate, index) => (<TableRow key={`nonpallet-${index}`}><TableCell>{rate.serviceName}</TableCell><TableCell>{rate.sendingPostcodeFull}</TableCell><TableCell>{rate.destinationZone}</TableCell><TableCell className="text-right">{formatCurrency(rate.basicRate)}</TableCell><TableCell className="text-right">{formatCurrency(rate.kiloRate)}</TableCell><TableCell className="text-right">{formatCurrency(rate.minRate)}</TableCell><TableCell className="text-right">{formatCurrency(rate.additionalRate)}</TableCell></TableRow>))}</TableBody>
+                                      </Table>
+                                  </div>
+                              )}
+                              {palletRateCardData.length > 0 && (
+                                <div>
+                                    <h4 className="font-semibold mb-2">Pallet Rates</h4>
+                                    <Table>
+                                        <TableHeader><TableRow><TableHead>Service</TableHead><TableHead>Sending Loc</TableHead><TableHead>Dest Zone</TableHead><TableHead className="text-right">Basic</TableHead><TableHead className="text-right">Min</TableHead><TableHead className="text-right">0-750</TableHead><TableHead className="text-right">751-1500</TableHead><TableHead className="text-right">1501-3000</TableHead><TableHead className="text-right">3001-5000</TableHead><TableHead className="text-right">5001+</TableHead></TableRow></TableHeader>
+                                        <TableBody>{palletRateCardData.map((rate, index) => (<TableRow key={`pallet-${index}`}><TableCell>{rate.serviceName}</TableCell><TableCell>{rate.sendingPostcodeFull}</TableCell><TableCell>{rate.destinationZone}</TableCell><TableCell className="text-right">{formatCurrency(rate.basicRate)}</TableCell><TableCell className="text-right">{formatCurrency(rate.minRate)}</TableCell><TableCell className="text-right">{formatCurrency(rate.tier_0_750)}</TableCell><TableCell className="text-right">{formatCurrency(rate.tier_751_1500)}</TableCell><TableCell className="text-right">{formatCurrency(rate.tier_1501_3000)}</TableCell><TableCell className="text-right">{formatCurrency(rate.tier_3001_5000)}</TableCell><TableCell className="text-right">{formatCurrency(rate.tier_5001_plus)}</TableCell></TableRow>))}</TableBody>
+                                    </Table>
+                                </div>
+                              )}
+                          </div>
+                        )}
+                    </div>
+                 )}
+            </div>
+            
+            <DialogFooter className="flex-shrink-0">
+                 <div className="flex justify-between w-full">
+                    <Button variant="ghost" onClick={() => setWizardStep('closed')}>Cancel</Button>
+                    {(wizardStep === 'volumesAndProfile' || wizardStep === 'destinations') && (
+                        <Button type="button" variant="outline" onClick={() => wizardStep === 'volumesAndProfile' ? setWizardStep('customerAndLocation') : setWizardStep('volumesAndProfile')}>Back</Button>
+                    )}
+                    {(wizardStep !== 'calculating' && wizardStep !== 'summary' && wizardStep !== 'results') && (
+                        <Button onClick={nextStep} type="button">Next <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                    )}
+                    {wizardStep === 'summary' && (
+                        <Button onClick={handleGetSolution}>Get Solution</Button>
+                    )}
+                    {wizardStep === 'results' && (
+                       <div className="flex gap-2">
+                        <Button onClick={startWizard}><Sparkles className="mr-2 h-4 w-4"/>Start New</Button>
+                       </div>
+                    )}
+                </div>
+            </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+       {showProposalEditor && (
+        <div className="bg-background/80 p-4 sm:p-8 rounded-lg mt-8 border-t-4 border-primary print-expand" id="proposal-section-container">
+            <div className="max-w-5xl mx-auto">
+                <div className="print-hide flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                    <h2 className="text-2xl font-bold text-foreground">Proposal Editor</h2>
+                    <div className="flex items-center gap-2">
+                        <Button variant="outline" onClick={handlePrint}><Printer className="mr-2 h-4 w-4" /> Print / Save as PDF</Button>
+                        <Button onClick={() => handleEmailProposal(proposalForm.getValues())} className="bg-accent hover:bg-accent/90 text-accent-foreground"><Send className="mr-2 h-4 w-4" /> Email Proposal</Button>
+                    </div>
+                </div>
+                <Card className="w-full shadow-lg card-print" id="proposal-document">
+                    <CardContent className="p-8 sm:p-12">
+                        <header className="mb-12">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <h1 className="text-3xl font-bold text-primary">Executive Freight Summary - {watchedProposalDetails.customerCompanyName || '...'}</h1>
+                                    <p className="text-muted-foreground">Created for {watchedProposalDetails.customerContactName || '...'} by {watchedProposalDetails.salesProfessionalName || '...'}</p>
+                                </div>
+                                <div className="relative h-20 w-40">
+                                    <Image 
+                                      src="https://picsum.photos/200/100" 
+                                      alt="Company Logo" 
+                                      fill
+                                      className="object-contain"
+                                      data-ai-hint="logo"
+                                    />
+                                </div>
+                            </div>
+                        </header>
+                        <Separator className="my-8" />
+                        
+                        <div className="print-hide space-y-6 mb-8">
+                            <h3 className="text-xl font-semibold">Proposal Details</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                            <div className="space-y-1"><Label htmlFor="customerCompanyName" className="flex items-center text-muted-foreground"><Building className="mr-2 h-4 w-4" />Customer Company Name</Label><Input id="customerCompanyName" {...proposalForm.register('customerCompanyName')} /></div>
+                            <div className="space-y-1"><Label htmlFor="salesProfessionalName" className="flex items-center text-muted-foreground"><UserIcon className="mr-2 h-4 w-4" />Sales Professional Name</Label><Input id="salesProfessionalName" {...proposalForm.register('salesProfessionalName')} /></div>
+                            <div className="space-y-1"><Label htmlFor="customerContactName" className="flex items-center text-muted-foreground"><UserIcon className="mr-2 h-4 w-4" />Customer Contact Name</Label><Input id="customerContactName" {...proposalForm.register('customerContactName')} /></div>
+                            <div className="space-y-1"><Label htmlFor="salesProfessionalEmail" className="flex items-center text-muted-foreground"><Mail className="mr-2 h-4 w-4" />Sales Professional Email</Label><Input id="salesProfessionalEmail" type="email" {...proposalForm.register('salesProfessionalEmail')} /></div>
+                            <div className="space-y-1"><Label htmlFor="proposalDate" className="flex items-center text-muted-foreground"><CalendarIcon className="mr-2 h-4 w-4" />Proposal Date</Label><Controller name="proposalDate" control={proposalForm.control} render={({ field }) => (<Popover><PopoverTrigger asChild><Button variant="outline" className={cn("w-full justify-start text-left font-normal", !field.value && "text-muted-foreground")}><CalendarIcon className="mr-2 h-4 w-4" />{field.value ? format(field.value, "PPP") : <span>Pick a date</span>}</Button></PopoverTrigger><PopoverContent className="w-auto p-0"><Calendar mode="single" selected={field.value} onSelect={field.onChange} initialFocus /></PopoverContent></Popover>)}/></div>
+                            <div className="space-y-1"><Label htmlFor="salesProfessionalPhone" className="flex items-center text-muted-foreground"><Phone className="mr-2 h-4 w-4" />Sales Professional Phone</Label><Input id="salesProfessionalPhone" {...proposalForm.register('salesProfessionalPhone')} /></div>
+                            </div>
+                        </div>
+
+                        <div className="hidden print-block mb-10"><div className="grid grid-cols-2 gap-x-12 gap-y-4 text-sm"><div><span className="font-semibold text-muted-foreground">To:</span> {proposalForm.getValues('customerContactName')}, {proposalForm.getValues('customerCompanyName')}</div><div><span className="font-semibold text-muted-foreground">From:</span> {proposalForm.getValues('salesProfessionalName')}</div><div><span className="font-semibold text-muted-foreground">Date:</span> {format(proposalForm.getValues('proposalDate'), 'PPP')}</div><div><span className="font-semibold text-muted-foreground">Contact:</span> {proposalForm.getValues('salesProfessionalEmail')} | {proposalForm.getValues('salesProfessionalPhone')}</div></div></div>
+                        
+                        <div className="space-y-8 proposal-sections">
+                          {Object.entries(defaultProposalSections.sections).map(([key, defaultContent]) => {
+                             const sectionId = key as ProposalSectionId;
+                             const hasDynamicFields = defaultProposalSections.dynamicFields?.hasOwnProperty(sectionId);
+                             const isExecSummary = sectionId === 'execSummary';
+
+                             return (
+                                <div key={sectionId} className="proposal-section">
+                                  <h2 className="text-xl font-semibold border-b-2 border-primary pb-2 mb-4">{sectionId.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</h2>
+                                  {(hasDynamicFields || isExecSummary) && (
+                                    <div className="mb-4 space-y-2">
+                                        <Label className="text-xs text-muted-foreground">Enter key points below, then use the AI Assistant to generate the paragraph.</Label>
+                                        {sectionId === 'yourNeeds' && needsFields.map((field, index) => (<div key={field.id} className="flex items-center gap-2"><Input {...proposalForm.register(`dynamicFields.yourNeeds.${index}` as const)} placeholder={`Need #${index + 1}`} /><Button type="button" variant="ghost" size="icon" onClick={() => removeNeed(index)} disabled={needsFields.length <= 1}><Trash2 className="h-4 w-4 text-destructive" /></Button></div>))}
+                                        {sectionId === 'benefits' && benefitsFields.map((field, index) => (<div key={field.id} className="flex items-center gap-2"><Input {...proposalForm.register(`dynamicFields.benefits.${index}` as const)} placeholder={`Benefit #${index + 1}`} /><Button type="button" variant="ghost" size="icon" onClick={() => removeBenefit(index)} disabled={benefitsFields.length <= 1}><Trash2 className="h-4 w-4 text-destructive" /></Button></div>))}
+                                        {hasDynamicFields && <Button type="button" variant="outline" size="sm" onClick={() => sectionId === 'yourNeeds' ? appendNeed('') : appendBenefit('')}><PlusCircle className="mr-2 h-4 w-4" /> Add Point</Button>}
+                                    </div>
+                                  )}
+                                  <Textarea value={watchedProposalDetails.sections?.[sectionId] || ''} onChange={(e) => handleSectionContentChange(sectionId, e.target.value)} rows={6} className="text-base leading-relaxed border-dashed focus-visible:ring-1 focus-visible:ring-ring print-hide" placeholder={isExecSummary ? "Enter key points for the AI..." : "Enter content here..."} />
+                                  <div className="hidden print-block text-base leading-relaxed whitespace-pre-wrap">{watchedProposalDetails.sections?.[sectionId] || ''}</div>
+                                  {(hasDynamicFields || isExecSummary) && <Button type="button" variant="secondary" size="sm" onClick={() => handleAiAction(sectionId)} disabled={isAiLoading[sectionId]} className="mt-2 print-hide">{isAiLoading[sectionId] ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Sparkles className="mr-2 h-4 w-4"/>}AI Assistant</Button>}
+                                </div>
+                              );
+                          })}
+
+                          <div key="authorityToProceed" className="proposal-section">
+                              <h2 className="text-xl font-semibold border-b-2 border-primary pb-2 mb-4">Authority to Proceed</h2>
+                              <p className="text-sm text-muted-foreground mb-6">By signing below, {proposalForm.getValues('customerCompanyName') || 'your company'} authorizes Team Global Express to proceed with the scope and costs described in this proposal.</p>
+                              <div className="grid grid-cols-2 gap-x-12 gap-y-10 mt-16">
+                                  <div className="border-t pt-2">
+                                      <p className="font-semibold">{proposalForm.getValues('customerContactName') || '..............................'}</p>
+                                      <p className="text-sm text-muted-foreground">Signature</p>
+                                  </div>
+                                  <div className="border-t pt-2">
+                                      <p className="font-semibold">&nbsp;</p>
+                                      <p className="text-sm text-muted-foreground">Date</p>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        
+                        <div className="mt-10"><h2 className="text-xl font-semibold border-b-2 border-primary pb-2 mb-4">Pricing Quotation</h2>{generatedRates.length > 0 && (<ScrollArea className="max-h-[600px] overflow-auto"><Table><TableHeader><TableRow><TableHead>Service</TableHead><TableHead>Sending Loc.</TableHead><TableHead>Dest. Zone</TableHead><TableHead>Zone Type</TableHead><TableHead className="text-right">Basic / 1kg</TableHead><TableHead className="text-right">Kilo / 3kg</TableHead><TableHead className="text-right">Min / 5kg</TableHead><TableHead className="text-right">Per Kg (&gt;5kg)</TableHead></TableRow></TableHeader><TableBody>{generatedRates.map((rate, index) => (<TableRow key={`ratecard-${index}`}><TableCell>{rate.serviceName}</TableCell><TableCell>{rate.sendingPostcodeFull}</TableCell><TableCell>{rate.destinationZone}</TableCell><TableCell>{rate.zoneTypeDisplay}</TableCell><TableCell className="text-right">{formatValue(rate.basicRate)}</TableCell><TableCell className="text-right">{formatValue(rate.kiloRate)}</TableCell><TableCell className="text-right">{formatValue(rate.minRate)}</TableCell><TableCell className="text-right">{formatValue(rate.additionalRate)}</TableCell></TableRow>))}</TableBody></Table></ScrollArea>)}</div>
+                        
+                        <footer className="mt-12 pt-6 border-t text-center text-xs text-muted-foreground"><p>© ${new Date().getFullYear()} BD Assist. All rights reserved. This proposal is confidential and intended solely for the recipient.</p></footer>
+                    </CardContent>
+                </Card>
+            </div>
+        </div>
+      )}
+
+      <CalculationBreakdownDialog
+          isOpen={isBreakdownOpen}
+          onOpenChange={setIsBreakdownOpen}
+          result={selectedResultForBreakdown}
+      />
+      <Dialog open={isSettingsDialogOpen} onOpenChange={setIsSettingsDialogOpen}>
+        <DialogContent>
+            <DialogHeader>
+                <DialogTitle>Configure Base Rates</DialogTitle>
+                <DialogDescription>
+                    These rates are used to calculate the estimated monthly spend.
+                </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+                <div className="space-y-1">
+                    <Label htmlFor="pp-pallet-rate">Pallet Rate ($)</Label>
+                    <Input id="pp-pallet-rate" type="number" value={perfectPlanPalletRate} onChange={e => setPerfectPlanPalletRate(parseFloat(e.target.value) || 0)} />
+                </div>
+                <div className="space-y-1">
+                    <Label htmlFor="pp-parcel-rate">Parcel Rate ($)</Label>
+                    <Input id="pp-parcel-rate" type="number" value={perfectPlanParcelRate} onChange={e => setPerfectPlanParcelRate(parseFloat(e.target.value) || 0)} />
+                </div>
+                <div className="space-y-1">
+                    <Label htmlFor="pp-satchel-rate">Satchel Rate ($)</Label>
+                    <Input id="pp-satchel-rate" type="number" value={perfectPlanSatchelRate} onChange={e => setPerfectPlanSatchelRate(parseFloat(e.target.value) || 0)} />
+                </div>
+            </div>
+            <DialogFooter>
+                <DialogClose asChild>
+                    <Button type="button">Done</Button>
+                </DialogClose>
+            </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
+    

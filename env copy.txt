@@ -1,0 +1,3 @@
+NEXT_PUBLIC_GEMINI_API_KEY="AIzaSyD4GfupnE1l0OclPzT07jMqAInZB0cMkjM"
+NEXT_PUBLIC_FIREBASE_WEBAPP_CONFIG="{\"apiKey\":\"AIzaSyAePnoDJpqKqLmj3YRIbh8r9K78_86_0es\",\"authDomain\":\"tgebdtools.firebaseapp.com\",\"projectId\":\"tgebdtools\",\"storageBucket\":\"tgebdtools.firebasestorage.app\",\"messagingSenderId\":\"847044468743\",\"appId\":\"1:847044468743:web:c0445846c829c6a6fb8aa2\"}"
+NEXT_PUBLIC_GOOGLE_MAPS_EMBED_API_KEY="AIzaSyD4GfupnE1l0OclPzT07jMqAInZB0cMkjM"

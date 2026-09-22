@@ -1,0 +1,15 @@
+// This file is being backed up as part of the Perfect Plan/Proposal integration.
+// The new unified workflow will be available on the /ai-guru page.
+// This file can be deleted after confirming the new workflow is satisfactory.
+
+import ProposalPageContent from "./page-content";
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Proposal Builder - FreightMate",
+  description: "Create professional sales proposals step-by-step.",
+};
+
+export default function ProposalPage() {
+  return <ProposalPageContent />;
+}

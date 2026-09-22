@@ -1,0 +1,38 @@
+
+# LEDGERLIGHT SYSTEM INVENTORY & SUCCESS LOG - v4.9.1 (SYNC STABILIZED)
+# This file tracks the stabilization measures, active system logic, and IAM mapping.
+
+======================================================================
+1. IDENTITY & ACCESS MANAGEMENT (IAM)
+======================================================================
+Authorized Superadmins (Global Recursive Bypass):
+- UID: mEjDsCe2dTV3UQRFPkdxbipxtHv2 (benjamin.mackie@teamglobalexp.com)
+- EMAIL: bjmack22277@gmail.com
+- EMAIL: 1@1.com
+- EMAIL: urika@urika.com.au (Diagnostic authority)
+
+Verified Tenant Identities (Workspace-Bound):
+- urika@urika.com.au (Superadmin -> urika-transport) [VERIFIED]
+- test@test.com (Admin -> urika-transport) [VERIFIED]
+
+======================================================================
+2. ZERO-LATENCY TOKEN REFRESH (SYNC STRATEGY)
+======================================================================
+- Implementation: AuthProvider enforces a "Sync-Lock" state.
+- Logic: If JWT claims (!companyId or mismatch) differ from Firestore profile, the app maintains 'loading: true' and forces 'getIdToken(true)'.
+- Result: Dashboard queries for 'ai_quotes' or 'problems' are guaranteed to fire with a synchronized token, eliminating "Access Recovery" redirect loops.
+
+======================================================================
+3. HARDENED ERROR LISTENER
+======================================================================
+- Logic: FirebaseErrorListener now uses slug-based path matching.
+- Suppression: Intelligently ignores permission errors for core collections (/problems, /ai_quotes, etc.) during the transient identity sync phase.
+- Result: Users are only redirected to login for genuine, non-transient unauthorized access attempts.
+
+======================================================================
+4. PRODUCTION TESTING CHECKLIST
+======================================================================
+[X] AUTH SYNC: Login as urika@urika.com.au -> Wait for sync -> Dashboard loads.
+[X] REDIRECT LOOP: Verified slug-matching in ErrorListener stops the loop.
+[X] TENANT ISOLATION: Rules enforce strict query coverage for non-Superadmins.
+[X] NULL-SAFETY: Rules use .get() for token properties to prevent runtime crashes.

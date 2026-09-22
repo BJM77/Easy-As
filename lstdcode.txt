@@ -1,0 +1,198 @@
+This file contains the code snippets for LCP Std (not working) and LCP Priority (working) as requested for debugging.
+
+======================================================================
+LCP Std (Not Working)
+======================================================================
+
+---
+1. API Route: /src/app/api/lcprdex/route.ts
+---
+This file reads 'lcprdex.json' from the /src/public folder and makes it available to the application.
+
+import { NextResponse } from 'next/server';
+import fs from 'fs/promises';
+import path from 'path';
+import type { LCPRdexRateEntry } from '@/lib/types';
+
+function parseMonetaryValue(value: string | number | undefined): number {
+  if (typeof value === 'number') {
+    return value;
+  }
+  if (typeof value === 'string') {
+    const cleanedValue = value.replace(/\$|,/g, '');
+    const num = parseFloat(cleanedValue);
+    return isNaN(num) ? 0 : num; // Default to 0 if parsing fails
+  }
+  return 0; // Default for undefined or other types
+}
+
+export async function GET() {
+  const apiPath = '/api/lcprdex';
+  const fileName = 'lcprdex.json';
+  try {
+    const filePath = path.join(process.cwd(), 'src', 'public', fileName);
+    console.log(`[API ${apiPath}] Attempting to read file from: ${filePath}`);
+    const fileContents = await fs.readFile(filePath, 'utf8');
+    const rawData: any[] = JSON.parse(fileContents);
+
+    const data: LCPRdexRateEntry[] = rawData.map(entry => ({
+      Logic: entry.Logic,
+      LCPRDEXBasic: parseMonetaryValue(entry.LCPRDEXBasic),
+      LCPRDEXKilo: parseMonetaryValue(entry.LCPRDEXKg), 
+    }));
+
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error(`[API ${apiPath}] Error:`, error);
+    let message = `Failed to load ${fileName}`;
+    if (error instanceof Error) {
+      message = error.message;
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+        message = `File not found: ${filePath}. Please ensure the file exists. Error: ${error.message}`;
+      }
+    }
+    return NextResponse.json({ error: `Failed to load LCP RDEX rates data from server`, details: message }, { status: 500 });
+  }
+}
+
+
+---
+2. Type Definition: /src/lib/types.ts (LCPRdexRateEntry)
+---
+This defines the data structure the application expects for LCP Std rates.
+
+export interface LCPRdexRateEntry {
+  Logic: string; 
+  LCPRDEXBasic: number;
+  LCPRDEXKilo: number; // Note the 'Kilo' spelling here
+  [key: string]: number | string | undefined;
+}
+
+
+---
+3. Calculation Logic: /src/lib/freightCalculations.ts (excerpt for LCP Std)
+---
+This is the part of the main calculation function that handles LCP Std pricing.
+
+// Inside the calculateAllFreightPrices function...
+    if (uiServiceName === 'LCP Std') {
+        chargeZoneUsed = `N/A (LCP Std Initial)`;
+        if (!lcprdexData || lcprdexData.length === 0) {
+            currentResult.remarks.push("LCP Std rates data (lcprdex.json) missing or empty.");
+            currentResult.isApplicable = false;
+        } else {
+            const originIpec = originLocation.ipec;
+            const destIpec = destinationLocation.ipec;
+            if (!originIpec || !destIpec) {
+                currentResult.remarks.push(`LCP Std IPEC zone missing. Origin: ${originIpec}, Dest: ${destIpec}. Check postcodes.json.`);
+                currentResult.isApplicable = false;
+            } else {
+                const logicKey = `LCPRDEX${originIpec}${destIpec}`;
+                chargeZoneUsed = logicKey;
+                currentResult.chargeZoneUsed = chargeZoneUsed;
+                const rateEntry = lcprdexData.find(r => r.Logic === logicKey);
+                currentResult.rateEntryUsed = rateEntry;
+                if (!rateEntry || typeof rateEntry.LCPRDEXBasic !== 'number' || typeof rateEntry.LCPRDEXKilo !== 'number') {
+                    currentResult.remarks.push(`LCP Std rate entry or fields (LCPRDEXBasic/Kilo) missing/invalid in lcprdex.json for Logic key: ${logicKey}.`);
+                    currentResult.isApplicable = false;
+                } else {
+                    baseFreight = (chargeableWeightKg * rateEntry.LCPRDEXKilo) + rateEntry.LCPRDEXBasic;
+                    currentResult.calculationFormula = `((LCPRDEXKilo: ${rateEntry.LCPRDEXKilo} * CW: ${chargeableWeightKg.toFixed(2)}) + LCPRDEXBasic: ${rateEntry.LCPRDEXBasic})`;
+                }
+            }
+        }
+    }
+
+
+======================================================================
+LCP Priority (Working)
+======================================================================
+
+---
+1. API Route: /src/app/api/lcpprio/route.ts
+---
+This file reads 'lcpprio.json' from the /src/public folder.
+
+import { NextResponse } from 'next/server';
+import fs from 'fs/promises';
+import path from 'path';
+import type { LCPPrioRateEntry } from '@/lib/types';
+
+function parseMonetaryValue(value: string | number | undefined): number {
+  if (typeof value === 'number') {
+    return value;
+  }
+  if (typeof value === 'string') {
+    const cleanedValue = value.replace(/\$|,/g, '');
+    const num = parseFloat(cleanedValue);
+    return isNaN(num) ? 0 : num; // Default to 0 if parsing fails
+  }
+  return 0; // Default for undefined or other types
+}
+
+export async function GET() {
+  const apiPath = '/api/lcpprio';
+  const fileName = 'lcpprio.json';
+  try {
+    const filePath = path.join(process.cwd(), 'src', 'public', fileName); // UPDATED PATH
+    console.log(`[API ${apiPath}] Attempting to read file from: ${filePath}`);
+    const fileContents = await fs.readFile(filePath, 'utf8');
+    const rawData: any[] = JSON.parse(fileContents);
+
+    const data: LCPPrioRateEntry[] = rawData.map(entry => ({
+      ...entry,
+      LCPPrioBasic: parseMonetaryValue(entry.LCPPrioBasic),
+      LCPPrioKg: parseMonetaryValue(entry.LCPPrioKg),
+    }));
+
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error(`[API ${apiPath}] Error:`, error);
+    let message = `Failed to load ${fileName}`;
+    if (error instanceof Error) {
+      message = error.message;
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+        message = `File not found: src/public/${fileName}. Please ensure the file exists. Error: ${error.message}`; // UPDATED ERROR MSG
+      }
+    }
+    return NextResponse.json({ error: `Failed to load LCP Prio rates data from server`, details: message }, { status: 500 });
+  }
+}
+
+
+---
+2. Type Definition: /src/lib/types.ts (LCPPrioRateEntry)
+---
+
+export interface LCPPrioRateEntry {
+  Logic: string;
+  LCPPrioBasic: number;
+  LCPPrioKg: number;
+  [key: string]: number | string | undefined;
+}
+
+
+---
+3. Calculation Logic: /src/lib/freightCalculations.ts (excerpt for LCP Priority)
+---
+
+// Inside the calculateAllFreightPrices function...
+    else if (uiServiceName === 'LCP Priority') {
+        chargeZoneUsed = `N/A (LCP Prio Initial)`;
+         if (!lcpprioData || lcpprioData.length === 0) { currentResult.remarks.push("LCP Priority rates data (lcpprio.json) missing or empty."); currentResult.isApplicable = false; }
+        else {
+            const originPrio = originLocation.prio; const destPrio = destinationLocation.prio;
+            if (!originPrio || !destPrio) { currentResult.remarks.push(`LCP Priority PRIO zone missing. Origin: ${originPrio}, Dest: ${destPrio}. Check postcodes.json.`); currentResult.isApplicable = false; }
+            else {
+                const logicKey = `LCPPrio${originPrio}${destPrio}`; chargeZoneUsed = logicKey; currentResult.chargeZoneUsed = chargeZoneUsed;
+                const rateEntry = lcpprioData.find(r => r.Logic === logicKey);
+                currentResult.rateEntryUsed = rateEntry;
+                 if (!rateEntry || typeof rateEntry.LCPPrioBasic !== 'number' || typeof rateEntry.LCPPrioKg !== 'number') { currentResult.remarks.push(`LCP Priority rate entry or fields (LCPPrioBasic/Kg) missing/invalid in lcpprio.json for ${logicKey}.`); currentResult.isApplicable = false; }
+                else { 
+                    baseFreight = (chargeableWeightKg * rateEntry.LCPPrioKg) + rateEntry.LCPPrioBasic; 
+                    currentResult.calculationFormula = `((LCPPrioKg: ${rateEntry.LCPPrioKg} * CW: ${chargeableWeightKg.toFixed(2)}) + LCPPrioBasic: ${rateEntry.LCPPrioBasic})`;
+                }
+            }
+        }
+    }
+

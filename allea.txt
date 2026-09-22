@@ -1,0 +1,13 @@
+
+# LEDGERLIGHT COMPLETE MASTER SOURCE REPOSITORY - v23.0.0 (STABILIZED)
+
+======================================================================
+1. SYSTEM ARCHITECTURE (v23.0.0)
+======================================================================
+- METADATA: Migrated themeColor and scale to separate 'viewport' export in layout.tsx.
+- ERROR HANDLING: Implemented UI-safe fallbacks for AI flows to prevent page-level 500 errors on API failure.
+- DEPENDENCY ALIGNMENT: Pinned Genkit suite to v1.8.0 to ensure internal API parity.
+- INITIALIZATION FIX: Resolved "Must supply a model" crash by using direct object imports for Gemini.
+- NEXTJS 15: Maintained serverExternalPackages for Genkit integrity and fixed static analysis crashes.
+
+# [END OF LOG - STABLE]

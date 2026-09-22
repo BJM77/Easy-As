@@ -1,0 +1,32 @@
+Here is the summary of the changes made to create the "Zone SB" functionality in the app:
+
+### Changes Made:
+1. **Created New Page Components:**
+   - `src/app/zone-sb/page.tsx`: A standard Next.js page wrapper for the new Zone SB tool.
+   - `src/app/zone-sb/page-content.tsx`: The main component logic and UI for the Zone SB page. This page allows a user to input "Zone" directly (like PER, VIC1) and calculate the freight rates bypassing normal suburb and postcode lookups.
+
+2. **Updated the App Header Navigation:**
+   - `src/components/AppHeader.tsx`: Added navigation links for "Zone SB" under the "Compare" menu for both the desktop and mobile dropdowns.
+
+3. **Modified Freight Calculation Logic:**
+   - `src/lib/freightCalculations.ts`: Updated the `getPeZone` function to respect an `isZoneDirect` flag on location objects. When true, it treats the inputted string directly as the zone rather than trying to look it up in the database.
+
+4. **Updated App Permissions and Types:**
+   - `src/lib/types.ts`: Added `'zone-sb'` to the `PageKey` type and `ALL_PAGES` constant. Updated the `DEFAULT_PAGE_PERMISSIONS` to grant access to the `admin` and `bdm` roles.
+
+---
+
+### Prompt to set this up on another app:
+
+If you are instructing an AI (or a developer) to recreate this functionality in another similar application, you can use the following prompt:
+
+```text
+Please create a new "Zone SB" tool within our application that allows for direct zone-based freight rate calculations, bypassing the standard postcode and suburb lookup.
+
+Here are the requirements:
+1. Create a new Next.js page at `/zone-sb` with a corresponding client component for the UI (`page-content.tsx`). 
+2. The UI should have a form that allows the user to input a "Zone" directly (e.g., 'PER', 'VIC1', 'BNE') instead of a suburb or postcode.
+3. Update the core freight calculation logic (`freightCalculations.ts` or equivalent) to accept an `isZoneDirect` flag. When this flag is passed from the Zone SB page, the system should map the raw string input directly to the zone logic without querying the database for a location match.
+4. Add a navigation link to "Zone SB" in the main navigation menu (`AppHeader.tsx`), placed alongside other comparison tools (like "Best SB").
+5. Update the types and permission configurations (`types.ts` and `SettingsContext.tsx` or equivalent) to register the new `zone-sb` page and grant access to the 'admin' and 'bdm' roles.
+```

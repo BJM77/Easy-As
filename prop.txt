@@ -1,0 +1,835 @@
+This file contains all the code relevant to the "Proposal Builder" feature located at /src/app/proposal/ for analysis and debugging.
+
+======================================================================
+1. Main UI Component: /src/app/proposal/page-content.tsx
+======================================================================
+
+"use client";
+
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { useForm, Controller, useFieldArray } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/context/AuthContext';
+import { Mail, Printer, Send, Package as PackageIcon, Building, Phone, User as UserIcon, Calendar as CalendarIcon, ArrowRight, ArrowLeft, FileSignature, Sparkles, PlusCircle, Trash2, Loader2, TableIcon, Edit, RefreshCcw, Download, Palette } from 'lucide-react';
+import { proposalDetailsSchema, rateCardGeneratorFormSchema } from '@/lib/zodSchemas';
+import type { ProposalDetails, ProposalSectionId, PendingProposalState, RateCardDisplayEntry, PostcodeData, ServiceName, B2CRateEntry, RegionalLookupEntry, TieredPalletRateEntry, RateFileType, B2BRdexEntry, B2BPriorityRateEntry, LCPRdexRateEntry, LCPPrioRateEntry, PEZonesEntry, WestEastRateEntry } from '@/lib/types';
+import { format } from 'date-fns';
+import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { cn } from '@/lib/utils';
+import Image from 'next/image';
+import { generateExecutiveSummary, refinePointsToParagraph } from '@/ai/flows/proposal-assist-flow';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Separator } from '@/components/ui/separator';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { useSettings } from '@/context/SettingsContext';
+import { useRateOverrides } from '@/context/RateOverrideContext';
+import { getAllowedServices, PALLET_LIKE_SERVICES } from '@/lib/types';
+import LocationAutocomplete from '@/components/freight/LocationAutocomplete';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { RateCardGeneratorFormValues } from '@/lib/types';
+
+
+const proposalSectionsConfig: { id: ProposalSectionId; title: string; description: string; placeholder: string; hasAi?: boolean; hasDynamicFields?: boolean }[] = [
+  { id: 'execSummary', title: 'Executive Summary', description: "Enter key points or a rough draft below. Use the AI Assistant to generate a polished, market-leading summary.", placeholder: "e.g., Reduce costs for SYD-MEL lane by 15%, improve delivery reliability for critical parts, provide tracking visibility...", hasAi: true },
+  { id: 'yourNeeds', title: 'Understanding Your Needs', description: "List the key challenges, goals, and requirements you discussed with the customer. Use the 'Add Need' button for more fields, then use the AI assistant to synthesize them into a paragraph.", placeholder: "e.g., Reliable on-time delivery for critical freight lanes.", hasAi: true, hasDynamicFields: true },
+  { id: 'overviewSolution', title: 'Our Proposed Solution', description: "Describe your recommended solution at a high level. Which primary and secondary services are you proposing and why?", placeholder: "e.g., We propose a multi-faceted solution leveraging our B2B Priority service for time-sensitive deliveries, complemented by our cost-effective B2B Standard service for less urgent stock movements..." },
+  { id: 'solutionDetail', title: 'Solution Detail (Evidence)', description: "Provide the specific evidence. Reference the attached rate card and highlight a few key examples of how your rates provide value on lanes that are important to the customer.", placeholder: "e.g., The specific details of our competitive rate structure are attached. For example, on the critical SYD-MEL lane, our proposed rate of $XX.XX represents a significant improvement..." },
+  { id: 'investment', title: 'Solution Rates', description: "Explain any details about the rates below. You can mention payment terms and your commitment to transparent invoicing.", placeholder: "e.g., The investment for this solution is detailed in the pricing schedule below. All rates are exclusive of GST. We offer flexible 30-day payment terms..." },
+  { id: 'benefits', title: 'Key Benefits', description: "List the tangible benefits the customer will receive. Use the AI assistant to combine them into a powerful paragraph.", placeholder: "e.g., Increased reliability and on-time performance.", hasAi: true, hasDynamicFields: true },
+  { id: 'nextSteps', title: 'Next Steps', description: "Clearly define the path forward. What do you need the customer to do, and what will you do next?", placeholder: "e.g., The next steps are as follows:\n1. Review this proposal with your team.\n2. Schedule a follow-up call.\n3. Finalize the service agreement." },
+  { id: 'authorityToProceed', title: 'Authority to Proceed', description: "The final call to action for the customer to sign.", placeholder: "" },
+];
+
+const formatCurrency = (amount: number | null | string | undefined) => {
+    if (amount === null || amount === undefined || amount === 'N/A' || (typeof amount === 'string' && isNaN(parseFloat(amount))) || String(amount).trim() === '') return "N/A";
+    const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+    return numAmount.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+};
+
+
+export default function ProposalEditorPageContent() {
+  const { toast } = useToast();
+  const { user } = useAuth();
+  
+  const [isAiLoading, setIsAiLoading] = useState<Partial<Record<ProposalSectionId, boolean>>>({});
+  const [rateCard, setRateCard] = useState<RateCardDisplayEntry[]>([]);
+  const [palletRateCardData, setPalletRateCardData] = useState<RateCardDisplayEntry[]>([]);
+  const [nonPalletRateCardData, setNonPalletRateCardData] = useState<RateCardDisplayEntry[]>([]);
+  
+  const [isGenerating, setIsGenerating] = useState(false);
+  const { globalSpendBands, servicePermissions } = useSettings();
+  const { getRateFile, isLoading: isLoadingRates, pezoneData } = useRateOverrides();
+  const { role } = useAuth();
+  const [allPostcodes, setAllPostcodes] = useState<PostcodeData[]>([]);
+  const [postcodesLoading, setPostcodesLoading] = useState(true);
+
+  const [currentLocationInput, setCurrentLocationInput] = useState<PostcodeData | null>(null);
+  const [currentLocationQuery, setCurrentLocationQuery] = useState('');
+
+  const [accentColor, setAccentColor] = useState('#163302'); 
+
+  const allowedServicesForRole = useMemo(() => getAllowedServices(role, servicePermissions), [role, servicePermissions]);
+  const allowedRateCardServices = useMemo(() => {
+    const services: ServiceName[] = ['B2B Std', 'B2B Priority', 'LCP Std', 'LCP Priority', 'B2C Std', 'B2C Priority', 'WA PE Special', 'B2B Pallets Express', 'B2B Pallets General Tiered'];
+    return [...new Set(services.filter(s => allowedServicesForRole.includes(s)))];
+  }, [allowedServicesForRole]);
+
+  const proposalForm = useForm<ProposalDetails>({
+    resolver: zodResolver(proposalDetailsSchema),
+    defaultValues: {
+      proposalDate: new Date(), customerCompanyName: '', customerContactName: '',
+      salesProfessionalName: '', salesProfessionalEmail: '', salesProfessionalPhone: '',
+      sections: {
+        execSummary: '', yourNeeds: '', overviewSolution: '', solutionDetail: '',
+        investment: '', benefits: '', nextSteps: '', authorityToProceed: ''
+      },
+      dynamicFields: {
+        yourNeeds: [''],
+        benefits: ['']
+      }
+    }
+  });
+
+  const rateCardForm = useForm<RateCardGeneratorFormValues>({
+    resolver: zodResolver(rateCardGeneratorFormSchema),
+    defaultValues: { sendingLocations: [], services: [], spendBand: globalSpendBands[0] || "1", date: new Date(), customerName: '' }
+  });
+
+  const { fields: needsFields, append: appendNeed, remove: removeNeed } = useFieldArray({ control: proposalForm.control, name: "dynamicFields.yourNeeds" });
+  const { fields: benefitsFields, append: appendBenefit, remove: removeBenefit } = useFieldArray({ control: proposalForm.control, name: "dynamicFields.benefits" });
+  const { fields: sendingLocationFields, append: appendSendingLocation, remove: removeSendingLocation } = useFieldArray({ control: rateCardForm.control, name: "sendingLocations"});
+  
+  const watchedDetails = proposalForm.watch();
+
+  useEffect(() => {
+    const storedData = sessionStorage.getItem('pendingProposal');
+    if (storedData) {
+      try {
+        const parsedData: PendingProposalState = JSON.parse(storedData);
+        
+        const detailsToSet: Partial<ProposalDetails> = {
+          proposalDate: new Date(),
+          customerCompanyName: parsedData.proposalDetails?.customerCompanyName || '',
+          customerContactName: parsedData.proposalDetails?.customerContactName || '',
+          salesProfessionalName: parsedData.proposalDetails?.salesProfessionalName || '',
+          salesProfessionalEmail: parsedData.proposalDetails?.salesProfessionalEmail || '',
+          salesProfessionalPhone: parsedData.proposalDetails?.salesProfessionalPhone || '',
+          sections: {
+              execSummary: parsedData.proposalDetails?.sections?.execSummary || '',
+              yourNeeds: parsedData.proposalDetails?.sections?.yourNeeds || '',
+              overviewSolution: parsedData.proposalDetails?.sections?.overviewSolution || '',
+              solutionDetail: parsedData.proposalDetails?.sections?.solutionDetail || '',
+              investment: parsedData.proposalDetails?.sections?.investment || '',
+              benefits: parsedData.proposalDetails?.sections?.benefits || '',
+              nextSteps: parsedData.proposalDetails?.sections?.nextSteps || '',
+              authorityToProceed: parsedData.proposalDetails?.sections?.authorityToProceed || '',
+          },
+          dynamicFields: {
+              yourNeeds: parsedData.proposalDetails?.dynamicFields?.yourNeeds?.length ? parsedData.proposalDetails.dynamicFields.yourNeeds : [''],
+              benefits: parsedData.proposalDetails?.dynamicFields?.benefits?.length ? parsedData.proposalDetails.dynamicFields.benefits : [''],
+          }
+        };
+        
+        proposalForm.reset(detailsToSet);
+
+        if (parsedData.rateCardEntries) {
+          setRateCard(parsedData.rateCardEntries);
+          setPalletRateCardData(parsedData.rateCardEntries.filter(r => PALLET_LIKE_SERVICES.includes(r.serviceName as ServiceName)));
+          setNonPalletRateCardData(parsedData.rateCardEntries.filter(r => !PALLET_LIKE_SERVICES.includes(r.serviceName as ServiceName)));
+        }
+        
+      } catch (error) {
+        console.error("Failed to parse pending proposal data", error);
+      } finally {
+        sessionStorage.removeItem('pendingProposal');
+      }
+    }
+    
+    const fetchPostcodes = async () => {
+        setPostcodesLoading(true);
+        try {
+            const response = await fetch('/api/postcodes');
+            if (!response.ok) throw new Error('Failed to fetch postcodes');
+            const data: PostcodeData[] = await response.json();
+            setAllPostcodes(data);
+        } catch (error) {
+            console.error("Error fetching postcodes for Proposal page:", error);
+            toast({ title: "Error", description: "Could not load postcode data.", variant: "destructive" });
+        } finally {
+            setPostcodesLoading(false);
+        }
+    };
+    fetchPostcodes();
+
+  }, [proposalForm, toast]);
+
+
+  const handleStart = () => {
+    proposalForm.reset({
+      proposalDate: new Date(), customerCompanyName: '', customerContactName: '',
+      salesProfessionalName: '', salesProfessionalEmail: '', salesProfessionalPhone: '',
+      sections: { execSummary: '', yourNeeds: '', overviewSolution: '', solutionDetail: '', investment: '', benefits: '', nextSteps: '', authorityToProceed: '' },
+      dynamicFields: { yourNeeds: [''], benefits: [''] }
+    });
+    rateCardForm.reset({ sendingLocations: [], services: [], spendBand: globalSpendBands[0] || "1", date: new Date(), customerName: '' });
+    setRateCard([]);
+  };
+
+  const handleAiAction = async (sectionId: ProposalSectionId) => {
+    setIsAiLoading(prev => ({...prev, [sectionId]: true}));
+    try {
+        if (sectionId === 'execSummary') {
+            const notes = proposalForm.getValues('sections.execSummary');
+            if(!notes || notes.trim().length < 10) {
+              toast({title: "Input Required", description: "Please provide some key points in the text area first.", variant: "default"});
+              return;
+            }
+            const { summary } = await generateExecutiveSummary({ customerName: proposalForm.getValues('customerCompanyName'), userNotes: notes });
+            proposalForm.setValue('sections.execSummary', summary, { shouldDirty: true });
+        } else if (sectionId === 'yourNeeds' || sectionId === 'benefits') {
+            const points = (proposalForm.getValues(`dynamicFields.${sectionId}`) || []).filter(p => p && p.trim() !== '');
+            if(points.length === 0) {
+                toast({title: "Input Required", description: "Please add at least one need or benefit point.", variant: "default"});
+                return;
+            }
+            const { paragraph } = await refinePointsToParagraph({ points, topic: sectionId === 'yourNeeds' ? 'customer needs' : 'solution benefits' });
+            proposalForm.setValue(`sections.${sectionId}`, paragraph, { shouldDirty: true });
+        }
+        toast({title: "AI Assistant", description: "Content has been updated."});
+    } catch (e) {
+        console.error("AI Action Error", e);
+        toast({title: "Error", description: "Could not generate AI content.", variant: "destructive"});
+    } finally {
+        setIsAiLoading(prev => ({...prev, [sectionId]: false}));
+    }
+  };
+
+  const handleAddSendingLocation = () => {
+    if (currentLocationInput) {
+      const alreadyAdded = sendingLocationFields.some(loc => loc.postcode === currentLocationInput.postcode && loc.suburb === currentLocationInput.suburb);
+      if (alreadyAdded) { toast({ title: "Location Already Added", variant: "default" }); return; }
+      appendSendingLocation(currentLocationInput);
+      setCurrentLocationInput(null);
+      setCurrentLocationQuery('');
+    } else {
+      toast({ title: "No Location Selected", variant: "destructive"});
+    }
+  };
+  
+  const handleGenerateRates = async (data: RateCardGeneratorFormValues) => {
+    setIsGenerating(true);
+    setRateCard([]);
+    setPalletRateCardData([]);
+    setNonPalletRateCardData([]);
+    await new Promise(res => setTimeout(res, 50));
+
+    const { services, spendBand, sendingLocations } = data;
+    const newGeneratedRates: RateCardDisplayEntry[] = [];
+    
+    const allRateDataArgs = { 
+        b2cRatesData: getRateFile('b2c') as B2CRateEntry[] | undefined, 
+        regionalLookupData: getRateFile('regionallookup') as RegionalLookupEntry[] | undefined, 
+        lcprdexData: getRateFile('lcprdex') as LCPRdexRateEntry[] | undefined, 
+        lcpprioData: getRateFile('lcpprio') as LCPPrioRateEntry[] | undefined, 
+        b2brdexData: getRateFile('b2brdex') as B2BRdexEntry[] | undefined, 
+        b2bPriorityData: getRateFile('b2b_priority') as B2BPriorityRateEntry[] | undefined,
+        pezoneData: pezoneData as PEZonesEntry[] | undefined, 
+        palletSpendBandData: getRateFile(`pe${spendBand}` as RateFileType) as TieredPalletRateEntry[] | undefined, 
+        westEastData: getRateFile('west_east') as WestEastRateEntry[] | undefined,
+    };
+    
+    const getPeZone = (location: PostcodeData, pezoneData: PEZonesEntry[] | undefined): string | undefined => {
+        if (!pezoneData || !location?.suburb || !location?.state) return undefined;
+        const searchKey = `${location.suburb.toUpperCase()} ${location.state.toUpperCase()}`;
+        const peEntry = pezoneData.find(p => p["PE Suburb"]?.toUpperCase() === searchKey);
+        return peEntry ? peEntry["PE Zone"] : undefined;
+    };
+    const naToBlank = (val: any) => (val === 'N/A' || val === null || val === undefined) ? '' : String(val);
+
+    const uniqueIpecZones = [...new Set(allPostcodes.map(p => p.ipec).filter(Boolean))];
+    const uniquePrioZones = [...new Set(allPostcodes.map(p => p.prio).filter(Boolean))];
+    const uniquePeZones = allRateDataArgs.pezoneData ? [...new Set((allRateDataArgs.pezoneData as PEZonesEntry[]).map(p => p["PE Zone"]).filter(Boolean))] : [];
+
+    for (const sendingLocation of sendingLocations) {
+        for (const service of services) {
+            if (PALLET_LIKE_SERVICES.includes(service as ServiceName)) {
+                if (service === 'WA PE Special' && allRateDataArgs.westEastData) {
+                    const destinationCities = ["SYDNEY", "MELBOURNE", "BRISBANE", "ADELAIDE"];
+                    for (const city of destinationCities) {
+                        const rate = allRateDataArgs.westEast.find(r => r.To?.toUpperCase() === city);
+                        if (rate) {
+                            const kiloRate = naToBlank(rate['0-99999KGS']);
+                            newGeneratedRates.push({
+                                serviceName: service, spendBand, sendingPostcodeFull: `${sendingLocation.suburb} ${sendingLocation.postcode}`,
+                                originZone: 'PER', destinationZone: city, zoneTypeDisplay: 'CITY', cubicFactor: 333,
+                                basicRate: naToBlank(rate.Basic), kiloRate: '', minRate: naToBlank(rate.Minimum),
+                                tier_0_250: kiloRate, tier_251_750: kiloRate, tier_751_1500: kiloRate,
+                                tier_1501_3000: kiloRate, tier_3001_5000: kiloRate, tier_5001_plus: kiloRate,
+                            });
+                        }
+                    }
+                } else if (allRateDataArgs.palletSpendBandData && allRateDataArgs.pezoneData) {
+                    const originPeZone = getPeZone(sendingLocation, allRateDataArgs.pezoneData);
+                    if (!originPeZone) continue;
+                    
+                    for (const destPeZone of uniquePeZones) {
+                        const rate = allRateDataArgs.palletSpendBandData.find(r => r.From?.toLowerCase() === originPeZone.toLowerCase() && r.To?.toLowerCase() === destPeZone.toLowerCase());
+                        if (rate) {
+                            const fieldsPrefix = service === 'B2B Pallets Express' ? 'E' : 'G';
+                            const minField = fieldsPrefix === 'E' ? 'Eminimum' : 'GMinimum';
+                            
+                            newGeneratedRates.push({
+                              serviceName: service as ServiceName, spendBand, sendingPostcodeFull: `${sendingLocation.suburb} ${sendingLocation.postcode}`,
+                              originZone: rate.From, destinationZone: rate.To, zoneTypeDisplay: 'PE', cubicFactor: 333,
+                              basicRate: naToBlank(rate[`${fieldsPrefix}Basic`]), minRate: naToBlank(rate[minField]), kiloRate: '',
+                              tier_0_250: naToBlank(rate[`${fieldsPrefix}0 - 250`]),
+                              tier_251_750: naToBlank(rate[`${fieldsPrefix}251 - 750`]),
+                              tier_751_1500: naToBlank(rate[`${fieldsPrefix}751 - 1500`]),
+                              tier_1501_3000: naToBlank(rate[`${fieldsPrefix}1501 - 3000`]),
+                              tier_3001_5000: naToBlank(rate[`${fieldsPrefix}3001 - 5000`]),
+                              tier_5001_plus: naToBlank(rate[`${fieldsPrefix}5001 - 99999`]),
+                            });
+                        }
+                    }
+                }
+            } else if (service === 'B2B Std' && allRateDataArgs.b2brdexData) {
+                const originZone = sendingLocation.ipec;
+                const relevantRates = allRateDataArgs.b2brdexData.filter(r => r.Logic.startsWith(`Parcel${originZone}`));
+                for(const rate of relevantRates) {
+                  const destZone = rate.Logic.substring(`Parcel${originZone}`.length);
+                  newGeneratedRates.push({
+                    serviceName: service, spendBand, sendingPostcodeFull: `${sendingLocation.suburb} ${sendingLocation.postcode}`,
+                    originZone, destinationZone: destZone, zoneTypeDisplay: 'IPEC', cubicFactor: 250,
+                    basicRate: naToBlank(rate[`B${spendBand}`]), kiloRate: naToBlank(rate[`K${spendBand}`]), minRate: naToBlank(rate[`M${spendBand}`]),
+                  });
+                }
+            } else if (service === 'LCP Std' && allRateDataArgs.lcprdexData) {
+                const originZone = sendingLocation.ipec;
+                const relevantRates = allRateDataArgs.lcprdexData.filter(r => r.Logic.startsWith(`LCPRDEX${originZone}`));
+                for(const rate of relevantRates) {
+                  const destZone = rate.Logic.substring(`LCPRDEX${originZone}`.length);
+                  newGeneratedRates.push({
+                    serviceName: service, spendBand, sendingPostcodeFull: `${sendingLocation.suburb} ${sendingLocation.postcode}`,
+                    originZone, destinationZone: destZone, zoneTypeDisplay: 'IPEC', cubicFactor: 250,
+                    basicRate: naToBlank(rate.LCPRDEXBasic), kiloRate: naToBlank(rate.LCPRDEXKg), minRate: 'N/A'
+                  });
+                }
+            } else if (service === 'B2B Priority' && allRateDataArgs.b2bPriorityData) {
+                 const originZone = sendingLocation.prio;
+                 const relevantRates = allRateDataArgs.b2bPriorityData.filter(r => r.Logic.startsWith(`02 02${originZone}`));
+                 for(const rate of relevantRates) {
+                    const destZone = rate.Logic.substring(`02 02${originZone}`.length);
+                    newGeneratedRates.push({
+                        serviceName: service, spendBand, sendingPostcodeFull: `${sendingLocation.suburb} ${sendingLocation.postcode}`,
+                        originZone, destinationZone: destZone, zoneTypeDisplay: 'PRIO', cubicFactor: 250,
+                        basicRate: naToBlank(rate[`B${spendBand}`]), kiloRate: naToBlank(rate[`K${spendBand}`]), minRate: ''
+                    });
+                 }
+            } else if (service === 'LCP Priority' && allRateDataArgs.lcpprioData) {
+                const originZone = sendingLocation.prio;
+                const relevantRates = allRateDataArgs.lcpprioData.filter(r => r.Logic.startsWith(`LCPPrio${originZone}`));
+                for(const rate of relevantRates) {
+                    const destZone = rate.Logic.substring(`LCPPrio${originZone}`.length);
+                    newGeneratedRates.push({
+                        serviceName: service, spendBand, sendingPostcodeFull: `${sendingLocation.suburb} ${sendingLocation.postcode}`,
+                        originZone, destinationZone: destZone, zoneTypeDisplay: 'PRIO', cubicFactor: 250,
+                        basicRate: naToBlank(rate.LCPPrioBasic), kiloRate: naToBlank(rate.LCPPrioKg), minRate: 'N/A'
+                    });
+                }
+            } else if (service.startsWith('B2C') && allRateDataArgs.b2cRatesData && allRateDataArgs.regionalLookupData) {
+                const originZone = sendingLocation.prio;
+                for (const destZone of uniquePrioZones) {
+                    const regionalEntry = allRateDataArgs.regionalLookupData.find(r => r.LUP === `${originZone}${destZone}`);
+                    if (regionalEntry) {
+                        const b2cRateEntry = allRateDataArgs.b2cRatesData.find(r => r.Logic === `${spendBand}${regionalEntry.Journey}`);
+                        if (b2cRateEntry) {
+                            if (services.includes('B2C Std')) {
+                                newGeneratedRates.push({
+                                    serviceName: 'B2C Std', spendBand, sendingPostcodeFull: `${sendingLocation.suburb} ${sendingLocation.postcode}`,
+                                    originZone, destinationZone: destZone, zoneTypeDisplay: 'PRIO', cubicFactor: 250,
+                                    basicRate: naToBlank(b2cRateEntry.b2c1), kiloRate: naToBlank(b2cRateEntry.b2c3), minRate: naToBlank(b2cRateEntry.b2c5), additionalRate: naToBlank(b2cRateEntry.kg)
+                                });
+                            }
+                            if (services.includes('B2C Priority')) {
+                                 newGeneratedRates.push({
+                                    serviceName: 'B2C Priority', spendBand, sendingPostcodeFull: `${sendingLocation.suburb} ${sendingLocation.postcode}`,
+                                    originZone, destinationZone: destZone, zoneTypeDisplay: 'PRIO', cubicFactor: 250,
+                                    basicRate: naToBlank(b2cRateEntry.b2cp1), kiloRate: naToBlank(b2cRateEntry.b2cp3), minRate: naToBlank(b2cRateEntry.b2cp5), additionalRate: naToBlank(b2cRateEntry.pkg)
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    setRateCard(newGeneratedRates);
+    setPalletRateCardData(newGeneratedRates.filter(r => PALLET_LIKE_SERVICES.includes(r.serviceName as ServiceName)));
+    setNonPalletRateCardData(newGeneratedRates.filter(r => !PALLET_LIKE_SERVICES.includes(r.serviceName as ServiceName)));
+
+    setIsGenerating(false);
+    if (newGeneratedRates.length === 0) {
+        toast({title: "No Rates Generated", description: "Could not find matching rates for the selected criteria.", variant: "default"});
+    } else {
+        toast({title: "Rate Card Generated", description: `Successfully generated ${newGeneratedRates.length} rate entries.`});
+    }
+  };
+
+  const handlePrint = () => {
+    const style = document.createElement('style');
+    style.innerHTML = `@media print { #proposal-document { --proposal-accent-color: ${accentColor}; } }`;
+    document.head.appendChild(style);
+    window.print();
+    document.head.removeChild(style);
+  };
+
+  const overallLoading = isGenerating || postcodesLoading || isLoadingRates;
+
+  return (
+    <div className="space-y-8">
+      <Card className="shadow-xl print-hide">
+        <CardHeader>
+          <CardTitle className="text-2xl font-headline flex items-center">
+            <FileSignature className="mr-2 h-7 w-7 text-primary" /> AI Proposal Builder
+          </CardTitle>
+          <CardDescription>
+            Create professional, multi-section sales proposals. Data from the "Perfect Plan" tool will automatically populate here.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+            <Button onClick={handleStart} size="lg">
+                <Sparkles className="mr-2 h-5 w-5"/> Start Blank Proposal
+            </Button>
+        </CardContent>
+      </Card>
+      
+      <div className="bg-background/80 p-4 sm:p-8 rounded-lg print-expand" id="proposal-section-container">
+        <div className="max-w-5xl mx-auto">
+            {/* -- EDITOR UI -- */}
+            <div className="print-hide space-y-6">
+                <Card>
+                    <CardHeader><CardTitle>Proposal Details</CardTitle></CardHeader>
+                    <CardContent className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="space-y-1"><Label htmlFor="customerCompanyName">Customer Company Name</Label><Input id="customerCompanyName" {...proposalForm.register('customerCompanyName')} /></div>
+                        <div className="space-y-1"><Label htmlFor="customerContactName">Customer Contact Name</Label><Input id="customerContactName" {...proposalForm.register('customerContactName')} /></div>
+                        <div className="space-y-1"><Label htmlFor="salesProfessionalName">Sales Professional Name</Label><Input id="salesProfessionalName" {...proposalForm.register('salesProfessionalName')} /></div>
+                        <div className="space-y-1"><Label htmlFor="salesProfessionalEmail">Sales Professional Email</Label><Input id="salesProfessionalEmail" type="email" {...proposalForm.register('salesProfessionalEmail')} /></div>
+                        <div className="space-y-1"><Label htmlFor="salesProfessionalPhone">Sales Professional Phone</Label><Input id="salesProfessionalPhone" {...proposalForm.register('salesProfessionalPhone')} /></div>
+                    </CardContent>
+                </Card>
+
+                {proposalSectionsConfig.filter(s => s.id !== 'investment' && s.id !== 'authorityToProceed').map(section => (
+                    <Card key={section.id}>
+                        <CardHeader>
+                            <CardTitle className="text-xl">{section.title}</CardTitle>
+                            <CardDescription>{section.description}</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            {section.hasDynamicFields ? (
+                            <div className="space-y-2 mb-4">
+                                {section.id === 'yourNeeds' && needsFields.map((field, index) => (
+                                <div key={field.id} className="flex items-center gap-2">
+                                    <Input {...proposalForm.register(`dynamicFields.yourNeeds.${index}` as const)} placeholder={`Need #${index + 1}`} />
+                                    <Button type="button" variant="ghost" size="icon" onClick={() => removeNeed(index)} disabled={needsFields.length <= 1}><Trash2 className="h-4 w-4 text-destructive" /></Button>
+                                </div>
+                                ))}
+                                {section.id === 'benefits' && benefitsFields.map((field, index) => (
+                                <div key={field.id} className="flex items-center gap-2">
+                                    <Input {...proposalForm.register(`dynamicFields.benefits.${index}` as const)} placeholder={`Benefit #${index + 1}`} />
+                                    <Button type="button" variant="ghost" size="icon" onClick={() => removeBenefit(index)} disabled={benefitsFields.length <= 1}><Trash2 className="h-4 w-4 text-destructive" /></Button>
+                                </div>
+                                ))}
+                                <Button type="button" variant="outline" size="sm" onClick={() => section.id === 'yourNeeds' ? appendNeed('') : appendBenefit('')}><PlusCircle className="mr-2 h-4 w-4" /> Add Point</Button>
+                            </div>
+                            ) : null}
+
+                            <Textarea {...proposalForm.register(`sections.${section.id}`)} placeholder={section.placeholder} className="h-48" />
+
+                            {section.hasAi && (
+                            <Button type="button" variant="secondary" size="sm" onClick={() => handleAiAction(section.id)} disabled={isAiLoading[section.id]} className="mt-2">
+                                {isAiLoading[section.id] ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Sparkles className="mr-2 h-4 w-4"/>}
+                                AI Assistant
+                            </Button>
+                            )}
+                        </CardContent>
+                    </Card>
+                ))}
+
+                 <Card>
+                    <CardHeader>
+                        <CardTitle className="text-xl">Solution Rates</CardTitle>
+                        <CardDescription>Explain any details about the rates below. You can mention payment terms and your commitment to transparent invoicing.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Textarea {...proposalForm.register('sections.investment')} placeholder="e.g., The investment for this solution is detailed in the pricing schedule below..." className="h-24 mb-6" />
+                      <Separator className="my-4"/>
+                      <h3 className="text-lg font-semibold mb-4">Generate &amp; Attach Rate Card</h3>
+                      <form onSubmit={rateCardForm.handleSubmit(handleGenerateRates)} className="space-y-6">
+                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-2">
+                              <Label htmlFor="rc-spendBand">Spend Band</Label>
+                              <Controller name="spendBand" control={rateCardForm.control} render={({ field }) => (<Select onValueChange={field.onChange} value={field.value}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent>{globalSpendBands.map(b => <SelectItem key={b} value={b}>Spend Band {b}</SelectItem>)}</SelectContent></Select>)} />
+                            </div>
+                            <div className="space-y-2">
+                                <Label>Sending Locations</Label>
+                                <div className="flex items-end gap-2">
+                                  <div className="flex-grow">
+                                    <LocationAutocomplete inputId="proposal-loc-ac" value={currentLocationQuery} onValueChange={setCurrentLocationQuery} onLocationSelect={setCurrentLocationInput} allPostcodes={allPostcodes} placeholder="Add a location..."/>
+                                  </div>
+                                  <Button type="button" size="sm" onClick={handleAddSendingLocation} disabled={!currentLocationInput}>Add</Button>
+                                </div>
+                                {sendingLocationFields.length === 0 && <p className="text-xs text-muted-foreground p-2 text-center">Add at least one sending location.</p>}
+                                {rateCardForm.formState.errors.sendingLocations && <p className="text-sm text-destructive">{rateCardForm.formState.errors.sendingLocations.message}</p>}
+                                {sendingLocationFields.length > 0 && (<div className="mt-2 space-y-1 max-h-32 overflow-y-auto border rounded-md p-2">{sendingLocationFields.map((field, index) => (<div key={field.id} className="flex items-center justify-between p-1 bg-muted/50 rounded text-sm"><span>{field.suburb}, {field.state} {field.postcode}</span><Button type="button" variant="ghost" size="sm" onClick={() => removeSendingLocation(index)}><Trash2 className="h-4 w-4 text-destructive" /></Button></div>))}</div>)}
+                            </div>
+                         </div>
+                         <div className="space-y-2">
+                            <Label>Services</Label>
+                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 border rounded-md max-h-60 overflow-y-auto">
+                                {allowedRateCardServices.map(service => (<div key={`rc-service-${service}`} className="flex items-center space-x-2"><Checkbox id={`rc-service-${service}`} checked={(rateCardForm.watch('services') || []).includes(service as ServiceName)} onCheckedChange={checked => { const current = rateCardForm.getValues('services') || []; const newServices = checked ? [...current, service as ServiceName] : current.filter(s => s !== service); rateCardForm.setValue('services', newServices, {shouldValidate: true});}} /><Label htmlFor={`rc-service-${service}`} className="font-normal">{service}</Label></div>))}
+                             </div>
+                              {rateCardForm.formState.errors.services && <p className="text-sm text-destructive">{rateCardForm.formState.errors.services.message}</p>}
+                         </div>
+                         <Button type="submit" disabled={overallLoading || allowedRateCardServices.length === 0}>
+                            {isGenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <RefreshCcw className="mr-2 h-4 w-4" />}
+                            {allowedRateCardServices.length === 0 ? 'No Rate Card Services Available' : 'Generate Rates'}
+                         </Button>
+                      </form>
+                    </CardContent>
+                 </Card>
+                 
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="text-xl flex items-center"><Palette className="mr-2 h-6 w-6"/>Appearance</CardTitle>
+                        <CardDescription>Customize the appearance of the printed proposal.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="space-y-2 max-w-xs">
+                            <Label htmlFor="accent-color">Header &amp; Line Color</Label>
+                            <Input id="accent-color" type="color" value={accentColor} onChange={e => setAccentColor(e.target.value)} />
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+            
+            <Separator className="my-8"/>
+
+            {/* -- PROPOSAL PREVIEW -- */}
+            <div>
+                <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                    <h2 className="text-2xl font-bold text-foreground">Proposal Preview</h2>
+                    <Button variant="outline" onClick={handlePrint}><Printer className="mr-2 h-4 w-4" /> Print / Save as PDF</Button>
+                </div>
+                <Card className="w-full shadow-lg card-print" id="proposal-document" style={{'--proposal-accent-color': accentColor} as React.CSSProperties}>
+                    <CardContent className="p-8 sm:p-12">
+                        <header className="mb-12">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <h1 className="text-3xl font-bold text-[var(--proposal-accent-color)]">Executive Freight Summary - {watchedDetails.customerCompanyName}</h1>
+                                    <p className="text-muted-foreground">Created for {watchedDetails.customerContactName} by {watchedDetails.salesProfessionalName}</p>
+                                </div>
+                                <div className="relative h-20 w-40">
+                                    <Image src="/TGE-Logo.png" alt="Company Logo" fill sizes="160px" className="object-contain" />
+                                </div>
+                            </div>
+                        </header>
+                        <Separator className="my-8" />
+                        <div className="space-y-8 proposal-sections">
+                            
+                            {/* Render sections before Solution Rates */}
+                            {['execSummary', 'yourNeeds', 'overviewSolution', 'solutionDetail'].map(id => {
+                                const section = proposalSectionsConfig.find(s => s.id === id);
+                                const content = watchedDetails.sections?.[id as ProposalSectionId];
+                                if (!section || !content) return null;
+                                return (
+                                  <div key={section.id} className="proposal-section">
+                                    <h2 className="text-xl font-semibold border-b-2 border-[var(--proposal-accent-color)] pb-2 mb-4">{section.title}</h2>
+                                    <div className="text-base leading-relaxed whitespace-pre-wrap">{content || ''}</div>
+                                  </div>
+                                );
+                            })}
+                            
+                            {/* Solution Rates Section with embedded Rate Card */}
+                            <div className="proposal-section break-before-page">
+                                <h2 className="text-xl font-semibold border-b-2 border-[var(--proposal-accent-color)] pb-2 mb-4">Solution Rates</h2>
+                                {watchedDetails.sections?.investment && (
+                                    <div className="text-base leading-relaxed whitespace-pre-wrap mb-6">{watchedDetails.sections.investment}</div>
+                                )}
+                                {isGenerating ? (
+                                    <div className="flex items-center justify-center p-8"><Loader2 className="h-6 w-6 animate-spin mr-2"/>Generating rate card...</div>
+                                ) : rateCard.length > 0 ? (
+                                    <div className="print-expand space-y-6">
+                                       {nonPalletRateCardData.length > 0 && (
+                                            <div className="mb-6">
+                                                <h3 className="font-semibold mb-2">Parcel &amp; Satchel Rates</h3>
+                                                 <Table>
+                                                    <TableHeader><TableRow><TableHead>Service</TableHead><TableHead>From</TableHead><TableHead>To</TableHead><TableHead className="text-right">Basic/1kg</TableHead><TableHead className="text-right">Kilo/3kg</TableHead><TableHead className="text-right">Min/5kg</TableHead><TableHead className="text-right">Add. Rate</TableHead></TableRow></TableHeader>
+                                                    <TableBody>{nonPalletRateCardData.map((rate, i) => (<TableRow key={`non-pallet-${i}`}><TableCell>{rate.serviceName}</TableCell><TableCell>{rate.originZone}</TableCell><TableCell>{rate.destinationZone}</TableCell><TableCell className="text-right">{formatCurrency(rate.basicRate)}</TableCell><TableCell className="text-right">{formatCurrency(rate.kiloRate)}</TableCell><TableCell className="text-right">{formatCurrency(rate.minRate)}</TableCell><TableCell className="text-right">{formatCurrency(rate.additionalRate)}</TableCell></TableRow>))}</TableBody>
+                                                </Table>
+                                            </div>
+                                       )}
+                                       {palletRateCardData.length > 0 && (
+                                            <div>
+                                                <h3 className="font-semibold mb-2">Pallet Rates</h3>
+                                                 <Table>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHead>From</TableHead>
+                                                            <TableHead>To</TableHead>
+                                                            <TableHead className="text-right">Basic</TableHead>
+                                                            <TableHead className="text-right">Minimum</TableHead>
+                                                            <TableHead className="text-right">0 - 250</TableHead>
+                                                            <TableHead className="text-right">251 - 750</TableHead>
+                                                            <TableHead className="text-right">751 - 1500</TableHead>
+                                                            <TableHead className="text-right">1501 - 3000</TableHead>
+                                                            <TableHead className="text-right">3001 - 5000</TableHead>
+                                                            <TableHead className="text-right">5001+</TableHead>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>{palletRateCardData.map((rate, i) => (<TableRow key={`pallet-${i}`}><TableCell>{rate.originZone}</TableCell><TableCell>{rate.destinationZone}</TableCell><TableCell className="text-right">{formatCurrency(rate.basicRate)}</TableCell><TableCell className="text-right">{formatCurrency(rate.minRate)}</TableCell><TableCell className="text-right">{formatCurrency(rate.tier_0_250)}</TableCell><TableCell className="text-right">{formatCurrency(rate.tier_251_750)}</TableCell><TableCell className="text-right">{formatCurrency(rate.tier_751_1500)}</TableCell><TableCell className="text-right">{formatCurrency(rate.tier_1501_3000)}</TableCell><TableCell className="text-right">{formatCurrency(rate.tier_3001_5000)}</TableCell><TableCell className="text-right">{formatCurrency(rate.tier_5001_plus)}</TableCell></TableRow>))}</TableBody>
+                                                </Table>
+                                            </div>
+                                       )}
+                                    </div>
+                                ) : (
+                                    <p className="text-sm text-muted-foreground py-4">Generate a rate card to have it appear here in the proposal.</p>
+                                )}
+                            </div>
+                            
+                            {['benefits', 'nextSteps', 'authorityToProceed'].map(id => {
+                                const section = proposalSectionsConfig.find(s => s.id === id);
+                                if (!section) return null;
+                                const content = watchedDetails.sections?.[id as ProposalSectionId];
+                                
+                                if (id === 'authorityToProceed') {
+                                    return (
+                                        <div key={section.id} className="proposal-section break-before-page">
+                                            <h2 className="text-xl font-semibold border-b-2 border-[var(--proposal-accent-color)] pb-2 mb-4">{section.title}</h2>
+                                            <p className="text-sm text-muted-foreground mb-6">By signing below, {watchedDetails.customerCompanyName} authorizes Team Global Express to proceed with the scope and costs described in this proposal.</p>
+                                            <div className="grid grid-cols-2 gap-x-12 gap-y-10 mt-16">
+                                                <div className="border-t pt-2"><p className="font-semibold">{watchedDetails.customerContactName}</p><p className="text-sm text-muted-foreground">Signature</p></div>
+                                                 <div className="border-t pt-2"><p className="font-semibold">&nbsp;</p><p className="text-sm text-muted-foreground">Date</p></div>
+                                            </div>
+                                        </div>
+                                      )
+                                }
+
+                                if (!content) return null;
+                                return (
+                                  <div key={section.id} className="proposal-section">
+                                    <h2 className="text-xl font-semibold border-b-2 border-[var(--proposal-accent-color)] pb-2 mb-4">{section.title}</h2>
+                                    <div className="text-base leading-relaxed whitespace-pre-wrap">{content || ''}</div>
+                                  </div>
+                                )
+                            })}
+                        </div>
+                        <footer className="mt-12 pt-6 border-t text-center text-xs text-muted-foreground"><p>© {new Date().getFullYear()} BD Assist. All rights reserved. This proposal is confidential and intended solely for the recipient.</p></footer>
+                    </CardContent>
+                </Card>
+            </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+======================================================================
+2. Page Entry Point: /src/app/proposal/page.tsx
+======================================================================
+
+import ProposalEditorPageContent from "./page-content";
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Proposal Editor - FreightMate",
+  description: "Create and edit professional sales proposals.",
+};
+
+export default function ProposalEditorPage() {
+  return <ProposalEditorPageContent />;
+}
+
+
+======================================================================
+3. Relevant Type Definitions: /src/lib/types.ts
+======================================================================
+(Showing only the most relevant types for brevity)
+
+export type ProposalSectionId = 'execSummary' | 'yourNeeds' | 'overviewSolution' | 'solutionDetail' | 'investment' | 'benefits' | 'nextSteps' | 'authorityToProceed';
+
+export interface ProposalDetails {
+  proposalDate: Date;
+  customerCompanyName: string;
+  customerContactName: string;
+  salesProfessionalName: string;
+  salesProfessionalEmail: string;
+  salesProfessionalPhone: string;
+  sections?: Partial<Record<ProposalSectionId, string>>;
+  dynamicFields?: {
+    yourNeeds?: string[];
+    benefits?: string[];
+  };
+}
+
+export interface RateCardGeneratorFormValues {
+  customerName: string;
+  sendingLocations: PostcodeData[];
+  date: Date;
+  spendBand: string;
+  services: ServiceName[];
+  currentSendingLocationQuery?: string;
+  currentSendingLocation?: PostcodeData | null;
+}
+
+export interface PendingProposalState {
+  proposalDetails?: Partial<ProposalDetails>;
+  rateCardEntries?: RateCardDisplayEntry[];
+}
+
+
+======================================================================
+4. Relevant Zod Schemas: /src/lib/zodSchemas.ts
+======================================================================
+(Showing only the most relevant schemas for brevity)
+
+export const proposalDetailsSchema = z.object({
+  proposalDate: z.date(),
+  customerCompanyName: z.string().min(1, "Customer company name is required."),
+  customerContactName: z.string().min(1, "Customer contact name is required."),
+  salesProfessionalName: z.string().min(1, "Sales professional name is required."),
+  salesProfessionalEmail: z.string().email("Invalid email for sales professional.").min(1, "Sales professional email is required."),
+  salesProfessionalPhone: z.string().min(1, "Sales professional phone is required."),
+  sections: z.object({
+    execSummary: z.string(),
+    yourNeeds: z.string(),
+    overviewSolution: z.string(),
+    solutionDetail: z.string(),
+    investment: z.string(),
+    benefits: z.string(),
+    nextSteps: z.string(),
+    authorityToProceed: z.string(),
+  }).optional(),
+  dynamicFields: z.object({
+    yourNeeds: z.array(z.string()).optional(),
+    benefits: z.array(z.string()).optional(),
+  }).optional(),
+});
+
+export const rateCardGeneratorFormSchema = z.object({
+  customerName: z.string().optional(), // Now optional as it's in proposalDetails
+  sendingLocations: z.array(z.custom<PostcodeData>((data) => data !== null, "Valid sending location must be selected."))
+                     .min(1, "At least one sending location is required."),
+  currentSendingLocationQuery: z.string().optional(),
+  currentSendingLocation: z.custom<PostcodeData | null>().optional(),
+  date: z.date({ required_error: "Effective date is required." }),
+  spendBand: z.string().min(1, "Spend band is required."),
+  services: z.array(serviceNameEnum)
+               .min(1, "At least one service must be selected."),
+});
+
+
+======================================================================
+5. AI Flow: /src/ai/flows/proposal-assist-flow.ts
+======================================================================
+
+'use server';
+/**
+ * @fileOverview An AI agent that helps draft and refine sections of a sales proposal.
+ */
+
+import {ai} from '@/ai/genkit';
+import {z} from 'genkit';
+import { logAiUsage } from '@/lib/aiUsage';
+
+
+// Schema for generating an executive summary
+const ExecSummaryInputSchema = z.object({
+  customerName: z.string().describe("The name of the customer the proposal is for."),
+  userNotes: z.string().describe("The user's key points or notes for the summary."),
+});
+export type ExecSummaryInput = z.infer<typeof ExecSummaryInputSchema>;
+
+const ExecSummaryOutputSchema = z.object({
+  summary: z.string().describe("A polished, market-leading executive summary based on the user's notes, tailored to the customer."),
+});
+export type ExecSummaryOutput = z.infer<typeof ExecSummaryOutputSchema>;
+
+export async function generateExecutiveSummary(input: ExecSummaryInput) {
+  const prompt = ai.definePrompt({
+    name: 'execSummaryPrompt',
+    input: {schema: ExecSummaryInputSchema},
+    output: {schema: ExecSummaryOutputSchema},
+    prompt: `You are an expert sales proposal writer for a logistics company. Your task is to write a powerful, market-leading executive summary.
+    
+    The proposal is for: {{customerName}}
+    
+    Use the following key points provided by the salesperson to draft a compelling summary. It should be professional, confident, and clearly state the value proposition.
+
+    Salesperson's Notes:
+    {{{userNotes}}}
+    `,
+  });
+
+  const response = await prompt(input);
+  const output = response.output;
+  if (!output) {
+    throw new Error('AI failed to generate an executive summary.');
+  }
+
+  const usage = response.usage;
+  await logAiUsage('Proposal - Exec Summary', usage);
+
+  return { summary: output.summary, usage };
+}
+
+
+// Schema for refining a list of points into a paragraph
+const RefinePointsInputSchema = z.object({
+  points: z.array(z.string()).describe("A list of bullet points or short phrases."),
+  topic: z.enum(['customer needs', 'solution benefits']).describe("The topic of the points, which will determine the tone and structure of the paragraph."),
+});
+export type RefinePointsInput = z.infer<typeof RefinePointsInputSchema>;
+
+const RefinePointsOutputSchema = z.object({
+    paragraph: z.string().describe("A well-written paragraph that smoothly incorporates all the provided points."),
+});
+export type RefinePointsOutput = z.infer<typeof RefinePointsOutputSchema>;
+
+export async function refinePointsToParagraph(input: RefinePointsInput) {
+    const prompt = ai.definePrompt({
+        name: 'refinePointsPrompt',
+        input: {schema: RefinePointsInputSchema},
+        output: {schema: RefinePointsOutputSchema},
+        prompt: `You are an expert sales proposal writer. Your task is to take a list of bullet points and rewrite them into a smooth, professional paragraph.
+
+        The topic is: {{topic}}.
+
+        Based on this topic, synthesize the following points into a coherent paragraph. Do not lose any key information from the points.
+
+        Points:
+        {{#each points}}
+        - {{{this}}}
+        {{/each}}
+        `,
+    });
+
+    const response = await prompt(input);
+    const output = response.output;
+    if (!output) {
+        throw new Error('AI failed to refine the points.');
+    }
+
+    const usage = response.usage;
+    await logAiUsage(`Proposal - Refine ${input.topic}`, usage);
+
+    return { paragraph: output.paragraph, usage };
+}

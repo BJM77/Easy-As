@@ -1,0 +1,1501 @@
+This file contains the code for all components and logic related to the main Freight Calculator page.
+
+======================================================================
+1. Page Content: /src/app/calculator/page-content.tsx
+======================================================================
+"use client";
+
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import type { FreightFormValues, PostcodeData, CalculatedPriceItem, ServiceName, FreightItem, EmailQuoteDialogProps, AdditionalPercentageType, PendingProposalState, PEZonesEntry } from '@/lib/types';
+import { freightFormSchema } from '@/lib/zodSchemas';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { MapPin, Package, Loader2, Info, LayoutGrid, List as ListIcon, FileSignature, Route, Truck, Zap, Anchor } from 'lucide-react';
+import LocationAutocomplete from '../freight/LocationAutocomplete';
+import { Checkbox } from '@/components/ui/checkbox';
+import { useSettings } from '@/context/SettingsContext';
+import { getAllowedServices, PALLET_SERVICES } from '@/lib/types';
+import PricingResults from '../freight/PricingResults';
+import { calculateAllFreightPrices } from '@/lib/freightCalculations';
+import { useRateOverrides } from '@/context/RateOverrideContext';
+import EmailQuoteDialog from '../freight/EmailQuoteDialog';
+import { useAuth } from '@/context/AuthContext';
+import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
+
+const additionalPercentageOptions: { value: AdditionalPercentageType; label: string }[] = [
+  { value: 'none', label: 'Markup' },
+  { value: '3', label: '3%' },
+  { value: '5', label: '5%' },
+  { value: '8', label: '8%' },
+  { value: '10', label: '10%' },
+  { value: '12', label: '12%' },
+  { value: '15', label: '15%' },
+  { value: '18', label: '18%' },
+  { value: '20', label: '20%' },
+  { value: 'other', label: 'Other %' },
+];
+
+
+export default function FreightForm() {
+  const [isLoadingForm, setIsLoadingForm] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+  const [calculatedResults, setCalculatedResults] = useState<CalculatedPriceItem[]>([]);
+  const [pricingViewMode, setPricingViewMode] = useState<'card' | 'list'>('card');
+  const { globalSpendBands, serviceSettings, surchargeDefinitions } = useSettings();
+  const { role } = useAuth();
+  const router = useRouter();
+  const { toast } = useToast();
+  const { getRateFile, isLoading: isLoadingRates, pezoneData } = useRateOverrides();
+
+  const [isEmailQuoteDialogOpen, setIsEmailQuoteDialogOpen] = useState(false);
+  const [selectedServiceForQuote, setSelectedServiceForQuote] = useState<CalculatedPriceItem | null>(null);
+
+  const [itemDimensionsVisibility, setItemDimensionsVisibility] = useState<boolean[]>([false]);
+  const resultsRef = useRef<HTMLDivElement>(null);
+
+
+  const allowedServices = useMemo(() => getAllowedServices(role), [role]);
+
+  const form = useForm<FreightFormValues>({
+    resolver: zodResolver(freightFormSchema),
+    defaultValues: {
+      spendBand: globalSpendBands[0] || "1",
+      originQuery: '',
+      originLocation: null,
+      destinationQuery: '',
+      destinationLocation: null,
+      items: [{
+        weight: 0,
+        length: undefined,
+        width: undefined,
+        height: undefined,
+        quantity: 1,
+      }],
+      globalNoCubic: false,
+      globalOnPallet: false,
+      selectedServices: [], // Will be populated by useEffect
+      enableOtherRate: false,
+      otherRateBasic: undefined,
+      otherRateKilo: undefined,
+      otherRateMin: undefined,
+      otherRateFuelPercent: undefined,
+      otherRateSecurityPercent: undefined,
+      globalExtras: undefined,
+      additionalPercentageType: 'none',
+      additionalPercentageCustom: undefined,
+      applyGST: false,
+      accountTransferRequired: false,
+      afterHoursCollection: false,
+      afterHoursDelivery: false,
+      publicHolidayService: false,
+      bookInDeliveryRequired: false,
+      dangerousGoodsConsignment: false,
+      handUnloadRequired: false,
+      routeViaMelbourne: false,
+    },
+  });
+
+  const { fields, append, remove, replace } = useFieldArray({
+    control: form.control,
+    name: "items",
+  });
+
+  const { watch, getValues, setValue, formState, handleSubmit } = form;
+
+  const handleAddNewItem = () => {
+    append({
+      weight: 0,
+      length: undefined,
+      width: undefined,
+      height: undefined,
+      quantity: 1,
+    });
+    setItemDimensionsVisibility(prev => [...prev, false]);
+  };
+  
+  const handleRemoveItem = (index: number) => {
+    remove(index);
+    setItemDimensionsVisibility(prev => prev.filter((_, i) => i !== index));
+  };
+  
+  const handleClearItems = () => {
+    replace([{ weight: 0, quantity: 1, length: undefined, width: undefined, height: undefined }]);
+    setItemDimensionsVisibility([false]);
+  };
+
+  const toggleItemDimensions = (index: number) => {
+    setItemDimensionsVisibility(prev => {
+      const newVisibility = [...prev];
+      newVisibility[index] = !newVisibility[index];
+      // If hiding dimensions, clear the values
+      if (!newVisibility[index]) {
+        setValue(`items.${index}.length`, undefined);
+        setValue(`items.${index}.width`, undefined);
+        setValue(`items.${index}.height`, undefined);
+      }
+      return newVisibility;
+    });
+  };
+
+
+  useEffect(() => {
+    // Always set selectedServices to all services allowed for the user's role
+    if (allowedServices && typeof setValue === 'function') {
+        const currentFormSelectedServices = getValues('selectedServices') || [];
+        const sortedAllowedServices = [...allowedServices].sort();
+        const sortedCurrentFormSelectedServices = [...currentFormSelectedServices].sort();
+
+        if (JSON.stringify(sortedCurrentFormSelectedServices) !== JSON.stringify(sortedAllowedServices)) {
+            setValue('selectedServices', sortedAllowedServices, { shouldValidate: true, shouldDirty: true });
+        }
+    }
+  }, [allowedServices, setValue, getValues, formState.isDirty]); // Added getValues and formState.isDirty
+
+
+  const enableOtherRate = watch('enableOtherRate');
+  const additionalPercentageType = watch('additionalPercentageType');
+  const originLocation = watch('originLocation');
+  const destinationLocation = watch('destinationLocation');
+
+
+  const processAndSetResults = (results: CalculatedPriceItem[]) => {
+    const applicablePricedResults = results.filter(result => result.isApplicable && result.finalPrice !== null);
+    
+    const filteredAndSortedResults = applicablePricedResults
+        .filter(result => allowedServices.includes(result.serviceName as ServiceName) || result.serviceName === "Manual Rate")
+        .sort((a, b) => {
+          return (a.finalPrice as number) - (b.finalPrice as number);
+        });
+    setCalculatedResults(filteredAndSortedResults);
+  };
+
+
+  const runCalculation = async (data: FreightFormValues) => {
+    setIsLoadingForm(true);
+    // Ensure data.selectedServices reflects all allowed services at the time of submission
+    const servicesToSubmit = [...allowedServices];
+    const dataToSubmit = { ...data, selectedServices: servicesToSubmit };
+
+    if (isLoadingRates) {
+      console.warn("Rates are still loading, calculation may be stale.");
+    }
+    
+    if (servicesToSubmit.length === 0 && !data.enableOtherRate) {
+        processAndSetResults([]);
+        setIsLoadingForm(false);
+        setShowResults(true);
+        return;
+    }
+
+    const results = await calculateAllFreightPrices(
+        dataToSubmit,
+        serviceSettings,
+        surchargeDefinitions,
+        getRateFile('b2c'),
+        getRateFile('regionallookup'),
+        getRateFile('lcprdex'),
+        getRateFile('lcpprio'),
+        getRateFile('lcpgo'),
+        getRateFile('b2b_std'),
+        getRateFile('b2b_priority'),
+        getRateFile('b2brdex'),
+        getRateFile('pezone'),
+        getRateFile('pe1'),
+        getRateFile('pe2'),
+        getRateFile('pe3'),
+        getRateFile('pe4'),
+        getRateFile('pe5'),
+        getRateFile('pallet6'),
+        getRateFile('west_east'),
+        getRateFile('ras')
+    );
+    processAndSetResults(results);
+    setIsLoadingForm(false);
+  };
+  
+  // This is the main submission handler for the form's "Calculate" button
+  const onSubmit = async (data: FreightFormValues) => {
+    setShowResults(false);
+    await runCalculation(data);
+    setShowResults(true);
+    setTimeout(() => {
+      resultsRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+
+  // This handler is for the quick update button in the results section
+  const handleQuickWeightUpdate = async (newWeight: number) => {
+      setValue('items.0.weight', newWeight, { shouldValidate: true });
+      const currentFormValues = getValues();
+      await handleSubmit(onSubmit)(); // Re-run the main submit logic
+  };
+
+
+  const handleOriginSelect = (location: PostcodeData | null) => {
+    setValue('originLocation', location, { shouldValidate: true });
+    setValue('originQuery', location ? `${location.suburb} ${location.state} ${location.postcode}` : '');
+  };
+
+  const handleDestinationSelect = (location: PostcodeData | null) => {
+    setValue('destinationLocation', location, { shouldValidate: true });
+    setValue('destinationQuery', location ? `${location.suburb} ${location.state} ${location.postcode}` : '');
+  };
+
+  const handleClearLocations = () => {
+    setValue('originQuery', '', { shouldValidate: true, shouldDirty: true });
+    setValue('originLocation', null, { shouldValidate: true, shouldDirty: true });
+    setValue('destinationQuery', '', { shouldValidate: true, shouldDirty: true });
+    setValue('destinationLocation', null, { shouldValidate: true, shouldDirty: true });
+  };
+
+  const handleOpenEmailQuoteDialog = (serviceResult: CalculatedPriceItem) => {
+    setSelectedServiceForQuote(serviceResult);
+    setIsEmailQuoteDialogOpen(true);
+  };
+  
+  const getPEZone = (location: PostcodeData | null): string => {
+    if (!pezoneData || !location || !location.suburb || !location.state) {
+      return 'N/A';
+    }
+    
+    // Create a standardized search key, e.g., "PERTH WA"
+    const searchKey = `${location.suburb.toUpperCase()} ${location.state.toUpperCase()}`;
+    
+    // Find an entry in pezoneData where "PE Suburb" matches our search key
+    const peEntry = (pezoneData as PEZonesEntry[]).find(p => {
+        const peSuburbField = p["PE Suburb"];
+        if (!peSuburbField) return false;
+        
+        return peSuburbField.toUpperCase() === searchKey;
+    });
+
+    return peEntry ? peEntry["PE Zone"] : 'N/A';
+  };
+
+  const overallLoading = isLoadingForm || isLoadingRates;
+
+  return (
+    <Card className="w-full shadow-xl">
+      <CardHeader>
+        <CardTitle className="flex items-center text-2xl font-headline">
+          <Package className="mr-2 h-7 w-7 text-primary" />
+          Freight Calculator
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+            <div className="space-y-2">
+              <Label htmlFor="spendBand" className="flex items-center font-semibold">
+                  Spend Band
+              </Label>
+              <Controller
+                  name="spendBand"
+                  control={form.control}
+                  render={({ field }) => (
+                  <Select onValueChange={(value) => field.onChange(value)} value={field.value}>
+                      <SelectTrigger id="spendBand" className="w-full h-10">
+                      <SelectValue placeholder="Select Spend Band" />
+                      </SelectTrigger>
+                      <SelectContent>
+                      {globalSpendBands.map(band => (
+                          <SelectItem key={band} value={band}>{`Spend Band ${band}`}</SelectItem>
+                      ))}
+                      </SelectContent>
+                  </Select>
+                  )}
+              />
+              {formState.errors.spendBand && (
+                  <p className="text-xs text-destructive">{formState.errors.spendBand.message}</p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="originQueryFreightForm" className="flex items-center font-semibold">
+                <MapPin className="mr-2 h-5 w-5 text-muted-foreground" /> Origin
+              </Label>
+              <LocationAutocomplete
+                inputId="originQueryFreightForm"
+                value={watch('originQuery')}
+                onValueChange={(value) => setValue('originQuery', value, { shouldValidate: true, shouldDirty: true })}
+                onLocationSelect={handleOriginSelect}
+                placeholder="Enter suburb or postcode"
+              />
+              {formState.errors.originQuery && (
+                <p className="text-sm text-destructive">{formState.errors.originQuery.message}</p>
+              )}
+               {formState.errors.originLocation && (
+                <p className="text-sm text-destructive">{formState.errors.originLocation.message}</p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="destinationQueryFreightForm" className="flex items-center font-semibold">
+                <MapPin className="mr-2 h-5 w-5 text-muted-foreground" /> Destination
+              </Label>
+              <LocationAutocomplete
+                inputId="destinationQueryFreightForm"
+                value={watch('destinationQuery')}
+                onValueChange={(value) => setValue('destinationQuery', value, { shouldValidate: true, shouldDirty: true })}
+                onLocationSelect={handleDestinationSelect}
+                placeholder="Enter suburb or postcode"
+              />
+              {formState.errors.destinationQuery && (
+                <p className="text-sm text-destructive">{formState.errors.destinationQuery.message}</p>
+              )}
+              {formState.errors.destinationLocation && (
+                <p className="text-sm text-destructive">{formState.errors.destinationLocation.message}</p>
+              )}
+            </div>
+          </div>
+
+           {originLocation && destinationLocation && (
+             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Card className="bg-muted/30">
+                  <CardHeader className="p-3">
+                    <CardTitle className="text-sm font-medium flex items-center">
+                      <Truck className="mr-2 h-4 w-4" /> IPEC Zones (Standard)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-3 pt-0 text-xs">
+                    <p><strong>Origin:</strong> {originLocation.ipec || 'N/A'}</p>
+                    <p><strong>Destination:</strong> {destinationLocation.ipec || 'N/A'}</p>
+                    <p><strong>Combined:</strong> {originLocation.ipec}{destinationLocation.ipec}</p>
+                  </CardContent>
+                </Card>
+                <Card className="bg-muted/30">
+                  <CardHeader className="p-3">
+                    <CardTitle className="text-sm font-medium flex items-center">
+                      <Zap className="mr-2 h-4 w-4" /> PRIO Zones (Priority/B2C)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-3 pt-0 text-xs">
+                     <p><strong>Origin:</strong> {originLocation.prio || 'N/A'}</p>
+                    <p><strong>Destination:</strong> {destinationLocation.prio || 'N/A'}</p>
+                    <p><strong>Combined:</strong> {originLocation.prio}{destinationLocation.prio}</p>
+                  </CardContent>
+                </Card>
+                 <Card className="bg-muted/30">
+                  <CardHeader className="p-3">
+                    <CardTitle className="text-sm font-medium flex items-center">
+                      <Anchor className="mr-2 h-4 w-4" /> PE Zones (Pallets)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-3 pt-0 text-xs">
+                     <p><strong>Origin:</strong> {getPEZone(originLocation)}</p>
+                    <p><strong>Destination:</strong> {getPEZone(destinationLocation)}</p>
+                    <p><strong>Combined:</strong> {getPEZone(originLocation)}{getPEZone(destinationLocation)}</p>
+                  </CardContent>
+                </Card>
+             </div>
+           )}
+
+          <Separator />
+
+          <div>
+             <h3 className="text-lg font-semibold mb-3 flex items-center">
+                <Package className="mr-2 h-5 w-5 text-muted-foreground" /> Item Details
+            </h3>
+            {fields.map((item, index) => (
+                <Card key={item.id} className="mb-4 p-4 border rounded-lg shadow-sm bg-muted/20">
+                    <div className="grid grid-cols-1 gap-y-2 gap-x-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-end">
+                        <div className="space-y-1 flex-grow">
+                            <Label htmlFor={`items.${index}.weight`} className="text-sm font-medium">Weight (kg)</Label>
+                             <div className="flex items-center gap-2">
+                                <Input id={`items.${index}.weight`} type="number" {...form.register(`items.${index}.weight`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} placeholder="0" className="w-full" />
+                                <Button type="button" variant="outline" size="sm" onClick={() => toggleItemDimensions(index)}>
+                                    {itemDimensionsVisibility[index] ? 'Hide Dims' : 'Add Dims'}
+                                </Button>
+                            </div>
+                            {formState.errors.items?.[index]?.weight && <p className="text-xs text-destructive">{formState.errors.items?.[index]?.weight?.message}</p>}
+                        </div>
+
+                        {itemDimensionsVisibility[index] && (
+                            <>
+                                <div className="space-y-1">
+                                    <Label htmlFor={`items.${index}.length`} className="text-sm font-medium">L (cm)</Label>
+                                    <Input id={`items.${index}.length`} type="number" step="0.1" {...form.register(`items.${index}.length`)} onFocus={(e) => e.target.select()} placeholder="0" />
+                                    {formState.errors.items?.[index]?.length && <p className="text-xs text-destructive">{formState.errors.items?.[index]?.length?.message}</p>}
+                                </div>
+                                <div className="space-y-1">
+                                    <Label htmlFor={`items.${index}.width`} className="text-sm font-medium">W (cm)</Label>
+                                    <Input id={`items.${index}.width`} type="number" step="0.1" {...form.register(`items.${index}.width`)} onFocus={(e) => e.target.select()} placeholder="0" />
+                                    {formState.errors.items?.[index]?.width && <p className="text-xs text-destructive">{formState.errors.items?.[index]?.width?.message}</p>}
+                                </div>
+                                <div className="space-y-1">
+                                    <Label htmlFor={`items.${index}.height`} className="text-sm font-medium">H (cm)</Label>
+                                    <Input id={`items.${index}.height`} type="number" step="0.1" {...form.register(`items.${index}.height`)} onFocus={(e) => e.target.select()} placeholder="0" />
+                                    {formState.errors.items?.[index]?.height && <p className="text-xs text-destructive">{formState.errors.items?.[index]?.height?.message}</p>}
+                                </div>
+                            </>
+                        )}
+                        
+                        <div className="space-y-1">
+                           <Label htmlFor={`items.${index}.quantity`} className="text-sm font-medium">Quantity</Label>
+                           <Input id={`items.${index}.quantity`} type="number" step="1" {...form.register(`items.${index}.quantity`, { valueAsNumber: true })} onFocus={(e) => e.target.select()} placeholder="1" />
+                           {formState.errors.items?.[index]?.quantity && <p className="text-xs text-destructive">{formState.errors.items?.[index]?.quantity?.message}</p>}
+                        </div>
+
+                    </div>
+                    {fields.length > 1 && (
+                        <div className="mt-2">
+                            <Button type="button" variant="destructive" size="sm" onClick={() => handleRemoveItem(index)}>
+                                <Trash2 className="h-4 w-4" />
+                            </Button>
+                        </div>
+                    )}
+                </Card>
+            ))}
+             <div className="mt-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2 md:items-center md:flex-wrap">
+                 <Controller
+                    name="globalOnPallet"
+                    control={form.control}
+                    render={({ field }) => (
+                        <div className="flex items-center">
+                            <Checkbox id="globalOnPallet" checked={field.value} onCheckedChange={field.onChange} className="peer sr-only" />
+                            <Label htmlFor="globalOnPallet" className={cn("flex items-center justify-center px-3 py-2 border rounded-md cursor-pointer text-xs font-medium transition-colors h-9", "bg-background hover:bg-accent hover:text-accent-foreground w-full md:w-auto", field.value ? "bg-primary text-primary-foreground hover:bg-primary/90 border-primary" : "border-input")}>
+                                On Pallet
+                            </Label>
+                        </div>
+                    )}
+                />
+                 <Controller
+                    name="applyGST"
+                    control={form.control}
+                    render={({ field }) => (
+                        <div className="flex items-center">
+                            <Checkbox id="applyGSTGlobalFreightForm" checked={field.value} onCheckedChange={field.onChange} className="peer sr-only" />
+                            <Label htmlFor="applyGSTGlobalFreightForm" className={cn("flex items-center justify-center px-3 py-2 border rounded-md cursor-pointer text-xs font-medium transition-colors h-9", "bg-background hover:bg-accent hover:text-accent-foreground w-full md:w-auto", field.value ? "bg-primary text-primary-foreground hover:bg-primary/90 border-primary" : "border-input")}>
+                                Add GST
+                            </Label>
+                        </div>
+                    )}
+                />
+                <Controller
+                    name="additionalPercentageType"
+                    control={form.control}
+                    render={({ field }) => (
+                        <Select onValueChange={field.onChange} value={field.value}>
+                            <SelectTrigger className="w-full md:w-24 h-9 justify-center text-center">
+                                <SelectValue placeholder="Markup" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {additionalPercentageOptions.map(opt => (
+                                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    )}
+                />
+                {additionalPercentageType === 'other' && (
+                    <div className="space-y-1 pl-1">
+                        <Input
+                            id="additionalPercentageCustom"
+                            type="number"
+                            step="0.01"
+                            className="h-9 text-xs w-full md:w-32"
+                            {...form.register('additionalPercentageCustom', { valueAsNumber: true })}
+                            placeholder="Custom %"
+                        />
+                         {formState.errors.additionalPercentageCustom && (
+                            <p className="text-xs text-destructive">{formState.errors.additionalPercentageCustom.message}</p>
+                        )}
+                    </div>
+                )}
+                <div className="space-y-1">
+                  <Input
+                    id="globalExtras"
+                    type="number"
+                    step="0.01"
+                    className="w-full md:w-24 h-9 text-center text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                    {...form.register('globalExtras', {
+                      setValueAs: (v) => (v === '' ? undefined : parseFloat(v)),
+                    })}
+                    onFocus={(e) => e.target.select()}
+                    placeholder="Extra $"
+                  />
+                  {formState.errors.globalExtras && (
+                    <p className="text-xs text-destructive">{formState.errors.globalExtras.message}</p>
+                  )}
+                </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={handleAddNewItem}
+                  className="w-full md:w-auto"
+                >
+                  Add Item
+                </Button>
+                 <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={handleClearLocations}
+                  className="w-full md:w-auto"
+                >
+                  Clear Locations
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={handleClearItems}
+                  className="w-full md:w-auto"
+                >
+                  Clear Item Details
+                </Button>
+            </div>
+            {formState.errors.items && typeof formState.errors.items === 'object' && !Array.isArray(formState.errors.items) && (
+                 <p className="text-sm text-destructive mt-2">{formState.errors.items.message}</p>
+            )}
+          </div>
+          
+          <Button type="submit" className="w-full md:w-auto text-lg py-3 px-6 bg-accent hover:bg-accent/90 text-accent-foreground" disabled={overallLoading || allowedServices.length === 0}>
+            {overallLoading ? (
+                <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    {isLoadingRates ? 'Loading Rates...' : 'Calculating...'}
+                </>
+            ) : (allowedServices.length === 0 ? 'No Services Available' : 'Calculate Prices')}
+          </Button>
+
+          <Card>
+            <CardHeader>
+                <CardTitle className="flex items-center text-xl font-semibold">
+                    Additional Requirements
+                </CardTitle>
+                 <p className="text-sm text-muted-foreground">Select any additional services or conditions that apply to this consignment.</p>
+            </CardHeader>
+            <CardContent className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-6 gap-y-4 pt-2">
+                <div className="flex items-center space-x-2">
+                    <Controller name="accountTransferRequired" control={form.control} render={({ field }) => <Checkbox id="accountTransferRequired" checked={field.value} onCheckedChange={field.onChange} />} />
+                    <Label htmlFor="accountTransferRequired" className="font-normal cursor-pointer">Account Transfer</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <Controller name="afterHoursCollection" control={form.control} render={({ field }) => <Checkbox id="afterHoursCollection" checked={field.value} onCheckedChange={field.onChange} />} />
+                    <Label htmlFor="afterHoursCollection" className="font-normal cursor-pointer">After Hours Collection</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <Controller name="afterHoursDelivery" control={form.control} render={({ field }) => <Checkbox id="afterHoursDelivery" checked={field.value} onCheckedChange={field.onChange} />} />
+                    <Label htmlFor="afterHoursDelivery" className="font-normal cursor-pointer">After Hours Delivery</Label>
+                </div>
+                 <div className="flex items-center space-x-2">
+                    <Controller name="publicHolidayService" control={form.control} render={({ field }) => <Checkbox id="publicHolidayService" checked={field.value} onCheckedChange={field.onChange} />} />
+                    <Label htmlFor="publicHolidayService" className="font-normal cursor-pointer">Public Holiday Service</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <Controller name="bookInDeliveryRequired" control={form.control} render={({ field }) => <Checkbox id="bookInDeliveryRequired" checked={field.value} onCheckedChange={field.onChange} />} />
+                    <Label htmlFor="bookInDeliveryRequired" className="font-normal cursor-pointer">Book-In Delivery</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <Controller name="dangerousGoodsConsignment" control={form.control} render={({ field }) => <Checkbox id="dangerousGoodsConsignment" checked={field.value} onCheckedChange={field.onChange} />} />
+                    <Label htmlFor="dangerousGoodsConsignment" className="font-normal cursor-pointer">Dangerous Goods</Label>
+                </div>
+                 <div className="flex items-center space-x-2">
+                    <Controller name="handUnloadRequired" control={form.control} render={({ field }) => <Checkbox id="handUnloadRequired" checked={field.value} onCheckedChange={field.onChange} />} />
+                    <Label htmlFor="handUnloadRequired" className="font-normal cursor-pointer">Hand Unload Required</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <Controller name="routeViaMelbourne" control={form.control} render={({ field }) => <Checkbox id="routeViaMelbourne" checked={field.value} onCheckedChange={field.onChange} />} />
+                    <Label htmlFor="routeViaMelbourne" className="font-normal cursor-pointer">Route via Melbourne (Citylink)</Label>
+                </div>
+            </CardContent>
+          </Card>
+
+          <Separator />
+
+          <Card>
+            <CardHeader>
+                <div className="flex items-center space-x-2">
+                     <Controller
+                        name="enableOtherRate"
+                        control={form.control}
+                        render={({ field }) => (
+                            <Checkbox
+                                id="enableOtherRate"
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                            />
+                        )}
+                    />
+                    <Label htmlFor="enableOtherRate" className="text-lg font-semibold cursor-pointer">
+                        Manual Rate Entry
+                    </Label>
+                </div>
+                <p className="text-sm text-muted-foreground">Optionally, provide a manual rate for comparison.</p>
+            </CardHeader>
+            {enableOtherRate && (
+                <CardContent className="space-y-4 pt-2">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="space-y-1">
+                            <Label htmlFor="otherRateBasic">Basic Rate ($)</Label>
+                            <Input id="otherRateBasic" type="number" step="0.01" {...form.register('otherRateBasic', { valueAsNumber: true })} placeholder="e.g., 10.00" />
+                            {formState.errors.otherRateBasic && <p className="text-xs text-destructive">{formState.errors.otherRateBasic.message}</p>}
+                        </div>
+                        <div className="space-y-1">
+                            <Label htmlFor="otherRateKilo">Kg Rate ($)</Label>
+                            <Input id="otherRateKilo" type="number" step="0.0001" {...form.register('otherRateKilo', { valueAsNumber: true })} placeholder="e.g., 0.5000" />
+                             {formState.errors.otherRateKilo && <p className="text-xs text-destructive">{formState.errors.otherRateKilo.message}</p>}
+                        </div>
+                        <div className="space-y-1">
+                            <Label htmlFor="otherRateMin">Minimum Rate ($)</Label>
+                            <Input id="otherRateMin" type="number" step="0.01" {...form.register('otherRateMin', { valueAsNumber: true })} placeholder="e.g., 15.00" />
+                             {formState.errors.otherRateMin && <p className="text-xs text-destructive">{formState.errors.otherRateMin.message}</p>}
+                        </div>
+                    </div>
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                            <Label htmlFor="otherRateFuelPercent">Fuel Surcharge (%)</Label>
+                            <Input id="otherRateFuelPercent" type="number" step="0.01" {...form.register('otherRateFuelPercent', { valueAsNumber: true })} placeholder="e.g., 10.5" />
+                             {formState.errors.otherRateFuelPercent && <p className="text-xs text-destructive">{formState.errors.otherRateFuelPercent.message}</p>}
+                        </div>
+                        <div className="space-y-1">
+                            <Label htmlFor="otherRateSecurityPercent">Security Surcharge (%)</Label>
+                            <Input id="otherRateSecurityPercent" type="number" step="0.01" {...form.register('otherRateSecurityPercent', { valueAsNumber: true })} placeholder="e.g., 8.5" />
+                            {formState.errors.otherRateSecurityPercent && <p className="text-xs text-destructive">{formState.errors.otherRateSecurityPercent.message}</p>}
+                        </div>
+                    </div>
+                </CardContent>
+            )}
+          </Card>
+        </form>
+
+        <div ref={resultsRef}>
+          {overallLoading && !showResults && (
+            <div className="mt-8 flex flex-col items-center justify-center space-y-2 py-10">
+              <Loader2 className="h-12 w-12 animate-spin text-primary" />
+              <p className="text-lg text-muted-foreground">{isLoadingRates ? 'Loading rate data...' : 'Generating prices...'}</p>
+            </div>
+          )}
+
+          {!overallLoading && showResults && (
+            <div className="mt-8">
+              <PricingResults
+                  results={calculatedResults}
+                  viewMode={pricingViewMode}
+                  onOpenEmailQuoteDialog={handleOpenEmailQuoteDialog}
+                  onUpdateWeight={handleQuickWeightUpdate}
+                  initialWeight={getValues('items.0.weight')}
+              />
+            </div>
+          )}
+
+          {!overallLoading && !showResults && calculatedResults.length === 0 && (
+              <Card className="mt-8">
+                  <CardContent className="pt-6 text-center text-muted-foreground">
+                      <p>Enter freight details above and click "Calculate Prices" to see estimates.
+                      {formState.isSubmitted && calculatedResults.length === 0 && ' No applicable services found with a valid price for the current input.'}
+                      {allowedServices.length === 0 && ' No services are available for your current user role.'}
+                      </p>
+                  </CardContent>
+              </Card>
+          )}
+        </div>
+        <EmailQuoteDialog
+            isOpen={isEmailQuoteDialogOpen}
+            onOpenChange={setIsEmailQuoteDialogOpen}
+            serviceResult={selectedServiceForQuote}
+            freightFormValues={getValues()}
+        />
+      </CardContent>
+    </Card>
+  );
+}
+
+
+======================================================================
+2. Core Logic: /src/lib/freightCalculations.ts
+======================================================================
+import type {
+  FreightFormValues,
+  CalculatedPriceItem,
+  ServiceSettings,
+  SurchargeDefinition,
+  B2CRateEntry,
+  RegionalLookupEntry,
+  LCPRdexRateEntry,
+  LCPPrioRateEntry,
+  LCPGoRateEntry,
+  B2BRoadExpressRateEntry,
+  B2BRdexEntry,
+  B2BPriorityRateEntry,
+  TieredPalletRateEntry,
+  ServiceName,
+  FreightItem,
+  B2BStdRateEntry,
+  PEZonesEntry,
+  WestEastRateEntry,
+  RASRateEntry,
+  PostcodeData,
+} from './types';
+import { ALL_SERVICES, NON_PALLET_SERVICES, PALLET_LIKE_SERVICES, PALLET_SERVICES, PRIORITY_MAPPED_SERVICES, RAS_APPLICABLE_SERVICES, LCP_SERVICES, STANDARD_ROAD_MAPPED_SERVICES } from './types';
+
+const roundUp = (num: number, decimalPlaces: number = 0): number => {
+  const factor = Math.pow(10, decimalPlaces);
+  return Math.ceil(num * factor) / factor;
+};
+
+export function calculateChargeableWeight(
+  items: FreightFormValues['items'],
+  cubicFactor: number,
+  globalNoCubic: boolean
+): number {
+  let totalDeadWeight = 0;
+  let totalCubicWeight = 0;
+
+  items.forEach(item => {
+    const deadWeightKg = item.weight * item.quantity;
+    totalDeadWeight += deadWeightKg;
+
+    if (!globalNoCubic && item.length != null && item.length > 0 && item.width != null && item.width > 0 && item.height != null && item.height > 0) {
+      const cubicVolumeM3 = (item.length / 100) * (item.width / 100) * (item.height / 100) * item.quantity;
+      const itemCubicWeightKg = cubicVolumeM3 * cubicFactor;
+      totalCubicWeight += itemCubicWeightKg;
+    }
+  });
+
+  return roundUp(Math.max(totalDeadWeight, totalCubicWeight));
+}
+
+function calculateTotalDeadWeight(items: FreightFormValues['items']): number {
+  return items.reduce((sum, item) => sum + (item.weight * item.quantity), 0);
+}
+
+const GST_RATE = 0.10;
+
+const getPEZone = (location: PostcodeData | null, pezoneData: PEZonesEntry[] | undefined): string => {
+    if (!pezoneData || !location || !location.suburb || !location.state) {
+        return 'N/A';
+    }
+    const searchKey = `${location.suburb.toUpperCase()} ${location.state.toUpperCase()}`;
+    const peEntry = pezoneData.find(p => {
+        const peSuburbField = p["PE Suburb"];
+        if (!peSuburbField) return false;
+        return peSuburbField.toUpperCase() === searchKey;
+    });
+    return peEntry ? peEntry["PE Zone"] : 'N/A';
+};
+
+const sanitizePEZoneForLUP = (zone: string | undefined): string => {
+    return zone ? zone.toUpperCase().replace(/\s+/g, '') : 'N/A';
+};
+
+export async function calculateAllFreightPrices(
+  formData: FreightFormValues,
+  allServiceSettings: ServiceSettings[],
+  allSurchargeDefinitions: SurchargeDefinition[],
+  b2cRatesData: B2CRateEntry[] | undefined,
+  regionalLookupData: RegionalLookupEntry[] | undefined,
+  lcprdexData: LCPRdexRateEntry[] | undefined,
+  lcpprioData: LCPPrioRateEntry[] | undefined,
+  lcpgoData: LCPGoRateEntry[] | undefined,
+  _b2bStdData_unused: B2BStdRateEntry[] | undefined,
+  b2bPriorityData: B2BPriorityRateEntry[] | undefined,
+  b2brdexData: B2BRdexEntry[]| undefined,
+  pezoneData: PEZonesEntry[] | undefined,
+  pe1Data: TieredPalletRateEntry[] | undefined,
+  pe2Data: TieredPalletRateEntry[] | undefined,
+  pe3Data: TieredPalletRateEntry[] | undefined,
+  pe4Data: TieredPalletRateEntry[] | undefined,
+  pe5Data: TieredPalletRateEntry[] | undefined,
+  pallet6Data: TieredPalletRateEntry[] | undefined,
+  westEastData: WestEastRateEntry[] | undefined,
+  rasData: RASRateEntry[] | undefined
+): Promise<CalculatedPriceItem[]> {
+
+  const {
+    originLocation, destinationLocation, spendBand, items,
+    globalNoCubic, globalOnPallet,
+    additionalPercentageType, additionalPercentageCustom, applyGST,
+    accountTransferRequired, afterHoursCollection, afterHoursDelivery,
+    publicHolidayService, bookInDeliveryRequired, dangerousGoodsConsignment,
+    handUnloadRequired, routeViaMelbourne, globalExtras
+  } = formData;
+
+  const totalExtrasAmount = globalExtras || 0;
+
+  const initialCalculatedPriceItem: Omit<CalculatedPriceItem, 'serviceName' | 'isApplicable' | 'remarks'> = {
+    baseRate: null,
+    chargeableWeight: 0,
+    chargeZoneUsed: "N/A",
+    fuelSurchargeAmount: 0,
+    fuelSurchargePercentApplied: undefined,
+    securitySurchargePercentApplied: undefined,
+    otherSurcharges: [],
+    totalSurcharges: 0,
+    totalExtrasAmount: totalExtrasAmount,
+    subTotalBeforeMarkupAndGST: null,
+    additionalMarkupPercentApplied: null,
+    additionalMarkupAmount: null,
+    subTotalBeforeGST: null,
+    gstAmount: null,
+    finalPrice: null,
+    calculationFormula: undefined,
+    rateEntryUsed: undefined,
+  };
+
+  if (!originLocation || !destinationLocation) {
+    const defaultRemarks = ["Origin or Destination not selected."];
+    const initialResults = ALL_SERVICES.map(serviceName => ({
+        ...initialCalculatedPriceItem,
+        serviceName,
+        chargeZoneUsed: "N/A (Origin/Dest Missing)",
+        fuelSurchargePercentApplied: allServiceSettings.find(s => s.id === serviceName)?.fuelSurchargePercent || 0,
+        remarks: defaultRemarks,
+        isApplicable: false,
+    }));
+     if (formData.enableOtherRate) {
+        initialResults.push({
+            ...initialCalculatedPriceItem,
+            serviceName: "Manual Rate",
+            remarks: defaultRemarks, isApplicable: false,
+        });
+    }
+    return initialResults;
+  }
+
+  const results: CalculatedPriceItem[] = [];
+
+  for (const uiServiceName of formData.selectedServices) {
+    const serviceConfig = allServiceSettings.find(s => s.id === uiServiceName);
+     let currentResult: CalculatedPriceItem = {
+        ...initialCalculatedPriceItem,
+        serviceName: uiServiceName,
+        isApplicable: true,
+        remarks: [],
+        fuelSurchargePercentApplied: serviceConfig?.fuelSurchargePercent || 0,
+    };
+
+    if (!serviceConfig) {
+        currentResult.remarks.push("Service configuration not found.");
+        currentResult.isApplicable = false;
+        results.push(currentResult);
+        continue;
+    }
+
+    let chargeableWeightKg: number;
+    let baseFreight: number | null = null;
+    let chargeZoneUsed: string = "N/A";
+    let securitySurchargePercentAppliedLocally: number | undefined = undefined;
+
+    let isCurrentServicePallet = PALLET_LIKE_SERVICES.includes(uiServiceName as ServiceName);
+    let cubicFactor = isCurrentServicePallet ? 333 : 250;
+
+    chargeableWeightKg = calculateChargeableWeight(items, cubicFactor, globalNoCubic);
+    currentResult.chargeableWeight = chargeableWeightKg;
+    const totalDeadWeightKg = calculateTotalDeadWeight(items);
+
+    const calculateGenericB2BStyleRate = (
+        rateData: any[] | undefined, logicPrefix: string, zoneKeySource: 'ipec' | 'prio',
+        fileName: string, fieldPrefix: string
+    ): void => {
+        chargeZoneUsed = `N/A (${uiServiceName} Initial)`;
+        if (!rateData || rateData.length === 0) {
+            currentResult.remarks.push(`${uiServiceName} rates data (${fileName}) could not be loaded or is empty.`);
+            currentResult.isApplicable = false; return;
+        }
+        const originZoneVal = originLocation[zoneKeySource];
+        const destZoneVal = destinationLocation[zoneKeySource];
+        if (!originZoneVal || !destZoneVal) {
+            currentResult.remarks.push(`${uiServiceName} ${zoneKeySource.toUpperCase()} zone missing. Origin: ${originLocation.suburb} ${originLocation.postcode}, Dest: ${destinationLocation.suburb} ${destinationLocation.postcode}. Check postcodes.json.`);
+            currentResult.isApplicable = false; return;
+        }
+        const logicKey = `${logicPrefix}${originZoneVal}${destZoneVal}`;
+        chargeZoneUsed = logicKey;
+        currentResult.chargeZoneUsed = chargeZoneUsed;
+        const rateEntry = rateData.find(r => r.Logic === logicKey);
+        currentResult.rateEntryUsed = rateEntry;
+
+        if (!rateEntry) {
+            currentResult.remarks.push(`${uiServiceName} rate entry not found in ${fileName} for Logic Key: "${logicKey}".`);
+            currentResult.isApplicable = false; return;
+        }
+        
+        let basicRateKey = ``;
+        let kiloRateKey = ``;
+        let minRateKey = ``;
+        let hasMinRate = true;
+
+        if (fieldPrefix === 'B') { // For B2B services
+            basicRateKey = `B${spendBand}`;
+            kiloRateKey = `K${spendBand}`;
+            minRateKey = `M${spendBand}`;
+            hasMinRate = uiServiceName !== 'B2B Priority';
+        } else { // For LCP services
+            basicRateKey = `${fieldPrefix}Basic`;
+            kiloRateKey = `${fieldPrefix}Kilo`;
+            hasMinRate = false; // LCP services don't have a separate Min rate in this model
+        }
+
+        const basicRateValue = Number(rateEntry[basicRateKey]);
+        const kiloRateValue = Number(rateEntry[kiloRateKey]);
+        
+        if (!isNaN(basicRateValue) && !isNaN(kiloRateValue)) {
+            const calculatedRate = basicRateValue + (kiloRateValue * chargeableWeightKg);
+            if (!hasMinRate) { 
+                baseFreight = calculatedRate;
+                currentResult.calculationFormula = `(${basicRateKey}: ${basicRateValue} + (${kiloRateKey}: ${kiloRateValue} * CW: ${chargeableWeightKg}))`;
+            }
+            else {
+                const minRateValue = Number(rateEntry[minRateKey]);
+                if (!isNaN(minRateValue)) { 
+                    baseFreight = Math.max(calculatedRate, minRateValue);
+                    currentResult.calculationFormula = `MAX( (${basicRateKey}: ${basicRateValue} + (${kiloRateKey}: ${kiloRateValue} * CW: ${chargeableWeightKg.toFixed(2)})), ${minRateKey}: ${minRateValue} )`;
+                }
+                else { 
+                    currentResult.remarks.push(`Minimum rate (e.g., ${minRateKey}) invalid or missing in ${fileName} for ${logicKey}.`); 
+                    currentResult.isApplicable = false; 
+                }
+            }
+        } else { currentResult.remarks.push(`Basic or Kilo rate (e.g., ${basicRateKey}, ${kiloRateKey}) invalid or missing in ${fileName} for ${logicKey}.`); currentResult.isApplicable = false; }
+    };
+    
+    if (uiServiceName === 'LCP Std') {
+        chargeZoneUsed = `N/A (LCP Std Initial)`;
+        if (!lcprdexData || lcprdexData.length === 0) {
+            currentResult.remarks.push("LCP Std rates data (lcprdex.json) missing or empty.");
+            currentResult.isApplicable = false;
+        } else {
+            const originIpec = originLocation.ipec;
+            const destIpec = destinationLocation.ipec;
+            if (!originIpec || !destIpec) {
+                currentResult.remarks.push(`LCP Std IPEC zone missing. Origin: ${originIpec}, Dest: ${destIpec}. Check postcodes.json.`);
+                currentResult.isApplicable = false;
+            } else {
+                const logicKey = `LCPRDEX${originIpec}${destIpec}`;
+                chargeZoneUsed = logicKey;
+                currentResult.chargeZoneUsed = chargeZoneUsed;
+                const rateEntry = lcprdexData.find(r => r.Logic === logicKey);
+                currentResult.rateEntryUsed = rateEntry;
+                if (!rateEntry || typeof rateEntry.LCPRDEXBasic !== 'number' || typeof rateEntry.LCPRDEXKilo !== 'number') {
+                    currentResult.remarks.push(`LCP Std rate entry or fields (LCPRDEXBasic/LCPRDEXKilo) missing/invalid in lcprdex.json for Logic key: ${logicKey}.`);
+                    currentResult.isApplicable = false;
+                } else {
+                    baseFreight = (chargeableWeightKg * rateEntry.LCPRDEXKilo) + rateEntry.LCPRDEXBasic;
+                    currentResult.calculationFormula = `((LCPRDEXKilo: ${rateEntry.LCPRDEXKilo} * CW: ${chargeableWeightKg.toFixed(2)}) + LCPRDEXBasic: ${rateEntry.LCPRDEXBasic})`;
+                }
+            }
+        }
+    } else if (uiServiceName === 'LCP Priority') {
+        chargeZoneUsed = `N/A (LCP Prio Initial)`;
+         if (!lcpprioData || lcpprioData.length === 0) { currentResult.remarks.push("LCP Priority rates data (lcpprio.json) missing or empty."); currentResult.isApplicable = false; }
+        else {
+            const originPrio = originLocation.prio; const destPrio = destinationLocation.prio;
+            if (!originPrio || !destPrio) { currentResult.remarks.push(`LCP Priority PRIO zone missing. Origin: ${originPrio}, Dest: ${destPrio}. Check postcodes.json.`); currentResult.isApplicable = false; }
+            else {
+                const logicKey = `LCPPrio${originPrio}${destPrio}`; chargeZoneUsed = logicKey; currentResult.chargeZoneUsed = chargeZoneUsed;
+                const rateEntry = lcpprioData.find(r => r.Logic === logicKey);
+                currentResult.rateEntryUsed = rateEntry;
+                 if (!rateEntry || typeof rateEntry.LCPPrioBasic !== 'number' || typeof rateEntry.LCPPrioKg !== 'number') { currentResult.remarks.push(`LCP Priority rate entry or fields (LCPPrioBasic/Kg) missing/invalid in lcpprio.json for ${logicKey}.`); currentResult.isApplicable = false; }
+                else { 
+                    baseFreight = (chargeableWeightKg * rateEntry.LCPPrioKg) + rateEntry.LCPPrioBasic; 
+                    currentResult.calculationFormula = `((LCPPrioKg: ${rateEntry.LCPPrioKg} * CW: ${chargeableWeightKg.toFixed(2)}) + LCPPrioBasic: ${rateEntry.LCPPrioBasic})`;
+                }
+            }
+        }
+    } else if (uiServiceName === 'LCP GO Std' || uiServiceName === 'LCP GO Priority') {
+        chargeZoneUsed = `N/A (LCP GO Initial)`;
+        if (!lcpgoData || lcpgoData.length === 0) { currentResult.remarks.push("LCP GO rates data (lcpgo.json) could not be loaded or is empty."); currentResult.isApplicable = false; }
+        else {
+            let isOutOfScope = false;
+            if (totalDeadWeightKg > 10.01) { isOutOfScope = true; currentResult.remarks.push(`${uiServiceName}: Out of Scope - Total dead weight ${totalDeadWeightKg.toFixed(2)}kg exceeds 10.01kg.`); }
+            items.forEach(item => { if (!globalNoCubic && item.length != null && item.width != null && item.height != null && (item.length > 120 || item.width > 80 || item.height > 60)) { isOutOfScope = true; currentResult.remarks.push(`${uiServiceName}: Out of Scope - Item dimensions (L:${item.length} W:${item.width} H:${item.height}) exceed 120x80x60cm.`); } });
+            if (isOutOfScope) { currentResult.isApplicable = false; }
+            else {
+                const originPrio = originLocation.prio; const destPrio = destinationLocation.prio;
+                if (!originPrio || !destPrio) { currentResult.remarks.push(`Origin or Destination PRIO zone missing for ${uiServiceName}. Origin: ${originPrio}, Dest: ${destPrio}. Check postcodes.json.`); currentResult.isApplicable = false; }
+                else {
+                    const prefix = uiServiceName === 'LCP GO Std' ? "GoOffPeak" : "GoPriority";
+                    const logicKey = `${prefix}${originPrio}${destPrio}`; chargeZoneUsed = logicKey; currentResult.chargeZoneUsed = chargeZoneUsed;
+                    const rateEntry = lcpgoData.find(r => r.Logic === logicKey);
+                    currentResult.rateEntryUsed = rateEntry;
+                    if (!rateEntry) { currentResult.remarks.push(`${uiServiceName} rate entry not found in lcpgo.json for Logic Key: "${logicKey}".`); currentResult.isApplicable = false; }
+                    else {
+                        let selectedGoRate: number | undefined = undefined; let tierUsed: string = 'N/A';
+                        if (totalDeadWeightKg <= 1) { selectedGoRate = rateEntry.Go1; tierUsed = 'Go1'; }
+                        else if (totalDeadWeightKg <= 3) { selectedGoRate = rateEntry.Go3; tierUsed = 'Go3'; }
+                        else if (totalDeadWeightKg <= 5) { selectedGoRate = rateEntry.Go5; tierUsed = 'Go5'; }
+                        else if (totalDeadWeightKg <= 10) { selectedGoRate = rateEntry.Go10; tierUsed = 'Go10'; }
+                        
+                        if (typeof selectedGoRate === 'number') { 
+                            baseFreight = selectedGoRate; 
+                            currentResult.calculationFormula = `Tiered rate for Dead Wt ${totalDeadWeightKg.toFixed(2)}kg. Selected Tier: ${tierUsed} (${baseFreight})`;
+                        }
+                        else { currentResult.remarks.push(`${uiServiceName}: Rate for weight ${totalDeadWeightKg.toFixed(2)}kg not found or invalid in lcpgo.json for ${logicKey}.`); currentResult.isApplicable = false; }
+                    }
+                }
+            }
+        }
+    } else if (uiServiceName.startsWith('B2C')) {
+        chargeZoneUsed = `N/A (B2C Initial)`;
+        if (!regionalLookupData || regionalLookupData.length === 0) { currentResult.remarks.push("Regional Lookup data (regionallookup.json) could not be loaded or is empty for B2C."); currentResult.isApplicable = false; }
+        else if (!b2cRatesData || b2cRatesData.length === 0) { currentResult.remarks.push("B2C rates data (b2c.json) could not be loaded or is empty."); currentResult.isApplicable = false; }
+        else {
+            const originPrio = originLocation.prio; const destPrio = destinationLocation.prio;
+            if (!originPrio || !destPrio) { currentResult.remarks.push(`Origin or Destination PRIO zone missing for ${uiServiceName}. Origin: ${originPrio}, Dest: ${destPrio}. Check postcodes.json.`); currentResult.isApplicable = false; }
+            else {
+                const lupKey = `${originPrio}${destPrio}`; const regionalEntry = regionalLookupData.find(r => r.LUP === lupKey);
+                if (!regionalEntry || !regionalEntry.Journey) { currentResult.remarks.push(`Journey entry not found in regionallookup.json for LUP key: "${lupKey}" (Service: ${uiServiceName}).`); chargeZoneUsed = `LUP Key: ${lupKey} (Journey Not Found)`; currentResult.isApplicable = false; }
+                else {
+                    const journeyIdentifier = regionalEntry.Journey; const b2cRateLogicKey = `${spendBand}${journeyIdentifier}`; chargeZoneUsed = b2cRateLogicKey; currentResult.chargeZoneUsed = chargeZoneUsed;
+                    const rateEntryB2CRates = b2cRatesData.find(r => r.Logic === b2cRateLogicKey);
+                    currentResult.rateEntryUsed = rateEntryB2CRates;
+                    if (!rateEntryB2CRates) { currentResult.remarks.push(`B2C Rate entry not found in b2c.json for Logic Key: "${b2cRateLogicKey}".`); currentResult.isApplicable = false; }
+                    else {
+                        let rate1kg, rate3kg, rate5kg, kiloRateOver5kg; let rateFieldsValid = false; let usedTier = ''; let usedFields = {};
+                        if (uiServiceName === 'B2C Std') { rate1kg = rateEntryB2CRates.b2c1; rate3kg = rateEntryB2CRates.b2c3; rate5kg = rateEntryB2CRates.b2c5; kiloRateOver5kg = rateEntryB2CRates.kg; if (typeof rate1kg === 'number' && typeof rate3kg === 'number' && typeof rate5kg === 'number' && typeof kiloRateOver5kg === 'number') { rateFieldsValid = true; usedFields = { b2c1: rate1kg, b2c3: rate3kg, b2c5: rate5kg, kg: kiloRateOver5kg }; } else { currentResult.remarks.push(`One or more B2C Std rate fields (b2c1, b2c3, b2c5, kg) missing/invalid in b2c.json for ${b2cRateLogicKey}.`); } }
+                        else if (uiServiceName === 'B2C Priority') { rate1kg = rateEntryB2CRates.b2cp1; rate3kg = rateEntryB2CRates.b2cp3; rate5kg = rateEntryB2CRates.b2cp5; kiloRateOver5kg = rateEntryB2CRates.pkg; if (typeof rate1kg === 'number' && typeof rate3kg === 'number' && typeof rate5kg === 'number' && typeof kiloRateOver5kg === 'number') { rateFieldsValid = true; usedFields = { b2cp1: rate1kg, b2cp3: rate3kg, b2cp5: rate5kg, pkg: kiloRateOver5kg }; } else { currentResult.remarks.push(`One or more B2C Priority rate fields (b2cp1, b2cp3, b2cp5, pkg) missing/invalid in b2c.json for ${b2cRateLogicKey}.`); } }
+                        if (rateFieldsValid) { 
+                            if (chargeableWeightKg <= 1) { baseFreight = rate1kg!; usedTier = '1kg'; }
+                            else if (chargeableWeightKg <= 3) { baseFreight = rate3kg!; usedTier = '3kg'; }
+                            else if (chargeableWeightKg <= 5) { baseFreight = rate5kg!; usedTier = '5kg'; }
+                            else { baseFreight = rate5kg! + ((chargeableWeightKg - 5) * kiloRateOver5kg!); usedTier = '>5kg'; }
+                            currentResult.calculationFormula = `Tiered Rate for CW ${chargeableWeightKg.toFixed(2)}kg. Using ${usedTier} tier. Base Rate: ${baseFreight.toFixed(2)}`;
+                        }
+                        else { currentResult.isApplicable = false; }
+                    }
+                }
+            }
+        }
+    } else if (uiServiceName === 'B2B Std') { calculateGenericB2BStyleRate(b2brdexData, `Parcel`, 'ipec', 'b2brdex.json', 'B'); }
+    else if (uiServiceName === 'B2B Priority') { calculateGenericB2BStyleRate(b2bPriorityData, `02 02`, 'prio', 'b2b_priority.json', 'B'); }
+    else if (uiServiceName === 'B2B Pallets Express' || uiServiceName === 'B2B Pallets General Tiered') {
+        chargeZoneUsed = `N/A (${uiServiceName} Initial)`;
+        let palletSpendBandData: TieredPalletRateEntry[] | undefined;
+        let palletFileName = `pe${spendBand}.json`;
+
+        switch (spendBand) {
+            case "1": palletSpendBandData = pe1Data; break;
+            case "2": palletSpendBandData = pe2Data; break;
+            case "3": palletSpendBandData = pe3Data; break;
+            case "4": palletSpendBandData = pe4Data; break;
+            case "5": palletSpendBandData = pe5Data; break;
+            case "6": palletSpendBandData = pallet6Data; break;
+            default:
+                currentResult.remarks.push(`Invalid spend band '${spendBand}' for pallet services.`);
+                currentResult.isApplicable = false;
+        }
+
+        if (!currentResult.isApplicable) { /* skip */ }
+        else if (!palletSpendBandData || palletSpendBandData.length === 0) {
+            currentResult.remarks.push(`${uiServiceName} rates data for SB${spendBand} (${palletFileName}) could not be loaded or is empty.`);
+            currentResult.isApplicable = false;
+        }
+        else {
+            const originPEZone = getPEZone(originLocation, pezoneData);
+            const destPEZone = getPEZone(destinationLocation, pezoneData);
+
+            if (originPEZone === 'N/A' || destPEZone === 'N/A') {
+                currentResult.remarks.push(`${uiServiceName} PE zone missing. Origin: ${originLocation.suburb} ${originLocation.state} (PE Zone: ${originPEZone || 'Not Found'}), Dest: ${destinationLocation.suburb} ${destinationLocation.state} (PE Zone: ${destPEZone || 'Not Found'}). Ensure PEZones.json has postcode entry.`);
+                currentResult.isApplicable = false;
+            } else {
+                const lupKeyToFind = `${sanitizePEZoneForLUP(originPEZone)}${sanitizePEZoneForLUP(destPEZone)}`;
+                chargeZoneUsed = lupKeyToFind;
+                currentResult.chargeZoneUsed = chargeZoneUsed;
+                
+                const rateEntry = palletSpendBandData.find(r => sanitizePEZoneForLUP(r["From - To"]) === lupKeyToFind);
+                currentResult.rateEntryUsed = rateEntry;
+                if (!rateEntry) {
+                    currentResult.remarks.push(`${uiServiceName} rate entry not found in ${palletFileName} for LUP key: "${lupKeyToFind}".`);
+                    currentResult.isApplicable = false;
+                } else {
+                    let selectedBasicRate: number | undefined, selectedMinRate: number | undefined, selectedKiloRate: number | undefined;
+
+                    const fieldsToUse = uiServiceName === 'B2B Pallets Express'
+                        ? { basicKey: 'EBasic', minKey: 'Eminimum', tiers: { 250: 'E0 - 250', 750: 'E251 - 750', 1500: 'E751 - 1500', 3000: 'E1501 - 3000', 5000: 'E3001 - 5000', "99999": 'E5001 - 99999' } }
+                        : { basicKey: 'GBasic', minKey: 'GMinimum', tiers: { 250: 'G0 - 250', 750: 'G251 - 750', 1500: 'G751 - 1500', 3000: 'G1501 - 3000', 5000: 'G3001 - 5000', "99999": 'G5001 - 99999' } };
+
+                    selectedBasicRate = Number(rateEntry[fieldsToUse.basicKey]);
+                    selectedMinRate = Number(rateEntry[fieldsToUse.minKey]);
+
+                    let kiloRateKeyToUse: string | undefined;
+                    if (chargeableWeightKg <= 250) kiloRateKeyToUse = fieldsToUse.tiers[250];
+                    else if (chargeableWeightKg <= 750) kiloRateKeyToUse = fieldsToUse.tiers[750];
+                    else if (chargeableWeightKg <= 1500) kiloRateKeyToUse = fieldsToUse.tiers[1500];
+                    else if (chargeableWeightKg <= 3000) kiloRateKeyToUse = fieldsToUse.tiers[3000];
+                    else if (chargeableWeightKg <= 5000) kiloRateKeyToUse = fieldsToUse.tiers[5000];
+                    else kiloRateKeyToUse = fieldsToUse.tiers["99999"];
+
+                    if (kiloRateKeyToUse) {
+                        selectedKiloRate = Number(rateEntry[kiloRateKeyToUse]);
+                    }
+                    
+                    if (typeof selectedBasicRate === 'number' && !isNaN(selectedBasicRate) &&
+                        typeof selectedMinRate === 'number' && !isNaN(selectedMinRate) &&
+                        typeof selectedKiloRate === 'number' && !isNaN(selectedKiloRate) ) {
+                        const calculatedRate = selectedBasicRate + (selectedKiloRate * chargeableWeightKg);
+                        baseFreight = Math.max(calculatedRate, selectedMinRate);
+                        currentResult.calculationFormula = `MAX( (${fieldsToUse.basicKey}: ${selectedBasicRate} + (${kiloRateKeyToUse}: ${selectedKiloRate} * CW: ${chargeableWeightKg.toFixed(2)})), ${fieldsToUse.minKey}: ${selectedMinRate} )`;
+                    } else {
+                        currentResult.remarks.push(`Invalid tiered rate fields (Basic, Min, or Kilo for weight ${chargeableWeightKg}kg) in ${palletFileName} for ${lupKeyToFind}.`);
+                        currentResult.isApplicable = false;
+                    }
+                }
+            }
+        }
+    } else if (uiServiceName === 'WA PE Special') {
+        chargeZoneUsed = `N/A (WA PE Initial)`;
+        if (!westEastData || westEastData.length === 0) {
+            currentResult.remarks.push("WA PE Special rates data (west_east.json) missing or empty.");
+            currentResult.isApplicable = false;
+        } else {
+            const originPrio = originLocation.prio;
+            const destPrio = destinationLocation.prio;
+            if (originPrio !== 'PER') {
+                currentResult.remarks.push(`WA PE Special is only valid for origins in the PER zone.`);
+                currentResult.isApplicable = false;
+            } else if (!destPrio) {
+                currentResult.remarks.push(`Destination PRIO zone missing for WA PE Special.`);
+                currentResult.isApplicable = false;
+            } else {
+                const cityToPrioMap: Record<string, string> = { "SYDNEY": "SYD", "MELBOURNE": "MEL", "BRISBANE": "BNE", "ADELAIDE": "ADL" };
+                const invertedCityToPrioMap = Object.fromEntries(Object.entries(cityToPrioMap).map(([k, v]) => [v, k]));
+                const destinationCity = invertedCityToPrioMap[destPrio];
+
+                chargeZoneUsed = `${originPrio} > ${destPrio} (${destinationCity || 'Unknown City'})`;
+                currentResult.chargeZoneUsed = chargeZoneUsed;
+
+                if (!destinationCity) {
+                    currentResult.remarks.push(`No matching city found for destination PRIO zone: ${destPrio}.`);
+                    currentResult.isApplicable = false;
+                } else {
+                    const rateEntry = (westEastData as WestEastRateEntry[]).find(r => r.To && r.To.toUpperCase() === destinationCity);
+                    currentResult.rateEntryUsed = rateEntry;
+                    if (!rateEntry) {
+                        currentResult.remarks.push(`No WA PE Special rate found for destination city: ${destinationCity}.`);
+                        currentResult.isApplicable = false;
+                    } else {
+                        const basic = Number(rateEntry.Basic);
+                        const min = Number(rateEntry.Minimum);
+                        const kiloRate = Number(rateEntry["0-99999KGS"]);
+
+                        if (isNaN(basic) || isNaN(min) || isNaN(kiloRate)) {
+                            currentResult.remarks.push(`Invalid rate values in west_east.json for ${destinationCity}.`);
+                            currentResult.isApplicable = false;
+                        } else {
+                            chargeableWeightKg = calculateChargeableWeight(items, 333, globalNoCubic);
+                            currentResult.chargeableWeight = chargeableWeightKg;
+
+                            const calculatedRate = basic + (kiloRate * chargeableWeightKg);
+                            baseFreight = Math.max(calculatedRate, min);
+                            currentResult.calculationFormula = `MAX( (Basic: ${basic} + (KiloRate: ${kiloRate} * CW: ${chargeableWeightKg.toFixed(2)})), Min: ${min} )`;
+                        }
+                    }
+                }
+            }
+        }
+    } else { currentResult.remarks.push(`Service ${uiServiceName} has no defined calculation logic.`); currentResult.isApplicable = false; }
+
+    currentResult.baseRate = baseFreight;
+
+    let fuelSurchargeAmount = 0;
+    const otherSurchargesApplied: CalculatedPriceItem['otherSurcharges'] = [];
+    let currentTotalOtherSurcharges = 0;
+
+    if (currentResult.isApplicable && baseFreight !== null) {
+      fuelSurchargeAmount = baseFreight * (serviceConfig.fuelSurchargePercent / 100);
+
+      if (rasData && RAS_APPLICABLE_SERVICES.includes(uiServiceName as ServiceName)) {
+        const rasEntry = rasData.find(r => 
+            r.postcode === destinationLocation.postcode && 
+            r.suburb.trim().toUpperCase() === destinationLocation.suburb.trim().toUpperCase()
+        );
+
+        if (rasEntry) {
+            const isPriorityBased = PRIORITY_MAPPED_SERVICES.includes(uiServiceName as ServiceName) || uiServiceName.startsWith('B2C') || uiServiceName.startsWith('LCP GO');
+            const rasAmount = isPriorityBased ? rasEntry.prio : rasEntry.ipec;
+            
+            if (typeof rasAmount === 'number' && rasAmount > 0) {
+                otherSurchargesApplied.push({ name: 'Remote Area Surcharge', amount: rasAmount, id: 'remote_area_surcharge' });
+                currentTotalOtherSurcharges += rasAmount;
+            }
+        }
+      }
+
+      const surchargeTriggers: { flagKey: keyof FreightFormValues, surchargeId: string }[] = [
+        { flagKey: 'bookInDeliveryRequired', surchargeId: 'book_in_delivery_fee' },
+        { flagKey: 'routeViaMelbourne', surchargeId: 'citylink_surcharge_melbourne_percent' },
+        { flagKey: 'dangerousGoodsConsignment', surchargeId: 'dg_consignment_fee' },
+        { flagKey: 'handUnloadRequired', surchargeId: 'hand_unload_fee' },
+        { flagKey: 'accountTransferRequired', surchargeId: 'account_transfer_fee'},
+        { flagKey: 'afterHoursCollection', surchargeId: 'after_hours_collection_fee'},
+        { flagKey: 'afterHoursDelivery', surchargeId: 'after_hours_delivery_fee'},
+        { flagKey: 'publicHolidayService', surchargeId: 'public_holiday_service_fee'},
+      ];
+
+      surchargeTriggers.forEach(trigger => {
+        if (formData[trigger.flagKey]) {
+          const activeSurcharge = serviceConfig.surcharges.find(s => s.surchargeId === trigger.surchargeId && s.enabled);
+          if (activeSurcharge) {
+            const definition = allSurchargeDefinitions.find(def => def.id === trigger.surchargeId);
+            if (definition && definition.applicableServices.includes(uiServiceName as ServiceName)) {
+              let surchargeAmount = 0;
+              if (definition.type === 'fixed_per_shipment') surchargeAmount = activeSurcharge.value;
+              else if (definition.type === 'fixed_per_kg') surchargeAmount = activeSurcharge.value * chargeableWeightKg;
+              else if (definition.type === 'percentage') surchargeAmount = baseFreight! * (activeSurcharge.value / 100);
+              
+              otherSurchargesApplied.push({ name: definition.name, amount: surchargeAmount, id: definition.id });
+              currentTotalOtherSurcharges += surchargeAmount;
+            }
+          }
+        }
+      });
+      
+      if (isCurrentServicePallet && originLocation.state === "WA" && (destinationLocation.state === "WA" || destinationLocation.state === "NT")) {
+          const exWaConsignmentFeeConfig = serviceConfig.surcharges.find(s => s.surchargeId === 'ex_wa_pickup_consignment_fee' && s.enabled);
+          if (exWaConsignmentFeeConfig) {
+              const definition = allSurchargeDefinitions.find(def => def.id === 'ex_wa_pickup_consignment_fee');
+              if(definition) {
+                  otherSurchargesApplied.push({ name: definition.name, amount: exWaConsignmentFeeConfig.value, id: definition.id });
+                  currentTotalOtherSurcharges += exWaConsignmentFeeConfig.value;
+              }
+          }
+
+          let exWaKgRateSurchargeId = '';
+          if (chargeableWeightKg <= 1000) exWaKgRateSurchargeId = 'ex_wa_pickup_kg_rate_tier1';
+          else if (chargeableWeightKg <= 3000) exWaKgRateSurchargeId = 'ex_wa_pickup_kg_rate_tier2';
+          else if (chargeableWeightKg <= 8000) exWaKgRateSurchargeId = 'ex_wa_pickup_kg_rate_tier3';
+          else exWaKgRateSurchargeId = 'ex_wa_pickup_kg_rate_tier4';
+
+          const exWaKgRateConfig = serviceConfig.surcharges.find(s => s.surchargeId === exWaKgRateSurchargeId && s.enabled);
+          if (exWaKgRateConfig) {
+               const definition = allSurchargeDefinitions.find(def => def.id === exWaKgRateSurchargeId);
+               if(definition) {
+                  const kgAmount = exWaKgRateConfig.value * chargeableWeightKg;
+                  otherSurchargesApplied.push({ name: definition.name, amount: kgAmount, id: definition.id });
+                  currentTotalOtherSurcharges += kgAmount;
+               }
+          }
+      }
+
+      const securitySurchargeConfig = serviceConfig.surcharges.find(s => s.surchargeId === 'security' && s.enabled);
+      if (securitySurchargeConfig) { 
+        const definition = allSurchargeDefinitions.find(def => def.id === 'security');
+        if (definition && definition.applicableServices.includes(uiServiceName as ServiceName)) {
+          const securityAmount = (baseFreight! + fuelSurchargeAmount) * (securitySurchargeConfig.value / 100);
+          otherSurchargesApplied.push({ name: definition.name, amount: securityAmount, id: definition.id });
+          currentTotalOtherSurcharges += securityAmount;
+          securitySurchargePercentAppliedLocally = securitySurchargeConfig.value;
+        }
+      }
+
+      let accumulatedItemSpecificFees = 0;
+      const appliedItemSurchargeTypesForConsolidatedName: string[] = [];
+      if (NON_PALLET_SERVICES.includes(uiServiceName as ServiceName) && !globalOnPallet) {
+        items.forEach(item => {
+          let highestFeeForThisItem = 0; let feeIdForThisItem: string | null = null;
+          const oversizeGTE35kgConfig = serviceConfig.surcharges.find(s => s.surchargeId === 'manual_handling_gt35kg' && s.enabled);
+          const oversizeLengthConfig = serviceConfig.surcharges.find(s => s.surchargeId === 'oversize_item_fee' && s.enabled);
+          const manualHandlingGT30LT35Config = serviceConfig.surcharges.find(s => s.surchargeId === 'manual_handling_gt30kg' && s.enabled);
+          const oversizeGTE35kgFeeValue = oversizeGTE35kgConfig?.value ?? 0;
+          const oversizeLengthFeeValue = oversizeLengthConfig?.value ?? 0;
+          const manualHandlingGT30LT35FeeValue = manualHandlingGT30LT35Config?.value ?? 0;
+          if (oversizeGTE35kgConfig && item.weight >= 35) { if (oversizeGTE35kgFeeValue > highestFeeForThisItem) { highestFeeForThisItem = oversizeGTE35kgFeeValue; feeIdForThisItem = 'manual_handling_gt35kg'; } }
+          if (oversizeLengthConfig && !globalNoCubic && item.length != null && item.length > 180) { if (oversizeLengthFeeValue > highestFeeForThisItem) { highestFeeForThisItem = oversizeLengthFeeValue; feeIdForThisItem = 'oversize_item_fee'; } }
+          if (highestFeeForThisItem === 0 && manualHandlingGT30LT35Config) {
+            const meetsMidTierWeight = item.weight > 30 && item.weight < 35;
+            const meetsMidTierDimension = !globalNoCubic && item.length != null && item.width != null && item.height != null && (item.length > 120 || item.width > 120 || item.height > 120);
+            if (meetsMidTierWeight || meetsMidTierDimension) { if (manualHandlingGT30LT35FeeValue > highestFeeForThisItem) { highestFeeForThisItem = manualHandlingGT30LT35FeeValue; feeIdForThisItem = 'manual_handling_gt30kg'; } }
+          }
+          accumulatedItemSpecificFees += highestFeeForThisItem * item.quantity;
+          if (feeIdForThisItem && !appliedItemSurchargeTypesForConsolidatedName.includes(feeIdForThisItem)) { appliedItemSurchargeTypesForConsolidatedName.push(feeIdForThisItem); }
+        });
+        if (accumulatedItemSpecificFees > 0) {
+          let consolidatedName = "Item Handling/Oversize Fee";
+          if (appliedItemSurchargeTypesForConsolidatedName.length === 1) { const singleId = appliedItemSurchargeTypesForConsolidatedName[0]; consolidatedName = allSurchargeDefinitions.find(d => d.id === singleId)?.name || consolidatedName; }
+          else if (appliedItemSurchargeTypesForConsolidatedName.length > 1) { consolidatedName = "Multiple Item Handling/Oversize Fees"; }
+          otherSurchargesApplied.push({ name: consolidatedName, amount: accumulatedItemSpecificFees, id: "item_specific_handling_oversize_total" });
+          currentTotalOtherSurcharges += accumulatedItemSpecificFees;
+        }
+      }
+    }
+
+    currentResult.fuelSurchargeAmount = fuelSurchargeAmount;
+    currentResult.otherSurcharges = otherSurchargesApplied;
+    currentResult.totalSurcharges = fuelSurchargeAmount + currentTotalOtherSurcharges;
+    currentResult.securitySurchargePercentApplied = securitySurchargePercentAppliedLocally;
+    currentResult.totalExtrasAmount = totalExtrasAmount;
+    currentResult.subTotalBeforeMarkupAndGST = (currentResult.isApplicable && currentResult.baseRate !== null) ? currentResult.baseRate + currentResult.totalSurcharges + currentResult.totalExtrasAmount : null;
+
+    let additionalMarkupActualPercent = 0;
+    if (additionalPercentageType !== 'none' && currentResult.subTotalBeforeMarkupAndGST !== null) {
+        if (additionalPercentageType === 'other') { additionalMarkupActualPercent = Number(additionalPercentageCustom) || 0; }
+        else { additionalMarkupActualPercent = Number(additionalPercentageType) || 0; }
+        currentResult.additionalMarkupPercentApplied = additionalMarkupActualPercent;
+        currentResult.additionalMarkupAmount = currentResult.subTotalBeforeMarkupAndGST * (additionalMarkupActualPercent / 100);
+    } else { currentResult.additionalMarkupPercentApplied = 0; currentResult.additionalMarkupAmount = 0; }
+
+    currentResult.subTotalBeforeGST = (currentResult.subTotalBeforeMarkupAndGST !== null && currentResult.additionalMarkupAmount !== null) ? currentResult.subTotalBeforeMarkupAndGST + currentResult.additionalMarkupAmount : null;
+
+    if (applyGST && currentResult.subTotalBeforeGST !== null) {
+        currentResult.gstAmount = currentResult.subTotalBeforeGST * GST_RATE;
+        currentResult.finalPrice = currentResult.subTotalBeforeGST + currentResult.gstAmount;
+    } else { currentResult.gstAmount = 0; currentResult.finalPrice = currentResult.subTotalBeforeGST; }
+
+    if (!currentResult.isApplicable && currentResult.remarks.length === 0) { currentResult.remarks.push("Service not applicable or rate not found for the given criteria."); }
+    if (currentResult.isApplicable && currentResult.baseRate === null && currentResult.remarks.length === 0 && !currentResult.remarks.some(r => r.includes("Out of Scope"))) { currentResult.remarks.push("Rate entry found but resulted in null base freight after calculation or rates were invalid."); }
+    results.push(currentResult);
+  }
+
+  if (formData.enableOtherRate) {
+    let manualResult: CalculatedPriceItem = { ...initialCalculatedPriceItem, serviceName: "Manual Rate", isApplicable: true, remarks: [], chargeableWeight: calculateChargeableWeight(items, 250, globalNoCubic), fuelSurchargePercentApplied: Number(formData.otherRateFuelPercent) || 0, };
+    const otherRateBasicNum = Number(formData.otherRateBasic); const otherRateKiloNum = Number(formData.otherRateKilo); const otherRateMinNum = Number(formData.otherRateMin);
+    const otherRateFuelPercentNum = Number(formData.otherRateFuelPercent) || 0; const otherRateSecurityPercentNum = Number(formData.otherRateSecurityPercent) || 0;
+    if (isNaN(otherRateBasicNum) || isNaN(otherRateKiloNum) || isNaN(otherRateMinNum)) { manualResult.remarks.push("Manual Basic, Kilo, or Min rate input is invalid."); manualResult.isApplicable = false; }
+    else {
+        manualResult.baseRate = Math.max((otherRateBasicNum + (otherRateKiloNum * manualResult.chargeableWeight)), otherRateMinNum);
+        manualResult.calculationFormula = `MAX( (${otherRateBasicNum} + (${otherRateKiloNum} * ${manualResult.chargeableWeight.toFixed(2)})), ${otherRateMinNum} )`;
+        if (manualResult.baseRate !== null) {
+            manualResult.fuelSurchargeAmount = manualResult.baseRate * (otherRateFuelPercentNum / 100);
+            const manualSecuritySurchargeAmount = (manualResult.baseRate + manualResult.fuelSurchargeAmount) * (otherRateSecurityPercentNum / 100);
+            manualResult.otherSurcharges.push({ name: "Manual Security Surcharge", amount: manualSecuritySurchargeAmount, id: "manual_security" });
+            manualResult.securitySurchargePercentApplied = otherRateSecurityPercentNum;
+            let manualOtherSurchargesTotal = manualSecuritySurchargeAmount;
+
+            const manualSurchargeTriggers: { flagKey: keyof FreightFormValues, surchargeId: string }[] = [
+              { flagKey: 'bookInDeliveryRequired', surchargeId: 'book_in_delivery_fee' },
+              { flagKey: 'routeViaMelbourne', surchargeId: 'citylink_surcharge_melbourne_percent' },
+              { flagKey: 'dangerousGoodsConsignment', surchargeId: 'dg_consignment_fee' },
+              { flagKey: 'handUnloadRequired', surchargeId: 'hand_unload_fee' },
+              { flagKey: 'accountTransferRequired', surchargeId: 'account_transfer_fee'},
+              { flagKey: 'afterHoursCollection', surchargeId: 'after_hours_collection_fee'},
+              { flagKey: 'afterHoursDelivery', surchargeId: 'after_hours_delivery_fee'},
+              { flagKey: 'publicHolidayService', surchargeId: 'public_holiday_service_fee'},
+            ];
+
+            const representativeServiceConfig = allServiceSettings.find(s => s.id === 'B2B Std');
+
+            manualSurchargeTriggers.forEach(trigger => {
+              if (formData[trigger.flagKey] && representativeServiceConfig) {
+                const activeSurcharge = representativeServiceConfig.surcharges.find(s => s.surchargeId === trigger.surchargeId && s.enabled);
+                if (activeSurcharge) {
+                  const definition = allSurchargeDefinitions.find(def => def.id === trigger.surchargeId);
+                  if (definition) {
+                    let surchargeAmount = 0;
+                    if (definition.type === 'fixed_per_shipment') surchargeAmount = activeSurcharge.value;
+                    else if (definition.type === 'fixed_per_kg') surchargeAmount = activeSurcharge.value * manualResult.chargeableWeight;
+                    else if (definition.type === 'percentage') surchargeAmount = manualResult.baseRate! * (activeSurcharge.value / 100);
+                    manualResult.otherSurcharges.push({ name: definition.name, amount: surchargeAmount, id: definition.id });
+                    manualOtherSurchargesTotal += surchargeAmount;
+                  }
+                }
+              }
+            });
+            manualResult.totalSurcharges = manualResult.fuelSurchargeAmount + manualOtherSurchargesTotal;
+        } else { manualResult.isApplicable = false; manualResult.remarks.push("Manual base rate could not be calculated (resulted in null)."); }
+    }
+    manualResult.totalExtrasAmount = totalExtrasAmount;
+    manualResult.subTotalBeforeMarkupAndGST = (manualResult.isApplicable && manualResult.baseRate !== null) ? manualResult.baseRate + manualResult.totalSurcharges + manualResult.totalExtrasAmount : null;
+    let manualAdditionalMarkupActualPercent = 0;
+    if (additionalPercentageType !== 'none' && manualResult.subTotalBeforeMarkupAndGST !== null) {
+        if (additionalPercentageType === 'other') { manualAdditionalMarkupActualPercent = Number(additionalPercentageCustom) || 0; }
+        else { manualAdditionalMarkupActualPercent = Number(additionalPercentageType) || 0; }
+        manualResult.additionalMarkupPercentApplied = manualAdditionalMarkupActualPercent;
+        manualResult.additionalMarkupAmount = manualResult.subTotalBeforeMarkupAndGST * (manualAdditionalMarkupActualPercent / 100);
+    } else { manualResult.additionalMarkupPercentApplied = 0; manualResult.additionalMarkupAmount = 0; }
+    manualResult.subTotalBeforeGST = (manualResult.subTotalBeforeMarkupAndGST !== null && manualResult.additionalMarkupAmount !== null) ? manualResult.subTotalBeforeMarkupAndGST + manualResult.additionalMarkupAmount : null;
+    if (applyGST && manualResult.subTotalBeforeGST !== null) { manualResult.gstAmount = manualResult.subTotalBeforeGST * GST_RATE; manualResult.finalPrice = manualResult.subTotalBeforeGST + manualResult.gstAmount; }
+    else { manualResult.gstAmount = 0; manualResult.finalPrice = manualResult.subTotalBeforeGST; }
+    results.push(manualResult);
+  }
+  return results;
+}
+
+
+======================================================================
+3. Data Types: /src/lib/types.ts
+======================================================================
+import type { z } from 'zod';
+import type { rateCardGeneratorFormSchema, sbComparisonFormSchema, competitorComparisonFormSchema } from './zodSchemas'; // Forward declaration
+
+export interface PostcodeData {
+  suburb: string;
+  state: string;
+  postcode: number;
+  prio: string; // Zone for Priority services
+  ipec: string;  // Zone for Standard (IPEC) services
+  pallet: string; // Legacy field, PE zones now primarily from pezone.json's "Rate Area Zone Description"
+}
+
+// ... (the rest of the file content) ...
+// NOTE: The full content of types.ts is very long, but the above is the start.
+// It contains all interfaces like B2CRateEntry, TieredPalletRateEntry, etc.
+
+
+======================================================================
+4. Zod Schemas: /src/lib/zodSchemas.ts
+======================================================================
+import { z } from 'zod';
+import type { PostcodeData, ServiceName, AdditionalPercentageType } from './types';
+import { ALL_SERVICES } from './types';
+
+// Refined schema for optional dimensions that can be empty or undefined
+const optionalDimensionSchema = z.preprocess(
+    (val) => {
+        if (val === "" || val === null || val === undefined) return undefined;
+        // Try to convert to number, if it's NaN, pass original string to let Zod's number validation fail
+        const num = Number(val);
+        return isNaN(num) ? val : num;
+    },
+    z.number({ invalid_type_error: "Must be a valid number or empty." })
+     .min(0, { message: "Dimension cannot be negative." }) // Min 0 is fine, superRefine will check for >0 if not satchel
+     .optional() // Allows undefined
+);
+
+const baseItemSchema = z.object({
+  weight: z.coerce.number({ invalid_type_error: "Weight must be a number."})
+            .positive({ message: "Weight must be greater than 0."}),
+  length: optionalDimensionSchema,
+  width: optionalDimensionSchema,
+  height: optionalDimensionSchema,
+  quantity: z.coerce.number().int().min(1, { message: "Quantity must be at least 1." }),
+});
+
+export const freightItemSchema = baseItemSchema;
+
+// ... (the rest of the file content) ...
+// NOTE: The full content of zodSchemas.ts is very long.
+// It defines freightFormSchema, sbComparisonFormSchema, etc.
+
+
+======================================================================
+5. Settings Context: /src/context/SettingsContext.tsx
+======================================================================
+"use client";
+
+import type { ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import type { ServiceName, ServiceSettings, SurchargeDefinition, ActiveSurchargeSetting, SurchargeConfigGroupKey, StateAbbreviation } from '@/lib/types';
+import { ALL_SERVICES, ALL_STATES, SURCHARGE_CONFIG_GROUPS, NON_PALLET_SERVICES, LCP_SERVICES, STANDARD_ROAD_MAPPED_SERVICES, PRIORITY_MAPPED_SERVICES, STANDARD_PALLET_MAPPED_SERVICES, PALLET_LIKE_SERVICES } from '@/lib/types'; // Import new constants
+import { useToast } from '@/hooks/use-toast';
+
+// ... (the rest of the file content) ...
+// NOTE: The full content of SettingsContext.tsx is very long.
+// It defines all default surcharges and manages global settings state.
+
+
+======================================================================
+6. Rate Override Context: /src/context/RateOverrideContext.tsx
+======================================================================
+"use client";
+
+import type { ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import type {
+  RateFileType, RateData, B2CRateEntry, RegionalLookupEntry, LCPRdexRateEntry, LCPPrioRateEntry, LCPGoRateEntry,
+  B2BStdRateEntry, B2BPriorityRateEntry, B2BRdexRateEntry, TieredPalletRateEntry, GenericJsonRateEntry, PEZonesEntry,
+  WestEastRateEntry, RASRateEntry
+} from '@/lib/types';
+
+// ... (the rest of the file content) ...
+// NOTE: The full content of RateOverrideContext.tsx is very long.
+// It handles fetching all the .json rate files from the /api/ routes on application load.
+

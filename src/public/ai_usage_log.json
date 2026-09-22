@@ -1,0 +1,686 @@
+[
+  {
+    "id": "b51f4e15-e48b-4d83-8434-9cac573dcfbd",
+    "timestamp": "2026-03-30T01:41:22.411Z",
+    "serviceName": "Fuel Surcharge Scraper",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "2963d2e3-4dcb-4b1f-a7fb-ae7d52c2eb99",
+    "timestamp": "2026-03-25T05:03:07.522Z",
+    "serviceName": "PDF Extractor - Rate Card",
+    "totalTokens": 10005,
+    "inputTokens": 1813,
+    "outputTokens": 8192,
+    "cost": 0.0050025
+  },
+  {
+    "id": "416e8944-48bf-4f67-809d-b81eab9a6f14",
+    "timestamp": "2026-03-25T03:46:04.648Z",
+    "serviceName": "PDF Extractor - Rate Card",
+    "totalTokens": 9943,
+    "inputTokens": 1751,
+    "outputTokens": 8192,
+    "cost": 0.0049715
+  },
+  {
+    "id": "89d5c4e6-90e8-478c-a019-f29005ea6da0",
+    "timestamp": "2026-03-25T03:29:19.755Z",
+    "serviceName": "PDF Extractor - Rate Card",
+    "totalTokens": 9168,
+    "inputTokens": 976,
+    "outputTokens": 8192,
+    "cost": 0.004584
+  },
+  {
+    "id": "62709607-2a6d-451f-9624-87ff9ac06e34",
+    "timestamp": "2026-03-25T01:51:12.044Z",
+    "serviceName": "PDF Extractor - Consignment Note",
+    "totalTokens": 9939,
+    "inputTokens": 1747,
+    "outputTokens": 8192,
+    "cost": 0.0049695
+  },
+  {
+    "id": "21bbeaf6-e0c6-488e-b979-4c87cd2a78e6",
+    "timestamp": "2026-03-23T03:53:33.818Z",
+    "serviceName": "Fuel Surcharge Scraper",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "cf1d6a94-db48-4e30-92c7-71a321bbdd9b",
+    "timestamp": "2026-03-23T02:52:58.892Z",
+    "serviceName": "PDF Extractor - General",
+    "totalTokens": 7717,
+    "inputTokens": 977,
+    "outputTokens": 6740,
+    "cost": 0.0038585
+  },
+  {
+    "id": "29d04b07-9ff4-4449-b3ff-5402cf065cc1",
+    "timestamp": "2026-03-23T02:45:08.065Z",
+    "serviceName": "Fuel Surcharge Scraper",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "e1368ec2-1964-4471-bd1b-f17f63f17187",
+    "timestamp": "2026-03-23T02:40:18.489Z",
+    "serviceName": "Fuel Surcharge Scraper",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "ba204d33-634c-444a-a403-e80b910073f1",
+    "timestamp": "2025-12-09T06:56:25.777Z",
+    "serviceName": "Problem Log Analysis",
+    "totalTokens": 1918,
+    "inputTokens": 1702,
+    "outputTokens": 216,
+    "cost": 0.000959
+  },
+  {
+    "id": "8df4d6b4-b0ab-441b-8604-f33efed0607b",
+    "timestamp": "2025-12-09T05:04:25.539Z",
+    "serviceName": "Route Planner",
+    "totalTokens": 1000,
+    "inputTokens": 500,
+    "outputTokens": 500,
+    "cost": 0.0005
+  },
+  {
+    "id": "0c7d306a-6a56-4949-80de-909f62fca82a",
+    "timestamp": "2025-12-09T04:52:52.658Z",
+    "serviceName": "Route Planner",
+    "totalTokens": 1000,
+    "inputTokens": 500,
+    "outputTokens": 500,
+    "cost": 0.0005
+  },
+  {
+    "id": "dd0bbbdc-d965-4baa-98e8-7f9948aeca31",
+    "timestamp": "2025-12-09T04:50:59.740Z",
+    "serviceName": "Route Planner",
+    "totalTokens": 1000,
+    "inputTokens": 500,
+    "outputTokens": 500,
+    "cost": 0.0005
+  },
+  {
+    "id": "09f4139d-5fb1-4842-972e-ea733c927eb7",
+    "timestamp": "2025-12-09T04:27:04.698Z",
+    "serviceName": "Route Planner",
+    "totalTokens": 1000,
+    "inputTokens": 500,
+    "outputTokens": 500,
+    "cost": 0.0005
+  },
+  {
+    "id": "6b8e037d-59d0-4bad-aa28-1c68069a1881",
+    "timestamp": "2025-12-09T04:21:45.014Z",
+    "serviceName": "Route Planner",
+    "totalTokens": 1000,
+    "inputTokens": 500,
+    "outputTokens": 500,
+    "cost": 0.0005
+  },
+  {
+    "id": "797c6e45-765c-4208-968d-e957f05a6490",
+    "timestamp": "2025-12-05T01:48:31.909Z",
+    "serviceName": "Fuel Surcharge Scraper",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "766f55cc-2cff-485f-a62a-72c4fb9de62d",
+    "timestamp": "2025-12-05T01:33:27.647Z",
+    "serviceName": "Extract Connote Details",
+    "totalTokens": 1560,
+    "inputTokens": 1511,
+    "outputTokens": 49,
+    "cost": 0.00078
+  },
+  {
+    "id": "111daca2-b54f-45d3-8075-989b0de6a7e6",
+    "timestamp": "2025-12-04T23:48:34.071Z",
+    "serviceName": "Extract Lead Details from Image",
+    "totalTokens": 1714,
+    "inputTokens": 1617,
+    "outputTokens": 97,
+    "cost": 0.000857
+  },
+  {
+    "id": "db2643c3-3341-40d0-b0bc-b5c44627ddaf",
+    "timestamp": "2025-12-04T23:48:08.399Z",
+    "serviceName": "Extract Lead Details from Image",
+    "totalTokens": 1720,
+    "inputTokens": 1617,
+    "outputTokens": 103,
+    "cost": 0.00086
+  },
+  {
+    "id": "5f291655-c8ad-4fac-a6f5-feba4e41b8f9",
+    "timestamp": "2025-12-04T06:40:11.476Z",
+    "serviceName": "Fuel Surcharge Scraper",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "75f04e00-0d3f-4123-85ea-97f100da325e",
+    "timestamp": "2025-11-28T08:21:34.539Z",
+    "serviceName": "Proposal - Refine solution benefits",
+    "totalTokens": 160,
+    "inputTokens": 108,
+    "outputTokens": 52,
+    "cost": 0.00008
+  },
+  {
+    "id": "fe8aab34-9315-4a97-808b-6b9677a60587",
+    "timestamp": "2025-11-28T08:16:24.278Z",
+    "serviceName": "Proposal - Refine customer needs",
+    "totalTokens": 170,
+    "inputTokens": 121,
+    "outputTokens": 49,
+    "cost": 0.000085
+  },
+  {
+    "id": "b47d48d1-9a17-47d6-81ee-2be03475bf91",
+    "timestamp": "2025-11-28T08:14:05.645Z",
+    "serviceName": "Proposal - Exec Summary",
+    "totalTokens": 289,
+    "inputTokens": 179,
+    "outputTokens": 110,
+    "cost": 0.0001445
+  },
+  {
+    "id": "9102cbd8-97b6-4bd2-9926-68b7f27ea87e",
+    "timestamp": "2025-11-27T15:45:08.270Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "a1b424c4-fdeb-4ce0-ba7a-34695ac6d5ed",
+    "timestamp": "2025-11-27T09:00:17.485Z",
+    "serviceName": "Extract Lead Details from Image",
+    "totalTokens": 1730,
+    "inputTokens": 1611,
+    "outputTokens": 119,
+    "cost": 0.000865
+  },
+  {
+    "id": "f03f871e-375c-457c-a188-9bc6018d0a62",
+    "timestamp": "2025-11-26T03:08:07.992Z",
+    "serviceName": "Fuel Surcharge Scraper",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "d6f0221f-65cf-4a3d-baa4-bf0375d2bfe2",
+    "timestamp": "2025-11-25T05:17:21.601Z",
+    "serviceName": "Extract Problem Details from Email",
+    "totalTokens": 567,
+    "inputTokens": 468,
+    "outputTokens": 99,
+    "cost": 0.0002835
+  },
+  {
+    "id": "8b4591d5-b606-47dc-9bbc-4dbe015d41d7",
+    "timestamp": "2025-11-25T05:11:21.898Z",
+    "serviceName": "Extract Problem Details from Email",
+    "totalTokens": 565,
+    "inputTokens": 491,
+    "outputTokens": 74,
+    "cost": 0.0002825
+  },
+  {
+    "id": "626b57bb-f816-4e1f-a882-c3800221ac74",
+    "timestamp": "2025-11-25T05:01:07.835Z",
+    "serviceName": "Extract Problem Details from Email",
+    "totalTokens": 532,
+    "inputTokens": 451,
+    "outputTokens": 81,
+    "cost": 0.000266
+  },
+  {
+    "id": "fcf3f922-4198-46c0-96b3-d5bc1301bd55",
+    "timestamp": "2025-11-25T04:41:22.829Z",
+    "serviceName": "Extract Problem Details from Email",
+    "totalTokens": 711,
+    "inputTokens": 639,
+    "outputTokens": 72,
+    "cost": 0.0003555
+  },
+  {
+    "id": "679e8977-bf27-4e7c-8220-dbb8f5978488",
+    "timestamp": "2025-11-20T11:44:39.945Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "b3a1e0ca-7afa-422c-831d-7f19ba308c90",
+    "timestamp": "2025-11-20T10:10:28.444Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "2439a65b-4808-4393-889a-b5cbbf641eb4",
+    "timestamp": "2025-11-20T10:03:44.896Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "cd529c01-14f8-4535-9109-9d286716d140",
+    "timestamp": "2025-11-20T10:03:09.202Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "26628bd9-defe-4c44-845a-9a1c5aafa9f5",
+    "timestamp": "2025-11-20T09:57:48.852Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "19622b82-f9a9-49d4-93f7-65360779d658",
+    "timestamp": "2025-11-20T09:55:38.478Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "85c019e3-f803-4748-87ea-3e5990b9e01f",
+    "timestamp": "2025-11-20T09:53:09.810Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "31dcd715-424c-42ad-abb7-69b434034e9c",
+    "timestamp": "2025-11-20T09:44:56.931Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "249023f7-464b-488c-bf88-6ef8dd902755",
+    "timestamp": "2025-11-20T09:38:43.738Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "12908d65-1a72-44bb-a527-b73b3e69e208",
+    "timestamp": "2025-11-20T09:33:47.581Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "2ef495ca-1d10-4982-97ba-5d458d5f3b33",
+    "timestamp": "2025-11-20T09:19:42.552Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "0e8bbc3e-1b88-4c65-bbd4-5bcc80bc5730",
+    "timestamp": "2025-11-20T09:04:58.916Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "651ddd5f-fed0-45b7-83ac-5a82f46b229c",
+    "timestamp": "2025-11-20T08:01:11.831Z",
+    "serviceName": "Extract Lead Details from Image",
+    "totalTokens": 1601,
+    "inputTokens": 1524,
+    "outputTokens": 77,
+    "cost": 0.0008005
+  },
+  {
+    "id": "5a9a0075-792c-45e9-a19f-30fdaf01457f",
+    "timestamp": "2025-11-20T07:44:56.066Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "27cdd42d-a801-4646-841a-325a4d71aad3",
+    "timestamp": "2025-11-20T07:43:04.093Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "dfef8e33-ed54-41dd-afc9-94e4c10d9d1d",
+    "timestamp": "2025-11-20T07:35:30.365Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "40f30175-caf8-4880-a19e-c4de06d4d81f",
+    "timestamp": "2025-11-20T07:34:38.708Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "525b1a87-8ade-4fb4-a59f-82a9a65a038e",
+    "timestamp": "2025-11-20T07:12:55.527Z",
+    "serviceName": "Submit Lead to Salesforce",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "975f566f-0b45-49e6-8b5f-4892a9a26654",
+    "timestamp": "2025-11-20T03:43:42.487Z",
+    "serviceName": "Route Planner",
+    "totalTokens": 768,
+    "inputTokens": 557,
+    "outputTokens": 211,
+    "cost": 0.000384
+  },
+  {
+    "id": "7f5df763-97ed-4105-8936-8fcad52b30c8",
+    "timestamp": "2025-11-20T02:25:43.320Z",
+    "serviceName": "Fuel Surcharge Scraper",
+    "totalTokens": 0,
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cost": 0
+  },
+  {
+    "id": "b9d60db5-1142-4496-84e1-32b100063621",
+    "timestamp": "2025-11-19T08:30:39.116Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  },
+  {
+    "id": "46975050-ba9b-4fb8-8f41-f064ac606ed7",
+    "timestamp": "2025-11-18T03:27:59.773Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  },
+  {
+    "id": "e9eedbee-d14c-40c2-b17d-761bb47f69fa",
+    "timestamp": "2025-11-17T02:32:32.974Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  },
+  {
+    "id": "fffe38e9-48eb-4127-9b17-57189e56146d",
+    "timestamp": "2025-11-16T13:53:31.686Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  },
+  {
+    "id": "4945af3e-e3b4-4f43-a985-b267094f5fea",
+    "timestamp": "2025-11-14T03:53:58.955Z",
+    "serviceName": "Route Planner",
+    "totalTokens": 1011,
+    "inputTokens": 718,
+    "outputTokens": 293,
+    "cost": 0.0005055
+  },
+  {
+    "id": "58c7d66c-0748-4f53-8177-e4e645e7a35c",
+    "timestamp": "2025-11-14T03:51:50.428Z",
+    "serviceName": "Route Planner",
+    "totalTokens": 974,
+    "inputTokens": 690,
+    "outputTokens": 284,
+    "cost": 0.000487
+  },
+  {
+    "id": "8c27a26c-ed12-436a-bfe1-468ea59dacf6",
+    "timestamp": "2025-11-14T02:56:59.382Z",
+    "serviceName": "Route Planner",
+    "totalTokens": 798,
+    "inputTokens": 585,
+    "outputTokens": 213,
+    "cost": 0.000399
+  },
+  {
+    "id": "a9d71637-2088-4254-9f10-0cb8dcb44e33",
+    "timestamp": "2025-11-14T00:34:54.011Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  },
+  {
+    "id": "7bb6eff0-c2c2-42ed-b957-cc51a85d32a3",
+    "timestamp": "2025-11-12T10:10:50.853Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  },
+  {
+    "id": "787c0296-1fd2-43a1-96c5-eddd565c8b17",
+    "timestamp": "2025-11-12T09:59:19.076Z",
+    "serviceName": "Route Planner",
+    "totalTokens": 1168,
+    "inputTokens": 773,
+    "outputTokens": 395,
+    "cost": 0.000584
+  },
+  {
+    "id": "2a7096f3-fb1f-4192-a873-9776176b4a86",
+    "timestamp": "2025-11-12T09:27:26.377Z",
+    "serviceName": "Extract Connote Details",
+    "totalTokens": 1565,
+    "inputTokens": 1511,
+    "outputTokens": 54,
+    "cost": 0.0007825
+  },
+  {
+    "id": "963adcd7-04f2-4d17-a14f-32d74690be14",
+    "timestamp": "2025-11-12T09:15:41.922Z",
+    "serviceName": "Route Planner",
+    "totalTokens": 1326,
+    "inputTokens": 875,
+    "outputTokens": 451,
+    "cost": 0.000663
+  },
+  {
+    "id": "3c5cbab9-0544-4fcd-af2a-6fc6e839745e",
+    "timestamp": "2025-11-12T03:23:21.977Z",
+    "serviceName": "Route Planner",
+    "totalTokens": 1166,
+    "inputTokens": 774,
+    "outputTokens": 392,
+    "cost": 0.000583
+  },
+  {
+    "id": "2b389131-3e93-48d2-a0c7-121ce1ece0d7",
+    "timestamp": "2025-11-12T02:22:15.275Z",
+    "serviceName": "Route Planner",
+    "totalTokens": 1053,
+    "inputTokens": 738,
+    "outputTokens": 315,
+    "cost": 0.0005265
+  },
+  {
+    "id": "b3047a38-100a-497f-a454-4613591b9d9f",
+    "timestamp": "2025-11-10T13:48:31.986Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  },
+  {
+    "id": "5a28c99a-fcc8-49fe-a204-e26078067719",
+    "timestamp": "2025-11-10T13:26:05.192Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  },
+  {
+    "id": "55301982-abf3-4bf4-8e9c-bbe81113788c",
+    "timestamp": "2025-11-10T11:16:27.311Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  },
+  {
+    "id": "e8ae24f5-1e63-4b88-a085-bccac86d9c1c",
+    "timestamp": "2025-11-10T10:46:36.269Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  },
+  {
+    "id": "e1d6325b-80dd-472e-8312-d0bb9a0f4e6c",
+    "timestamp": "2025-11-10T09:38:30.088Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  },
+  {
+    "id": "fe970558-23ef-44ca-bcb4-ec09c1b8ead8",
+    "timestamp": "2025-11-10T08:18:48.435Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  },
+  {
+    "id": "82cbb796-c517-4b5d-b0cf-7a59897b78bc",
+    "timestamp": "2025-11-06T23:48:13.918Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  },
+  {
+    "id": "5f031397-53da-47f7-beae-051d019f627f",
+    "timestamp": "2025-11-04T14:17:55.982Z",
+    "serviceName": "Competitor Rate Analysis",
+    "totalTokens": 977,
+    "inputTokens": 639,
+    "outputTokens": 338,
+    "cost": 0.0004885
+  },
+  {
+    "id": "29572006-2d00-4263-b008-0ff1c4dd560e",
+    "timestamp": "2025-11-04T14:16:25.204Z",
+    "serviceName": "Competitor Rate Analysis",
+    "totalTokens": 1051,
+    "inputTokens": 639,
+    "outputTokens": 412,
+    "cost": 0.0005255
+  },
+  {
+    "id": "7ca2a718-9229-42e5-a657-dfb34cd79170",
+    "timestamp": "2025-11-04T13:54:09.751Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  },
+  {
+    "id": "2bc451f9-efa1-4802-872b-f0214b7c7cf2",
+    "timestamp": "2025-11-03T23:54:41.788Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  },
+  {
+    "id": "0e120d59-fa7c-44e1-b50f-8a5419c49788",
+    "timestamp": "2025-11-03T11:03:43.258Z",
+    "serviceName": "Fuel Surcharge Update",
+    "totalTokens": 324,
+    "inputTokens": 287,
+    "outputTokens": 37,
+    "cost": 0.000162
+  }
+]

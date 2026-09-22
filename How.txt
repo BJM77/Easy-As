@@ -1,0 +1,135 @@
+# Just Easy BD Assist - How-To Guide
+
+Welcome to your Just Easy Business Development Assistant! This guide provides an overview of the key features and how to use them to secure new business and analyze freight data.
+
+---
+
+## 1. Pricing & Monetization
+
+This application operates on a simple and affordable pricing model designed to provide maximum value.
+
+### Full-Featured Subscription (BDM, RSM, Admin Roles)
+-   **Subscription:** $10 per month (paid annually).
+-   **AI Usage:** Your subscription includes a generous credit of **100,000 AI tokens** per month. This is more than enough for regular use of features like the "Perfect Plan" wizard, problem log analysis, and competitor rate comparisons.
+-   **Live Tracking:** Your subscription allows you to create **one (1) Live Tracking delivery run per day**.
+
+This model ensures you have access to all the powerful tools you need to succeed, with AI costs fairly managed.
+
+### Agent / Customer Subscription
+- **Pricing:** A special rate is available for our valued agents and customers.
+    - **First User:** $5 per month.
+    - **Additional Users:** $2 per user per month thereafter.
+- **Features:** This subscription provides access to a core set of tools including the Live Freight Calculator, Location Lookup, Info Hub, and Problem Log. AI-powered analysis tools are not included.
+- **Session Policy:** To ensure fair use, Agent and Customer accounts are limited to **one active login session at a time**. The session is linked to the first device used to log in.
+
+---
+
+## 2. Dashboard
+
+The Dashboard is your command center, providing an at-a-glance overview of key metrics and quick access to tools.
+
+-   **Quick Actions:** Provides one-click access to your most frequently used tools. You can customize these by clicking the settings icon within the widget.
+-   **Live Rates:** Shows the current Fuel and Security surcharges being used in all calculations. The "Update" button uses an AI agent to fetch the latest rates from the TGE public website.
+-   **Problem Log Summary:** A snapshot of open and resolved service issues. Use the "Analyze Trends" button to have an AI review the log for patterns and top issues.
+-   **Recent Activity:** Quickly jump back into your recent "Perfect Plan" or "Competitor Rate Comparison" analyses.
+
+---
+
+## 3. Freight Calculator (`/calculator`)
+
+This is the core tool for generating quotes for any TGE service.
+
+-   **How to Use:**
+    1.  Select a **Spend Band**.
+    2.  Enter an **Origin** and **Destination**. The autocomplete will help you find valid locations.
+    3.  Enter the **Item Details** (Weight, Dimensions, Quantity). Click "Add Dims" if you need to calculate based on cubic weight.
+    4.  Select any **Additional Requirements** like "Hand Unload" or "Dangerous Goods".
+    5.  Optionally, use the **Manual Rate Entry** section to compare against a competitor's rate.
+    6.  Click **Calculate Prices**.
+-   **Key Features:**
+    *   **Best Rates Overview:** The top card in the results shows the most cost-effective service for Standard, Priority, and Pallet categories, plus standalone prices for B2C and LCP GO.
+    *   **Route Map:** A visual map of the freight route is displayed below the main form once a calculation is run.
+    *   **Detailed Price Cards:** Each card shows a full breakdown of the base rate, surcharges, and the final price. Click on the service name or total price to see a detailed calculation breakdown.
+    *   **Email Quote:** Click the "Email Quote" button on a result card to generate a pre-filled email to send to a customer.
+
+---
+
+## 4. Perfect Plan / AI Guru (`/ai-guru`)
+
+A powerful wizard for creating comprehensive new business proposals.
+
+-   **How to Use:**
+    1.  Click **Start New Perfect Plan**.
+    2.  Follow the wizard steps, providing the customer's name, sending location, and estimated freight volumes.
+    3.  In the "Destinations" step, add their key freight lanes, the average weight for each, their current price (target price), and select which TGE services you want to compare.
+    4.  Click **Get Solution**.
+-   **Key Features:**
+    *   **AI Spend Band Analysis:** The tool calculates an estimated annual spend and recommends the most appropriate TGE spend band.
+    *   **Pricing Comparison Table:** Instantly see how TGE's prices for each service stack up against the customer's current price, with savings highlighted.
+    *   **Reciprocal Rate Card Generator:** After generating a solution, select the services you want to offer and click **Create Reciprocal Rate Card**. This generates a full rate sheet from the customer's location to all of TGE's network zones.
+    *   **Proposal Editor:** After generating a rate card, click **Show Proposal Editor** to create a professional, multi-page proposal document complete with your branding, editable text sections, and the full rate card, ready to be printed or emailed.
+
+---
+
+## 5. Comparisons
+
+A suite of tools for deep-diving into rate analysis. Access these via the "Comparisons" dropdown in the header.
+
+-   **Rate Card (`/rate-card`):** A more direct way to generate a full rate card for one or more sending locations across multiple services.
+-   **SB Comparison (`/sb-comparison`):** Enter a single freight leg and see the calculated price for that leg across *all* TGE spend bands simultaneously. This is perfect for quickly finding the "break-even" spend band.
+-   **New/Old Rates (`/rate-comparison`):** Compare an old TGE rate card against the new one. Upload or paste data from an old RDEX or Priority rate card to see the price difference for every lane based on the new rate structure.
+-   **CRC (Competitor Rate Comparison) (`/competitor-comparison`):** Upload a CSV of competitor data (Origin, Destination, Weight, Price) to run a bulk analysis. The tool will find the most competitive TGE spend band for each leg and provide an AI-powered summary of strengths and weaknesses.
+-   **Multi-Leg (`/multi`):** Compare the cost of a direct freight route against a multi-leg journey via one or two intermediate hubs.
+-   **Leg Discount (`/leg-discount`):** Work backwards from a target price. Enter the price a customer wants to pay, and the tool will calculate the exact per-kilo rate you would need to offer to meet it.
+
+---
+
+## 6. Admin Tools
+
+These pages are for managing the application's data and settings (typically restricted to Admin users).
+
+-   **Main Settings (`/settings`):**
+    *   Configure global surcharges like Fuel and Security.
+    *   Define new, custom surcharges.
+    *   Customize the email quote template.
+    *   Set the base rates for the "Perfect Plan" spend calculation.
+    *   Manage state-level email contacts for quote submissions.
+-   **Role Settings (`/admin/role-settings`):** Control which freight services are visible and usable for each user role (Admin, RSM, BDM, Agent).
+-   **CSV to JSON (`/admin/csv-converter`):** A robust tool to convert CSV or Excel files into the JSON format required by the application. It includes downloadable templates and header validation to prevent errors.
+-   **Lookup (`/location-lookup`):** Search for TGE agents/depots by name or area. If no agent is found, it displays the IPEC, PRIO, and PE zones for the searched location. Also includes an interactive map view.
+-   **Info Hub (`/info`):** A quick-reference wiki explaining the different service types, zone definitions, and key surcharges.
+-   **Problem Log (`/problem-log`):** Log and track service issues. An AI assistant can analyze the log to find trends.
+-   **Upload & Override Rates (`/admin/rate-uploader`):** View the status of all core rate files and temporarily override them for your current browser session by uploading a local JSON file.
+-   **Price Logic & Info Tester (`/price-test`):** A powerful diagnostic tool to test calculations for a single service, see exactly how rate lookup keys are constructed, and view the raw JSON data that is found for a specific leg.
+-   **Commercials (`/commercials`):** Tools for calculating total freight costs and analyzing profit margins.
+-   **Bulk Calculator (`/bulk`):** A specialized calculator for B2B Priority with unique cubic weight rules and a special discounted Friday rate for certain routes.
+-   **Notebook (`/notebook`):** A personal notebook for saving notes, with an AI assistant that can answer questions based on your saved content.
+
+---
+
+## 7. Developer Overrides (Zip Upload)
+
+This feature allows developers to temporarily override core application data for their current browser session. This is ideal for testing new rate structures or using personal API keys without modifying the project's source code.
+
+-   **How to Access:** Click the **Key icon** in the application header.
+-   **How it Works:** Upload a `.zip` file containing either rate files or a special `api_keys.json` file.
+    *   **Rate Files:** Include any of the application's standard `.json` rate files (e.g., `b2brdex.json`, `pe1.json`). The application will use your uploaded version for all calculations during your session.
+    *   **API Keys:** Include a file named exactly `api_keys.json` to override the default Gemini (AI) and Google Maps keys.
+
+-   **`api_keys.json` Example Format:**
+    The file must be a valid JSON object with the following structure:
+    ```json
+    {
+      "gemini_api_key_override": "YOUR_GEMINI_API_KEY_HERE",
+      "maps_directions_api_key_override": "YOUR_GOOGLE_MAPS_API_KEY_HERE"
+    }
+    ```
+-   **Clearing Overrides:** Your overrides will last for your current browser session. You can clear them at any time by clicking "Clear All Session Overrides" in the `rate-uploader` page or "Clear Local Keys" in the Key dialog.
+
+---
+## 8. Security Overview
+
+The application is built with security as a priority, leveraging modern web technologies and the robust infrastructure of Firebase. Access control is strictly enforced at multiple levels: user roles defined within the application control which pages and features are visible, while server-side Firebase Security Rules ensure that users can only read or write data they are explicitly permitted to access in the database. This means even if a user tries to bypass the front-end interface, the database itself prevents unauthorized data access. All data transmission is encrypted using standard HTTPS protocols. While no system can be guaranteed to be 100% immune to sophisticated attacks, this multi-layered approach, combining front-end restrictions with back-end enforcement, provides a strong defense against common security threats and unauthorized data breaches.
+
+
+This guide should help you get the most out of Just Easy. If you have any questions, refer back to the relevant section!

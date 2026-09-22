@@ -1,0 +1,110 @@
+{
+  "entities": {
+    "Company": {
+      "title": "Company",
+      "description": "Represents a company-level tenant in the application.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "domain": { "type": "string" },
+        "subscriptionStatus": { "type": "string", "enum": ["active", "inactive", "past_due"] },
+        "settings": { 
+          "type": "object", 
+          "properties": {
+            "logoText": { "type": "string" },
+            "primaryColor": { "type": "string" },
+            "accentColor": { "type": "string" },
+            "markup": { "type": "number" }
+          }
+        },
+        "enabledFeatures": { "type": "object" },
+        "isUnlimited": { "type": "boolean" },
+        "promoExpiryDate": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Represents a user's profile and permissions.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "companyId": { "type": "string" },
+        "assignedCompanyIds": { "type": "array", "items": { "type": "string" } },
+        "role": { "type": "string", "enum": ["superadmin", "admin", "bdm", "driver", "agent", "user"] },
+        "tokens": { "type": "number" }
+      },
+      "required": ["name", "email", "role", "companyId"]
+    },
+    "QuoteLog": {
+      "title": "Quote Log",
+      "description": "A persistent audit record of a freight calculation.",
+      "type": "object",
+      "properties": {
+        "userEmail": { "type": "string" },
+        "userId": { "type": "string" },
+        "companyId": { "type": "string" },
+        "origin": { "type": "string" },
+        "destination": { "type": "string" },
+        "chargeWeight": { "type": "number" },
+        "service": { "type": "string" },
+        "totalExGst": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "inputState": { "type": "object" }
+      }
+    },
+    "ProblemEntry": {
+      "title": "Problem Entry",
+      "description": "Logged service issues or freight problems.",
+      "type": "object",
+      "properties": {
+        "consignmentNumber": { "type": "string" },
+        "problemType": { "type": "string" },
+        "status": { "type": "string", "enum": ["open", "in_progress", "resolved"] },
+        "companyId": { "type": "string" },
+        "userId": { "type": "string" }
+      }
+    },
+    "Lead": {
+      "title": "Sales Lead",
+      "description": "Potential business opportunities.",
+      "type": "object",
+      "properties": {
+        "companyName": { "type": "string" },
+        "status": { "type": "string" },
+        "estimatedValue": { "type": "number" },
+        "companyId": { "type": "string" }
+      }
+    },
+    "Note": {
+      "title": "User Note",
+      "description": "Personal user notes stored in the notebook.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" }
+      }
+    }
+  },
+  "auth": {
+    "providers": ["email"]
+  },
+  "firestore": {
+    "/companies/{companyId}": { "schema": { "$ref": "#/entities/Company" }, "description": "Tenant settings." },
+    "/users/{userId}": { "schema": { "$ref": "#/entities/UserProfile" }, "description": "User profiles." },
+    "/quote_logs/{id}": { "schema": { "$ref": "#/entities/QuoteLog" }, "description": "Global calculation audit trail." },
+    "/problems/{id}": { "schema": { "$ref": "#/entities/ProblemEntry" }, "description": "Service issues." },
+    "/leads/{id}": { "schema": { "$ref": "#/entities/Lead" }, "description": "Sales opportunities." },
+    "/notes/{id}": { "schema": { "$ref": "#/entities/Note" }, "description": "User personal notes." },
+    "/vipContacts/{id}": { "schema": "object", "description": "Internal contact directory." },
+    "/invitations/{id}": { "schema": "object", "description": "Team invite links." },
+    "/tgeAccountApplications/{id}": { "schema": "object", "description": "New account setup requests." },
+    "/deliveryRuns/{id}": { "schema": "object", "description": "Driver route plans." },
+    "/companyRates/{id}": { "schema": "object", "description": "Tenant-specific persistent rates." },
+    "/audit_logs/{id}": { "schema": "object", "description": "System-wide admin action logs." },
+    "/ai_usage_log/{id}": { "schema": "object", "description": "AI token consumption logs." },
+    "/ai_quotes/{id}": { "schema": "object", "description": "Saved AI conversational quotes." }
+  }
+}

@@ -1,0 +1,57 @@
+
+# LEDGERLIGHT AI ASSISTANT MASTER REFERENCE - v23.0.0 (NEXTJS 15 OPTIMIZED)
+# This file contains the hardened core logic for the Natural Language Quote Agent.
+
+======================================================================
+1. ELITE AI AGENT FLOW (Interpreter + Executor)
+Location: src/ai/flows/quote-agent-flow.ts
+======================================================================
+'use server';
+
+import { ai } from '@/ai/genkit';
+import { z } from 'genkit';
+
+/**
+ * 2-PHASE ARCHITECTURE:
+ * Phase 1 (AI Interpreter): Converts natural language to structured INTENT.
+ * Phase 2 (Deterministic Executor): Runs tools based on Intent. No AI variability.
+ */
+
+const IntentSchema = z.object({
+  originQuery: z.string().nullable(),
+  destinationQuery: z.string().nullable(),
+  items: z.array(z.object({ weight: z.number(), quantity: z.number() })),
+  confidence: z.number(),
+  isQuoteRequest: z.boolean(),
+  isInfoRequest: z.boolean()
+}).passthrough();
+
+export async function processQuoteQuery(input: { query: string }): Promise<QuoteAgentOutput> {
+  // 1. Interpreter (Intent Extraction)
+  // 2. Executor (Tool Orchestration)
+}
+
+======================================================================
+2. STABILIZED INITIALIZATION (v21.0.0)
+Location: src/ai/genkit.ts
+======================================================================
+import { genkit } from 'genkit';
+import { googleAI, gemini20Flash } from '@genkit-ai/googleai';
+
+export const ai = genkit({
+  plugins: [googleAI({ apiKey: process.env.GEMINI_API_KEY })],
+  model: gemini20Flash,
+});
+
+======================================================================
+3. ERROR BOUNDARY STRATEGY (v22.0.0)
+======================================================================
+- ALL flows must be wrapped in try/catch in their exported wrapper functions.
+- Fallback objects must match the expected Zod output schema to prevent UI crashes.
+- 429 Quota errors must be identified and messaged gracefully to the user.
+
+======================================================================
+4. NEXTJS 15 COMPLIANCE (v23.0.0)
+======================================================================
+- Root layout uses separate 'viewport' export to prevent build warnings.
+- API routes use 'force-dynamic' for Firebase Admin compatibility.

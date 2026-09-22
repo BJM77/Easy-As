@@ -1,0 +1,95 @@
+
+[
+  {
+    "id": "agent_001",
+    "name": "Perth City Logistics",
+    "postcode": 6000,
+    "suburb": "Perth",
+    "state": "WA",
+    "address": "123 Murray St, Perth WA 6000",
+    "phone": "08 9123 4567",
+    "servicesOffered": ["B2B Std", "B2B Priority", "LCP Std"]
+  },
+  {
+    "id": "agent_002",
+    "name": "Fremantle Freight Forwarders",
+    "postcode": 6160,
+    "suburb": "Fremantle",
+    "state": "WA",
+    "address": "45 Docker Rd, Fremantle WA 6160",
+    "phone": "08 9234 5678",
+    "servicesOffered": ["B2B Pallets Std", "LCP Pallets Std"]
+  },
+  {
+    "id": "agent_003",
+    "name": "Welshpool Distribution Hub",
+    "postcode": 6106,
+    "suburb": "Welshpool",
+    "state": "WA",
+    "phone": "08 9345 6789",
+    "servicesOffered": ["B2B Std", "LCP Std", "B2B Pallets Std", "LCP GO Std"]
+  },
+  {
+    "id": "agent_004",
+    "name": "Sydney Metro Express",
+    "postcode": 2000,
+    "suburb": "Sydney",
+    "state": "NSW",
+    "address": "789 George St, Sydney NSW 2000",
+    "phone": "02 8123 4567",
+    "servicesOffered": ["B2B Std", "B2B Priority", "B2C Std", "LCP GO Priority"]
+  },
+  {
+    "id": "agent_005",
+    "name": "Botany Bay Bulk Haulage",
+    "postcode": 2019,
+    "suburb": "Banksmeadow",
+    "state": "NSW",
+    "address": "1 Maritime Rd, Banksmeadow NSW 2019",
+    "servicesOffered": ["B2B Pallets Std", "B2B Pallets Express"]
+  },
+  {
+    "id": "agent_006",
+    "name": "Melbourne CBD Couriers",
+    "postcode": 3000,
+    "suburb": "Melbourne",
+    "state": "VIC",
+    "address": "45 Collins St, Melbourne VIC 3000",
+    "phone": "03 7123 4567",
+    "servicesOffered": ["B2B Priority", "LCP Priority", "B2C Priority"]
+  },
+  {
+    "id": "agent_007",
+    "name": "Dandenong Industrial Transport",
+    "postcode": 3175,
+    "suburb": "Dandenong South",
+    "state": "VIC",
+    "servicesOffered": ["B2B Std", "LCP Std", "B2B Pallets Std"]
+  },
+  {
+    "id": "agent_008",
+    "name": "Brisbane River City Logistics",
+    "postcode": 4000,
+    "suburb": "Brisbane City",
+    "state": "QLD",
+    "address": "10 Queen St, Brisbane City QLD 4000",
+    "phone": "07 6123 4567",
+    "servicesOffered": ["B2B Std", "B2B Priority", "LCP GO Std"]
+  },
+  {
+    "id": "agent_009",
+    "name": "Adelaide Plains Freight",
+    "postcode": 5000,
+    "suburb": "Adelaide",
+    "state": "SA",
+    "servicesOffered": ["B2B Std", "LCP Std", "B2C Std"]
+  },
+  {
+    "id": "agent_010",
+    "name": "Darwin Top End Movers",
+    "postcode": 800,
+    "suburb": "Darwin",
+    "state": "NT",
+    "servicesOffered": ["B2B Std", "LCP Std"]
+  }
+]
