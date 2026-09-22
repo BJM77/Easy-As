@@ -2,7 +2,7 @@ import RoutingPageContent from "./page-content";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Route Planner - FreightAssist.Online",
+  title: "Route Planner - Freight assist.online",
   description: "Optimize multi-stop delivery routes.",
 };
 

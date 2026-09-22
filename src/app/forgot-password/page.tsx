@@ -2,7 +2,7 @@ import ForgotPasswordPageContent from "./page-content";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Forgot Password - FreightAssist.Online",
+  title: "Forgot Password - Freight assist.online",
   description: "Reset your account password.",
 };
 

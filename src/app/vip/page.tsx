@@ -2,7 +2,7 @@ import VipContactsPageContent from './page-content';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'VIP Contacts - FreightAssist.Online',
+  title: 'VIP Contacts - Freight assist.online',
   description: 'A directory of important business contacts.',
 };
 

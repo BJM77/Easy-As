@@ -2,7 +2,7 @@ import LegDiscountPageContent from "./page-content";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Leg Discount Calculator - FreightAssist.Online",
+  title: "Leg Discount Calculator - Freight assist.online",
   description: "Reverse-calculate the required KG rate to meet a target price for a freight leg.",
 };
 
