@@ -62,7 +62,7 @@ export default function BrandingPageContent() {
   };
 
   const handleReset = () => {
-    setLogoText(company?.name || 'Freight assist.online');
+    setLogoText(company?.name || company?.settings?.logoText || 'Freight assist.online');
     setPrimaryColor('#616161');
     setAccentColor('#ffa857');
     setTopMenuColor('#ffffff');
