@@ -54,6 +54,16 @@ service cloud.firestore {
       allow create: if hasCompanyAccess(request.resource.data.companyId);
     }
 
+    match /quote_logs/{id} {
+      allow read: if hasCompanyAccess(resource.data.companyId);
+      allow create: if hasCompanyAccess(request.resource.data.companyId);
+    }
+
+    match /companies/{id} {
+      allow read: if hasCompanyAccess(id) || isSuperAdmin();
+      allow write: if isSuperAdmin();
+    }
+
     match /companyRates/{id} {
       allow read: if hasCompanyAccess(resource.data.companyId);
     }

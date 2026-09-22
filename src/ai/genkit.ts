@@ -14,5 +14,5 @@ export const ai = genkit({
       apiVersion: 'v1beta',
     }),
   ],
-  model: gemini('gemini-2.0-flash'),
+  model: gemini('gemini-3.6-flash'),
 });
