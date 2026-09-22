@@ -1040,7 +1040,7 @@ export default function AppHeader() {
                   <Package className="h-8 w-8 text-accent" style={{ color: company?.settings?.accentColor }} />
                   <div className="flex flex-col items-start">
                     <h1 className="text-xl sm:text-2xl font-bold font-headline leading-tight">
-                      {company?.settings?.logoText || company?.name || "Freight assist.online"}
+                      {company?.name || company?.settings?.logoText || "Freight assist.online"}
                     </h1>
                     <span className="hidden sm:block text-xs text-primary-foreground/80 font-light">
                       Making it easier to secure new business
