@@ -152,7 +152,7 @@ export default function StatusPageContent() {
                             {isTestingAi && (
                                 <div className="flex items-center gap-3">
                                     <Loader2 className="h-6 w-6 animate-spin text-accent" />
-                                    <span className="text-sm animate-pulse">Communicating with Gemini 2.0 Flash...</span>
+                                    <span className="text-sm animate-pulse">Communicating with Gemini 3.6 Flash...</span>
                                 </div>
                             )}
                             {aiTestResult && (
@@ -195,7 +195,7 @@ export default function StatusPageContent() {
                                 <StatusRow 
                                     label="Intelligence (Genkit)" 
                                     status={genkitStatus} 
-                                    message={genkitStatus === 'success' ? 'Gemini 2.0 Flash is ready for inference.' : 'AI Key is missing or invalid.'} 
+                                    message={genkitStatus === 'success' ? 'Gemini 3.6 Flash is ready for inference.' : 'AI Key is missing or invalid.'} 
                                 />
                                 <StatusRow 
                                     label="Mapping (Google)" 

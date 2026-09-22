@@ -4,6 +4,7 @@
  */
 
 import { ai } from '@/ai/genkit';
+import { gemini } from '@genkit-ai/googleai';
 import { logAiUsage } from '@/lib/aiUsage';
 
 /**
@@ -12,6 +13,7 @@ import { logAiUsage } from '@/lib/aiUsage';
 export async function testAiConnection() {
   try {
     const response = await ai.generate({
+      model: gemini('gemini-3.6-flash'),
       system: "You are a system diagnostic tool.",
       prompt: "Respond with exactly the word 'ONLINE' if you are functioning correctly.",
     });
