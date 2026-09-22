@@ -64,8 +64,6 @@ const getMissingCredentialVars = (projectId?: string, clientEmail?: string, priv
 };
 
 async function initializeAdmin() {
-  if (process.env.NEXT_PHASE === 'phase-production-build') return null;
-
   const { initializeApp, getApps, cert } = await import("firebase-admin/app");
   
   const apps = getApps();
@@ -129,14 +127,12 @@ async function initializeAdmin() {
 export async function getAdminDb() {
   const { getFirestore } = await import("firebase-admin/firestore");
   const app = await initializeAdmin();
-  if (!app) throw new Error("Admin Firestore failed to initialize.");
   return getFirestore(app);
 }
 
 export async function getAdminAuth() {
   const { getAuth } = await import("firebase-admin/auth");
   const app = await initializeAdmin();
-  if (!app) throw new Error("Admin Auth failed to initialize.");
   return getAuth(app);
 }
 

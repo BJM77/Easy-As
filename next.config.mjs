@@ -13,15 +13,20 @@ const nextConfig = {
       },
     ],
   },
+  serverExternalPackages: [
+    'genkit',
+    '@genkit-ai/googleai',
+    '@genkit-ai/next',
+    'handlebars',
+    'firebase-admin',
+    '@google-cloud/firestore',
+    '@grpc/grpc-js',
+  ],
   experimental: {
-    serverComponentsExternalPackages: [
-      'genkit',
-      '@genkit-ai/googleai',
-      '@genkit-ai/next',
-      'handlebars',
-      'firebase-admin',
-      '@google-cloud/firestore',
-      '@grpc/grpc-js',
+    allowedDevOrigins: [
+      '6000-firebase-studio-1762260425529.cluster-y3k7ko3fang56qzieg3trwgyfg.cloudworkstations.dev',
+      '9000-firebase-studio-1762260425529.cluster-y3k7ko3fang56qzieg3trwgyfg.cloudworkstations.dev',
+      '9002-firebase-studio-1762260425529.cluster-y3k7ko3fang56qzieg3trwgyfg.cloudworkstations.dev',
     ],
   },
   webpack: (config) => {

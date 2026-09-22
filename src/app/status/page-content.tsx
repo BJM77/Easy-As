@@ -192,7 +192,7 @@ export default function StatusPageContent() {
                                     message={firestore ? 'Real-time database connection stable.' : 'Database handshake failed.'} 
                                 />
                                 <StatusRow 
-                                    label="Intelligence (Genkit)" 
+                                   label="Intelligence Test (Genkit)" 
                                     status={genkitStatus} 
                                    message={
                                      genkitStatus === 'success'

@@ -20,7 +20,7 @@ const hasCoreFirebaseFields = (config: Partial<FirebaseOptions>): config is Fire
   );
 };
 
-const getFirebaseConfig = (): FirebaseOptions => {
+export const getFirebaseConfig = (): FirebaseOptions => {
   if (typeof window !== 'undefined') {
     try {
       const storedConfig = localStorage.getItem('firebase_config_override');
@@ -58,9 +58,11 @@ const getFirebaseConfig = (): FirebaseOptions => {
   }
 
   const missingVars = requiredFirebaseVars.filter((name) => !process.env[name]);
+  if (typeof window === 'undefined') {
+    return configFromVars as FirebaseOptions;
+  }
+
   throw new Error(
     `Missing Firebase web configuration. Set NEXT_PUBLIC_FIREBASE_WEBAPP_CONFIG or these variables: ${missingVars.join(', ')}.`
   );
 };
-
-export const firebaseConfig = getFirebaseConfig();
