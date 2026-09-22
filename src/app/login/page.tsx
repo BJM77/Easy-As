@@ -4,8 +4,8 @@ import { Suspense } from 'react';
 import { Loader2 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: "Login - FreightAssist.Online",
-  description: "Login to your FreightAssist.Online account.",
+  title: "Login - Freight assist.online",
+  description: "Login to your Freight assist.online account.",
 };
 
 export default function LoginPage() {

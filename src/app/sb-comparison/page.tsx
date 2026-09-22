@@ -2,7 +2,7 @@ import SBComparisonPageContent from "./page-content";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "SB Comparison - FreightAssist.Online",
+  title: "SB Comparison - Freight assist.online",
   description: "Compare freight rates across all spend bands for selected services.",
 };
 
