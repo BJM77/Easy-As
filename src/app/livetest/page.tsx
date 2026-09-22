@@ -2,7 +2,7 @@ import LiveTestPageContent from "./page-content";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Live Test - FreightAssist.Online',
+  title: 'Live Test - Freight assist.online',
   description: 'Live track consignments and test new route planning features.',
 };
 

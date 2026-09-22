@@ -135,7 +135,7 @@ const interpreterPrompt = ai.definePrompt({
     history: z.array(z.object({ role: z.string(), content: z.string() })).optional()
   }) },
   output: { schema: IntentSchema },
-  prompt: `You are the Interpreter for FreightAssist.Online, a professional logistics intelligence platform.
+  prompt: `You are the Interpreter for Freight assist.online, a professional logistics intelligence platform.
   
   HISTORY:
   {{#each history}}

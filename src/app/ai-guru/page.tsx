@@ -2,7 +2,7 @@ import AIGuruPageContent from "./page-content";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Perfect Plan - FreightAssist.Online",
+  title: "Perfect Plan - Freight assist.online",
   description: "Get AI-powered solutions and spend band analysis for new customer opportunities.",
 };
 

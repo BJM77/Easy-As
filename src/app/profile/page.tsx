@@ -3,7 +3,7 @@ import ProfilePageContent from "./page-content";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "My Profile - FreightAssist.Online",
+  title: "My Profile - Freight assist.online",
   description: "View and manage your account details.",
 };
 
