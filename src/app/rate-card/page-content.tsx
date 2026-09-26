@@ -238,14 +238,17 @@ export default function RateCardPageContent() {
               const zoneType = PALLET_LIKE_SERVICES.includes(serviceName) ? 'PE' : (STANDARD_ROAD_MAPPED_SERVICES.includes(serviceName as any) ? 'IPEC' : 'PRIO');
               const originZone = PALLET_LIKE_SERVICES.includes(serviceName) ? getPeZone(origin, allRateDataArgs.pezoneData) || 'N/A' : origin[zoneType.toLowerCase() as keyof PostcodeData];
 
-              newGeneratedRates.push({
+                newGeneratedRates.push({
+                  ...entry,
                   serviceName, spendBand,
                   sendingPostcodeFull: String(originZone),
                   originZone: String(originZone),
                   destinationZone: String(PALLET_LIKE_SERVICES.includes(serviceName) ? getPeZone(destination, allRateDataArgs.pezoneData) || 'N/A' : destination[zoneType.toLowerCase() as keyof PostcodeData]),
                   zoneTypeDisplay: zoneType,
+                  basicRate: String(entry.basicRate ?? (entry as any).Basic ?? ''),
+                  kiloRate: String(entry.kiloRate ?? (entry as any).Kilo ?? (entry as any).KiloRate ?? ''),
+                  minRate: String(entry.minRate ?? (entry as any).Minimum ?? (entry as any).Min ?? ''),
                   cubicFactor: PALLET_LIKE_SERVICES.includes(serviceName) ? 333 : 250,
-                  ...entry
               });
           }
       };
@@ -441,7 +444,7 @@ export default function RateCardPageContent() {
                   {allowedRateCardServices.map((service) => (<div key={`ratecard-service-${service}`} className="flex items-center space-x-2"><Checkbox id={`service-ratecard-${service}`} checked={(form.watch('services') || []).includes(service as ServiceName)} onCheckedChange={checked => { const currentServices = form.getValues('services') || []; const newServices = checked ? [...currentServices, service as ServiceName] : currentServices.filter((s) => s !== service); form.setValue('services', newServices, { shouldValidate: true }); }} /><Label htmlFor={`service-ratecard-${service}`} className="text-sm font-normal cursor-pointer">{service}</Label></div>))}
                 </div>
               ) : (<p className="text-sm text-muted-foreground p-4 border rounded-md bg-background">No services of this type available for your current user role.</p>)}
-              {form.formState.errors.services && <p className="text-sm text-destructive">{form.formState.errors.services.message}</p>}
+              {form.formState.errors.services && <p className="text-sm text-destructive">{String(form.formState.errors.services.message ?? '')}</p>}
             </div>
             <div className="flex flex-wrap gap-2 mt-6">
               <Button type="submit" className="flex-grow md:flex-grow-0 bg-primary hover:bg-primary/90 text-primary-foreground" disabled={overallLoading || allowedRateCardServices.length === 0}>

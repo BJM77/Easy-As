@@ -431,14 +431,17 @@ export default function ProposalEditorPageContent() {
                   const zoneType = PALLET_LIKE_SERVICES.includes(serviceName as any) ? 'PE' : (STANDARD_ROAD_MAPPED_SERVICES.includes(serviceName as any) ? 'IPEC' : 'PRIO');
                   const originZone = PALLET_LIKE_SERVICES.includes(serviceName as any) ? getPeZone(origin, allRateDataArgs.pezoneData) || 'N/A' : origin[zoneType.toLowerCase() as keyof PostcodeData];
 
-                  newGeneratedRates.push({
+                    newGeneratedRates.push({
+                      ...entry,
                       serviceName: serviceName, spendBand,
                       sendingPostcodeFull: String(originZone),
                       originZone: String(originZone),
                       destinationZone: String(PALLET_LIKE_SERVICES.includes(serviceName as any) ? getPeZone(destination, allRateDataArgs.pezoneData) || 'N/A' : destination[zoneType.toLowerCase() as keyof PostcodeData]),
                       zoneTypeDisplay: zoneType,
+                      basicRate: String(entry.basicRate ?? (entry as any).Basic ?? ''),
+                      kiloRate: String(entry.kiloRate ?? (entry as any).Kilo ?? (entry as any).KiloRate ?? ''),
+                      minRate: String(entry.minRate ?? (entry as any).Minimum ?? (entry as any).Min ?? ''),
                       cubicFactor: PALLET_LIKE_SERVICES.includes(serviceName as any) ? 333 : 250,
-                      ...entry
                   });
               }
           };
