@@ -201,7 +201,7 @@ const TotalFreightCostCalculator = ({ setMasterTotalCost }: { setMasterTotalCost
     }
 
     const calculateTotal = () => {
-        const total = Object.values(costs).reduce((sum, current) => sum + (parseFloat(String(current)) || 0), 0);
+        const total = Object.values(costs).reduce<number>((sum, current) => sum + (parseFloat(String(current)) || 0), 0);
         setTotalCost(total);
         setMasterTotalCost(total);
     }

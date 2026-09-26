@@ -431,14 +431,17 @@ export default function ProposalEditorPageContent() {
                   const zoneType = PALLET_LIKE_SERVICES.includes(serviceName as any) ? 'PE' : (STANDARD_ROAD_MAPPED_SERVICES.includes(serviceName as any) ? 'IPEC' : 'PRIO');
                   const originZone = PALLET_LIKE_SERVICES.includes(serviceName as any) ? getPeZone(origin, allRateDataArgs.pezoneData) || 'N/A' : origin[zoneType.toLowerCase() as keyof PostcodeData];
 
-                  newGeneratedRates.push({
+                    newGeneratedRates.push({
+                      ...entry,
                       serviceName: serviceName, spendBand,
-                      sendingPostcodeFull: originZone,
-                      originZone: originZone,
-                      destinationZone: PALLET_LIKE_SERVICES.includes(serviceName as any) ? getPeZone(destination, allRateDataArgs.pezoneData) || 'N/A' : destination[zoneType.toLowerCase() as keyof PostcodeData],
+                      sendingPostcodeFull: String(originZone),
+                      originZone: String(originZone),
+                      destinationZone: String(PALLET_LIKE_SERVICES.includes(serviceName as any) ? getPeZone(destination, allRateDataArgs.pezoneData) || 'N/A' : destination[zoneType.toLowerCase() as keyof PostcodeData]),
                       zoneTypeDisplay: zoneType,
+                      basicRate: String(entry.basicRate ?? (entry as any).Basic ?? ''),
+                      kiloRate: String(entry.kiloRate ?? (entry as any).Kilo ?? (entry as any).KiloRate ?? ''),
+                      minRate: String(entry.minRate ?? (entry as any).Minimum ?? (entry as any).Min ?? ''),
                       cubicFactor: PALLET_LIKE_SERVICES.includes(serviceName as any) ? 333 : 250,
-                      ...entry
                   });
               }
           };
@@ -616,7 +619,7 @@ export default function ProposalEditorPageContent() {
                          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 border rounded-md max-h-60 overflow-y-auto">
                             {allowedRateCardServices.map(service => (<div key={`rc-service-${service}`} className="flex items-center space-x-2"><Checkbox id={`rc-service-${service}`} checked={(rateCardForm.watch('services') || []).includes(service as ServiceName)} onCheckedChange={checked => { const current = rateCardForm.getValues('services') || []; const newServices = checked ? [...current, service as ServiceName] : current.filter(s => s !== service); rateCardForm.setValue('services', newServices, {shouldValidate: true});}} /><Label htmlFor={`rc-service-${service}`} className="font-normal">{service}</Label></div>))}
                          </div>
-                          {rateCardForm.formState.errors.services && <p className="text-sm text-destructive">{rateCardForm.formState.errors.services.message}</p>}
+                          {rateCardForm.formState.errors.services && <p className="text-sm text-destructive">{String(rateCardForm.formState.errors.services.message ?? '')}</p>}
                      </div>
                      <div className="flex gap-2">
                         <Button type="submit" disabled={overallLoading || allowedRateCardServices.length === 0}>

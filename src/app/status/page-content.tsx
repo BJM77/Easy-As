@@ -67,8 +67,7 @@ export default function StatusPageContent() {
         }
     };
 
-    const genkitApiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-    const genkitStatus = (genkitApiKey && genkitApiKey !== 'YOUR_API_KEY_HERE') ? 'success' : 'error';
+    const genkitStatus = aiTestResult ? (aiTestResult.success ? 'success' : 'error') : 'warning';
     
     const mapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_API_KEY;
     const mapsStatus = mapsApiKey && mapsApiKey !== 'YOUR_API_KEY_HERE' ? 'success' : 'warning';
@@ -152,7 +151,7 @@ export default function StatusPageContent() {
                             {isTestingAi && (
                                 <div className="flex items-center gap-3">
                                     <Loader2 className="h-6 w-6 animate-spin text-accent" />
-                                    <span className="text-sm animate-pulse">Communicating with Gemini 2.0 Flash...</span>
+                                    <span className="text-sm animate-pulse">Communicating with Gemini 2.5 Flash...</span>
                                 </div>
                             )}
                             {aiTestResult && (
@@ -193,9 +192,15 @@ export default function StatusPageContent() {
                                     message={firestore ? 'Real-time database connection stable.' : 'Database handshake failed.'} 
                                 />
                                 <StatusRow 
-                                    label="Intelligence (Genkit)" 
+                                   label="Intelligence Test (Genkit)" 
                                     status={genkitStatus} 
-                                    message={genkitStatus === 'success' ? 'Gemini 2.0 Flash is ready for inference.' : 'AI Key is missing or invalid.'} 
+                                   message={
+                                     genkitStatus === 'success'
+                                       ? 'Gemini 2.5 Flash is ready for inference.'
+                                       : genkitStatus === 'error'
+                                         ? 'AI connection failed. Check server-side GEMINI_API_KEY.'
+                                         : 'Run "Test Connection" to verify server-side Genkit access.'
+                                   } 
                                 />
                                 <StatusRow 
                                     label="Mapping (Google)" 

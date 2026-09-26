@@ -55,9 +55,15 @@ const safeJsonParse = (jsonStr: string | undefined) => {
   }
 };
 
-async function initializeAdmin() {
-  if (process.env.NEXT_PHASE === 'phase-production-build') return null;
+const getMissingCredentialVars = (projectId?: string, clientEmail?: string, privateKey?: string) => {
+  const missing: string[] = [];
+  if (!projectId) missing.push('FIREBASE_PROJECT_ID');
+  if (!clientEmail) missing.push('FIREBASE_CLIENT_EMAIL');
+  if (!privateKey) missing.push('FIREBASE_PRIVATE_KEY');
+  return missing;
+};
 
+async function initializeAdmin() {
   const { initializeApp, getApps, cert } = await import("firebase-admin/app");
   
   const apps = getApps();
@@ -65,58 +71,68 @@ async function initializeAdmin() {
 
   const jsonCredentials = safeJsonParse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
   
-  const separateId = clean(process.env.FIREBASE_PROJECT_ID || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID);
+  const separateId = clean(process.env.FIREBASE_PROJECT_ID);
   const separateEmail = clean(process.env.FIREBASE_CLIENT_EMAIL);
   const separateKey = cleanPrivateKey(process.env.FIREBASE_PRIVATE_KEY);
 
   try {
-    let credential;
+    let credential: ReturnType<typeof cert> | undefined;
 
-    // Logic: If we have individual variables, they are often more stable in cloud shells
-    if (separateId && separateEmail && separateKey) {
-      console.log("[Admin SDK] Initializing via Individual Environment Variables.");
+    if (separateId || separateEmail || separateKey) {
+      const missingVars = getMissingCredentialVars(separateId, separateEmail, separateKey);
+      if (missingVars.length > 0) {
+        throw new Error(
+          `Incomplete Firebase Admin credentials: missing ${missingVars.join(', ')}. ` +
+          'Set all of FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, and FIREBASE_PRIVATE_KEY.'
+        );
+      }
+
       credential = cert({
         projectId: separateId,
         clientEmail: separateEmail,
         privateKey: separateKey,
       });
-    }
-    else if (jsonCredentials && jsonCredentials.project_id && jsonCredentials.private_key) {
-      console.log("[Admin SDK] Initializing via Compact JSON String.");
-      if (jsonCredentials.private_key) {
-          jsonCredentials.private_key = jsonCredentials.private_key.replace(/\\n/g, '\n');
+    } else if (jsonCredentials && typeof jsonCredentials === 'object') {
+      const serviceAccount = jsonCredentials as Record<string, string | undefined>;
+      const projectId = clean(serviceAccount.project_id);
+      const clientEmail = clean(serviceAccount.client_email);
+      const privateKey = cleanPrivateKey(serviceAccount.private_key);
+
+      if (!projectId || !clientEmail || !privateKey) {
+        throw new Error(
+          'GOOGLE_APPLICATION_CREDENTIALS_JSON is missing one or more required fields: project_id, client_email, private_key.'
+        );
       }
-      credential = cert(jsonCredentials as ServiceAccount);
+
+      credential = cert({
+        projectId,
+        clientEmail,
+        privateKey,
+      });
     }
 
     if (!credential) {
-      const diagnosis = {
-        jsonValid: !!jsonCredentials,
-        project: separateId ? 'OK' : 'MISSING',
-        email: separateEmail ? 'OK' : 'MISSING',
-        key: separateKey ? 'OK' : 'MISSING'
-      };
-      throw new Error(`Missing credentials. JSON: ${diagnosis.jsonValid}, Proj: ${diagnosis.project}, Email: ${diagnosis.email}, Key: ${diagnosis.key}`);
+      throw new Error(
+        'Missing Firebase Admin credentials. Configure either GOOGLE_APPLICATION_CREDENTIALS_JSON ' +
+        'or all of FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, and FIREBASE_PRIVATE_KEY.'
+      );
     }
 
     return initializeApp({ credential });
   } catch (e: any) {
-    console.error("Admin SDK Initialization Error:", e.message);
-    throw new Error(`Admin Auth failed to initialize. ${e.message}`);
+    throw new Error(`Admin SDK initialization failed: ${e.message}`);
   }
 }
 
 export async function getAdminDb() {
   const { getFirestore } = await import("firebase-admin/firestore");
   const app = await initializeAdmin();
-  if (!app) throw new Error("Admin Firestore failed to initialize.");
   return getFirestore(app);
 }
 
 export async function getAdminAuth() {
   const { getAuth } = await import("firebase-admin/auth");
   const app = await initializeAdmin();
-  if (!app) throw new Error("Admin Auth failed to initialize.");
   return getAuth(app);
 }
 
@@ -145,8 +161,7 @@ export async function getUserFromToken(idToken: string): Promise<(UserProfile & 
 
 export async function checkSuperAdmin(idToken: string): Promise<(UserProfile & { uid: string })> {
   const user = await getUserFromToken(idToken);
-  const superAdminEmails = ["benjamin.mackie@teamglobalexp.com", "bjmack22277@gmail.com", "1@1.com", "urika@urika.com.au"];
-  if (user && (user.role === 'superadmin' || superAdminEmails.includes(user.email))) {
+  if (user?.role === 'superadmin') {
       return user;
   }
   throw new Error("Forbidden: This action requires superadmin privileges.");
@@ -155,8 +170,7 @@ export async function checkSuperAdmin(idToken: string): Promise<(UserProfile & {
 export async function checkCompanyAdmin(idToken: string, targetCompanyId: string): Promise<UserProfile & { uid: string }> {
   const user = await getUserFromToken(idToken);
   if (!user) throw new Error("Unauthorized");
-  const superAdminEmails = ["benjamin.mackie@teamglobalexp.com", "bjmack22277@gmail.com", "1@1.com", "urika@urika.com.au"];
-  const hasAccess = user.role === 'superadmin' || superAdminEmails.includes(user.email) || (user.role === 'admin' && user.companyId === targetCompanyId) || (user.assignedCompanyIds?.includes(targetCompanyId));
+  const hasAccess = user.role === 'superadmin' || (user.role === 'admin' && user.companyId === targetCompanyId) || (user.assignedCompanyIds?.includes(targetCompanyId));
   if (!hasAccess) throw new Error(`Forbidden: Access denied to workspace ${targetCompanyId}.`);
   return user;
 }

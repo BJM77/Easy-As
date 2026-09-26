@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { z } from 'zod';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { 
@@ -104,7 +105,7 @@ export default function FreightForm() {
     return "1";
   }, [areOurRatesLoaded]);
 
-  const form = useForm<FreightFormValues>({
+  const form = useForm<z.infer<typeof freightFormSchema>>({
     resolver: zodResolver(freightFormSchema),
     defaultValues: {
       spendBand: defaultSpendBand,

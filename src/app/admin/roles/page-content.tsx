@@ -93,7 +93,7 @@ export default function RolesPageContent() {
         const response = await fetch('/api/roles/update', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-            body: JSON.stringify({ uid, newRole })
+            body: JSON.stringify({ uid, role: newRole })
         });
         const result = await response.json();
         if (!response.ok) throw new Error(result.error || 'Failed to update role.');

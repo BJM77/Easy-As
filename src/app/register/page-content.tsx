@@ -40,6 +40,15 @@ export default function RegisterPageContent() {
   const { user, loading } = useAuth();
   const firestore = useFirestore();
   const { auth } = initializeFirebase();
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      name: '',
+      companyName: '',
+      email: '',
+      password: '',
+    },
+  });
 
   useEffect(() => {
     // Calculate pro-rata only on the client to avoid hydration mismatch
@@ -117,10 +126,11 @@ export default function RegisterPageContent() {
 
       const response = await fetch('/api/checkout', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${await newUser.getIdToken()}`,
+        },
         body: JSON.stringify({
-          userId: newUser.uid,
-          email: registrationData.email,
           companyName: registrationData.companyName,
           planName: 'Monthly Starter',
         }),

@@ -10,6 +10,7 @@ import { AlertCircle, ArrowRight } from 'lucide-react';
 import type { AddressValidationOutput } from '@/ai/flows/validate-address-flow';
 
 interface AddressToVerify extends AddressValidationOutput {
+  originalAddress: string;
   itemType: 'consignment' | 'time-sensitive';
   itemId: string;
 }
