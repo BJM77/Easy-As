@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
+import { z } from 'zod';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { FreightFormValues, PostcodeData, CalculatedPriceItem, ServiceName, FreightItem, StateAbbreviation, RateFileType, RateData } from '@/lib/types';
@@ -207,7 +208,7 @@ export default function BulkPageContent() {
   const resultsRef = useRef<HTMLDivElement>(null);
   const [isSubmitDialogOpen, setIsSubmitDialogOpen] = useState(false);
 
-  const form = useForm<FreightFormValues>({
+    const form = useForm<z.infer<typeof freightFormSchema>>({
     resolver: zodResolver(freightFormSchema),
     defaultValues: {
       spendBand: "4", // Hardcoded

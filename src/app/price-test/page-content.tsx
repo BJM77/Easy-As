@@ -11,6 +11,7 @@ import { useRateOverrides } from '@/context/RateOverrideContext';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/firebase'; 
 
+const formatCurrency = (amount: number) => amount.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -35,9 +36,7 @@ import {
 
 
 const priceTestFormSchema = z.object({
-  selectedService: z.custom<ServiceName>((val) => ALL_SERVICES.includes(val as ServiceName), { 
-    required_error: "Service Name is required.",
-  }),
+  selectedService: z.custom<ServiceName>((val) => ALL_SERVICES.includes(val as ServiceName), "Service Name is required."),
   originQuery: z.string().optional(),
   originLocation: z.custom<PostcodeData | null>((data) => data !== null, "Valid Origin must be selected."),
   destinationQuery: z.string().optional(),
@@ -565,7 +564,7 @@ export default function PriceTestPageContent() {
             const basicGo = getNumOverride('B1', NaN); const kiloGo = getNumOverride('K1', NaN);
             const deadWeight = localCalculationInfo.totalDeadWeightForLcpGo ?? NaN;
             
-            if (isOurRates && entry.B1 !== undefined) {
+            if (isOurRates && foundRateEntry?.B1 !== undefined) {
                 if (isNaN(basicGo) || isNaN(kiloGo)) remarks.push('LCP GO customer rate fields missing.');
                 else { baseRate = (cw * kiloGo) + basicGo; baseRateDesc += `(K1: ${kiloGo} * CW: ${cw}) + B1: ${basicGo} = ${baseRate !== null ? baseRate.toFixed(2) : 'Error'}`; }
             } else if (isNaN(deadWeight)) { remarks.push(`LCP GO: Dead weight undetermined (CW: ${cw}).`); baseRateDesc += "Weight tier undetermined."; }

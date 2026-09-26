@@ -12,8 +12,7 @@ import { logAiUsage } from '@/lib/aiUsage';
 export async function testAiConnection() {
   try {
     const response = await ai.generate({
-      system: "You are a system diagnostic tool.",
-      prompt: "Respond with exactly the word 'ONLINE' if you are functioning correctly.",
+      prompt: "You are a system diagnostic tool. Respond with exactly the word 'ONLINE' if you are functioning correctly.",
     });
 
     const text = response.text || '';

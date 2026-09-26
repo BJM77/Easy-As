@@ -240,9 +240,9 @@ export default function RateCardPageContent() {
 
               newGeneratedRates.push({
                   serviceName, spendBand,
-                  sendingPostcodeFull: originZone,
-                  originZone: originZone,
-                  destinationZone: PALLET_LIKE_SERVICES.includes(serviceName) ? getPeZone(destination, allRateDataArgs.pezoneData) || 'N/A' : destination[zoneType.toLowerCase() as keyof PostcodeData],
+                  sendingPostcodeFull: String(originZone),
+                  originZone: String(originZone),
+                  destinationZone: String(PALLET_LIKE_SERVICES.includes(serviceName) ? getPeZone(destination, allRateDataArgs.pezoneData) || 'N/A' : destination[zoneType.toLowerCase() as keyof PostcodeData]),
                   zoneTypeDisplay: zoneType,
                   cubicFactor: PALLET_LIKE_SERVICES.includes(serviceName) ? 333 : 250,
                   ...entry
@@ -379,17 +379,17 @@ export default function RateCardPageContent() {
                 <div className="space-y-2">
                   <Label htmlFor="customerName" className="flex items-center"><User className="mr-2 h-4 w-4 text-muted-foreground" />Customer Name</Label>
                   <Input id="customerName" {...form.register('customerName')} placeholder="Customer Name" />
-                  {form.formState.errors.customerName && <p className="text-sm text-destructive">{form.formState.errors.customerName.message}</p>}
+                  {form.formState.errors.customerName && <p className="text-sm text-destructive">{String(form.formState.errors.customerName.message ?? '')}</p>}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="spendBandRateCard" className="flex items-center"><DollarSign className="mr-2 h-4 w-4 text-muted-foreground" />Spend Band</Label>
                   <Controller name="spendBand" control={form.control} render={({ field }) => (<Select onValueChange={field.onChange} value={field.value}><SelectTrigger id="spendBandRateCard"><SelectValue placeholder="Select Spend Band" /></SelectTrigger><SelectContent>{globalSpendBands.map(band => <SelectItem key={band} value={band}>Spend Band {band}</SelectItem>)}</SelectContent></Select>)} />
-                  {form.formState.errors.spendBand && <p className="text-sm text-destructive">{form.formState.errors.spendBand.message}</p>}
+                  {form.formState.errors.spendBand && <p className="text-sm text-destructive">{String(form.formState.errors.spendBand.message ?? '')}</p>}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="date" className="flex items-center"><CalendarIcon className="mr-2 h-4 w-4 text-muted-foreground" />Effective Date</Label>
                   <Controller name="date" control={form.control} render={({ field }) => (<Popover><PopoverTrigger asChild><Button variant={"outline"} className={cn("w-full justify-start text-left font-normal", !field.value && "text-muted-foreground")}><CalendarIcon className="mr-2 h-4 w-4" />{field.value ? format(field.value, "PPP") : <span>Pick a date</span>}</Button></PopoverTrigger><PopoverContent className="w-auto p-0"><Calendar mode="single" selected={field.value} onSelect={field.onChange} initialFocus /></PopoverContent></Popover>)} />
-                  {form.formState.errors.date && <p className="text-sm text-destructive">{form.formState.errors.date.message}</p>}
+                  {form.formState.errors.date && <p className="text-sm text-destructive">{String(form.formState.errors.date.message ?? '')}</p>}
                 </div>
               </div>
               <div className="space-y-3 p-0 md:p-4 md:border md:rounded-md md:h-full">

@@ -3,7 +3,7 @@
 import type { CalculatedPriceItem, IntelliSendResult } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Truck, Zap, Anchor, Box, Rocket } from 'lucide-react';
+import { Sparkles, Truck, Zap, Anchor, Box, Rocket, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface OptimizedRateDisplayProps {

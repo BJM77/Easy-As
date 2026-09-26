@@ -39,7 +39,7 @@ export async function planRoute(
     ...aiOutput,
     googleMapsUrl,
     routeSegments: routeSegments.length > 1 ? routeSegments : undefined,
-  };
+  } as RoutePlannerOutput;
 
   const usage = {totalTokens: 1000, inputTokens: 500, outputTokens: 500}; // Placeholder usage
   await logAiUsage('Route Planner', usage);

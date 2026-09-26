@@ -161,8 +161,7 @@ export async function getUserFromToken(idToken: string): Promise<(UserProfile & 
 
 export async function checkSuperAdmin(idToken: string): Promise<(UserProfile & { uid: string })> {
   const user = await getUserFromToken(idToken);
-  const superAdminEmails = ["benjamin.mackie@teamglobalexp.com", "bjmack22277@gmail.com", "1@1.com", "urika@urika.com.au"];
-  if (user && (user.role === 'superadmin' || superAdminEmails.includes(user.email))) {
+  if (user?.role === 'superadmin') {
       return user;
   }
   throw new Error("Forbidden: This action requires superadmin privileges.");
@@ -171,8 +170,7 @@ export async function checkSuperAdmin(idToken: string): Promise<(UserProfile & {
 export async function checkCompanyAdmin(idToken: string, targetCompanyId: string): Promise<UserProfile & { uid: string }> {
   const user = await getUserFromToken(idToken);
   if (!user) throw new Error("Unauthorized");
-  const superAdminEmails = ["benjamin.mackie@teamglobalexp.com", "bjmack22277@gmail.com", "1@1.com", "urika@urika.com.au"];
-  const hasAccess = user.role === 'superadmin' || superAdminEmails.includes(user.email) || (user.role === 'admin' && user.companyId === targetCompanyId) || (user.assignedCompanyIds?.includes(targetCompanyId));
+  const hasAccess = user.role === 'superadmin' || (user.role === 'admin' && user.companyId === targetCompanyId) || (user.assignedCompanyIds?.includes(targetCompanyId));
   if (!hasAccess) throw new Error(`Forbidden: Access denied to workspace ${targetCompanyId}.`);
   return user;
 }

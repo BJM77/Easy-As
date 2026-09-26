@@ -49,13 +49,6 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const SUPERADMIN_EMAILS = [
-  "benjamin.mackie@teamglobalexp.com",
-  "bjmack22277@gmail.com",
-  "1@1.com",
-  "urika@urika.com.au"
-];
-
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -110,7 +103,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         const initialToken = await getIdTokenResult(authUser);
         let currentRole = initialToken.claims.role as UserRole || 'user';
-        if (SUPERADMIN_EMAILS.includes(authUser.email || '')) currentRole = 'superadmin';
 
         setActualRole(currentRole);
         setTokenCompanyId(initialToken.claims.companyId as string || null);
@@ -136,12 +128,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
               if (needsSync && !syncInProgressRef.current) {
                 syncInProgressRef.current = true;
                 const refreshedToken = await authUser.getIdTokenResult(true);
-                setActualRole(refreshedToken.claims.role as UserRole || (SUPERADMIN_EMAILS.includes(authUser.email || '') ? 'superadmin' : 'user'));
+                setActualRole(refreshedToken.claims.role as UserRole || 'user');
                 setTokenCompanyId(refreshedToken.claims.companyId as string || null);
                 syncInProgressRef.current = false;
                 setLoading(false);
               } else {
-                setActualRole(profileData.role);
+                setActualRole(tokenRole || 'user');
                 setTokenCompanyId(profileData.companyId);
                 setLoading(false);
               }
@@ -185,7 +177,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     snoozeAlarm: (id: string, mins: number) => setAlarms(p => p.map(a => a.id === id ? { ...a, time: new Date(Date.now() + mins * 60000) } : a)),
     rebookAlarm: (id: string) => setAlarms(p => p.map(a => a.id === id ? { ...a, time: new Date(Date.now() + 86400000) } : a)),
     nextAlarm: alarms.length ? [...alarms].sort((a,b) => a.time.getTime() - b.time.getTime())[0] : null,
-    isSuperadmin: !!(actualRole === 'superadmin' || (user?.email && SUPERADMIN_EMAILS.includes(user.email))),
+    isSuperadmin: actualRole === 'superadmin',
     isOrgAdmin: actualRole === 'admin',
     viewAsCompanyId, setViewAsCompanyId, viewAsRole, setViewAsRole, switchActiveCompany, tokenCompanyId
   };

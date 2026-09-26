@@ -8,6 +8,7 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import type {RoutePlannerInput, RoutePlannerAIOutput} from '@/lib/types';
 import {StopSchema, RoutePlannerInputSchema, RoutePlannerAIOutputSchema} from '@/lib/types';
+export type { RoutePlannerInput, RoutePlannerAIOutput } from '@/lib/types';
 
 const plannerPrompt = ai.definePrompt(
   {

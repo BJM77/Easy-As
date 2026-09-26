@@ -35,10 +35,11 @@ import { Checkbox } from '@/components/ui/checkbox';
 interface ScannedInfo extends Consignment {}
 
 interface GroupedStop {
-  address: string;
+  address?: string;
   stops: {
-    description: string;
-    type: 'Standard' | 'Time Sensitive' | 'Large Parcel';
+    address?: string;
+    description?: string;
+    type?: 'Standard' | 'Time Sensitive' | 'Large Parcel';
     id: string; // Add original ID
     status: StopStatus;
   }[];

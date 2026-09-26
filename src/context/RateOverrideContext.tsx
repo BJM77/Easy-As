@@ -147,13 +147,13 @@ export const RateOverrideProvider = ({ children }: { children: ReactNode }) => {
   }), []);
 
   const linkLocalDirectory = async () => {
-    if (!window.showDirectoryPicker) {
+    if (!(window as any).showDirectoryPicker) {
       toast({ title: "Unsupported Browser", description: "Your browser does not support local folder linking. Please use Chrome or Edge.", variant: "destructive" });
       return;
     }
 
     try {
-      const handle = await window.showDirectoryPicker();
+      const handle = await (window as any).showDirectoryPicker();
       setLocalDirectoryName(handle.name);
       setIsLocalLibrarySyncing(true);
       

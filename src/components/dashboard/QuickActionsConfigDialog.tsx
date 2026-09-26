@@ -28,6 +28,7 @@ export const ALL_QUICK_ACTIONS_MAP: Record<QuickActionKey, { label: string; href
     'multi': { label: 'Multi-Leg', href: '/multi', icon: Route },
     'location-lookup': { label: 'Location Lookup', href: '/location-lookup', icon: Warehouse },
     'csv-converter': { label: 'CSV to JSON', href: '/admin/csv-converter', icon: FileUp },
+      'leg-discount': { label: 'Leg Discount', href: '/leg-discount', icon: Route },
     'myteamge': { label: 'MyTeamGE', href: 'https://www.myteamge.com/group/guest/shipment?isEdit=true', icon: ExternalLink },
 };
 

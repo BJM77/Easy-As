@@ -30,7 +30,7 @@ export interface UseCollectionResult<T> {
  * React hook to subscribe to a Firestore collection or query in real-time.
  * Handles nullable references/queries.
  */
-export function useCollection<T = any>(
+export function useCollection<T = Record<string, any>>(
     memoizedTargetRefOrQuery: ((CollectionReference<DocumentData> | Query<DocumentData>) & {__memo?: boolean})  | null | undefined,
 ): UseCollectionResult<T> {
   type ResultItemType = WithId<T>;
