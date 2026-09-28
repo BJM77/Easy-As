@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: "Core Rate Management - FreightAssist.Online",
+  title: "Core Rate Management - Freight assist.online",
   description: "View and manage core TGE pricing rate data.",
 };
 

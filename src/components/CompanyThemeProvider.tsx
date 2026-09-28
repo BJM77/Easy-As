@@ -8,17 +8,17 @@ import { doc } from 'firebase/firestore';
 /**
  * A component that injects CSS variables based on the current user's company settings.
  * IMPLEMENTATION: If no active tenant is selected (null context), it falls back to 
- * the "FreightAssist.Online" (easy-as) tenant settings to maintain the Global Master Brand.
+ * the "Freight assist.online" (easy-as) tenant settings to maintain the Global Master Brand.
  */
 export function CompanyThemeProvider() {
   const { company: activeCompany } = useAuth();
   const firestore = useFirestore();
 
-  // Explicitly listen to the 'FreightAssist.Online' tenant for the global fallback
+  // Explicitly listen to the 'Freight assist.online' tenant for the global fallback
   const defaultRef = useMemo(() => firestore ? doc(firestore, 'companies', 'easy-as') : null, [firestore]);
   const { data: defaultCompany } = useDoc(defaultRef);
 
-  // Resolve hierarchy: Active Selected Tenant > FreightAssist.Online Fallback
+  // Resolve hierarchy: Active Selected Tenant > Freight assist.online Fallback
   const company = activeCompany || defaultCompany;
 
   const dynamicStyles = useMemo(() => {

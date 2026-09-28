@@ -1,6 +1,6 @@
-# Just Easy BD Assist - How-To Guide
+# Freight assist.online - How-To Guide
 
-Welcome to your Just Easy Business Development Assistant! This guide provides an overview of the key features and how to use them to secure new business and analyze freight data.
+Welcome to Freight assist.online! This guide provides an overview of the key features and how to use them to secure new business and analyze freight data.
 
 ---
 
@@ -132,4 +132,4 @@ This feature allows developers to temporarily override core application data for
 The application is built with security as a priority, leveraging modern web technologies and the robust infrastructure of Firebase. Access control is strictly enforced at multiple levels: user roles defined within the application control which pages and features are visible, while server-side Firebase Security Rules ensure that users can only read or write data they are explicitly permitted to access in the database. This means even if a user tries to bypass the front-end interface, the database itself prevents unauthorized data access. All data transmission is encrypted using standard HTTPS protocols. While no system can be guaranteed to be 100% immune to sophisticated attacks, this multi-layered approach, combining front-end restrictions with back-end enforcement, provides a strong defense against common security threats and unauthorized data breaches.
 
 
-This guide should help you get the most out of Just Easy. If you have any questions, refer back to the relevant section!
+This guide should help you get the most out of Freight assist.online. If you have any questions, refer back to the relevant section!

@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import { Loader2 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: "Activity Log - FreightAssist.Online",
+  title: "Activity Log - Freight assist.online",
   description: "Log and track freight problems and sales leads.",
 };
 

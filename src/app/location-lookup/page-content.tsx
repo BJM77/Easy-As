@@ -255,7 +255,7 @@ Manager Mobile: ${location["MANAGER MOBILE NUMBER"] || 'N/A'}
 Email: ${location["EMAIL ADDRESS"] || 'N/A'}
 
 Regards,
-FreightAssist.Online
+Freight assist.online
     `.trim();
 
     window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;

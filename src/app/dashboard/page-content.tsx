@@ -120,7 +120,7 @@ const AIPulseWidget = ({ activityItems }: { activityItems: any[] }) => {
             const summary = activityItems.slice(0, 10).map(i => `[${i.type}] ${i.title}: ${i.subtitle}`).join('\n');
             const result = await generateBusinessPulse({ 
                 activitySummary: summary, 
-                companyName: company?.name || 'FreightAssist.Online' 
+                companyName: company?.name || 'Freight assist.online' 
             });
             setPulse(result);
         } catch (e) {
