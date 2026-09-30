@@ -3,15 +3,13 @@ import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 import type { LocationLookupData } from '@/lib/types';
+import { rejectIfUnauthenticated } from '@/lib/api-auth';
 
 export async function GET(request: Request) {
   const apiPath = '/api/locations';
-  
-  // Basic Auth Check
-  const cookieHeader = request.headers.get('cookie') || '';
-  if (!cookieHeader.includes('__session') && !cookieHeader.includes('firebase-auth-token')) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+
+  const denied = await rejectIfUnauthenticated(request);
+  if (denied) return denied;
 
   const fileName = 'locations.json';
   try {

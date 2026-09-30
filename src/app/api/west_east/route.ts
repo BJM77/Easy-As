@@ -3,8 +3,12 @@ import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 import type { WestEastRateEntry } from '@/lib/types';
+import { rejectIfUnauthenticated } from '@/lib/api-auth';
 
-export async function GET() {
+export async function GET(request: Request) {
+  const denied = await rejectIfUnauthenticated(request);
+  if (denied) return denied;
+
   const apiPath = '/api/west_east';
   const fileName = 'west_east.json';
   try {

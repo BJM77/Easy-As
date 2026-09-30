@@ -758,6 +758,7 @@ export default function AppHeader() {
 
   const handleLogout = async () => {
     try {
+      await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
       const { getAuth } = await import('firebase/auth');
       await getAuth().signOut();
       router.push('/login');

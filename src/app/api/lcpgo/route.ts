@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 import type { LCPGoRateEntry } from '@/lib/types';
+import { rejectIfUnauthenticated } from '@/lib/api-auth';
 
 function parseMonetaryValue(value: string | number | undefined): number {
     if (typeof value === 'number') return value;
@@ -14,7 +15,10 @@ function parseMonetaryValue(value: string | number | undefined): number {
     return 0;
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  const denied = await rejectIfUnauthenticated(request);
+  if (denied) return denied;
+
     const apiPath = '/api/lcpgo';
     const fileName = 'lcpgo.json';
     try {

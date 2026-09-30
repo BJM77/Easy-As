@@ -3,10 +3,14 @@ import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 import type { PostcodeData } from '@/lib/types';
+import { rejectIfUnauthenticated } from '@/lib/api-auth';
 
 const postcodesFilePath = path.join(process.cwd(), 'src', 'public', 'postcodes.json');
 
-export async function GET() {
+export async function GET(request: Request) {
+  const denied = await rejectIfUnauthenticated(request);
+  if (denied) return denied;
+
   try {
     const fileContents = await fs.readFile(postcodesFilePath, 'utf8');
     const data: PostcodeData[] = JSON.parse(fileContents);

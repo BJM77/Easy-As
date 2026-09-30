@@ -13,13 +13,9 @@ import { logAiUsage } from '@/lib/aiUsage';
 export async function testAiConnection() {
   try {
     const response = await ai.generate({
-<<<<<<< HEAD
       model: gemini('gemini-3.6-flash'),
       system: "You are a system diagnostic tool.",
       prompt: "Respond with exactly the word 'ONLINE' if you are functioning correctly.",
-=======
-      prompt: "You are a system diagnostic tool. Respond with exactly the word 'ONLINE' if you are functioning correctly.",
->>>>>>> origin/copilot/restore-deployable-behavior
     });
 
     const text = response.text || '';

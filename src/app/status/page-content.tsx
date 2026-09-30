@@ -151,11 +151,7 @@ export default function StatusPageContent() {
                             {isTestingAi && (
                                 <div className="flex items-center gap-3">
                                     <Loader2 className="h-6 w-6 animate-spin text-accent" />
-<<<<<<< HEAD
                                     <span className="text-sm animate-pulse">Communicating with Gemini 3.6 Flash...</span>
-=======
-                                    <span className="text-sm animate-pulse">Communicating with Gemini 2.5 Flash...</span>
->>>>>>> origin/copilot/restore-deployable-behavior
                                 </div>
                             )}
                             {aiTestResult && (
@@ -198,17 +194,7 @@ export default function StatusPageContent() {
                                 <StatusRow 
                                    label="Intelligence Test (Genkit)" 
                                     status={genkitStatus} 
-<<<<<<< HEAD
                                     message={genkitStatus === 'success' ? 'Gemini 3.6 Flash is ready for inference.' : 'AI Key is missing or invalid.'} 
-=======
-                                   message={
-                                     genkitStatus === 'success'
-                                       ? 'Gemini 2.5 Flash is ready for inference.'
-                                       : genkitStatus === 'error'
-                                         ? 'AI connection failed. Check server-side GEMINI_API_KEY.'
-                                         : 'Run "Test Connection" to verify server-side Genkit access.'
-                                   } 
->>>>>>> origin/copilot/restore-deployable-behavior
                                 />
                                 <StatusRow 
                                     label="Mapping (Google)" 

@@ -2,10 +2,14 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
+import { rejectIfUnauthenticated } from '@/lib/api-auth';
 
 const settingsFilePath = path.join(process.cwd(), 'src', 'public', 'settings.json');
 
-export async function GET() {
+export async function GET(request: Request) {
+  const denied = await rejectIfUnauthenticated(request);
+  if (denied) return denied;
+
   try {
     const fileContents = await fs.readFile(settingsFilePath, 'utf8');
     const settings = JSON.parse(fileContents);

@@ -44,11 +44,31 @@ export default function LoginPageContent() {
   });
 
   useEffect(() => {
-    // Standard redirect to home if logged in, unless we're here because of an access error
-    if (!loading && user && !isUnauthorized) {
-      router.push('/');
-    }
-  }, [user, loading, router, isUnauthorized]);
+    // If Firebase already has a user, mint the HttpOnly session cookie before
+    // leaving /login. Protected routes are gated on that cookie, not client state.
+    if (loading || isLoading || !user || isUnauthorized) return;
+
+    let cancelled = false;
+    (async () => {
+      try {
+        const idToken = await user.getIdToken();
+        const response = await fetch('/api/auth/session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'same-origin',
+          body: JSON.stringify({ idToken }),
+        });
+        if (!response.ok || cancelled) return;
+        router.push('/');
+      } catch (error) {
+        console.error('Session cookie setup failed', error);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [user, loading, isLoading, router, isUnauthorized]);
 
   const onSubmit = async (data: LoginFormValues) => {
     if (!auth) return;
@@ -56,6 +76,7 @@ export default function LoginPageContent() {
     try {
       // If already logged in but switching user, sign out first
       if (user) {
+        await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
         await signOut(auth);
       }
 
@@ -67,11 +88,7 @@ export default function LoginPageContent() {
         const profileRef = doc(firestore, 'users', authenticatedUser.uid);
         const profileSnap = await getDoc(profileRef);
         
-        if (profileSnap.exists()) {
-          toast({ title: 'Login Successful', description: `Welcome back!` });
-          router.push('/');
-          return;
-        } else {
+        if (!profileSnap.exists()) {
             // "Repair" Missing Profile using context from Token Claims if available
             const tokenResult = await authenticatedUser.getIdTokenResult();
             const companyIdFromClaim = tokenResult.claims.companyId as string || 'easy-as';
@@ -88,6 +105,22 @@ export default function LoginPageContent() {
                 assignedCompanyIds: [companyIdFromClaim]
             }, { merge: true });
         }
+      }
+
+      const idToken = await authenticatedUser.getIdToken();
+      const sessionResponse = await fetch('/api/auth/session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ idToken }),
+      });
+      if (!sessionResponse.ok) {
+        toast({
+          title: 'Login Failed',
+          description: 'Signed in, but the server session could not be created.',
+          variant: 'destructive',
+        });
+        return;
       }
 
       toast({ title: 'Login Successful', description: "Welcome back!" });

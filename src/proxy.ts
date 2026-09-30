@@ -16,29 +16,30 @@ const protectedRoutes = [
   '/admin'
 ];
 
+/**
+ * Edge proxy cannot import firebase-admin. Presence of the HttpOnly __session
+ * cookie (set by POST /api/auth/session) is the logged-in check. The cookie
+ * value is a Firebase session JWT; API routes verify it with the Admin SDK.
+ * Public routes (/, /login, /register) and static assets are not in this list.
+ */
+function hasSessionCookie(request: NextRequest): boolean {
+  const value = request.cookies.get('__session')?.value;
+  if (!value) return false;
+  const parts = value.split('.');
+  return parts.length === 3 && parts.every((part) => part.length > 0);
+}
+
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  
-  // Check if it's a protected route (or starts with one)
-  const isProtected = protectedRoutes.some(route => 
+
+  const isProtected = protectedRoutes.some(route =>
     pathname === route || pathname.startsWith(`${route}/`)
   );
 
-  if (isProtected) {
-    // We check for some auth indicator here. 
-    // Since Firebase client auth sets cookies optionally, we check for a known auth cookie or token.
-    // However, a simple robust way if Firebase auth doesn't set cookies is to use standard Firebase Auth.
-    // If the app relies solely on client-side Firebase Auth, we might need to handle this in a client layout.
-    // But let's assume we can at least check if there's *any* auth token/session.
-    
-    // For now, let's look for a generic session cookie. 
-    const session = request.cookies.get('__session') || request.cookies.get('firebase-auth-token');
-    
-    if (!session) {
-      const loginUrl = new URL('/login', request.url);
-      loginUrl.searchParams.set('from', pathname);
-      return NextResponse.redirect(loginUrl);
-    }
+  if (isProtected && !hasSessionCookie(request)) {
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('from', pathname);
+    return NextResponse.redirect(loginUrl);
   }
 
   return NextResponse.next();
