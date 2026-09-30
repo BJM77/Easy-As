@@ -19,10 +19,10 @@ interface WizardInputFormProp {
 interface WizardInputProps {
     fieldName: string;
     isLocation?: boolean;
-    onLocationSelect: (location: PostcodeData | null) => void;
+    onLocationSelect?: (location: PostcodeData | null) => void;
     autoFocus?: boolean;
     form: WizardInputFormProp;
-    allPostcodes: PostcodeData[];
+    allPostcodes?: PostcodeData[];
     isSupported: boolean;
     handleVoiceInput: (fieldName: string) => void;
     listening: boolean;
@@ -31,7 +31,7 @@ interface WizardInputProps {
 }
 
 
-export default function WizardInput({ fieldName, isLocation, onLocationSelect, autoFocus = false, form, allPostcodes, isSupported, handleVoiceInput, listening, currentWizardField, ...props }: WizardInputProps) {
+export default function WizardInput({ fieldName, isLocation, onLocationSelect = () => {}, autoFocus = false, form, allPostcodes = [], isSupported, handleVoiceInput, listening, currentWizardField, ...props }: WizardInputProps) {
     const handleVoice = () => {
         handleVoiceInput(fieldName);
         if (props.type === 'number') {

@@ -16,7 +16,7 @@ import { useRateOverrides } from '@/context/RateOverrideContext';
 import { transformPdfDataToAppLogic } from '@/lib/freightCalculations';
 import type { RateFileType, CompanyRate } from '@/lib/types';
 import * as XLSX from 'xlsx';
-import { collection, query, where, doc, setDoc } from 'firebase/firestore';
+import { collection, query, where } from 'firebase/firestore';
 import { Badge } from '@/components/ui/badge';
 
 type TargetBU = 'B2B Standard' | 'B2B Priority' | 'B2C' | 'Pallets' | 'LCP Standard' | 'LCP Priority' | 'LCP GO Standard' | 'LCP GO Priority';
@@ -53,7 +53,8 @@ export default function JSONManagementPageContent() {
     return query(collection(firestore, 'companyRates'), where('companyId', '==', profile.companyId));
   }, [firestore, profile?.companyId]);
 
-  const { data: savedRates = [], isLoading: isLoadingSaved } = useCollection<CompanyRate>(ratesQuery);
+  const { data: savedRatesData, isLoading: isLoadingSaved } = useCollection<CompanyRate>(ratesQuery);
+  const savedRates = savedRatesData ?? [];
 
   const handleFileExtraction = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || event.target.files.length === 0) return;
@@ -134,18 +135,22 @@ export default function JSONManagementPageContent() {
     setIsSaving(true);
     try {
       const token = await user.getIdToken();
-      const docId = `${profile.companyId}_${rateTypeKey}`;
-      const docRef = doc(firestore, 'companyRates', docId);
-      
-      await setDoc(docRef, {
-        id: docId,
+      const response = await fetch('/api/company-rates', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
         companyId: profile.companyId,
         rateType: baseType,
-        accountNumber: acc || null,
-        data: data,
-        updatedAt: new Date().toISOString(),
-        updatedBy: user.email || user.uid
-      }, { merge: true });
+          accountNumber: acc || null,
+          data,
+        }),
+      });
+
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Could not persist rates.');
 
       toast({ title: "Saved to Server", description: "Rates are now persistent for your organization." });
     } catch (e: any) {

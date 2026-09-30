@@ -166,6 +166,7 @@ export interface UserProfile {
   assignedCompanyIds?: string[];
   subscriptionStatus: 'active' | 'inactive' | 'past_due';
   tokens: number;
+  lastSignInTime?: string | null;
 }
 
 export interface Company {
@@ -225,16 +226,16 @@ export interface CompanyRate {
 
 export interface ProblemEntry {
   id: string;
-  consignmentNumber: string;
-  problemType: ProblemType;
+  consignmentNumber?: string;
+  problemType?: ProblemType;
   problemSubType?: string;
   carrier?: string;
   status: 'open' | 'in_progress' | 'resolved';
-  description: string;
-  reportedBy: string;
-  date: string;
-  companyId: string;
-  userId: string;
+  description?: string;
+  reportedBy?: string;
+  date?: string;
+  companyId?: string;
+  userId?: string;
   customerImpacted?: string;
   accountNumber?: string;
   solution?: string;
@@ -281,7 +282,7 @@ export type BusinessUnit = 'PE' | 'IPEC' | 'Priority' | 'Other';
 export type LeadSalutation = 'Mr' | 'Ms' | 'Mrs' | 'Miss' | 'Dr' | 'Prof';
 export type LeadSource = 'Cold Call' | 'Inbound Inquiry' | 'Referral' | 'Social Media' | 'Event' | 'Other';
 export type LeadFrequency = 'Reoccurring' | 'Tender';
-export type SimplifiedCarrier = 'IPEC' | 'Priority' | 'B2C' | 'LCP' | 'Other';
+export type SimplifiedCarrier = string;
 
 export interface PromoCode {
   id: string;
@@ -322,10 +323,10 @@ export interface DeliveryRun {
   id: string;
   userId: string;
   userEmail?: string;
-  companyId: string;
+  companyId?: string;
   date: string;
   status: 'pending' | 'in_progress' | 'completed';
-  consignments?: Consignment[];
+  consignments: Consignment[];
   timeSensitiveJobs?: TimeSensitiveJob[];
   routePlan?: RoutePlannerOutput | null;
   startLocation?: string;
@@ -345,13 +346,19 @@ export interface TimeSensitiveJob {
   id: string;
   address: string;
   time: string;
-  status: StopStatus;
+  status: string;
 }
 
-export type StopStatus = 'pending' | 'completed' | 'failed';
+export type StopStatus = string;
 
 export interface RoutePlannerOutput {
-  optimizedRoute: any[];
+  optimizedRoute: Array<{
+    id?: string;
+    address?: string;
+    description?: string;
+    type?: 'Standard' | 'Time Sensitive' | 'Large Parcel';
+    status?: StopStatus;
+  }>;
   orderedAddresses: string[];
   estimatedTime: string;
   potentialRisks: string[];
@@ -382,6 +389,7 @@ export type RateFileType =
   | 'pe1' | 'pe2' | 'pe3' | 'pe4' | 'pe5' | 'pe6' | 'pallet6'
   | 'west_east' | 'ras'
   | 'customer_b2brdex'
+  | 'customer_b2bsatchel'
   | 'customer_b2b_priority'
   | 'customer_b2c'
   | 'customer_pe'
@@ -444,6 +452,25 @@ export interface RateComparisonItem {
   costDifference: number | null;
   error?: string;
   oldRateFormula?: string;
+  newRateFormula?: string;
+}
+
+export type TieredPalletRateEntry = Record<string, any>;
+export type GenericJsonRateEntry = Record<string, any>;
+export type CompetitorLeg = Record<string, any>;
+export type TgeAccountApplication = Record<string, any>;
+export interface RateCardGeneratorFormValues {
+  sendingLocations?: PostcodeData[];
+  [key: string]: any;
+}
+export type ProblemSubType<T = string> = T;
+export const CSV_EXPECTED_HEADERS: Partial<Record<RateFileType, string[]>> = {};
+
+export interface EmailQuoteDialogProps {
+  isOpen: boolean;
+  onOpenChange: (isOpen: boolean) => void;
+  serviceResult: CalculatedPriceItem | null;
+  freightFormValues: FreightFormValues | null;
 }
 
 export interface UploadedRateEntry {
@@ -598,17 +625,18 @@ export interface ServiceSettings {
 export type ProposalSectionId = 'execSummary' | 'yourNeeds' | 'overviewSolution' | 'solutionDetail' | 'investment' | 'benefits' | 'nextSteps' | 'authorityToProceed';
 
 export interface ProposalDetails {
-  proposalDate: Date;
-  customerCompanyName: string;
-  customerContactName: string;
-  salesProfessionalName: string;
-  salesProfessionalEmail: string;
-  salesProfessionalPhone: string;
+  proposalDate?: Date;
+  customerCompanyName?: string;
+  customerContactName?: string;
+  salesProfessionalName?: string;
+  salesProfessionalEmail?: string;
+  salesProfessionalPhone?: string;
   sections?: Partial<Record<ProposalSectionId, string>>;
   dynamicFields?: {
     yourNeeds?: string[];
     benefits?: string[];
   };
+  [key: string]: any;
 }
 
 export interface RateCardDisplayEntry {
@@ -687,13 +715,13 @@ export const ALL_BUSINESS_UNITS: string[] = ['PE', 'IPEC', 'Priority', 'Other'];
 export const ALL_LEAD_SALUTATIONS: string[] = ['Mr', 'Ms', 'Mrs', 'Miss', 'Dr', 'Prof'];
 export const ALL_LEAD_SOURCES: string[] = ['Cold Call', 'Inbound Inquiry', 'Referral', 'Social Media', 'Event', 'Other'];
 export const ALL_LEAD_FREQUENCIES: string[] = ['Reoccurring', 'Tender'];
-export const ALL_SIMPLIFIED_CARRIERS: string[] = ['IPEC', 'Priority', 'B2C', 'LCP', 'Other'];
+export const ALL_SIMPLIFIED_CARRIERS: SimplifiedCarrier[] = ['IPEC', 'Priority', 'B2C', 'LCP', 'Other'];
 
 export type SurchargeConfigGroupKey = 'STANDARD_ROAD' | 'PRIORITY_MIXED' | 'PALLET_SERVICES';
 
 export interface FreightItem {
-  weight: number;
-  quantity: number;
+  weight?: number;
+  quantity?: number;
   length?: number;
   width?: number;
   height?: number;
@@ -702,29 +730,29 @@ export interface FreightItem {
 export type AdditionalPercentageType = 'none' | '3' | '5' | '8' | '10' | '12' | '15' | '18' | '20' | '30' | 'other';
 
 export interface FreightFormValues {
-  spendBand: string;
-  originQuery: string;
-  originLocation: PostcodeData | null;
-  destinationQuery: string;
-  destinationLocation: PostcodeData | null;
-  items: FreightItem[];
-  globalNoCubic: boolean;
-  globalOnPallet: boolean;
-  selectedServices: ServiceName[];
+  spendBand?: string;
+  originQuery?: string;
+  originLocation?: PostcodeData | null;
+  destinationQuery?: string;
+  destinationLocation?: PostcodeData | null;
+  items?: FreightItem[];
+  globalNoCubic?: boolean;
+  globalOnPallet?: boolean;
+  selectedServices?: ServiceName[];
   enableOtherRate?: boolean;
-  applyGST: boolean;
-  additionalPercentageType: AdditionalPercentageType;
+  applyGST?: boolean;
+  additionalPercentageType?: AdditionalPercentageType;
   additionalPercentageCustom?: number;
   globalExtras?: number;
-  accountTransferRequired: boolean;
-  afterHoursCollection: boolean;
-  afterHoursDelivery: boolean;
-  publicHolidayService: boolean;
-  bookInDeliveryRequired: boolean;
-  dangerousGoodsConsignment: boolean;
-  handUnloadRequired: boolean;
-  routeViaMelbourne: boolean;
-  tailLiftRequired: boolean;
+  accountTransferRequired?: boolean;
+  afterHoursCollection?: boolean;
+  afterHoursDelivery?: boolean;
+  publicHolidayService?: boolean;
+  bookInDeliveryRequired?: boolean;
+  dangerousGoodsConsignment?: boolean;
+  handUnloadRequired?: boolean;
+  routeViaMelbourne?: boolean;
+  tailLiftRequired?: boolean;
   aiQuoteId?: string; 
   originalAiValues?: any; 
 }
@@ -749,6 +777,7 @@ export const RoutePlannerInputSchema = z.object({
   startLocation: z.string().min(1, "Start location is required"),
   stops: z.array(StopSchema).min(1, "At least one stop is required"),
 });
+export type RoutePlannerInput = z.infer<typeof RoutePlannerInputSchema>;
 
 export const OptimizedStopSchema = StopSchema.extend({
   id: z.string().optional(),
@@ -761,9 +790,12 @@ export const RoutePlannerAIOutputSchema = z.object({
   estimatedTime: z.string(),
   potentialRisks: z.array(z.string()),
 });
+export type RoutePlannerAIOutput = z.infer<typeof RoutePlannerAIOutputSchema>;
 
 export const QuoteAgentOutputSchema = z.object({
   summary: z.string().describe("A professional natural language summary of the quote findings."),
+  isAmbiguous: z.boolean().optional(),
+  choices: z.array(z.object({ id: z.string(), label: z.string(), type: z.string() })).optional(),
   suggestedAction: z.string().optional().describe("What the user should do next."),
   warnings: z.array(z.string()).optional().describe("Accuracy or partial failure warnings."),
   results: z.array(z.object({

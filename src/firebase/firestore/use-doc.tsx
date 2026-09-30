@@ -29,7 +29,7 @@ export interface UseDocResult<T> {
  * React hook to subscribe to a single Firestore document in real-time.
  * Handles nullable references.
  */
-export function useDoc<T = any>(
+export function useDoc<T = Record<string, any>>(
   docRef: DocumentReference<DocumentData> | null | undefined,
 ): UseDocResult<T> {
   type StateDataType = WithId<T> | null;

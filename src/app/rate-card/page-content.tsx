@@ -238,14 +238,17 @@ export default function RateCardPageContent() {
               const zoneType = PALLET_LIKE_SERVICES.includes(serviceName) ? 'PE' : (STANDARD_ROAD_MAPPED_SERVICES.includes(serviceName as any) ? 'IPEC' : 'PRIO');
               const originZone = PALLET_LIKE_SERVICES.includes(serviceName) ? getPeZone(origin, allRateDataArgs.pezoneData) || 'N/A' : origin[zoneType.toLowerCase() as keyof PostcodeData];
 
-              newGeneratedRates.push({
+                newGeneratedRates.push({
+                  ...entry,
                   serviceName, spendBand,
-                  sendingPostcodeFull: originZone,
-                  originZone: originZone,
-                  destinationZone: PALLET_LIKE_SERVICES.includes(serviceName) ? getPeZone(destination, allRateDataArgs.pezoneData) || 'N/A' : destination[zoneType.toLowerCase() as keyof PostcodeData],
+                  sendingPostcodeFull: String(originZone),
+                  originZone: String(originZone),
+                  destinationZone: String(PALLET_LIKE_SERVICES.includes(serviceName) ? getPeZone(destination, allRateDataArgs.pezoneData) || 'N/A' : destination[zoneType.toLowerCase() as keyof PostcodeData]),
                   zoneTypeDisplay: zoneType,
+                  basicRate: String(entry.basicRate ?? (entry as any).Basic ?? ''),
+                  kiloRate: String(entry.kiloRate ?? (entry as any).Kilo ?? (entry as any).KiloRate ?? ''),
+                  minRate: String(entry.minRate ?? (entry as any).Minimum ?? (entry as any).Min ?? ''),
                   cubicFactor: PALLET_LIKE_SERVICES.includes(serviceName) ? 333 : 250,
-                  ...entry
               });
           }
       };
@@ -379,17 +382,17 @@ export default function RateCardPageContent() {
                 <div className="space-y-2">
                   <Label htmlFor="customerName" className="flex items-center"><User className="mr-2 h-4 w-4 text-muted-foreground" />Customer Name</Label>
                   <Input id="customerName" {...form.register('customerName')} placeholder="Customer Name" />
-                  {form.formState.errors.customerName && <p className="text-sm text-destructive">{form.formState.errors.customerName.message}</p>}
+                  {form.formState.errors.customerName && <p className="text-sm text-destructive">{String(form.formState.errors.customerName.message ?? '')}</p>}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="spendBandRateCard" className="flex items-center"><DollarSign className="mr-2 h-4 w-4 text-muted-foreground" />Spend Band</Label>
                   <Controller name="spendBand" control={form.control} render={({ field }) => (<Select onValueChange={field.onChange} value={field.value}><SelectTrigger id="spendBandRateCard"><SelectValue placeholder="Select Spend Band" /></SelectTrigger><SelectContent>{globalSpendBands.map(band => <SelectItem key={band} value={band}>Spend Band {band}</SelectItem>)}</SelectContent></Select>)} />
-                  {form.formState.errors.spendBand && <p className="text-sm text-destructive">{form.formState.errors.spendBand.message}</p>}
+                  {form.formState.errors.spendBand && <p className="text-sm text-destructive">{String(form.formState.errors.spendBand.message ?? '')}</p>}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="date" className="flex items-center"><CalendarIcon className="mr-2 h-4 w-4 text-muted-foreground" />Effective Date</Label>
                   <Controller name="date" control={form.control} render={({ field }) => (<Popover><PopoverTrigger asChild><Button variant={"outline"} className={cn("w-full justify-start text-left font-normal", !field.value && "text-muted-foreground")}><CalendarIcon className="mr-2 h-4 w-4" />{field.value ? format(field.value, "PPP") : <span>Pick a date</span>}</Button></PopoverTrigger><PopoverContent className="w-auto p-0"><Calendar mode="single" selected={field.value} onSelect={field.onChange} initialFocus /></PopoverContent></Popover>)} />
-                  {form.formState.errors.date && <p className="text-sm text-destructive">{form.formState.errors.date.message}</p>}
+                  {form.formState.errors.date && <p className="text-sm text-destructive">{String(form.formState.errors.date.message ?? '')}</p>}
                 </div>
               </div>
               <div className="space-y-3 p-0 md:p-4 md:border md:rounded-md md:h-full">
@@ -441,7 +444,7 @@ export default function RateCardPageContent() {
                   {allowedRateCardServices.map((service) => (<div key={`ratecard-service-${service}`} className="flex items-center space-x-2"><Checkbox id={`service-ratecard-${service}`} checked={(form.watch('services') || []).includes(service as ServiceName)} onCheckedChange={checked => { const currentServices = form.getValues('services') || []; const newServices = checked ? [...currentServices, service as ServiceName] : currentServices.filter((s) => s !== service); form.setValue('services', newServices, { shouldValidate: true }); }} /><Label htmlFor={`service-ratecard-${service}`} className="text-sm font-normal cursor-pointer">{service}</Label></div>))}
                 </div>
               ) : (<p className="text-sm text-muted-foreground p-4 border rounded-md bg-background">No services of this type available for your current user role.</p>)}
-              {form.formState.errors.services && <p className="text-sm text-destructive">{form.formState.errors.services.message}</p>}
+              {form.formState.errors.services && <p className="text-sm text-destructive">{String(form.formState.errors.services.message ?? '')}</p>}
             </div>
             <div className="flex flex-wrap gap-2 mt-6">
               <Button type="submit" className="flex-grow md:flex-grow-0 bg-primary hover:bg-primary/90 text-primary-foreground" disabled={overallLoading || allowedRateCardServices.length === 0}>

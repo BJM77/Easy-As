@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import { useAuth, useDoc, useFirestore } from '@/firebase';
+import { useAuth } from '@/firebase';
 import { hexToHsl } from '@/lib/utils';
-import { doc } from 'firebase/firestore';
 
 /**
  * A component that injects CSS variables based on the current user's company settings.
@@ -12,19 +11,11 @@ import { doc } from 'firebase/firestore';
  */
 export function CompanyThemeProvider() {
   const { company: activeCompany } = useAuth();
-  const firestore = useFirestore();
-
-  // Explicitly listen to the 'FreightAssist.Online' tenant for the global fallback
-  const defaultRef = useMemo(() => firestore ? doc(firestore, 'companies', 'easy-as') : null, [firestore]);
-  const { data: defaultCompany } = useDoc(defaultRef);
-
-  // Resolve hierarchy: Active Selected Tenant > FreightAssist.Online Fallback
-  const company = activeCompany || defaultCompany;
 
   const dynamicStyles = useMemo(() => {
-    if (!company?.settings) return null;
+    if (!activeCompany?.settings) return null;
 
-    const { primaryColor, accentColor, topMenuColor, hoverColor } = company.settings;
+    const { primaryColor, accentColor, topMenuColor, hoverColor } = activeCompany.settings;
     
     let css = ':root {\n';
     
@@ -48,7 +39,7 @@ export function CompanyThemeProvider() {
     css += '}';
 
     return css;
-  }, [company]);
+  }, [activeCompany]);
 
   if (!dynamicStyles) return null;
 

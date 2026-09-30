@@ -197,7 +197,8 @@ export default function ReportLauncher() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
               {quickActions.map(key => {
                 const action = ALL_QUICK_ACTIONS_MAP[key];
-                if (!action || key === 'new-lead') return null;
+                if (!action) return null;
+                                if (!action) return null;
                 const Icon = action.icon;
                 
                 if (action.isDialog) {

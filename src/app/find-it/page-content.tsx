@@ -61,7 +61,7 @@ export default function FindItPageContent() {
     if (videoRef.current && videoRef.current.readyState === videoRef.current.HAVE_ENOUGH_DATA && canvasRef.current) {
       const video = videoRef.current;
       const canvas = canvasRef.current;
-      const context = canvas.getContext('2d');
+      const context = canvas.getContext('2d', { willReadFrequently: true });
 
       if (context) {
         canvas.height = video.videoHeight;
@@ -115,7 +115,10 @@ export default function FindItPageContent() {
       setHasCameraPermission(true);
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        await videoRef.current.play().catch(e => console.warn("Error playing video stream:", e));
+        await videoRef.current.play().catch(error => {
+          if (error instanceof DOMException && error.name === 'AbortError') return;
+          console.warn("Error playing video stream:", error);
+        });
         animationFrameId.current = -1;
         animationFrameId.current = requestAnimationFrame(scanQRCode);
       }

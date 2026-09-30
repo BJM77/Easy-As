@@ -14,6 +14,7 @@ interface LocationAutocompleteProps {
   value: string;
   onValueChange: (value: string) => void;
   onLocationSelect: (location: PostcodeData | null) => void;
+  allPostcodes?: PostcodeData[];
   placeholder?: string;
   className?: string;
   showRecentSuggestions?: boolean;

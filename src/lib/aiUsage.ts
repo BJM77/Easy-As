@@ -27,7 +27,7 @@ export async function getAiUsageLog(): Promise<AiUsageEntry[]> {
  */
 export async function logAiUsage(
     serviceName: string, 
-    usage: { totalTokens: number; inputTokens: number; outputTokens: number },
+    usage: { totalTokens?: number; inputTokens?: number; outputTokens?: number },
     context: { userId?: string; companyId?: string; metadata?: Record<string, any> } = {}
 ): Promise<void> {
     try {
@@ -41,10 +41,10 @@ export async function logAiUsage(
             id,
             timestamp: new Date().toISOString(),
             serviceName,
-            totalTokens: usage.totalTokens,
-            inputTokens: usage.inputTokens,
-            outputTokens: usage.outputTokens,
-            cost: (usage.totalTokens / 1_000_000) * TOKEN_COST_PER_MILLION,
+            totalTokens: usage.totalTokens || 0,
+            inputTokens: usage.inputTokens || 0,
+            outputTokens: usage.outputTokens || 0,
+            cost: ((usage.totalTokens || 0) / 1_000_000) * TOKEN_COST_PER_MILLION,
             userId: context.userId || null,
             companyId: context.companyId || null,
             metadata: context.metadata || null,
@@ -59,10 +59,10 @@ export async function logAiUsage(
         // 2. Deduct tokens from user profile if userId is provided
         // HARDENED: Using set with merge to ensure it creates the field if the doc exists
         // but doesn't have it, or doesn't crash if the doc is missing entirely.
-        if (context.userId && usage.totalTokens > 0) {
+        if (context.userId && (usage.totalTokens || 0) > 0) {
             const userRef = db.collection('users').doc(context.userId);
             batch.set(userRef, {
-                tokens: FieldValue.increment(-usage.totalTokens)
+                tokens: FieldValue.increment(-(usage.totalTokens || 0))
             }, { merge: true });
         }
         

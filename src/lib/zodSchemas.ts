@@ -310,7 +310,7 @@ export const vipContactSchema = z.object({
   name: z.string().min(1, "Name is required."),
   role: z.string().min(1, "Role is required."),
   businessUnit: z.enum(['PE', 'IPEC', 'Priority', 'Other']),
-  state: z.enum([...ALL_STATES, 'National'] as [string, ...string[]]),
+  state: z.enum([...ALL_STATES, 'National'] as unknown as [string, ...string[]]),
   phone: z.string().optional(),
   email: z.string().email("Invalid email address."),
   notes: z.string().max(250).optional(),

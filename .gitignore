@@ -52,6 +52,8 @@ env.local
 .env\ copy*
 src/.env\ copy
 src/.env\ copy*
+src/.env
+src/.env*
 *.env.copy
 *.env.bak
 

@@ -29,6 +29,8 @@ export async function POST(request: Request) {
 
         const db = await getAdminDb();
         const problemsCollection = db.collection('problems');
+        const token = request.headers.get('Authorization')?.slice(7);
+        const authUser = token ? await getUserFromToken(token) : null;
         const newProblemData: Omit<ProblemEntry, 'id' | 'date' | 'status' | 'userId'> = await request.json();
 
         const validation = problemLogSchema.safeParse(newProblemData);
@@ -39,6 +41,7 @@ export async function POST(request: Request) {
         const entryToAdd: Omit<ProblemEntry, 'id'> = {
             ...validation.data,
             userId: userId,
+            companyId: newProblemData.companyId || authUser?.companyId || 'easy-as',
             date: new Date().toISOString(),
             status: 'open',
             reportedBy: newProblemData.reportedBy || 'System', 

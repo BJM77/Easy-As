@@ -3,9 +3,9 @@
 
 import { useState, useEffect, useCallback } from 'react';
 
-let recognition: SpeechRecognition | null = null;
+let recognition: any = null;
 if (typeof window !== 'undefined' && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
   recognition = new SpeechRecognition();
   recognition.continuous = false;
   recognition.lang = 'en-AU';
@@ -34,13 +34,13 @@ export const useSpeechRecognition = () => {
   useEffect(() => {
     if (!recognition) return;
 
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
+    recognition.onresult = (event: any) => {
       const result = event.results[event.results.length - 1][0].transcript;
       setTranscript(result);
       stopListening();
     };
 
-    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+    recognition.onerror = (event: any) => {
       setError(event.error);
       console.error("Speech recognition error:", event.error);
       setListening(false);

@@ -30,8 +30,6 @@ import pallet6 from '@/public/pallet6.json';
 import westEast from '@/public/west_east.json';
 import ras from '@/public/ras.json';
 import allPostcodesData from '@/public/postcodes.json';
-import allLocationsData from '@/public/locations.json';
-
 interface RateOverrideContextType {
   overriddenRates: Record<string, RateData>;
   getRateFile: (type: RateFileType) => RateData | undefined;
@@ -109,10 +107,22 @@ export const RateOverrideProvider = ({ children }: { children: ReactNode }) => {
   const [localLibraryRates, setLocalLibraryRates] = useState<Record<string, RateData>>({});
   const [localDirectoryName, setLocalDirectoryName] = useState<string | null>(null);
   const [isLocalLibrarySyncing, setIsLocalLibrarySyncing] = useState(false);
+  const [centralLocationsData, setCentralLocationsData] = useState<LocationLookupData[] | undefined>(undefined);
   
   const { user, profile, company, loading: authLoading } = useAuth();
   const firestore = useFirestore();
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (user) {
+      fetch('/api/locations')
+        .then(res => res.json())
+        .then(data => {
+          if (!data.error) setCentralLocationsData(data);
+        })
+        .catch(err => console.error('Failed to load locations', err));
+    }
+  }, [user]);
 
   const companyRatesQuery = useMemoFirebase(() => {
     if (!firestore || !user || authLoading) return null;
@@ -143,17 +153,17 @@ export const RateOverrideProvider = ({ children }: { children: ReactNode }) => {
     rasData: ras as RASRateEntry[],
     epratesData: undefined, 
     allPostcodes: allPostcodesData as PostcodeData[],
-    locationsData: allLocationsData as LocationLookupData[],
-  }), []);
+    locationsData: centralLocationsData,
+  }), [centralLocationsData]);
 
   const linkLocalDirectory = async () => {
-    if (!window.showDirectoryPicker) {
+    if (!(window as any).showDirectoryPicker) {
       toast({ title: "Unsupported Browser", description: "Your browser does not support local folder linking. Please use Chrome or Edge.", variant: "destructive" });
       return;
     }
 
     try {
-      const handle = await window.showDirectoryPicker();
+      const handle = await (window as any).showDirectoryPicker();
       setLocalDirectoryName(handle.name);
       setIsLocalLibrarySyncing(true);
       

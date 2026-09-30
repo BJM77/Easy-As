@@ -4,8 +4,15 @@ import fs from 'fs/promises';
 import path from 'path';
 import type { LocationLookupData } from '@/lib/types';
 
-export async function GET() {
+export async function GET(request: Request) {
   const apiPath = '/api/locations';
+  
+  // Basic Auth Check
+  const cookieHeader = request.headers.get('cookie') || '';
+  if (!cookieHeader.includes('__session') && !cookieHeader.includes('firebase-auth-token')) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   const fileName = 'locations.json';
   try {
     const filePath = path.join(process.cwd(), 'src', 'public', fileName);

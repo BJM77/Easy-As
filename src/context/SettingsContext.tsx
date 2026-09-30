@@ -59,6 +59,8 @@ interface SettingsContextType {
   standardFuelSurcharge: number;
   priorityFuelSurcharge: number;
   palletFuelSurcharge: number;
+  priorityFuelLastUpdated: string | null;
+  palletFuelLastUpdated: string | null;
   standardFuelLastUpdated: string | null;
   globalSecuritySurchargePercent: number;
   setGlobalSecuritySurchargePercent: (percentage: number) => void;
@@ -102,7 +104,7 @@ const SettingsContext = createContext<SettingsContextType | undefined>(undefined
 
 export const SettingsProvider = ({ children }: { children: ReactNode }) => {
   const { toast } = useToast();
-  const { user, loading: isAuthLoading } = useAuth();
+  const { user, isSuperadmin, loading: isAuthLoading } = useAuth();
   const firestore = useFirestore();
   const [isLoadingSettings, setIsLoadingSettings] = useState(true);
   const [serviceSettings, setServiceSettings] = useState<ServiceSettings[]>([]);
@@ -150,7 +152,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     async function loadFirebaseSettings() {
-      if (!firestore) {
+      if (!firestore || isAuthLoading || !user || !isSuperadmin) {
          setIsLoadingSettings(false);
          return;
       }
@@ -171,7 +173,7 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
       setIsLoadingSettings(false);
     }
     loadFirebaseSettings();
-  }, [firestore]);
+  }, [firestore, isAuthLoading, isSuperadmin, user]);
 
   const saveSettingsToServer = useCallback(async (password: string, overrides?: any) => {
     if (password !== 'LCPTGE') {

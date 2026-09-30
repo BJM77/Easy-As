@@ -3,7 +3,7 @@
 import { initializeApp, getApps, getApp, type FirebaseApp } from 'firebase/app';
 import { getAuth, type Auth } from 'firebase/auth';
 import { initializeFirestore, type Firestore, memoryLocalCache, getFirestore } from 'firebase/firestore';
-import { firebaseConfig } from './config';
+import { getFirebaseConfig } from './config';
 
 /**
  * DEFINITIVE FIX for Firestore ca9 / b815 Assertion failures in Next.js HMR.
@@ -32,7 +32,7 @@ export function getFirebaseInstances(): FirebaseInstances {
 
   // 1. Initialize Firebase App exactly once
   if (!g.__FIREBASE_APP__) {
-    g.__FIREBASE_APP__ = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+    g.__FIREBASE_APP__ = getApps().length > 0 ? getApp() : initializeApp(getFirebaseConfig());
   }
 
   // 2. Initialize Firestore with hard transport locks and memory cache exactly once

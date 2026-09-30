@@ -12,7 +12,7 @@ import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 import fs from 'fs/promises';
 import path from 'path';
-import { QuoteAgentOutputSchema, type QuoteAgentOutput, type PostcodeData, type FreightFormValues } from '@/lib/types';
+import { QuoteAgentOutputSchema, type QuoteAgentOutput, type PostcodeData, type FreightFormValues, type FreightItem } from '@/lib/types';
 import { calculateAllFreightPrices } from '@/lib/freightCalculations';
 import { logAiUsage } from '@/lib/aiUsage';
 
@@ -279,7 +279,7 @@ export async function processQuoteQuery(input: QuoteAgentInput): Promise<QuoteAg
         originLocation: origins[0],
         destinationQuery: `${dests[0].suburb} ${dests[0].postcode}`,
         destinationLocation: dests[0],
-        items: intent.items,
+        items: intent.items.map(item => ({ weight: Number(item.weight), quantity: Number(item.quantity) })) as FreightItem[],
         globalNoCubic: false, globalOnPallet: false, applyGST: true,
         selectedServices: ['B2B Std', 'B2B Priority', 'B2C Std', 'B2C Priority', 'LCP Std'],
         additionalPercentageType: 'none',
