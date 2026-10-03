@@ -2,8 +2,8 @@ import RegisterPageContent from './page-content';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Register - FreightAssist.Online',
-  description: 'Create a new FreightAssist.Online account.',
+  title: 'Register - Freight assist.online',
+  description: 'Create a new Freight assist.online account.',
 };
 
 export default function RegisterPage() {

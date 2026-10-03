@@ -2,7 +2,7 @@ import AboutTGEPageContent from "./page-content";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "About TGE - FreightAssist.Online",
+  title: "About TGE - Freight assist.online",
   description: "Learn about Team Global Express services, infrastructure, and values.",
 };
 

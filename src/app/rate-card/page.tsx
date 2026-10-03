@@ -1,7 +1,7 @@
 import RateCardPageContent from "./page-content";
 
 export const metadata = {
-  title: "Rate Card & Proposal Generator - FreightAssist.Online",
+  title: "Rate Card & Proposal Generator - Freight assist.online",
   description: "Generate and view rate cards, then create professional proposals.",
 };
 

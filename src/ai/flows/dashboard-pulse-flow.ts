@@ -10,7 +10,7 @@ import { logAiUsage } from '@/lib/aiUsage';
 
 const PulseInputSchema = z.object({
   activitySummary: z.string().describe("A condensed string representation of recent leads, problems, and quotes."),
-  companyName: z.string()
+  brandName: z.string()
 });
 
 const PulseOutputSchema = z.object({
@@ -24,7 +24,7 @@ export async function generateBusinessPulse(input: z.infer<typeof PulseInputSche
     name: 'generateBusinessPulsePrompt',
     input: { schema: PulseInputSchema },
     output: { schema: PulseOutputSchema },
-    prompt: `You are the Strategic Analyst for {{companyName}}. 
+    prompt: `You are the Strategic Analyst for {{brandName}}. 
     Analyze the following recent activity log and provide a high-level "Pulse" summary.
     
     Data:

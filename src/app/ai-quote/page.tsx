@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import AiQuotePageContent from './page-content';
 
 export const metadata: Metadata = {
-  title: "AI Quote Assistant - FreightAssist.Online",
+  title: "AI Quote Assistant - Freight assist.online",
   description: "Chat with our natural language intelligence to generate freight quotes instantly.",
 };
 
