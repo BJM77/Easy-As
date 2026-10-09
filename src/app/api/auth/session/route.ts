@@ -3,7 +3,6 @@ import { getAdminAuth, getUserFromToken } from '@/lib/firebase-admin';
 import { SESSION_COOKIE_NAME, SESSION_MAX_AGE_MS, sessionCookieOptions } from '@/lib/api-auth';
 
 export async function POST(request: Request) {
-  let step = 'parse';
   try {
     const body = await request.json().catch(() => null);
     const idToken = body && typeof body.idToken === 'string' ? body.idToken.trim() : '';
@@ -11,17 +10,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing id token' }, { status: 400 });
     }
 
-    step = 'verify';
     const user = await getUserFromToken(idToken);
-    if (!user) console.error('[auth/session] getUserFromToken returned null');
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized', step, detail: 'getUserFromToken returned null' }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    step = 'getAuth';
     const auth = await getAdminAuth();
-
-    step = 'createSessionCookie';
     const sessionCookie = await auth.createSessionCookie(idToken, { expiresIn: SESSION_MAX_AGE_MS });
 
     const response = NextResponse.json({ ok: true });
@@ -32,9 +26,9 @@ export async function POST(request: Request) {
     );
     return response;
   } catch (error: any) {
-    console.error('[auth/session] failed at', step, error);
+    console.error('[auth/session] failed:', error);
     return NextResponse.json(
-      { error: 'Unauthorized', step, detail: error?.message || String(error) },
+      { error: 'Unauthorized' },
       { status: 401 },
     );
   }
