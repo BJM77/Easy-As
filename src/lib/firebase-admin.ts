@@ -158,7 +158,7 @@ export async function getUserFromToken(idToken: string): Promise<(UserProfile & 
     } as UserProfile & { uid: string };
   } catch (err: any) {
     console.error('[getUserFromToken] verification failed:', err?.message || err, err?.stack);
-    return null;
+    throw err;
   }
 }
 
