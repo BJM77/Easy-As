@@ -12,6 +12,7 @@ export async function POST(request: Request) {
 
     // Existing helper verifies the Firebase ID token with firebase-admin.
     const user = await getUserFromToken(idToken);
+    if (!user) console.error('[auth/session] getUserFromToken returned null');
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -26,7 +27,8 @@ export async function POST(request: Request) {
       sessionCookieOptions(request, Math.floor(SESSION_MAX_AGE_MS / 1000)),
     );
     return response;
-  } catch {
+  } catch (error) {
+    console.error('[auth/session] failed:', error);
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 }
