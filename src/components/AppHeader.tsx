@@ -67,6 +67,7 @@ import {
   Mic,
   BrainCircuit,
   Settings2,
+  Sliders,
   LayoutDashboard,
   FlaskConical,
   Activity,
@@ -707,7 +708,7 @@ export default function AppHeader() {
       }
 
       if (expiredAlarms.length > 0) {
-        setFiringAlarm(expiredAlarms[0]);
+        setFiringAlarm(prev => (prev?.id === expiredAlarms[0].id ? prev : expiredAlarms[0]));
       }
     };
 
@@ -859,6 +860,27 @@ export default function AppHeader() {
       {actualRole === 'superadmin' && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className={cn(navLinkClasses('/config'), 'data-[state=open]:bg-primary/10 data-[state=open]:text-accent')}>
+              <Sliders className="mr-1.5 h-4 w-4" /> Config
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuLabel className="flex items-center gap-2"><Database className="h-4 w-4" /> Configuration</DropdownMenuLabel>
+            <DropdownMenuGroup>
+                <DropdownMenuItem asChild><Link href="/settings"><Settings2 className="mr-2 h-4 w-4" /> Global Settings</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/admin/surcharges"><Fuel className="mr-2 h-4 w-4" /> Fees & Surcharges</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/admin/promo-codes"><Ticket className="mr-2 h-4 w-4" /> Promo Codes</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/admin/update-ras"><MapPin className="mr-2 h-4 w-4" /> Update RAS</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/admin/csv-converter"><FileUp className="mr-2 h-4 w-4" /> CSV Converter</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/price-test"><ListTree className="mr-2 h-4 w-4" /> Logic Tester</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link href="/bulk"><Zap className="mr-2 h-4 w-4" /> Bulk Calculator</Link></DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
+      {actualRole === 'superadmin' && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
             <Button variant="ghost" className={cn(navLinkClasses('/admin'), 'data-[state=open]:bg-primary/10 data-[state=open]:text-accent')}>
               <Settings className="mr-1.5 h-4 w-4" /> Admin
             </Button>
@@ -872,18 +894,6 @@ export default function AppHeader() {
                 <DropdownMenuItem asChild><Link href="/admin/manual-onboard"><UserPlus className="mr-2 h-4 w-4" /> Onboard</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/admin/feature-management"><ToggleRight className="mr-2 h-4 w-4" /> Features</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild><Link href="/admin/audit-log"><ShieldCheck className="mr-2 h-4 w-4" /> Audit Trail</Link></DropdownMenuItem>
-            </DropdownMenuGroup>
-            
-            <DropdownMenuSeparator />
-            <DropdownMenuLabel className="flex items-center gap-2"><Database className="h-4 w-4" /> Configuration</DropdownMenuLabel>
-            <DropdownMenuGroup>
-                <DropdownMenuItem asChild><Link href="/settings"><Settings2 className="mr-2 h-4 w-4" /> Global Settings</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/admin/surcharges"><Fuel className="mr-2 h-4 w-4" /> Fees & Surcharges</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/admin/promo-codes"><Ticket className="mr-2 h-4 w-4" /> Promo Codes</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/admin/update-ras"><MapPin className="mr-2 h-4 w-4" /> Update RAS</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/admin/csv-converter"><FileUp className="mr-2 h-4 w-4" /> CSV Converter</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/price-test"><ListTree className="mr-2 h-4 w-4" /> Logic Tester</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/bulk"><Zap className="mr-2 h-4 w-4" /> Bulk Calculator</Link></DropdownMenuItem>
             </DropdownMenuGroup>
 
             <DropdownMenuSeparator />
@@ -979,25 +989,35 @@ export default function AppHeader() {
       )}
 
       {actualRole === 'superadmin' && (
-        <AccordionItem value="admin" className="border-none">
+        <AccordionItem value="config" className="border-none">
           <AccordionTrigger className="px-4 py-3 hover:no-underline font-bold text-lg text-primary-foreground">
-            <div className="flex items-center gap-3"><Lock className="h-5 w-5" /> Admin Console</div>
+            <div className="flex items-center gap-3"><Sliders className="h-5 w-5" /> Config</div>
           </AccordionTrigger>
           <AccordionContent className="bg-primary-foreground/5 space-y-1">
             {hasPageAccess('settings') && <NavItem href="/settings" icon={Cog} label="System Defaults" isMobile />}
-            <NavItem href="/admin/quote-logs" icon={History} label="Quote Log" isMobile />
-            <NavItem href="/admin/ai-mode" icon={BrainCircuit} label="AI Trace" isMobile />
-            <NavItem href="/admin/ai-analytics" icon={Activity} label="AI Analytics" isMobile />
-            <NavItem href="/admin/audit-log" icon={ShieldCheck} label="Audit Trail" isMobile />
             <NavItem href="/admin/surcharges" icon={Fuel} label="Manage Fees" isMobile />
-            <NavItem href="/admin/feature-management" icon={ToggleRight} label="Feature Gates" isMobile />
-            <NavItem href="/admin/user-management" icon={Users2} label="User Access" isMobile />
-            <NavItem href="/admin/roles" icon={Users} label="Permissions" isMobile />
             <NavItem href="/admin/promo-codes" icon={Ticket} label="Discount Codes" isMobile />
             <NavItem href="/admin/update-ras" icon={MapPin} label="Update RAS" isMobile />
             <NavItem href="/admin/csv-converter" icon={FileUp} label="CSV Converter" isMobile />
             <NavItem href="/price-test" icon={Cog} label="Logic Tester" isMobile />
             <NavItem href="/bulk" icon={Zap} label="Bulk Calculator" isMobile />
+          </AccordionContent>
+        </AccordionItem>
+      )}
+
+      {actualRole === 'superadmin' && (
+        <AccordionItem value="admin" className="border-none">
+          <AccordionTrigger className="px-4 py-3 hover:no-underline font-bold text-lg text-primary-foreground">
+            <div className="flex items-center gap-3"><Lock className="h-5 w-5" /> Admin Console</div>
+          </AccordionTrigger>
+          <AccordionContent className="bg-primary-foreground/5 space-y-1">
+            <NavItem href="/admin/quote-logs" icon={History} label="Quote Log" isMobile />
+            <NavItem href="/admin/ai-mode" icon={BrainCircuit} label="AI Trace" isMobile />
+            <NavItem href="/admin/ai-analytics" icon={Activity} label="AI Analytics" isMobile />
+            <NavItem href="/admin/audit-log" icon={ShieldCheck} label="Audit Trail" isMobile />
+            <NavItem href="/admin/feature-management" icon={ToggleRight} label="Feature Gates" isMobile />
+            <NavItem href="/admin/user-management" icon={Users2} label="User Access" isMobile />
+            <NavItem href="/admin/roles" icon={Users} label="Permissions" isMobile />
             <NavItem href="/status" icon={Computer} label="System Health" isMobile />
           </AccordionContent>
         </AccordionItem>

@@ -78,7 +78,7 @@ export default function WizardInput({ fieldName, isLocation, onLocationSelect = 
                 }}
             />
             {isSupported && (
-                <Button type="button" size="icon" variant="ghost" onClick={handleVoice} className="absolute right-1 top-1 h-8 w-8">
+                <Button type="button" size="icon" variant="ghost" tabIndex={-1} onClick={handleVoice} className="absolute right-1 top-1 h-8 w-8">
                     <Mic className={cn("h-4 w-4", listening && currentWizardField === fieldName ? "text-destructive" : "")}/>
                 </Button>
             )}

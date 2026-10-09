@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import type { PostcodeData } from '@/lib/types';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { Loader2, History } from 'lucide-react'; 
-import { useToast } from '@/hooks/use-toast';
 import { useRateOverrides } from '@/context/RateOverrideContext';
 
 interface LocationAutocompleteProps {
@@ -21,17 +20,6 @@ interface LocationAutocompleteProps {
   autoFocus?: boolean;
 }
 
-const debounce = <F extends (...args: any[]) => any>(func: F, waitFor: number) => {
-  let timeout: ReturnType<typeof setTimeout> | null = null;
-  return (...args: Parameters<F>): Promise<ReturnType<F>> =>
-    new Promise(resolve => {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-      timeout = setTimeout(() => resolve(func(...args)), waitFor);
-    });
-};
-
 const MAX_RECENT_LOCATIONS = 5;
 const RECENT_LOCATIONS_KEY_PREFIX = 'justeasy_recent_locations_';
 
@@ -45,13 +33,9 @@ export default function LocationAutocomplete({
   showRecentSuggestions = true,
   autoFocus = false,
 }: LocationAutocompleteProps) {
-  const { allPostcodes, isLoading: isContextLoading } = useRateOverrides();
-  const [suggestions, setSuggestions] = useState<PostcodeData[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [showSuggestionsBox, setShowSuggestionsBox] = useState(false);
+  const { allPostcodes: contextPostcodes, isLoading: isContextLoading } = useRateOverrides();
   const [isFocused, setIsFocused] = useState(false);
   const [recentLocations, setRecentLocations] = useState<PostcodeData[]>([]);
-  const { toast } = useToast();
 
   useEffect(() => {
     const key = `${RECENT_LOCATIONS_KEY_PREFIX}${inputId}`;
@@ -66,57 +50,35 @@ export default function LocationAutocomplete({
     }
   }, [inputId]);
 
-  const getSuggestions = useCallback((inputValue: string): PostcodeData[] => {
-    if (!inputValue || inputValue.length < 2 || !allPostcodes || allPostcodes.length === 0) {
+  const allPostcodes = contextPostcodes || [];
+
+  const suggestions = useMemo(() => {
+    if (!value || value.trim().length < 2 || !allPostcodes || allPostcodes.length === 0) {
       return [];
     }
-    const lowercasedInput = inputValue.toLowerCase().trim();
+    const lowercasedInput = value.toLowerCase().trim();
     if (!lowercasedInput) return [];
 
     const startsWithMatches: PostcodeData[] = [];
     const includesMatches: PostcodeData[] = [];
 
     for (const loc of allPostcodes) {
-        const suburb = (loc.suburb || "").toLowerCase();
-        const postcode = loc.postcode?.toString() || "";
+      const suburb = (loc.suburb || "").toLowerCase();
+      const postcode = loc.postcode?.toString() || "";
 
-        if (suburb.startsWith(lowercasedInput) || postcode.startsWith(lowercasedInput)) {
-            startsWithMatches.push(loc);
-        } else if (suburb.includes(lowercasedInput)) {
-            includesMatches.push(loc);
-        }
+      if (suburb.startsWith(lowercasedInput) || postcode.startsWith(lowercasedInput)) {
+        startsWithMatches.push(loc);
+      } else if (suburb.includes(lowercasedInput)) {
+        includesMatches.push(loc);
+      }
     }
 
     return [...startsWithMatches, ...includesMatches].slice(0, 5);
-  }, [allPostcodes]);
-
-
-  const debouncedGetSuggestions = useCallback(debounce(getSuggestions, 300), [getSuggestions]);
-
-  useEffect(() => {
-    if (value && value.trim().length >= 2 && !isContextLoading) {
-      const fetchSuggestions = async () => {
-        setIsLoading(true);
-        const result = await debouncedGetSuggestions(value);
-        setSuggestions(result);
-        setShowSuggestionsBox(result.length > 0);
-        setIsLoading(false);
-      };
-      fetchSuggestions();
-    } else {
-      setSuggestions([]);
-      setShowSuggestionsBox(false);
-      if (value && value.trim().length < 2) { 
-          setIsLoading(false); 
-      }
-    }
-  }, [value, debouncedGetSuggestions, isContextLoading]);
+  }, [value, allPostcodes]);
 
   const handleSelect = (location: PostcodeData) => {
     onValueChange(`${location.suburb} ${location.state} ${location.postcode}`);
     onLocationSelect(location);
-    setSuggestions([]);
-    setShowSuggestionsBox(false);
     setIsFocused(false);
 
     if (showRecentSuggestions) {
@@ -138,11 +100,7 @@ export default function LocationAutocomplete({
     const newInputValue = e.target.value;
     onValueChange(newInputValue);
     if (!newInputValue.trim()) { 
-        onLocationSelect(null); 
-        setSuggestions([]);
-        setShowSuggestionsBox(false);
-    } else if (newInputValue.trim().length < 2) {
-        setShowSuggestionsBox(false); 
+      onLocationSelect(null); 
     }
   };
 
@@ -150,14 +108,11 @@ export default function LocationAutocomplete({
     isFocused && 
     showRecentSuggestions && 
     (!value || value.trim().length < 2) &&
-    !isLoading && 
     !isContextLoading && 
-    recentLocations.length > 0 && 
-    !showSuggestionsBox;
+    recentLocations.length > 0;
 
   const showSearchResultsList = 
     isFocused && 
-    showSuggestionsBox && 
     suggestions.length > 0 && 
     !isContextLoading && 
     value && value.trim().length >= 2;
@@ -169,25 +124,19 @@ export default function LocationAutocomplete({
         type="text"
         value={value || ''}
         onChange={handleInputChange}
-        onFocus={() => {
-            setIsFocused(true);
-            if (value && value.trim().length >= 2 && suggestions.length > 0 && !isContextLoading) {
-                 setShowSuggestionsBox(true);
-            }
-        }}
+        onFocus={() => setIsFocused(true)}
         onBlur={() => {
-            setTimeout(() => {
-                setIsFocused(false);
-                setShowSuggestionsBox(false);
-            }, 200);
+          setTimeout(() => {
+            setIsFocused(false);
+          }, 200);
         }}
         placeholder={placeholder}
         autoComplete="off"
         className="pr-10"
         autoFocus={autoFocus}
       />
-      {(isLoading || isContextLoading) && ( 
-         <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted-foreground" />
+      {isContextLoading && ( 
+        <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted-foreground" />
       )}
       
       {(showRecentSuggestionsList || showSearchResultsList) && (

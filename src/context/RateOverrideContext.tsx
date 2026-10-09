@@ -115,10 +115,14 @@ export const RateOverrideProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (user) {
-      fetch('/api/locations')
-        .then(res => res.json())
+      user.getIdToken().then(token => {
+        return fetch('/api/locations', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+      })
+        .then(res => res ? res.json() : null)
         .then(data => {
-          if (!data.error) setCentralLocationsData(data);
+          if (data && !data.error) setCentralLocationsData(data);
         })
         .catch(err => console.error('Failed to load locations', err));
     }
