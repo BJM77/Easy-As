@@ -20,15 +20,12 @@ const clean = (val: string | undefined): string | undefined => {
  * Specifically cleans the private key to handle newline issues.
  */
 const cleanPrivateKey = (key: string | undefined) => {
-  const cleaned = clean(key);
-  if (!cleaned) return undefined;
-  // Replace escaped newlines (both \n and \\n) with actual newlines
-  let formatted = cleaned.replace(/\\n/g, '\n');
-  // Ensure header and footer have proper structure if stripped or mangled
-  if (!formatted.includes('-----BEGIN PRIVATE KEY-----')) {
-    formatted = `-----BEGIN PRIVATE KEY-----\n${formatted}\n-----END PRIVATE KEY-----`;
-  }
-  return formatted;
+  if (!key) return undefined;
+  return key
+    .trim()
+    .replace(/^"|"$/g, '')   // strip wrapping quotes
+    .replace(/^'|'$/g, '')   // strip wrapping single quotes
+    .replace(/\\n/g, '\n');  // turn literal \n into real line breaks
 };
 
 /**
