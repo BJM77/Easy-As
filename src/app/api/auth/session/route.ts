@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     const user = await getUserFromToken(idToken);
     if (!user) console.error('[auth/session] getUserFromToken returned null');
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized', detail: 'getUserFromToken returned null' }, { status: 401 });
     }
 
     const auth = await getAdminAuth();
@@ -27,8 +27,11 @@ export async function POST(request: Request) {
       sessionCookieOptions(request, Math.floor(SESSION_MAX_AGE_MS / 1000)),
     );
     return response;
-  } catch (error) {
+  } catch (error: any) {
     console.error('[auth/session] failed:', error);
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    return NextResponse.json(
+      { error: 'Unauthorized', detail: error?.code || error?.message || String(error) },
+      { status: 401 },
+    );
   }
 }
