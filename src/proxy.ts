@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server';
 
 // Add the routes that require authentication
 const protectedRoutes = [
+  '/',
   '/calculator',
   '/rate-card',
   '/info',
