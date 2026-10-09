@@ -21,11 +21,21 @@ const clean = (val: string | undefined): string | undefined => {
  */
 const cleanPrivateKey = (key: string | undefined) => {
   if (!key) return undefined;
-  return key
-    .trim()
-    .replace(/^"|"$/g, '')   // strip wrapping quotes
-    .replace(/^'|'$/g, '')   // strip wrapping single quotes
-    .replace(/\\n/g, '\n');  // turn literal \n into real line breaks
+  let raw = key.trim();
+  // Strip outer quotes if any
+  while ((raw.startsWith('"') && raw.endsWith('"')) || (raw.startsWith("'") && raw.endsWith("'"))) {
+    raw = raw.slice(1, -1).trim();
+  }
+  // Convert literal \n to real newlines
+  let formatted = raw.replace(/\\n/g, '\n');
+
+  // If header is missing or mangled, wrap it properly
+  if (!formatted.includes('-----BEGIN PRIVATE KEY-----')) {
+    // Strip header/footer text if partial
+    formatted = formatted.replace(/-----BEGIN PRIVATE KEY-----/g, '').replace(/-----END PRIVATE KEY-----/g, '').trim();
+    formatted = `-----BEGIN PRIVATE KEY-----\n${formatted}\n-----END PRIVATE KEY-----\n`;
+  }
+  return formatted;
 };
 
 /**
