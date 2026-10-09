@@ -22,8 +22,13 @@ const clean = (val: string | undefined): string | undefined => {
 const cleanPrivateKey = (key: string | undefined) => {
   const cleaned = clean(key);
   if (!cleaned) return undefined;
-  // Handle both literal newlines and escaped newline strings
-  return cleaned.replace(/\\n/g, '\n');
+  // Replace escaped newlines (both \n and \\n) with actual newlines
+  let formatted = cleaned.replace(/\\n/g, '\n');
+  // Ensure header and footer have proper structure if stripped or mangled
+  if (!formatted.includes('-----BEGIN PRIVATE KEY-----')) {
+    formatted = `-----BEGIN PRIVATE KEY-----\n${formatted}\n-----END PRIVATE KEY-----`;
+  }
+  return formatted;
 };
 
 /**
