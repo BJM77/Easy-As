@@ -1,4 +1,4 @@
-'use server';
+import 'server-only';
 
 import type { ServiceAccount } from 'firebase-admin';
 import type { UserProfile, UserRole } from '@/lib/types';
@@ -48,11 +48,11 @@ const safeJsonParse = (jsonStr: string | undefined) => {
     return parsed;
   } catch (e) {
     try {
-        // Attempt 3: Handle Escaped Quotes (\") and double-escaped newlines
-        const unescaped = cleaned.replace(/\\"/g, '"').replace(/\\\\n/g, '\\n');
-        return JSON.parse(unescaped);
+      // Attempt 3: Handle Escaped Quotes (\") and double-escaped newlines
+      const unescaped = cleaned.replace(/\\"/g, '"').replace(/\\\\n/g, '\\n');
+      return JSON.parse(unescaped);
     } catch {
-        return undefined;
+      return undefined;
     }
   }
 };
@@ -67,12 +67,12 @@ const getMissingCredentialVars = (projectId?: string, clientEmail?: string, priv
 
 async function initializeAdmin() {
   const { initializeApp, getApps, cert } = await import("firebase-admin/app");
-  
+
   const apps = getApps();
   if (apps.length > 0) return apps[0]!;
 
   const jsonCredentials = safeJsonParse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
-  
+
   const separateId = clean(process.env.FIREBASE_PROJECT_ID);
   const separateEmail = clean(process.env.FIREBASE_CLIENT_EMAIL);
   const separateKey = cleanPrivateKey(process.env.FIREBASE_PRIVATE_KEY);
@@ -165,7 +165,7 @@ export async function getUserFromToken(idToken: string): Promise<(UserProfile & 
 export async function checkSuperAdmin(idToken: string): Promise<(UserProfile & { uid: string })> {
   const user = await getUserFromToken(idToken);
   if (user?.role === 'superadmin') {
-      return user;
+    return user;
   }
   throw new Error("Forbidden: This action requires superadmin privileges.");
 }
