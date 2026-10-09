@@ -154,8 +154,9 @@ export async function getUserFromToken(idToken: string): Promise<(UserProfile & 
       subscriptionStatus: 'active',
       tokens: (decodedToken.tokens as number) || 0
     } as UserProfile & { uid: string };
-  } catch (err) {
-    throw new Error("Invalid id token");
+  } catch (err: any) {
+    console.error('[getUserFromToken] verification failed:', err?.message || err, err?.stack);
+    return null;
   }
 }
 
