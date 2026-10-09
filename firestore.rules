@@ -79,9 +79,9 @@ service cloud.firestore {
 
     // User personal data
     match /notes/{id} {
-      allow read: if isSignedIn() && (resource == null || resource.data.userId == request.auth.uid);
-      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
-      allow update, delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow read: if isSignedIn() && (isSuperAdmin() || resource == null || resource.data.userId == request.auth.uid);
+      allow create: if isSignedIn() && (isSuperAdmin() || request.resource.data.userId == request.auth.uid);
+      allow update, delete: if isSignedIn() && (isSuperAdmin() || resource.data.userId == request.auth.uid);
     }
 
     // Quote Logs: Cross-site logging, write allowed for signed-in users, read for superadmin only
