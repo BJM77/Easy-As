@@ -1,5 +1,4 @@
 # Firebase App Hosting configuration for dynamic Next.js deployment.
-# Populate values/secrets in Firebase Console / Secret Manager (outside GitHub).
 runConfig:
   minInstances: 0
   maxInstances: 10
@@ -12,13 +11,8 @@ env:
       - BUILD
       - RUNTIME
 
-  - variable: GOOGLE_APPLICATION_CREDENTIALS_JSON
-    secret: GOOGLE_APPLICATION_CREDENTIALS_JSON
-    availability:
-      - RUNTIME
-
   - variable: FIREBASE_PROJECT_ID
-    secret: FIREBASE_PROJECT_ID
+    value: studio-7521332906-59af2
     availability:
       - RUNTIME
   - variable: FIREBASE_CLIENT_EMAIL
@@ -31,42 +25,42 @@ env:
       - RUNTIME
 
   - variable: NEXT_PUBLIC_FIREBASE_API_KEY
-    secret: NEXT_PUBLIC_FIREBASE_API_KEY
+    value: AIzaSyCAVREQPuPN49-kAHGlZFuGEuNoppZeZOo
     availability:
       - BUILD
       - RUNTIME
   - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
-    secret: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: studio-7521332906-59af2.firebaseapp.com
     availability:
       - BUILD
       - RUNTIME
   - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
-    secret: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: studio-7521332906-59af2
     availability:
       - BUILD
       - RUNTIME
   - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
-    secret: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+    value: studio-7521332906-59af2.firebasestorage.app
     availability:
       - BUILD
       - RUNTIME
   - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
-    secret: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+    value: "1071384403415"
     availability:
       - BUILD
       - RUNTIME
   - variable: NEXT_PUBLIC_FIREBASE_APP_ID
-    secret: NEXT_PUBLIC_FIREBASE_APP_ID
+    value: 1:1071384403415:web:b1431206b85cc356033f92
     availability:
       - BUILD
       - RUNTIME
   - variable: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
-    secret: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+    value: YOUR_MEASUREMENT_ID_HERE
     availability:
       - BUILD
       - RUNTIME
   - variable: NEXT_PUBLIC_GOOGLE_MAPS_EMBED_API_KEY
-    secret: NEXT_PUBLIC_GOOGLE_MAPS_EMBED_API_KEY
+    value: AIzaSyBwNiXIqBe_yfN5TEeWoeyIwykr7QNcZrE
     availability:
       - BUILD
       - RUNTIME
