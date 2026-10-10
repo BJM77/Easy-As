@@ -1,6 +1,6 @@
 import '@/lib/handlebars-helpers';
-import {genkit} from 'genkit';
-import {googleAI, gemini} from '@genkit-ai/googleai';
+import { genkit } from 'genkit';
+import { googleAI, gemini } from '@genkit-ai/googleai';
 
 /**
  * Reads the Gemini API key lazily.
@@ -8,14 +8,8 @@ import {googleAI, gemini} from '@genkit-ai/googleai';
  * TODO: remove NEXT_PUBLIC_GEMINI_API_KEY fallback once secret is confirmed.
  */
 export const getGeminiApiKey = (): string | undefined => {
-  const primaryKey = process.env.GEMINI_API_KEY?.trim();
-  if (primaryKey) return primaryKey.replace(/^["']|["']$/g, '');
-  
-  // TODO: remove NEXT_PUBLIC_GEMINI_API_KEY fallback once secret is confirmed
-  const fallbackKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY?.trim().replace(/^["']|["']$/g, '');
-  if (fallbackKey) return fallbackKey;
-  
-  return undefined;
+  const key = process.env.GEMINI_API_KEY?.trim().replace(/^["']|["']$/g, '');
+  return key || undefined;
 };
 
 // Model constant - default to gemini-2.5-flash, overridable with GEMINI_MODEL env var
