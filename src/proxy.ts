@@ -3,9 +3,9 @@ import type { NextRequest } from 'next/server';
 
 // Add the routes that require authentication
 const protectedRoutes = [
-  '/',
   '/dashboard',
   '/calculator',
+  '/calculator-v2',
   '/rate-card',
   '/info',
   '/status',
@@ -22,7 +22,7 @@ const protectedRoutes = [
  * Edge proxy cannot import firebase-admin. Presence of the HttpOnly __session
  * cookie (set by POST /api/auth/session) is the logged-in check. The cookie
  * value is a Firebase session JWT; API routes verify it with the Admin SDK.
- * Public routes (/, /login, /register) and static assets are not in this list.
+ * Public routes (/) and static assets are not in this list.
  */
 function hasSessionCookie(request: NextRequest): boolean {
   const value = request.cookies.get('__session')?.value;

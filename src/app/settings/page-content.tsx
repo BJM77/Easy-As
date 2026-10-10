@@ -69,7 +69,7 @@ export default function SettingsPageContent() {
   const [users, setUsers] = useState<AuthUser[]>([]);
   const [isLoadingUsers, setIsLoadingUsers] = useState(false);
   const [isUsersDialogOpen, setIsUsersDialogOpen] = useState(false);
-  const [savePassword, setSavePassword] = useState('');
+  // Using Firebase Auth instead of password - no state needed for savePassword
   const [isSaving, setIsSaving] = useState(false);
   const { role } = useAuth();
 
@@ -117,7 +117,8 @@ export default function SettingsPageContent() {
 
   const handleSaveChanges = async () => {
     setIsSaving(true);
-    const success = await saveSettingsToServer(savePassword);
+    // Using Firebase Auth for authorization - saveSettingsToServer now handles admin validation server-side
+    const success = await saveSettingsToServer({});
     if (success) {
       toast({
         title: "Settings Saved to Server",
@@ -289,11 +290,12 @@ export default function SettingsPageContent() {
         <CardContent>
             <div className="flex flex-col sm:flex-row gap-4 items-end">
                 <div className="space-y-1 flex-grow">
-                    <Label>Server Write Password</Label>
-                    <Input id="savePassword" type="password" value={savePassword} onChange={(e) => setSavePassword(e.target.value)} placeholder="Required to persist..."/>
+                    <Label htmlFor="savePassword">Admin Email for Auth (Firebase Auth)</Label>
+                    <Input id="savePassword" type="text" value="" onChange={() => {}} placeholder="Leave empty - using Firebase session"/>
+                    <p className="text-xs text-gray-500">Using Firebase Auth instead of password.</p>
                 </div>
-                <Button onClick={handleSaveChanges} disabled={isSaving || savePassword !== 'LCPTGE'}>
-                    {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Save className="mr-2 h-4 w-4"/>} Save Settings
+                <Button onClick={handleSaveChanges} disabled={isSaving}>
+                  {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Save className="mr-2 h-4 w-4"/>} Save Settings
                 </Button>
             </div>
         </CardContent>

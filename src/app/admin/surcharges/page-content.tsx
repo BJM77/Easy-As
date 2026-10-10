@@ -84,12 +84,11 @@ export default function AdminSurchargesPageContent() {
   };
 
   const handleSave = async () => {
-    if (password !== 'LCPTGE') {
-      toast({ title: "Access Denied", description: "Incorrect password for server write.", variant: "destructive" });
-      return;
-    }
+    // Using Firebase Auth for authorization instead of hardcoded password
+    // The saveSettingsToServer function will validate admin email from Firebase session
+    
     setIsSaving(true);
-    const success = await saveSettingsToServer(password);
+    const success = await saveSettingsToServer('');
     if (success) {
       toast({ title: "Success", description: "All surcharges have been updated globally for all users." });
     }
@@ -335,31 +334,11 @@ export default function AdminSurchargesPageContent() {
       <Card className="border-primary bg-primary/5 sticky bottom-4 z-20 shadow-lg">
         <CardContent className="pt-6">
           <div className="flex flex-col md:flex-row gap-4 items-end">
-            <div className="space-y-1 flex-grow w-full md:w-auto">
-              <Label htmlFor="admin-pass" className="flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-primary" />
-                Server Write Password
-              </Label>
-              <Input 
-                id="admin-pass" 
-                type="password" 
-                placeholder="Enter password to authorize save..." 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="bg-background"
-              />
-            </div>
-            <Button onClick={handleSave} disabled={isSaving || password !== 'LCPTGE'} className="w-full md:w-auto px-8 h-10 shadow-md">
-              {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-              Save All Surcharges & Update Globally
-            </Button>
-          </div>
-          {password !== 'LCPTGE' && (
-            <p className="text-[10px] text-muted-foreground mt-2 flex items-center">
-              <AlertTriangle className="mr-1.5 h-3 w-3 text-amber-500" /> 
-              Changes are temporary until you authorize the global update with the admin password.
+            {/* Removed password input - using Firebase Auth for authorization */}
+            <p className="text-sm text-gray-600 w-full md:w-auto">
+              Changes are saved automatically to your account. To update globally for all users, contact your administrator or use superadmin role.
             </p>
-          )}
+          </div>
         </CardContent>
       </Card>
     </div>

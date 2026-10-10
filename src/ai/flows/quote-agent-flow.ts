@@ -56,7 +56,7 @@ async function loadServerJson(fileName: string) {
   for (const filePath of pathsToTry) {
     try {
       await fs.access(filePath);
-      const content = await fs.readFile(filePath, 'utf8');
+      const content = await fs.readFile(/*turbopackIgnore: true*/ filePath, 'utf8');
       const data = JSON.parse(content);
       jsonCache[fileName] = data;
       return data;
@@ -187,26 +187,59 @@ export async function processQuoteQuery(input: QuoteAgentInput): Promise<QuoteAg
       // No caching for conversational queries as they are context-dependent
     }
 
-    // 2. FALLBACK TO HUMAN (Low Confidence / Missing Info)
+    // Default items to 1 x 10kg if empty
+    if (!intent.items || intent.items.length === 0) {
+      intent.items = [{ weight: 10, quantity: 1 }];
+    }
+
+    // 2. FALLBACK & RECOVERY (Low Confidence / Missing Info)
     if (intent.confidence < 0.6 || !intent.originQuery || !intent.destinationQuery) {
-      console.warn(`[Phase 2] Low confidence (${intent.confidence}) or missing info. Falling back to human.`);
-      return {
-        summary: "I'm missing some details. Could you please specify both the origin and destination, and the weight of the items?",
-        warnings: ["Low confidence or missing information."],
-        results: [],
-        rawIntent: intent
+      console.warn(`[Phase 2] Low confidence (${intent.confidence}) or missing info. Attempting recovery.`);
+      
+      const lowercaseQuery = normalizedQuery.toLowerCase();
+      let recoveredOrigin = intent.originQuery;
+      let recoveredDest = intent.destinationQuery;
+      
+      if (!recoveredOrigin || !recoveredDest) {
+        if (lowercaseQuery.includes('to')) {
+          const parts = lowercaseQuery.split('to');
+          const orig = parts[0].trim().replace(/^from\s+/i, '').replace(/[^\w\s-]/g, '').trim();
+          const dest = parts.slice(1).join('to').trim().replace(/[^\w\s-]/g, '').trim();
+          if (!recoveredOrigin && orig) recoveredOrigin = orig;
+          if (!recoveredDest && dest) recoveredDest = dest;
+        } else if (lowercaseQuery.includes('from')) {
+          const parts = lowercaseQuery.split('from');
+          const dest = parts[0].trim().replace(/[^\w\s-]/g, '').trim();
+          const orig = parts.slice(1).join('from').trim().replace(/[^\w\s-]/g, '').trim();
+          if (!recoveredOrigin && orig) recoveredOrigin = orig;
+          if (!recoveredDest && dest) recoveredDest = dest;
+        } else {
+          const segments = normalizedQuery.split(/,|;/);
+          if (segments.length >= 2) {
+            if (!recoveredOrigin) recoveredOrigin = segments[0].trim();
+            if (!recoveredDest) recoveredDest = segments[1].trim();
+          }
+        }
+      }
+      
+      intent = {
+        ...intent,
+        originQuery: recoveredOrigin,
+        destinationQuery: recoveredDest,
       };
+      
+      // Only fallback to "I'm missing some details" if origin or destination is still empty after recovery
+      if (!intent.originQuery || !intent.destinationQuery) {
+        return {
+          summary: "I'm missing some details. Could you please specify both the origin and destination, and the weight of the items?",
+          warnings: ["Low confidence or missing information."],
+          results: [],
+          rawIntent: intent
+        };
+      }
     }
 
     // 3. EXECUTION (Deterministic Tool Orchestration)
-    if (!intent.originQuery || !intent.destinationQuery) {
-      return {
-        summary: "I couldn't identify the origin and destination in your request.",
-        warnings: ["Missing location data"],
-        results: [],
-        rawIntent: intent
-      };
-    }
 
     const [origins, dests] = await Promise.all([
       findPostcodeTool(intent.originQuery),

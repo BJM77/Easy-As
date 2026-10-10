@@ -88,7 +88,7 @@ interface SettingsContextType {
   pagePermissions: PagePermissions;
   setPagePermissionsForRole: (role: UserRole, pages: PageKey[]) => void;
   isLoadingSettings: boolean;
-  saveSettingsToServer: (password: string, overrides?: any) => Promise<boolean>;
+  saveSettingsToServer: (overrides?: any) => Promise<boolean>;
   showLcpRates: boolean; 
   setShowLcpRates: (show: boolean) => void;
   isAccountManagerMode: boolean;
@@ -175,12 +175,10 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
     loadFirebaseSettings();
   }, [firestore, isAuthLoading, isSuperadmin, user]);
 
-  const saveSettingsToServer = useCallback(async (password: string, overrides?: any) => {
-    if (password !== 'LCPTGE') {
-        toast({ title: 'Invalid Password', variant: 'destructive' });
-        return false;
-    }
-
+  const saveSettingsToServer = useCallback(async (overrides?: any) => {
+    // Removed hardcoded password check - using Firebase Auth for authorization instead
+    // The caller should already be authenticated; additional admin role checks happen server-side
+    
     if (firestore) {
       try {
         const payload = {

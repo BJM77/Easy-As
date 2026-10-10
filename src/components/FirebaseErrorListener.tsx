@@ -30,7 +30,6 @@ export function FirebaseErrorListener() {
         '/vipContacts',
         '/deliveryRuns',
         '/invitations',
-        '/quote_logs', // Added to suppression to allow background auditing to fail silently during sync
         '/notes'
       ];
 
