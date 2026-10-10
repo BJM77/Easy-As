@@ -21,12 +21,10 @@ export const getGeminiApiKey = (): string | undefined => {
 // Model constant - default to gemini-2.5-flash, overridable with GEMINI_MODEL env var
 export const DEFAULT_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 
-const key = getGeminiApiKey();
-
 const aiInstance = genkit({
   plugins: [
     googleAI({
-      apiKey: key || 'MISSING_API_KEY',
+      apiKey: getGeminiApiKey() || '',
       apiVersion: 'v1beta',
     }),
   ],
