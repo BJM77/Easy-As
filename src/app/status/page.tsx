@@ -3,7 +3,7 @@ import StatusPageContent from "./page-content";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "System Status - FreightAssist.Online",
+  title: "System Status - Freight assist.online",
   description: "Check the status of API keys and service connections.",
 };
 

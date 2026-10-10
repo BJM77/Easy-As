@@ -18,7 +18,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'FreightAssist.Online | Secure Freight Intelligence',
+  title: 'Freight assist.online | Secure Freight Intelligence',
   description: 'Enterprise multi-modal freight intelligence and calculation platform.',
 };
 

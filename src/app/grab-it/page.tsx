@@ -2,7 +2,7 @@ import GrabItPageContent from "./page-content";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Grab It - FreightAssist.Online",
+  title: "Grab It - Freight assist.online",
   description: "Scan a QR code to instantly create a new sales lead.",
 };
 

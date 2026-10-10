@@ -2,7 +2,7 @@ import ProposalEditorPageContent from "./page-content";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Proposal Editor - FreightAssist.Online",
+  title: "Proposal Editor - Freight assist.online",
   description: "Create and edit professional sales proposals.",
 };
 
