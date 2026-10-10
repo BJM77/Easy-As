@@ -797,6 +797,7 @@ export default function AppHeader() {
     <nav className="flex items-center space-x-0.5 flex-wrap justify-center">
       <Link href="/" className={navLinkClasses('/')}><Home className="mr-1.5 h-4 w-4" /> Home</Link>
       {hasPageAccess('calculator') && <Link href="/calculator" className={navLinkClasses('/calculator')}><Calculator className="mr-1.5 h-4 w-4" /> Calculate</Link>}
+      {hasPageAccess('calculator') && <Link href="/calculator-v2" className={navLinkClasses('/calculator-v2')}><Calculator className="mr-1.5 h-4 w-4" /> Calculator (beta)</Link>}
       {hasPageAccess('ai-guru') && (
         <>
           <Link href="/ai-guru" className={navLinkClasses('/ai-guru')}><Sparkles className="mr-1.5 h-4 w-4" /> Plan</Link>
@@ -923,6 +924,7 @@ export default function AppHeader() {
         <AccordionContent className="bg-primary-foreground/5 space-y-1">
           <NavItem href="/" icon={Home} label="Home Dashboard" isMobile />
           {hasPageAccess('calculator') && <NavItem href="/calculator" icon={Calculator} label="Freight Calculator" isMobile />}
+          {hasPageAccess('calculator') && <NavItem href="/calculator-v2" icon={Calculator} label="Calculator (beta)" isMobile />}
           <NavItem href="/ai-quote" icon={Sparkles} label="Conversational AI" isMobile />
           {hasPageAccess('ai-guru') && <NavItem href="/ai-guru" icon={Sparkles} label="Perfect Plan Wizard" isMobile />}
           {hasPageAccess('proposal') && <NavItem href="/proposal" icon={FileSignature} label="AI Proposal Builder" isMobile />}
