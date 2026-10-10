@@ -84,10 +84,11 @@ service cloud.firestore {
       allow update, delete: if isSignedIn() && (isSuperAdmin() || resource.data.userId == request.auth.uid);
     }
 
-    // Quote Logs: Cross-site logging, write allowed for signed-in users, read for superadmin only
+    // Quote Logs: Write allowed for signed-in users, read for superadmin or owner
     match /quote_logs/{id} {
-        allow create: if isSignedIn();
-        allow read: if isSuperAdmin();
+      allow create: if isSignedIn();
+      allow read: if isSuperAdmin() ||
+        (isSignedIn() && resource.data.userId == request.auth.uid);
     }
 
     // User Profile Rules
