@@ -1,80 +1,74 @@
 import { NextResponse } from 'next/server';
-import { getAdminAuth, getUserFromToken } from '@/lib/firebase-admin';
+import { getUserFromToken } from '@/lib/firebase-admin';
+import type { UserProfile } from '@/lib/types';
 
-/** HttpOnly cookie the edge proxy already treats as logged-in. */
-export const SESSION_COOKIE_NAME = '__session';
-
-/** About 5 days. Firebase session cookies allow 5 minutes to 14 days. */
-export const SESSION_MAX_AGE_MS = 5 * 24 * 60 * 60 * 1000;
-
-export function sessionCookieSecure(request: Request): boolean {
-  if (process.env.NODE_ENV === 'production') return true;
-  const forwarded = request.headers.get('x-forwarded-proto');
-  if (forwarded) return forwarded.split(',')[0].trim() === 'https';
-  try {
-    return new URL(request.url).protocol === 'https:';
-  } catch {
-    return false;
-  }
+export interface AuthenticatedUser extends UserProfile {
+  uid: string;
 }
 
-export function sessionCookieOptions(request: Request, maxAgeSeconds: number) {
+export const SESSION_COOKIE_NAME = 'ezm_session';
+export const SESSION_MAX_AGE_MS = 60 * 60 * 24 * 7 * 1000; // 7 days
+
+export function sessionCookieOptions(request?: Request, maxAgeSeconds: number = SESSION_MAX_AGE_MS / 1000) {
   return {
-    httpOnly: true as const,
-    secure: sessionCookieSecure(request),
+    name: SESSION_COOKIE_NAME,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax' as const,
     path: '/',
     maxAge: maxAgeSeconds,
   };
 }
 
-function readRequestCookie(request: Request, name: string): string | undefined {
-  const raw = request.headers.get('cookie');
-  if (!raw) return undefined;
-  for (const part of raw.split(';')) {
-    const idx = part.indexOf('=');
-    if (idx === -1) continue;
-    const key = part.slice(0, idx).trim();
-    if (key !== name) continue;
-    const value = part.slice(idx + 1).trim();
-    if (!value) return undefined;
-    try {
-      return decodeURIComponent(value);
-    } catch {
-      return value;
-    }
+/**
+ * Centralized API authentication helper.
+ * Extracts Bearer token from Authorization header, verifies it with Firebase Admin,
+ * and returns the authenticated user object or a pre-formatted 401/403 NextResponse error.
+ */
+export async function authenticateApiRequest(request: Request): Promise<
+  { user: AuthenticatedUser; error: null } | { user: null; error: NextResponse }
+> {
+  const authHeader = request.headers.get('authorization') || request.headers.get('Authorization');
+  const token = authHeader?.split('Bearer ')[1]?.trim();
+
+  if (!token) {
+    return {
+      user: null,
+      error: NextResponse.json(
+        { error: 'UNAUTHENTICATED', message: 'Missing Authorization header.' },
+        { status: 401 }
+      ),
+    };
   }
-  return undefined;
+
+  try {
+    const user = await getUserFromToken(token);
+    if (!user) {
+      return {
+        user: null,
+        error: NextResponse.json(
+          { error: 'UNAUTHORIZED', message: 'User token verification returned null.' },
+          { status: 401 }
+        ),
+      };
+    }
+    return { user: user as AuthenticatedUser, error: null };
+  } catch (err: any) {
+    return {
+      user: null,
+      error: NextResponse.json(
+        { error: 'INVALID_TOKEN', message: err?.message || 'Token verification failed.' },
+        { status: 401 }
+      ),
+    };
+  }
 }
 
 /**
- * Accepts either a Bearer Firebase ID token (existing admin routes)
- * or the HttpOnly __session cookie created by POST /api/auth/session.
+ * Convenience helper for API routes requiring authentication.
+ * Returns null if request is authenticated, or NextResponse with status 401/403 if unauthenticated.
  */
-export async function requireApiUser(request: Request): Promise<{ uid: string } | null> {
-  const authHeader = request.headers.get('authorization') || '';
-  const bearer = /^Bearer\s+/i.test(authHeader) ? authHeader.replace(/^Bearer\s+/i, '').trim() : '';
-  if (bearer) {
-    const user = await getUserFromToken(bearer);
-    return user?.uid ? { uid: user.uid } : null;
-  }
-
-  const session = readRequestCookie(request, SESSION_COOKIE_NAME);
-  if (!session) return null;
-
-  const auth = await getAdminAuth();
-  const decoded = await auth.verifySessionCookie(session, true);
-  return decoded?.uid ? { uid: decoded.uid } : null;
-}
-
-export async function rejectIfUnauthenticated(request: Request) {
-  try {
-    const user = await requireApiUser(request);
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-    return null;
-  } catch {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+export async function rejectIfUnauthenticated(request: Request): Promise<NextResponse | null> {
+  const { error } = await authenticateApiRequest(request);
+  return error;
 }

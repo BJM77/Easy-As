@@ -6,6 +6,7 @@ import { AuthProvider } from '@/firebase';
 import { SettingsProvider } from '@/context/SettingsContext';
 import { RateOverrideProvider } from '@/context/RateOverrideContext';
 import { SessionProvider } from '@/context/SessionContext';
+import { PostcodeProvider } from '@/context/PostcodeContext';
 import { CompanyThemeProvider } from '@/components/CompanyThemeProvider';
 import AppHeader from '@/components/AppHeader';
 import { FirebaseErrorListener } from '@/components/FirebaseErrorListener';
@@ -24,18 +25,20 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <CompanyThemeProvider />
         <SettingsProvider>
           <RateOverrideProvider>
-            <SessionProvider>
-              <ErrorBoundary componentName="AppHeader">
-                <AppHeader />
-              </ErrorBoundary>
-              <main className="flex-grow container mx-auto px-4 py-8">
-                {children}
-                <React.Suspense fallback={null}>
-                  <FirebaseErrorListener />
-                </React.Suspense>
-              </main>
-              <Toaster />
-            </SessionProvider>
+            <PostcodeProvider>
+              <SessionProvider>
+                <ErrorBoundary componentName="AppHeader">
+                  <AppHeader />
+                </ErrorBoundary>
+                <main className="flex-grow container mx-auto px-4 py-8">
+                  {children}
+                  <React.Suspense fallback={null}>
+                    <FirebaseErrorListener />
+                  </React.Suspense>
+                </main>
+                <Toaster />
+              </SessionProvider>
+            </PostcodeProvider>
           </RateOverrideProvider>
         </SettingsProvider>
       </React.Fragment>

@@ -1203,6 +1203,132 @@ export const useSettings = () => {
   return context;
 };
 
+=== FILE: ./src/context/PostcodeContext.tsx ===
+"use client";
+
+import React, { createContext, useContext, useState, useEffect, useMemo, ReactNode } from 'react';
+import type { PostcodeData } from '@/lib/types';
+
+interface PostcodeContextType {
+  postcodes: PostcodeData[];
+  isLoading: boolean;
+  error: string | null;
+  findLocationByPostcode: (postcode: string) => PostcodeData[];
+  lookupSuburbs: (query: string) => PostcodeData[];
+}
+
+const PostcodeContext = createContext<PostcodeContextType | undefined>(undefined);
+
+let globalPostcodesCache: PostcodeData[] | null = null;
+let fetchPromise: Promise<PostcodeData[]> | null = null;
+
+async function fetchPostcodesOnce(): Promise<PostcodeData[]> {
+  if (globalPostcodesCache) return globalPostcodesCache;
+  if (!fetchPromise) {
+    fetchPromise = fetch('/api/postcodes')
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to load postcodes: ${res.statusText}`);
+        return res.json();
+      })
+      .then((data: PostcodeData[]) => {
+        globalPostcodesCache = data;
+        return data;
+      })
+      .catch((err) => {
+        fetchPromise = null;
+        throw err;
+      });
+  }
+  return fetchPromise;
+}
+
+export function PostcodeProvider({ children }: { children: ReactNode }) {
+  const [postcodes, setPostcodes] = useState<PostcodeData[]>(globalPostcodesCache || []);
+  const [isLoading, setIsLoading] = useState<boolean>(!globalPostcodesCache);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (globalPostcodesCache) {
+      setPostcodes(globalPostcodesCache);
+      setIsLoading(false);
+      return;
+    }
+
+    let isMounted = true;
+    fetchPostcodesOnce()
+      .then((data) => {
+        if (isMounted) {
+          setPostcodes(data);
+          setIsLoading(false);
+        }
+      })
+      .catch((err: any) => {
+        if (isMounted) {
+          setError(err?.message || 'Error loading postcodes');
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const postcodeIndex = useMemo(() => {
+    const map = new Map<string, PostcodeData[]>();
+    for (const item of postcodes) {
+      if (!item?.postcode) continue;
+      const pc = String(item.postcode).trim();
+      const existing = map.get(pc) || [];
+      existing.push(item);
+      map.set(pc, existing);
+    }
+    return map;
+  }, [postcodes]);
+
+  const findLocationByPostcode = useMemo(() => {
+    return (postcode: string): PostcodeData[] => {
+      if (!postcode) return [];
+      return postcodeIndex.get(String(postcode).trim()) || [];
+    };
+  }, [postcodeIndex]);
+
+  const lookupSuburbs = useMemo(() => {
+    return (query: string): PostcodeData[] => {
+      if (!query || query.length < 2) return [];
+      const q = query.toLowerCase().trim();
+      return postcodes.filter(
+        (p) =>
+          p.suburb?.toLowerCase().includes(q) ||
+          String(p.postcode).includes(q) ||
+          p.state?.toLowerCase().includes(q)
+      ).slice(0, 30);
+    };
+  }, [postcodes]);
+
+  const value = useMemo(
+    () => ({
+      postcodes,
+      isLoading,
+      error,
+      findLocationByPostcode,
+      lookupSuburbs,
+    }),
+    [postcodes, isLoading, error, findLocationByPostcode, lookupSuburbs]
+  );
+
+  return <PostcodeContext.Provider value={value}>{children}</PostcodeContext.Provider>;
+}
+
+export function usePostcodes(): PostcodeContextType {
+  const context = useContext(PostcodeContext);
+  if (!context) {
+    throw new Error('usePostcodes must be used within a PostcodeProvider');
+  }
+  return context;
+}
+
+
 === FILE: ./src/app/.DS_Store ===
    Bud1  0      0                                                           gph1Scomp                                               o r gph1Scomp             Y   	 a b o u t - t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @                                              @                                                @                                                @                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              H    p a y m e n tlg1Scomp      R    p a y m e n tmoDDblob      JA    p a y m e n tmodDblob      JA    p a y m e n tph1Scomp      0    
  p r i c e - t e s tlg1Scomp        
@@ -24966,7 +25092,8 @@ export async function GET(request: Request) {
 
 === FILE: ./src/app/api/users/route.ts ===
 import { NextResponse } from 'next/server';
-import { getAdminDb, getAdminAuth, checkCompanyAdmin, getUserFromToken } from '@/lib/firebase-admin';
+import { getAdminDb, getAdminAuth, checkCompanyAdmin } from '@/lib/firebase-admin';
+import { authenticateApiRequest } from '@/lib/api-auth';
 import { logAudit } from '@/lib/audit';
 import { z } from 'zod';
 import { ALL_USER_ROLES } from '@/lib/types';
@@ -24983,10 +25110,9 @@ const createUserRequestSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    const authHeader = request.headers.get('authorization');
-    const token = authHeader?.split('Bearer ')[1];
-    if (!token) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
-    
+    const { user: authUser, error: authError } = await authenticateApiRequest(request);
+    if (authError) return authError;
+
     const body = await request.json();
     const validation = createUserRequestSchema.safeParse(body);
     if (!validation.success) {
@@ -24994,7 +25120,20 @@ export async function POST(request: Request) {
     }
     
     const { email, password, name, role, companyId } = validation.data;
-    const admin = await checkCompanyAdmin(token, companyId);
+
+    // Enforce role-based restrictions
+    if (role === 'superadmin' && authUser.role !== 'superadmin') {
+      return NextResponse.json({ error: 'Forbidden: Only superadmins can create superadmin accounts.' }, { status: 403 });
+    }
+
+    // Verify company authorization
+    const hasCompanyAccess = authUser.role === 'superadmin' || 
+      (authUser.role === 'admin' && authUser.companyId === companyId) ||
+      (authUser.assignedCompanyIds?.includes(companyId));
+
+    if (!hasCompanyAccess) {
+      return NextResponse.json({ error: `Forbidden: You do not have permission to manage users for workspace ${companyId}.` }, { status: 403 });
+    }
     
     const auth = await getAdminAuth(); 
     const db = await getAdminDb(); 
@@ -25026,7 +25165,7 @@ export async function POST(request: Request) {
         createdAt: new Date().toISOString(),
       };
       await db.collection('users').doc(userRecord.uid).set(profilePayload);
-      await logAudit('USER_CREATE', { userId: admin.uid, userEmail: admin.email, companyId: admin.companyId, targetId: userRecord.uid, metadata: { email, role, companyId } });
+      await logAudit('USER_CREATE', { userId: authUser.uid, userEmail: authUser.email, companyId: authUser.companyId, targetId: userRecord.uid, metadata: { email, role, companyId } });
     } catch (writeErr: any) {
       await auth.deleteUser(userRecord.uid);
       throw writeErr;
@@ -25039,9 +25178,8 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
-    const authHeader = request.headers.get('authorization');
-    const token = authHeader?.split('Bearer ')[1];
-    if (!token) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
+    const { user: authUser, error: authError } = await authenticateApiRequest(request);
+    if (authError) return authError;
     
     const auth = await getAdminAuth(); 
     const db = await getAdminDb(); 
@@ -25049,14 +25187,22 @@ export async function DELETE(request: Request) {
     if (!uid) return NextResponse.json({ error: 'Invalid UID' }, { status: 400 });
     
     const userToDrop = await auth.getUser(uid);
-    const targetCompanyId = userToDrop.customClaims?.companyId as string;
-    const admin = await checkCompanyAdmin(token, targetCompanyId);
+    const targetCompanyId = (userToDrop.customClaims?.companyId as string) || 'easy-as';
+
+    // Verify company authorization
+    const hasCompanyAccess = authUser.role === 'superadmin' || 
+      (authUser.role === 'admin' && authUser.companyId === targetCompanyId) ||
+      (authUser.assignedCompanyIds?.includes(targetCompanyId));
+
+    if (!hasCompanyAccess) {
+      return NextResponse.json({ error: `Forbidden: You do not have permission to delete users for workspace ${targetCompanyId}.` }, { status: 403 });
+    }
     
-    if (uid === admin.uid) return NextResponse.json({ error: 'Cannot delete self' }, { status: 400 });
+    if (uid === authUser.uid) return NextResponse.json({ error: 'Cannot delete self' }, { status: 400 });
     
     await auth.deleteUser(uid);
     await db.collection('users').doc(uid).delete();
-    await logAudit('USER_DELETE', { userId: admin.uid, userEmail: admin.email, companyId: admin.companyId, targetId: uid, metadata: { deletedEmail: userToDrop.email } });
+    await logAudit('USER_DELETE', { userId: authUser.uid, userEmail: authUser.email, companyId: authUser.companyId, targetId: uid, metadata: { deletedEmail: userToDrop.email } });
     return NextResponse.json({ message: 'User deleted successfully.' });
   } catch (error: any) {
     return NextResponse.json({ error: 'Delete failed', details: error.message }, { status: 500 });
@@ -25065,13 +25211,10 @@ export async function DELETE(request: Request) {
 
 export async function GET(request: Request) {
   try {
-    const authHeader = request.headers.get('authorization');
-    const token = authHeader?.split('Bearer ')[1];
-    if (!token) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
+    const { user: currentUser, error: authError } = await authenticateApiRequest(request);
+    if (authError) return authError;
     
     const auth = await getAdminAuth();
-    const currentUser = await getUserFromToken(token);
-    if (!currentUser) return NextResponse.json({ error: 'UNAUTHORIZED' }, { status: 401 });
 
     const users: any[] = [];
     let pageToken: string | undefined = undefined;
@@ -32758,6 +32901,7 @@ import { AuthProvider } from '@/firebase';
 import { SettingsProvider } from '@/context/SettingsContext';
 import { RateOverrideProvider } from '@/context/RateOverrideContext';
 import { SessionProvider } from '@/context/SessionContext';
+import { PostcodeProvider } from '@/context/PostcodeContext';
 import { CompanyThemeProvider } from '@/components/CompanyThemeProvider';
 import AppHeader from '@/components/AppHeader';
 import { FirebaseErrorListener } from '@/components/FirebaseErrorListener';
@@ -32776,18 +32920,20 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <CompanyThemeProvider />
         <SettingsProvider>
           <RateOverrideProvider>
-            <SessionProvider>
-              <ErrorBoundary componentName="AppHeader">
-                <AppHeader />
-              </ErrorBoundary>
-              <main className="flex-grow container mx-auto px-4 py-8">
-                {children}
-                <React.Suspense fallback={null}>
-                  <FirebaseErrorListener />
-                </React.Suspense>
-              </main>
-              <Toaster />
-            </SessionProvider>
+            <PostcodeProvider>
+              <SessionProvider>
+                <ErrorBoundary componentName="AppHeader">
+                  <AppHeader />
+                </ErrorBoundary>
+                <main className="flex-grow container mx-auto px-4 py-8">
+                  {children}
+                  <React.Suspense fallback={null}>
+                    <FirebaseErrorListener />
+                  </React.Suspense>
+                </main>
+                <Toaster />
+              </SessionProvider>
+            </PostcodeProvider>
           </RateOverrideProvider>
         </SettingsProvider>
       </React.Fragment>
@@ -40299,6 +40445,153 @@ export default function CommunicationStyles({ customerStyle }: { customerStyle: 
     </div>
   );
 }
+
+
+=== FILE: ./src/components/header/TopBar.tsx ===
+"use client";
+
+import React from 'react';
+import { useSession } from '@/context/SessionContext';
+import { useAuth } from '@/firebase';
+import { useSettings } from "@/context/SettingsContext";
+import { availableIcons } from '@/components/HeaderConfigDialog';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { Link2 } from 'lucide-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { Separator } from '@/components/ui/separator';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuLabel,
+} from '@/components/ui/dropdown-menu';
+
+export function TopBar() {
+  const { sessionTokens } = useSession();
+  const { profile, company, nextAlarm } = useAuth();
+  const { timezones, visibleTimezones, externalLinks } = useSettings();
+  const availableTokens = profile?.tokens ?? 0;
+
+  const activeTimezones = Object.entries(timezones).filter(([zoneId]) => visibleTimezones[zoneId]);
+
+  return (
+    <div
+      className="w-full py-1.5 px-4 border-b transition-colors"
+      style={{ backgroundColor: company?.settings?.topMenuColor || 'hsl(var(--background))' }}
+    >
+      <div
+        className={cn(
+          "container mx-auto flex items-center text-xs",
+          nextAlarm ? 'flex-col md:row md:justify-between' : 'justify-between'
+        )}
+      >
+        <div className="hidden md:flex items-center gap-4 w-full justify-start">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger className="flex items-center gap-1.5">
+                <div className={cn('h-2.5 w-2.5 rounded-full', 'bg-green-500')}></div>
+                <span className="text-muted-foreground font-mono">
+                  {availableTokens.toLocaleString()}
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Available AI Tokens</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <Separator orientation="vertical" className="h-4" />
+          <div className="flex items-center gap-1">
+            <TooltipProvider>
+              {externalLinks.map((link) => {
+                const Icon = availableIcons[link.icon as keyof typeof availableIcons] || Link2;
+                return (
+                  <Tooltip key={link.id}>
+                    <TooltipTrigger asChild>
+                      <a
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center rounded-md p-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                      >
+                        <Icon className="h-4 w-4" />
+                        <span className="sr-only">{link.label}</span>
+                      </a>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{link.label}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                );
+              })}
+            </TooltipProvider>
+          </div>
+        </div>
+
+        <div className="md:hidden w-full flex justify-start">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="text-xs px-2 h-auto text-muted-foreground">
+                Info & Links
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <ScrollArea className="h-[40vh]">
+                <DropdownMenuLabel>AI Tokens</DropdownMenuLabel>
+                <DropdownMenuItem disabled>
+                  <div className="flex items-center gap-1.5">
+                    <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                    <span className="text-muted-foreground font-mono text-xs">
+                      {availableTokens.toLocaleString()}
+                    </span>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel>External Links</DropdownMenuLabel>
+                {externalLinks.map((link) => {
+                  const Icon = availableIcons[link.icon as keyof typeof availableIcons] || Link2;
+                  return (
+                    <DropdownMenuItem key={`mobile-${link.id}`} asChild>
+                      <a href={link.url} target="_blank" rel="noopener noreferrer">
+                        <Icon className="mr-2 h-4 w-4" />
+                        <span>{link.label}</span>
+                      </a>
+                    </DropdownMenuItem>
+                  );
+                })}
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel>Timezones</DropdownMenuLabel>
+                {activeTimezones.map(([zoneId, { label, time }]) => (
+                  <DropdownMenuItem key={`mobile-tz-${zoneId}`} disabled>
+                    {label}: {time}
+                  </DropdownMenuItem>
+                ))}
+              </ScrollArea>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+
+        <div className="hidden md:flex items-center gap-2 font-mono text-muted-foreground ml-auto">
+          {activeTimezones.map(([zoneId, { label, time }]) => (
+            <span key={zoneId}>
+              {label}: {time}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default TopBar;
 
 
 === FILE: ./src/firebase/errors.ts ===
@@ -306464,84 +306757,78 @@ export const vipContactSchema = z.object({
 
 === FILE: ./src/lib/api-auth.ts ===
 import { NextResponse } from 'next/server';
-import { getAdminAuth, getUserFromToken } from '@/lib/firebase-admin';
+import { getUserFromToken } from '@/lib/firebase-admin';
+import type { UserProfile } from '@/lib/types';
 
-/** HttpOnly cookie the edge proxy already treats as logged-in. */
-export const SESSION_COOKIE_NAME = '__session';
-
-/** About 5 days. Firebase session cookies allow 5 minutes to 14 days. */
-export const SESSION_MAX_AGE_MS = 5 * 24 * 60 * 60 * 1000;
-
-export function sessionCookieSecure(request: Request): boolean {
-  if (process.env.NODE_ENV === 'production') return true;
-  const forwarded = request.headers.get('x-forwarded-proto');
-  if (forwarded) return forwarded.split(',')[0].trim() === 'https';
-  try {
-    return new URL(request.url).protocol === 'https:';
-  } catch {
-    return false;
-  }
+export interface AuthenticatedUser extends UserProfile {
+  uid: string;
 }
 
-export function sessionCookieOptions(request: Request, maxAgeSeconds: number) {
+export const SESSION_COOKIE_NAME = 'ezm_session';
+export const SESSION_MAX_AGE_MS = 60 * 60 * 24 * 7 * 1000; // 7 days
+
+export function sessionCookieOptions(request?: Request, maxAgeSeconds: number = SESSION_MAX_AGE_MS / 1000) {
   return {
-    httpOnly: true as const,
-    secure: sessionCookieSecure(request),
+    name: SESSION_COOKIE_NAME,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax' as const,
     path: '/',
     maxAge: maxAgeSeconds,
   };
 }
 
-function readRequestCookie(request: Request, name: string): string | undefined {
-  const raw = request.headers.get('cookie');
-  if (!raw) return undefined;
-  for (const part of raw.split(';')) {
-    const idx = part.indexOf('=');
-    if (idx === -1) continue;
-    const key = part.slice(0, idx).trim();
-    if (key !== name) continue;
-    const value = part.slice(idx + 1).trim();
-    if (!value) return undefined;
-    try {
-      return decodeURIComponent(value);
-    } catch {
-      return value;
-    }
+/**
+ * Centralized API authentication helper.
+ * Extracts Bearer token from Authorization header, verifies it with Firebase Admin,
+ * and returns the authenticated user object or a pre-formatted 401/403 NextResponse error.
+ */
+export async function authenticateApiRequest(request: Request): Promise<
+  { user: AuthenticatedUser; error: null } | { user: null; error: NextResponse }
+> {
+  const authHeader = request.headers.get('authorization') || request.headers.get('Authorization');
+  const token = authHeader?.split('Bearer ')[1]?.trim();
+
+  if (!token) {
+    return {
+      user: null,
+      error: NextResponse.json(
+        { error: 'UNAUTHENTICATED', message: 'Missing Authorization header.' },
+        { status: 401 }
+      ),
+    };
   }
-  return undefined;
+
+  try {
+    const user = await getUserFromToken(token);
+    if (!user) {
+      return {
+        user: null,
+        error: NextResponse.json(
+          { error: 'UNAUTHORIZED', message: 'User token verification returned null.' },
+          { status: 401 }
+        ),
+      };
+    }
+    return { user: user as AuthenticatedUser, error: null };
+  } catch (err: any) {
+    return {
+      user: null,
+      error: NextResponse.json(
+        { error: 'INVALID_TOKEN', message: err?.message || 'Token verification failed.' },
+        { status: 401 }
+      ),
+    };
+  }
 }
 
 /**
- * Accepts either a Bearer Firebase ID token (existing admin routes)
- * or the HttpOnly __session cookie created by POST /api/auth/session.
+ * Convenience helper for API routes requiring authentication.
+ * Returns null if request is authenticated, or NextResponse with status 401/403 if unauthenticated.
  */
-export async function requireApiUser(request: Request): Promise<{ uid: string } | null> {
-  const authHeader = request.headers.get('authorization') || '';
-  const bearer = /^Bearer\s+/i.test(authHeader) ? authHeader.replace(/^Bearer\s+/i, '').trim() : '';
-  if (bearer) {
-    const user = await getUserFromToken(bearer);
-    return user?.uid ? { uid: user.uid } : null;
-  }
-
-  const session = readRequestCookie(request, SESSION_COOKIE_NAME);
-  if (!session) return null;
-
-  const auth = await getAdminAuth();
-  const decoded = await auth.verifySessionCookie(session, true);
-  return decoded?.uid ? { uid: decoded.uid } : null;
-}
-
-export async function rejectIfUnauthenticated(request: Request) {
-  try {
-    const user = await requireApiUser(request);
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-    return null;
-  } catch {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
+export async function rejectIfUnauthenticated(request: Request): Promise<NextResponse | null> {
+  const { error } = await authenticateApiRequest(request);
+  return error;
 }
 
 

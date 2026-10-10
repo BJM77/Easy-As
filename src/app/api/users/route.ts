@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { getAdminDb, getAdminAuth, checkCompanyAdmin, getUserFromToken } from '@/lib/firebase-admin';
+import { getAdminDb, getAdminAuth, checkCompanyAdmin } from '@/lib/firebase-admin';
+import { authenticateApiRequest } from '@/lib/api-auth';
 import { logAudit } from '@/lib/audit';
 import { z } from 'zod';
 import { ALL_USER_ROLES } from '@/lib/types';
@@ -16,10 +17,9 @@ const createUserRequestSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    const authHeader = request.headers.get('authorization');
-    const token = authHeader?.split('Bearer ')[1];
-    if (!token) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
-    
+    const { user: authUser, error: authError } = await authenticateApiRequest(request);
+    if (authError) return authError;
+
     const body = await request.json();
     const validation = createUserRequestSchema.safeParse(body);
     if (!validation.success) {
@@ -27,7 +27,20 @@ export async function POST(request: Request) {
     }
     
     const { email, password, name, role, companyId } = validation.data;
-    const admin = await checkCompanyAdmin(token, companyId);
+
+    // Enforce role-based restrictions
+    if (role === 'superadmin' && authUser.role !== 'superadmin') {
+      return NextResponse.json({ error: 'Forbidden: Only superadmins can create superadmin accounts.' }, { status: 403 });
+    }
+
+    // Verify company authorization
+    const hasCompanyAccess = authUser.role === 'superadmin' || 
+      (authUser.role === 'admin' && authUser.companyId === companyId) ||
+      (authUser.assignedCompanyIds?.includes(companyId));
+
+    if (!hasCompanyAccess) {
+      return NextResponse.json({ error: `Forbidden: You do not have permission to manage users for workspace ${companyId}.` }, { status: 403 });
+    }
     
     const auth = await getAdminAuth(); 
     const db = await getAdminDb(); 
@@ -59,7 +72,7 @@ export async function POST(request: Request) {
         createdAt: new Date().toISOString(),
       };
       await db.collection('users').doc(userRecord.uid).set(profilePayload);
-      await logAudit('USER_CREATE', { userId: admin.uid, userEmail: admin.email, companyId: admin.companyId, targetId: userRecord.uid, metadata: { email, role, companyId } });
+      await logAudit('USER_CREATE', { userId: authUser.uid, userEmail: authUser.email, companyId: authUser.companyId, targetId: userRecord.uid, metadata: { email, role, companyId } });
     } catch (writeErr: any) {
       await auth.deleteUser(userRecord.uid);
       throw writeErr;
@@ -72,9 +85,8 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
-    const authHeader = request.headers.get('authorization');
-    const token = authHeader?.split('Bearer ')[1];
-    if (!token) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
+    const { user: authUser, error: authError } = await authenticateApiRequest(request);
+    if (authError) return authError;
     
     const auth = await getAdminAuth(); 
     const db = await getAdminDb(); 
@@ -82,14 +94,22 @@ export async function DELETE(request: Request) {
     if (!uid) return NextResponse.json({ error: 'Invalid UID' }, { status: 400 });
     
     const userToDrop = await auth.getUser(uid);
-    const targetCompanyId = userToDrop.customClaims?.companyId as string;
-    const admin = await checkCompanyAdmin(token, targetCompanyId);
+    const targetCompanyId = (userToDrop.customClaims?.companyId as string) || 'easy-as';
+
+    // Verify company authorization
+    const hasCompanyAccess = authUser.role === 'superadmin' || 
+      (authUser.role === 'admin' && authUser.companyId === targetCompanyId) ||
+      (authUser.assignedCompanyIds?.includes(targetCompanyId));
+
+    if (!hasCompanyAccess) {
+      return NextResponse.json({ error: `Forbidden: You do not have permission to delete users for workspace ${targetCompanyId}.` }, { status: 403 });
+    }
     
-    if (uid === admin.uid) return NextResponse.json({ error: 'Cannot delete self' }, { status: 400 });
+    if (uid === authUser.uid) return NextResponse.json({ error: 'Cannot delete self' }, { status: 400 });
     
     await auth.deleteUser(uid);
     await db.collection('users').doc(uid).delete();
-    await logAudit('USER_DELETE', { userId: admin.uid, userEmail: admin.email, companyId: admin.companyId, targetId: uid, metadata: { deletedEmail: userToDrop.email } });
+    await logAudit('USER_DELETE', { userId: authUser.uid, userEmail: authUser.email, companyId: authUser.companyId, targetId: uid, metadata: { deletedEmail: userToDrop.email } });
     return NextResponse.json({ message: 'User deleted successfully.' });
   } catch (error: any) {
     return NextResponse.json({ error: 'Delete failed', details: error.message }, { status: 500 });
@@ -98,13 +118,10 @@ export async function DELETE(request: Request) {
 
 export async function GET(request: Request) {
   try {
-    const authHeader = request.headers.get('authorization');
-    const token = authHeader?.split('Bearer ')[1];
-    if (!token) return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 });
+    const { user: currentUser, error: authError } = await authenticateApiRequest(request);
+    if (authError) return authError;
     
     const auth = await getAdminAuth();
-    const currentUser = await getUserFromToken(token);
-    if (!currentUser) return NextResponse.json({ error: 'UNAUTHORIZED' }, { status: 401 });
 
     const users: any[] = [];
     let pageToken: string | undefined = undefined;
